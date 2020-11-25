@@ -1,32 +1,76 @@
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
-
 require('./bootstrap');
-
 window.Vue = require('vue');
-
-/**
- * The following block of code may be used to automatically register your
- * Vue components. It will recursively scan this directory for the Vue
- * components and automatically register them with their "basename".
- *
- * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
- */
-
-// const files = require.context('./', true, /\.vue$/i)
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
-
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
-
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
-
 const app = new Vue({
     el: '#app',
 });
+require('./data_table');
+jQuery(()=>{
+    loadTaskTable();
+});
+
+let loadTaskTable = () => {
+    const route = $("#txt_tasks_route").val();
+    $.ajax({
+        'url' : route,
+        success: data => { console.log(data); },
+        error: error => { console.error(error); }
+    });
+    
+    $("#tbl_tasks").dataTable({
+        ajax: route,
+        bJQueryUI: true,
+        bScrollInfinite: true,
+        bScrollCollapse: true,
+        bPaginate: true,
+        bFilter: true,
+        bSort: true,
+        aaSorting: [[1, "desc"]],
+        pageLength: 10,
+        columns: [
+            { "data": "context" },
+            { "data": "project" },
+            { "data": "title" },
+            { "data": "user" },
+            { "data": "deadline" },
+            { "data": "comments" },
+            { "data": "status" },
+            { "data": "options" }
+        ],
+        
+        oLanguage: {
+            sLengthMenu: "_MENU_ ",
+            sInfo:
+                "<b>Se muestran de _START_ a _END_ elementos de _TOTAL_ registros en total</b>",
+            sInfoEmpty: "No hay registros para mostrar",
+            sSearch: "",
+            oPaginate: {
+                sFirst: "Primer página",
+                sLast: "Última página",
+                sPrevious: "<b>Anterior</b>",
+                sNext: "<b>Siguiente</b>"
+            }
+        }
+        
+    });
+    
+    setTimeout(function() {
+        $("select[name='DataTables_Table_0_length']").prop(
+            "class",
+            "custom-select"
+        );
+        $(".dataTables_length").prepend("<b>Mostrar</b> ");
+        $("select[name='table_asistencias_length']").prop(
+            "class",
+            "custom-select"
+        );
+        $("select[name='DataTables_Table_0_length']").prop(
+            "class",
+            "form-control"
+        );
+        $(".dataTables_length").append(" <b>elementos por página</b>");
+
+        $("input[type='search']").prop("class", "form-control");
+        $("input[type='search']").prop("placeholder", "Ingrese un filtro...");
+    }, 300);
+}

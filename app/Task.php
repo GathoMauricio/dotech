@@ -40,7 +40,7 @@ class Task extends Model
     {
         return $this->belongsTo
         (
-            'App\User',
+            'App\Project',
             'project_id',
             'id'
         )

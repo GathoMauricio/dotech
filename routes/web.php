@@ -14,15 +14,26 @@
 Route::get('/', function () {
     if(Auth::check())
     {
-        return "logged";
+        $whitdrawRequest = new \App\Http\Controllers\WithdrawRequestController();
+        return $whitdrawRequest->index();
     }else{
         return view('auth.login');
     }    
-});
-
+})->name('/');
 Auth::routes();
-
 Route::get('/home', 'HomeController@index')->name('home');
+
+#WhitdrawRequest
+Route::get('withdraw_request_index','WithdrawRequestController@index')->name('withdraw_request_index')->middleware('auth');
+
+#Task
+Route::get('task_index','TaskController@index')->name('task_index')->middleware('auth');
+Route::get('task_index_ajax','TaskController@indexAjax')->name('task_index_ajax')->middleware('auth');
+Route::get('task_create','TaskController@create')->name('task_create')->middleware('auth');
+Route::post('task_store','TaskController@store')->name('task_store');
+
+
+
 /*
 Route::get('helper',function(){
     $conexion = mysqli_connect("localhost", "root", "", "dotech");
@@ -55,7 +66,7 @@ Route::get('helper',function(){
             $fila[id_localidad_empleado],
             '$fila[nombre_empleado]',
             '$fila[apaterno_empleado]',
-            '$fila[apaterno_empleado]',
+            '$fila[amaterno_empleado]',
             '$fila[telefono_empleado]',
             '$fila[telefono_emergencia_empleado]',
             '$fila[direccion_empleado]',

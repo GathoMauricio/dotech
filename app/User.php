@@ -37,6 +37,36 @@ class User extends Authenticatable
         'updated_at'
     ];
 
+    public function status()
+    {
+        return $this->belongsTo
+        (
+            'App\StatusUser',
+            'status_user_id',
+            'id'
+        )
+        ->withDefault();
+    }
+    public function rol()
+    {
+        return $this->belongsTo
+        (
+            'App\RolUser',
+            'rol_user_id',
+            'id'
+        )
+        ->withDefault();
+    }
+    public function location()
+    {
+        return $this->belongsTo
+        (
+            'App\LocationUser',
+            'location_user_id',
+            'id'
+        )
+        ->withDefault();
+    }
     /**
      * The attributes that should be hidden for arrays.
      *
