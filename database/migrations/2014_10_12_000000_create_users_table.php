@@ -17,7 +17,7 @@ class CreateUsersTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('status_user_id');
             $table->bigInteger('rol_user_id');
-            $table->bigInteger('location_iser_id');
+            $table->bigInteger('location_user_id');
             $table->string('name');
             $table->string('middle_name');
             $table->string('last_name')->nullable();

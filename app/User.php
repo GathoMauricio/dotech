@@ -20,9 +20,10 @@ class User extends Authenticatable
 	public $timestamps = true;
 
     protected $fillable = [
+        'id',
         'status_user_id',
         'rol_user_id',
-        'location_iser_id',
+        'location_user_id',
         'name',
         'middle_name',
         'last_name',
