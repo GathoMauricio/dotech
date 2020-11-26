@@ -45,7 +45,7 @@ class TableLoads {
                     }
                 }
             });
-            this.setTableStyle; 
+            this.setTableStyle(); 
         }
     }   
     setTableStyle() {

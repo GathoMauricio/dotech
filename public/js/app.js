@@ -69775,7 +69775,7 @@ var TableLoads = /*#__PURE__*/function () {
             }
           }
         });
-        this.setTableStyle;
+        this.setTableStyle();
       }
     }
   }, {
