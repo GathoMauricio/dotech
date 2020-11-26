@@ -7,7 +7,7 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="form-group">
-                    <label for="priority" class="font-weight-bold color-prymary-sys">Prioridad</label>
+                    <label for="priority" class="font-weight-bold color-primary-sys">Prioridad</label>
                     <select name="priority" class="custom-select">
                         <option value="Urgente">Urgente</option>
                         <option value="Alta">Alta</option>
@@ -21,7 +21,7 @@
             </div>
             <div class="col-md-4">
                 <div class="form-group">
-                    <label for="context" class="font-weight-bold color-prymary-sys">Contexto</label>
+                    <label for="context" class="font-weight-bold color-primary-sys">Contexto</label>
                     <select name="context" class="custom-select">
                         <option value="Trabajo" selected>Trabajo</option>
                         <option value="Reunión">Reunión</option>
@@ -39,7 +39,7 @@
             </div>
             <div class="col-md-4">
                 <div class="form-group">
-                    <label for="deadline" class="font-weight-bold color-prymary-sys">Deadline</label>
+                    <label for="deadline" class="font-weight-bold color-primary-sys">Deadline</label>
                     <input type="date" name="deadline" class="form-control">
                     @if($errors->has('deadline'))
                     <small style="color:#d30035">{{ $errors->first('deadline') }}</small>
@@ -50,7 +50,10 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="project_id" class="font-weight-bold color-prymary-sys">Proyecto</label>
+                    <a href="#" class="float-right font-weight-bold link-sys" onclick="createProjectModal();">
+                        [ <small class="  icon-plus"></small> Crear proyecto ]
+                    </a>
+                    <label for="project_id" class="font-weight-bold color-primary-sys">Proyecto</label>
                     <select name="project_id" class="custom-select">
                         <option value selected>--Sin seleccionar--</option>
                         @foreach($projects as $project) 
@@ -64,7 +67,7 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="user_id" class="font-weight-bold color-prymary-sys">Usuario</label>
+                    <label for="user_id" class="font-weight-bold color-primary-sys">Usuario</label>
                     <select name="user_id" class="custom-select">
                         <option value selected>--Seleccione una opción--</option>
                         @foreach($users as $user) 
@@ -88,7 +91,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="form-group">
-                    <label for="title" class="font-weight-bold color-prymary-sys">Título</label>
+                    <label for="title" class="font-weight-bold color-primary-sys">Título</label>
                     <input type="text" name="title" placeholder="Ingrese un título a esta tarea..." class="form-control">
                     @if($errors->has('title'))
                     <small style="color:#d30035">{{ $errors->first('title') }}</small>
@@ -99,7 +102,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="form-group">
-                    <label for="description" class="font-weight-bold color-prymary-sys">Descripción</label>
+                    <label for="description" class="font-weight-bold color-primary-sys">Descripción</label>
                     <textarea name="description" placeholder="Ingrese una descropción a esta tarea..." class="form-control"></textarea>
                     @if($errors->has('description'))
                     <small style="color:#d30035">{{ $errors->first('description') }}</small>
@@ -110,7 +113,7 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="status" class="font-weight-bold color-prymary-sys">Estatus</label>
+                    <label for="status" class="font-weight-bold color-primary-sys">Estatus</label>
                     <select name="status" class="custom-select">
                         <option value="0%" selected>0%</option>
                         <option value="20%" >20%</option>
@@ -126,30 +129,32 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="visibility" class="font-weight-bold color-prymary-sys">Visibilidad</label>
+                    <label for="visibility" class="font-weight-bold color-primary-sys">Visibilidad</label>
                     <table style="width:100%;">
                         <tr>
-                            <td width="33%">
+                            <td width="50%">
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="visibility" value="Público" checked>
                                     <label class="form-check-label" for="exampleRadios1">
-                                        Público
+                                        Público 
+                                        <span 
+                                        onclick="alert('Si selecciona esta opción todos podrán ver y commentar esta tarea.');" 
+                                        class="icon icon-info color-primary-sys" 
+                                        style="cursor:pointer;">
+                                        </span>
                                     </label>
                                 </div>
                             </td>
-                            <td width="33%">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="visibility" value="Interno">
-                                    <label class="form-check-label" for="exampleRadios1">
-                                        Interno
-                                    </label>
-                                </div>
-                            </td>
-                            <td width="33%">
+                            <td width="50%">
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="visibility" value="Privado">
                                     <label class="form-check-label" for="exampleRadios1">
-                                        Privado
+                                        Privado 
+                                        <span 
+                                        onclick="alert('Si selecciona esta opción solo el usuario asignado y quien creo la tarea podrá ver y comentar esta misma.');" 
+                                        class="icon icon-info color-primary-sys" 
+                                        style="cursor:pointer;">
+                                        </span>
                                     </label>
                                 </div>
                             </td>
@@ -170,4 +175,5 @@
         </div>
     </div>
 </form>
+@include('projects.create_modal')
 @endsection

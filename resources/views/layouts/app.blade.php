@@ -92,7 +92,6 @@
             </div>
         </div>
     </div>
-
     <style>
         body {
             background:url({{ asset('img/background_black_red.jpg')}});

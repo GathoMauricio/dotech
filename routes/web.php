@@ -30,8 +30,10 @@ Route::get('withdraw_request_index','WithdrawRequestController@index')->name('wi
 Route::get('task_index','TaskController@index')->name('task_index')->middleware('auth');
 Route::get('task_index_ajax','TaskController@indexAjax')->name('task_index_ajax')->middleware('auth');
 Route::get('task_create','TaskController@create')->name('task_create')->middleware('auth');
-Route::post('task_store','TaskController@store')->name('task_store');
+Route::post('task_store','TaskController@store')->name('task_store')->middleware('auth');;
 
+#Projects
+Route::post('store_project_ajax','ProjectController@storeAjax')->name('store_project_ajax')->middleware('auth');;
 
 
 /*
