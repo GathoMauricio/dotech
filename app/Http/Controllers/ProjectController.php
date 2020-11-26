@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Project;
+use App\Http\Requests\ProjectRequest;
 
 class ProjectController extends Controller
 {
@@ -36,9 +38,24 @@ class ProjectController extends Controller
     {
         //
     }
-    public function storeAjax(Request $request)
+    public function storeAjax(ProjectRequest $request)
     {
-        return dd($request);
+        $p = Project::create($request->all());
+        if($p)
+        {
+            $html = "";
+            $projects = Project::All();
+            foreach($projects as $project)
+            {
+                if($project->id == $p->id)
+                {
+                    $html .= "<option value='$project->id' selected>$project->name</option>";
+                }else{
+                    $html .= "<option value='$project->id' >$project->name</option>";
+                }
+            }
+            return $html;
+        }else{ return "Error al procesar la petición."; }
     }
     /**
      * Display the specified resource.

@@ -23,5 +23,9 @@
         "resolve-url-loader": "2.3.1",
         "sass": "^1.20.1",
         "sass-loader": "7.*"
+    },
+    "dependencies": {
+        "@sweetalert2/theme-borderless": "^4.0.1",
+        "sweetalert2": "^10.10.3"
     }
 }

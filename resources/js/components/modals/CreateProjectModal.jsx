@@ -9,7 +9,7 @@ class CreateProjectModal extends Component{
             route:$("#txt_stored_project_ajax").val(),
             _token:$('meta[name="csrf-token"]').attr('content'),
             modal_title: "Crear proyecto",
-            title: 'title',
+            name: 'name',
             description: 'description'
         };
     }
@@ -26,18 +26,29 @@ class CreateProjectModal extends Component{
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <form action={ this.state.route } method="POST">
+                        <form action={ this.state.route } method="POST" id="frm_store_project_ajax">
                             <div className="modal-body">
                                 <input type="hidden" name="_token" defaultValue={ this.state._token } />
                                 <div className="form-group">
-                                    <label htmlFor={ this.state.title } className="font-weight-bold">Título</label>
-                                    <input type="text" id="txt1" name={ this.state.title } className="form-control"/>
+                                    <label htmlFor={ this.state.name } className="font-weight-bold">
+                                        Nombre del proyecto 
+                                        &nbsp;
+                                        <small className="icon icon-svg" style={{color:'#d30035',fontSize:'8px'}}></small>
+                                        </label>
+                                    <input type="text" id="txt1" name={ this.state.name } placeholder="Ingrese el título del proyecto." className="form-control"/>
+                                    <small id="name_project_error" style={{color:'#d30035'}}></small>
                                 </div>
                                 <div className="form-group">
-                                    <label htmlFor={ this.state.description } className="font-weight-bold">Descripción</label>
-                                    <textarea id="txt2" name={ this.state.description } className="form-control"></textarea>
+                                    <label htmlFor={ this.state.description } className="font-weight-bold">
+                                        Descripción
+                                    </label>
+                                    <textarea id="txt2" name={ this.state.description } placeholder="Especifique una descripción para el proyecto." className="form-control"></textarea>
+                                    <small id="description_project_error" style={{color:'#d30035'}}></small>
                                 </div>
-                                
+                                <div className="form-group">
+                                <small className="icon icon-svg" id="small_title_project_error" style={{color:'#d30035',fontSize:'8px'}}></small>
+                                &nbsp;Estos campos son obligatorios.
+                                </div>
                             </div>
                             <div className="modal-footer">
                                 <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancelar</button>

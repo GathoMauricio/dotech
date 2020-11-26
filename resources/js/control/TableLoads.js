@@ -11,11 +11,12 @@ class TableLoads {
                 bPaginate: true,
                 bFilter: true,
                 bSort: true,
-                aaSorting: [[1, "desc"]],
+                aaSorting: [[5, "desc"]],
                 pageLength: 10,
                 bDestroy: true,
                 columns: [
                     { data: "context" },
+                    { data: "visibility" },
                     { data: "project" },
                     { data: "title" },
                     { data: "user" },
@@ -27,7 +28,7 @@ class TableLoads {
                 aoColumnDefs: [
                     {
                         bSortable: false,
-                        aTargets: [7]
+                        aTargets: [8]
                     },
                 ],
                 oLanguage: {

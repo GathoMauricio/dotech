@@ -49,6 +49,13 @@ class TaskController extends Controller
                 case 'Otro': $context = '<span style="display:none">'.$task->context.'</span>'.'<span title="'.$task->context.'" class="icon icon-file-empty" style="color:#D35400"></span>'; break;
                 default: $context = $task->context;
             }
+            $visibility="";
+            switch($task->visibility)
+            {
+                case 'Público': $visibility = '<span style="display:none">'.$task->visibility.'</span>'.'<span title="'.$task->visibility.'" class="icon icon-unlocked" style="color:#229954"></span>'; break;
+                case 'Privado': $visibility = '<span style="display:none">'.$task->visibility.'</span>'.'<span title="'.$task->visibility.'" class="icon icon-lock" style="color:#C0392B"></span>'; break;
+                default: $visibility = $task->visibility;
+            }
             $statusColor = "";
             switch ($task->status) {
                 case '20%': $statusColor = "#C0392B"; break;
@@ -60,6 +67,7 @@ class TaskController extends Controller
             }
             $json[] = [
                 'context' => $context,
+                'visibility' => $visibility,
                 'project' => empty($task->project_id) ? "Sin proyecto" : $task->project['name'],
                 'title' => $task->title,
                 'user' => $task->user['name'].' '.$task->user['middle_name'].' '.$task->user['last_name'],

@@ -30,7 +30,7 @@ class TaskRequest extends FormRequest
             //'project_id' => 'required',
             'user_id' => 'required',
             'title' => 'required',
-            'description' => 'required',
+            //'description' => 'required',
             'status' => 'required',
             'visibility' => 'required',
         ];

@@ -97,20 +97,7 @@
             background:url({{ asset('img/background_black_red.jpg')}});
         }
 
-        .navigator {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 10vh;
-            padding: 10px;
-            /*background-color: #87c91f;*/
-            /*background-color: #273746;*/
-        }
-
-        .image-profile {
-            border-radius: 150px;
-        }
+        
 
         .menu_vp {
             position: fixed;
@@ -137,13 +124,12 @@
         }
 
         .contenedor_vp {
-            padding-left: 20px;
-            padding-top: 40px;
+            padding-left: 120px;
         }
 
         .principal-container-vp {
             background-color: white;
-            height: 90vh;
+            height: 100vh;
             padding: 25px;
             overflow: hidden;
             overflow-y: auto;

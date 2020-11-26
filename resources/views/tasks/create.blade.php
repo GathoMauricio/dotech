@@ -54,7 +54,7 @@
                         [ <small class="  icon-plus"></small> Crear proyecto ]
                     </a>
                     <label for="project_id" class="font-weight-bold color-primary-sys">Proyecto</label>
-                    <select name="project_id" class="custom-select">
+                    <select id="select_project_task" name="project_id" class="custom-select">
                         <option value selected>--Sin seleccionar--</option>
                         @foreach($projects as $project) 
                         <option value="{{ $project->id }}">{{ $project->name }}</option>
@@ -134,7 +134,7 @@
                         <tr>
                             <td width="50%">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="visibility" value="Público" checked>
+                                    <input class="form-check-input" type="radio" name="visibility" value="Público" >
                                     <label class="form-check-label" for="exampleRadios1">
                                         Público 
                                         <span 
@@ -147,7 +147,7 @@
                             </td>
                             <td width="50%">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="visibility" value="Privado">
+                                    <input class="form-check-input" type="radio" name="visibility" value="Privado" checked>
                                     <label class="form-check-label" for="exampleRadios1">
                                         Privado 
                                         <span 
