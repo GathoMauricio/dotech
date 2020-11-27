@@ -32,6 +32,7 @@
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-md-12 principal-container-vp">
+                        @if(Session::has('message')) @include('layouts.message') @endif
                         @yield('content')
                     </div>
                 </div>

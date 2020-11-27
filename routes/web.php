@@ -35,6 +35,8 @@ Route::get('show_task_ajax','TaskController@showAjax')->name('show_task_ajax')->
 #Projects
 Route::post('store_project_ajax','ProjectController@storeAjax')->name('store_project_ajax')->middleware('auth');;
 
+#users
+Route::put('update_user_password','UserController@updatePassword')->name('update_user_password');
 
 /*
 Route::get('helper',function(){

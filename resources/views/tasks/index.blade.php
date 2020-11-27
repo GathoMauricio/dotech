@@ -1,6 +1,5 @@
 @extends('layouts.app')
 @section('content')
-@if(Session::has('message')) @include('layouts.message') @endif
 <a href="{{ route('task_create') }}" class="float-right font-weight-bold link-sys">[ <small class="  icon-plus"></small> Agregar tarea ]</a>
 <h4 class="title_page">Tareas</h4>
 @if(count($tasks) <= 0)

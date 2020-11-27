@@ -4,6 +4,7 @@ class TableLoads {
         {
             const route = $("#txt_tasks_route").val();
             $("#tbl_tasks").dataTable({
+                deferRender: true,
                 ajax: route,
                 bJQueryUI: true,
                 bScrollInfinite: true,

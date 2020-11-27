@@ -3,21 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use  App\Http\Requests\ResetPasswordRequest;
 use App\User;
 use Auth;
-use Hash;
 
-class WithdrawRequestController extends Controller
+class UserController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
     /**
      * Display a listing of the resource.
      *
@@ -25,16 +16,7 @@ class WithdrawRequestController extends Controller
      */
     public function index()
     {
-        $user = User::findOrFail(Auth::user()->id);
-        if (Hash::check($user->email,$user->password))
-        {
-            return view('users.default_password',['user' => $user]);
-        }else{
-            return redirect(route('task_index')); //Temp Redirect
-            return view('withdraw_request.index');
-        }
-        return redirect(route('task_index')); //Temp Redirect
-        return view('withdraw_request.index');
+        //
     }
 
     /**
@@ -101,5 +83,13 @@ class WithdrawRequestController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function updatePassword(ResetPasswordRequest $request)
+    {
+        $user = User::findOrFail(Auth::user()->id);
+        $user->password = bcrypt($request->password);
+        $user->save();
+        return redirect('/')->with('message', 'Su contraseña se actualizo con exito.');
     }
 }

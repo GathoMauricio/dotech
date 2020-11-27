@@ -1,8 +1,6 @@
 import React , {Component} from 'react';
 import ReactDOM from 'react-dom';
-
 class ShowTaskModal extends Component{
-
     constructor(props){
         super(props);
         this.state = {
@@ -109,7 +107,7 @@ class ShowTaskModal extends Component{
                                 </div>
                             </div>
                             <div className="modal-footer">
-                                <button type="button" className="btn btn-primary-sys" data-dismiss="modal">Acentar</button>
+                                <button type="button" className="btn btn-primary-sys" data-dismiss="modal">Aceptar</button>
                             </div>
                         </form>
                     </div>
