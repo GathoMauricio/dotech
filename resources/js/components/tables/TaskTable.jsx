@@ -8,7 +8,7 @@ class TaskTable extends Component {
             title0 : null,
             title1 : null,
             title2 : 'Proyecto',
-            title3 : 'Titulo',
+            title3 : 'Tarea',
             title4 : 'Usuario',
             title5 : 'DeadLine',
             title6 : 'Comm',

@@ -4,6 +4,7 @@ class ProjectControl {
         const form = $("#frm_store_project_ajax");
         form.submit(e => {
             e.preventDefault();
+            loading();
             $.ajax({
                 type: "POST",
                 url: form.prop('action'),
@@ -14,7 +15,8 @@ class ProjectControl {
                     msg('Listo','El proyecto se creo con éxito');
                 },
                 error: (jqXHR, status, error) => {
-                    console.log(error);
+                    console.clear();
+                    msg("Error:","Compruebe que todos los datos son correctos...");
                     $.each(jqXHR.responseJSON.errors, function(index, value) {
                         $("#"+index+"_project_error").text(value);
                     });

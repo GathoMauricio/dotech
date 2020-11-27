@@ -8,6 +8,7 @@ use App\Task;
 use App\Project;
 use App\User;
 use App\TaskComment;
+use Auth;
 
 class TaskController extends Controller
 {
@@ -27,12 +28,24 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $tasks = Task::all();
+        $tasks = Task::
+        where('archived','NO')->
+        where(function($query) {
+            $query->orWhere('user_id',Auth::user()->id);
+            $query->orWhere('author_id',Auth::user()->id);
+            $query->orWhere('visibility','Público');
+        })->get();
         return view('tasks.index',['tasks'=>$tasks]);
     }
     public function indexAjax()
     {
-        $tasks = Task::all();
+        $tasks = Task::
+        where('archived','NO')->
+        where(function($query) {
+            $query->orWhere('user_id',Auth::user()->id);
+            $query->orWhere('author_id',Auth::user()->id);
+            $query->orWhere('visibility','Público');
+        })->get();
         $json= [];
         foreach($tasks as $task)
         {
@@ -65,16 +78,26 @@ class TaskController extends Controller
                 case '100%': $statusColor = "#229954"; break;
                 default: $statusColor = "black";
             }
+            $btnEdit = "";
+            $btnDelete = "";
+            $btnArchive = "";
+            if($task->author_id == Auth::user()->id || Auth::user()->rol_user_id == 1)
+            {
+                $btnEdit = '<span onclick="editTaskModal('.$task->id.');" title="Editar..." class="icon icon-pencil" style="color:#F1C40F;cursor:pointer;"></span>';
+                $btnArchive = '<span onclick="archiveTaskModal('.$task->id.');"  title="Archivar..." class="icon icon-share" style="color:#3498DB;cursor:pointer;"></span>';
+                $btnDelete = '<span onclick="deleteTaskModal('.$task->id.');"  title="Eliminar..." class="icon icon-bin" style="color:#C0392B;cursor:pointer;"></span>';
+                
+            }
             $json[] = [
                 'context' => $context,
                 'visibility' => $visibility,
-                'project' => empty($task->project_id) ? "Sin proyecto" : $task->project['name'],
-                'title' => $task->title,
-                'user' => $task->user['name'].' '.$task->user['middle_name'].' '.$task->user['last_name'],
+                'project' => empty($task->project_id) ? "<b>Sin proyecto</b>" : '<a href="#" onclick="showProjectModal('.$task->project_id.')">'.$task->project['name'].'</a>',
+                'title' => '<a href="#" onclick="showTaskModal('.$task->id.')">'.$task->title.'</a>',
+                'user' => '<a href="#" onclick="showUserModal('.$task->user_id.')">'.$task->user['name'].' '.$task->user['middle_name'].' '.$task->user['last_name'].'</a>',
                 'deadline' => $task->deadline,
-                'comments' => '<a href="#">'.count(TaskComment::where('task_id', $task->id)->get()).' <span class="icon icon-bubble" style="color:#3498DB;"></span></a>',
+                'comments' => '<a href="#" onclick="showTaskCommentsModal('.$task->id.')">'.count(TaskComment::where('task_id', $task->id)->get()).' <span class="icon icon-bubble" style="color:#3498DB;"></span></a>',
                 'status' => '<label style="color:'.$statusColor.'" class="font-weight-bold">'.$task->status.'</label>',
-                'options' => ""
+                'options' => $btnEdit."&nbsp;&nbsp;".$btnArchive."&nbsp;&nbsp;".$btnDelete
             ];
         }
         $data = [
@@ -123,7 +146,21 @@ class TaskController extends Controller
     {
         //
     }
+    public function showAjax(Request $request)
+    {
+        $task = Task::findOrFail($request->id);
 
+        return [
+            'priority' => $task->priority,
+            'deadline' => $task->deadline,
+            'context'=> $task->context,
+            'visibility'=> $task->visibility,
+            'title' => $task->title,
+            'user'=> $task->user['name'].' '.$task->user['middle_name'].' '.$task->user['last_name'],
+            'status' => $task->status,
+            'description' => $task->description,
+        ];
+    }
     /**
      * Show the form for editing the specified resource.
      *
