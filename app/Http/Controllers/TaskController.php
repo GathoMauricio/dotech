@@ -91,7 +91,7 @@ class TaskController extends Controller
             $btnArchive = "";
             if($task->author_id == Auth::user()->id || Auth::user()->rol_user_id == 1)
             {
-                $btnEdit = '<span onclick="editTaskModal('.$task->id.');" title="Editar..." class="icon icon-pencil" style="color:#F1C40F;cursor:pointer;"></span>';
+                $btnEdit = '<span onclick="editTaskModal(\''.route('task_edit',$task->id).'\');" title="Editar..." class="icon icon-pencil" style="color:#F1C40F;cursor:pointer;"></span>';
                 $btnArchive = '<span onclick="archiveTaskModal('.$task->id.');"  title="Archivar..." class="icon icon-share" style="color:#3498DB;cursor:pointer;"></span>';
                 $btnDelete = '<span onclick="deleteTaskModal('.$task->id.');"  title="Eliminar..." class="icon icon-bin" style="color:#C0392B;cursor:pointer;"></span>';
                 
@@ -177,7 +177,18 @@ class TaskController extends Controller
      */
     public function edit($id)
     {
-        //
+        $task = Task::findOrFail($id);
+        $projects = Project::orderBy('name')->get();
+        $users = User::where('status_user_id',1)->
+        orderBy('name')->
+        orderBy('middle_name')->
+        orderBy('last_name')
+        ->get();
+        return view('tasks.edit',[ 
+            'task' => $task ,
+            'projects' => $projects,
+            'users' => $users
+            ]);
     }
 
     /**
@@ -187,9 +198,14 @@ class TaskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(TaskRequest $request, $id)
     {
-        //
+        $task = Task::whereId($id)->update($request->except(['_token','_method']));
+        if($task){
+            return redirect()->back()->with('message', 'La tarea  se actualizó con éxito.');
+        }else{
+            return redirect('task_index')->back()->with('message', 'Error durante la operación.');
+        }
     }
 
     /**

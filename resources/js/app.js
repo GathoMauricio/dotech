@@ -60,9 +60,8 @@ window.showUserModal = id => {
     console.log('showUserModal');
     $("#show_user_modal").modal(); 
 }
-window.editTaskModal = id=> {
-    console.log('editTaskModal');
-    $("#edit_task_modal").modal(); 
+window.editTaskModal = route => {
+    window.location = route;
 }
 window.archiveTaskModal = id => {
     console.log('archiveTaskModal');

@@ -33,7 +33,9 @@ class ShowTaskModal extends Component{
                 <div className="modal-dialog modal-lg" role="document">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <h5 className="modal-title font-weight-bold color-primary-sys" id="exampleModalLabel">{ this.state.modal_title}</h5>
+                            <h5 className="modal-title font-weight-bold color-primary-sys" id="exampleModalLabel">
+                                { this.state.modal_title}
+                            </h5>
                             <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -42,56 +44,60 @@ class ShowTaskModal extends Component{
                             <div className="modal-body">
                                 <div className="container">
                                     <div className="row">
-                                        <div className="col-md-3">
-                                            <label className="color-primary-sys font-weight-bold">
-                                                Prioridad:
-                                            </label>
-                                            &nbsp; 
-                                            <b>{ this.state.priority }</b>
-                                        </div>
-                                        <div className="col-md-3">
-                                            <label className="color-primary-sys font-weight-bold">
-                                                Deadline:
-                                            </label>
-                                            &nbsp; 
-                                            <b>{ this.state.deadline }</b>
-                                        </div>
-                                        <div className="col-md-3">
-                                            <label className="color-primary-sys font-weight-bold">
-                                                Contexto:
-                                            </label>
-                                            &nbsp; 
-                                            <b>{ this.state.context }</b>
-                                        </div>
-                                        <div className="col-md-3">
+                                        <div className="col-md-6">
                                             <label className="color-primary-sys font-weight-bold">
                                                 Visibilidad:
                                             </label>
                                             &nbsp; 
                                             <b>{ this.state.visibility }</b>
                                         </div>
+                                        <div className="col-md-6">
+                                            <label className="color-primary-sys font-weight-bold">
+                                                Estatus:
+                                            </label>
+                                            &nbsp; 
+                                            <b>{ this.state.status }</b>
+                                        </div>
                                     </div>
                                     <div className="row">
                                         <div className="col-md-4">
+                                            <label className="color-primary-sys font-weight-bold">
+                                                Prioridad:
+                                            </label>
+                                            &nbsp; 
+                                            <b>{ this.state.priority }</b>
+                                        </div>
+                                        <div className="col-md-4">
+                                            <label className="color-primary-sys font-weight-bold">
+                                                Deadline:
+                                            </label>
+                                            &nbsp; 
+                                            <b>{ this.state.deadline }</b>
+                                        </div>
+                                        <div className="col-md-4">
+                                            <label className="color-primary-sys font-weight-bold">
+                                                Contexto:
+                                            </label>
+                                            &nbsp; 
+                                            <b>{ this.state.context }</b>
+                                        </div>
+                                    </div>
+                                    <div className="row">
+                                        <div className="col-md-12">
                                             <label className="color-primary-sys font-weight-bold">
                                                 Título:
                                             </label>
                                             &nbsp; 
                                             <b>{ this.state.title }</b>
                                         </div>
-                                        <div className="col-md-4    ">
+                                    </div>
+                                    <div className="row">
+                                        <div className="col-md-12    ">
                                             <label className="color-primary-sys font-weight-bold">
                                                 Usuario: 
                                             </label>
                                             &nbsp; 
                                             <b>{ this.state.user }</b>
-                                        </div>
-                                        <div className="col-md-2">
-                                            <label className="color-primary-sys font-weight-bold">
-                                                Estatus:
-                                            </label>
-                                            &nbsp; 
-                                            <b>{ this.state.status }</b>
                                         </div>
                                     </div>
                                     <div className="row">

@@ -32,6 +32,8 @@ Route::get('task_index_ajax','TaskController@indexAjax')->name('task_index_ajax'
 Route::get('task_create','TaskController@create')->name('task_create')->middleware('auth');
 Route::post('task_store','TaskController@store')->name('task_store')->middleware('auth');;
 Route::get('show_task_ajax','TaskController@showAjax')->name('show_task_ajax')->middleware('auth');
+Route::get('task_edit/{id}','TaskController@edit')->name('task_edit')->middleware('auth');
+Route::put('task_update/{id}','TaskController@update')->name('task_update')->middleware('auth');
 #Projects
 Route::post('store_project_ajax','ProjectController@storeAjax')->name('store_project_ajax')->middleware('auth');;
 Route::get('show_project_ajax','ProjectController@showAjax')->name('show_project_ajax')->middleware('auth');
