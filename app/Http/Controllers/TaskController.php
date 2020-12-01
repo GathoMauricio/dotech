@@ -39,13 +39,21 @@ class TaskController extends Controller
     }
     public function indexAjax()
     {
-        $tasks = Task::
-        where('archived','NO')->
-        where(function($query) {
-            $query->orWhere('user_id',Auth::user()->id);
-            $query->orWhere('author_id',Auth::user()->id);
-            $query->orWhere('visibility','Público');
-        })->get();
+        if(Auth::user()->rol_user_id == 1)
+        {
+            $tasks = Task::
+            where('archived','NO')->get();
+        }else{
+            $tasks = Task::
+            where('archived','NO')->
+            where(function($query) {
+                $query->orWhere('user_id',Auth::user()->id);
+                $query->orWhere('author_id',Auth::user()->id);
+                $query->orWhere('visibility','Público');
+            })->get();
+        }
+        
+
         $json= [];
         foreach($tasks as $task)
         {
