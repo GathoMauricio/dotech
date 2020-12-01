@@ -53,6 +53,8 @@
                         <span style="display:none;" class="label-item-menu">
                             <br>
                             {{ Auth::user()->name }} {{ Auth::user()->middle_name }} {{ Auth::user()->last_name }} 
+                            <br>
+                            {{ Auth::user()->rol['name'] }}
                             <input type="hidden" id="txt_user_id" value="{{ Auth::user()->id }}" />
                             <input type="hidden" id="txt_rol_user_id" value="{{ Auth::user()->rol_user_id }}" />
                         </span>
