@@ -52,7 +52,9 @@
                         <img src="{{ asset('img/perfil.png') }}" width="50" height="50" style="border-radius:150px;">    
                         <span style="display:none;" class="label-item-menu">
                             <br>
-                            {{ Auth::user()->name }} {{ Auth::user()->middle_name }} {{ Auth::user()->last_name }}
+                            {{ Auth::user()->name }} {{ Auth::user()->middle_name }} {{ Auth::user()->last_name }} 
+                            <input type="hidden" id="txt_user_id" value="{{ Auth::user()->id }}" />
+                            <input type="hidden" id="txt_rol_user_id" value="{{ Auth::user()->rol_user_id }}" />
                         </span>
                     </p>
                 </a>

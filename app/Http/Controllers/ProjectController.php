@@ -1,39 +1,18 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
-use App\Project;
 use App\Http\Requests\ProjectRequest;
-
+use App\Project;
 class ProjectController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         //
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         //
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         //
@@ -57,46 +36,43 @@ class ProjectController extends Controller
             return $html;
         }else{ return "Error al procesar la petición."; }
     }
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         //
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    public function showAjax(Request $request)
+    {
+        $project = Project::findOrFail($request->id);
+        return [
+            'author_id' => $project->author_id,
+            'project_author' => $project->author['name'].' '.$project->author['middle_name'].' '.$project->author['last_name'],
+            'project_name' => $project->name,
+            'project_description' => $project->description,
+            'created_at' => formatDate($project->created_at),
+            'updated_at' => formatDate($project->updated_at),
+        ];
+    }
     public function edit($id)
     {
         //
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         //
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    public function updateAjax(ProjectRequest $request){
+        $project = Project::findOrFail($request->project_id);
+        $project->name = $request->name;
+        $project->description = $request->description;
+        if($project->save()){ return [
+            'type' => 'Listo: ','msg' => 'Proyecto actualizado.',
+            'project_id' => $project->id,
+            'name' => $project->name,
+            'description' => $project->description,
+        ]; 
+        }
+        else{ return ['type' => 'Error: ','msg' => 'Error al actualizar el registro.']; }
+    }
     public function destroy($id)
     {
         //

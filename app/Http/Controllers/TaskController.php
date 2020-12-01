@@ -91,7 +91,7 @@ class TaskController extends Controller
             $json[] = [
                 'context' => $context,
                 'visibility' => $visibility,
-                'project' => empty($task->project_id) ? "<b>Sin proyecto</b>" : '<a href="#" onclick="showProjectModal('.$task->project_id.')">'.$task->project['name'].'</a>',
+                'project' => empty($task->project_id) ? "<b>Sin proyecto</b>" : '<a href="#" onclick="showProjectModal('.$task->project_id.')" class="project_task_'.$task->project_id.'">'.$task->project['name'].'</a>',
                 'title' => '<a href="#" onclick="showTaskModal('.$task->id.')">'.$task->title.'</a>',
                 'user' => '<a href="#" onclick="showUserModal('.$task->user_id.')">'.$task->user['name'].' '.$task->user['middle_name'].' '.$task->user['last_name'].'</a>',
                 'deadline' => $task->deadline,

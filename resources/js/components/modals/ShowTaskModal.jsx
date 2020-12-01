@@ -1,30 +1,29 @@
 import React , {Component} from 'react';
 import ReactDOM from 'react-dom';
+import axios from 'axios';
 class ShowTaskModal extends Component{
     constructor(props){
         super(props);
         this.state = {
             modal_id:'show_task_modal',
-            modal_title: "Detalle de la tarea",
+            react_component_id: 'show_task_modal_render',
+            modal_title: "Información de la tarea",
         };
-        $.ajax({
-            'url': this.props.route,
-            'type': 'GET',
-            'data':{ id:this.props.task_id },
-            success: (data) => {
-                this.state.priority = data.priority;
-                this.state.deadline = data.deadline;
-                this.state.context = data.context;
-                this.state.visibility = data.visibility;
-                this.state.title = data.title;
-                this.state.user = data.user;
-                this.state.status = data.status;
-                this.state.description = data.description;
-
-                ReactDOM.render(<ShowTaskModal />,document.getElementById('show_task_modal_render'));
-            },
-            error: (error) => { console.error(error); }
-        });
+        axios.get(this.props.route,{
+            'params':{ id:this.props.task_id }
+        }).
+        then(result => {
+            const data = result.data;
+            this.state.priority = data.priority;
+            this.state.deadline = data.deadline;
+            this.state.context = data.context;
+            this.state.visibility = data.visibility;
+            this.state.title = data.title;
+            this.state.user = data.user;
+            this.state.status = data.status;
+            this.state.description = data.description;
+            ReactDOM.render(<ShowTaskModal />,document.getElementById(this.state.react_component_id));
+        }).catch(console.log);
     }
 
     render() {
@@ -117,9 +116,3 @@ class ShowTaskModal extends Component{
     };
 }
 export default ShowTaskModal;
-/*
-if(document.getElementById('show_task_modal_render'))
-{
-    ReactDOM.render(<ShowTaskModal />,document.getElementById('show_task_modal_render'));
-}
-*/

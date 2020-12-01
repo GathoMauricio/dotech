@@ -10,6 +10,7 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 require('./components/tables/TaskTable');
 require('./components/modals/CreateProjectModal');
 import ShowTaskModal from './components/modals/ShowTaskModal';
+import ShowProjectModal from './components/modals/ShowProjectModal';
 /*++ End ReactComponents ++*/
 
 /*++ Start TableFunctions ++*/
@@ -37,15 +38,23 @@ jQuery(()=>{
 /*++ Start CustomFuctions ++*/ 
 window.createProjectModal = () => $("#create_project_modal").modal(); 
 
-window.showProjectModal = id => {
-    console.log('showProjectModal');
-    $("#show_project_modal").modal(); 
+window.showProjectModal = project_id => {
+    const route = $("#txt_show_project_route_ajax").val();
+    const user_id = $("#txt_user_id").val();
+    const rol_user_id = $("#txt_rol_user_id").val();
+    const element_id = 'show_project_modal_render';
+    const modal_id = 'show_project_modal';
+    ReactDOM.unmountComponentAtNode(document.getElementById(element_id)); 
+    ReactDOM.render(<ShowProjectModal route = { route } project_id = { project_id } user_id = { user_id } rol_user_id = { rol_user_id } />,document.getElementById(element_id));
+    $("#"+modal_id).modal(); 
 }
-window.showTaskModal = id => {
+window.showTaskModal = task_id => {
     const route = $("#txt_show_task_route_ajax").val();
-    ReactDOM.unmountComponentAtNode(document.getElementById('show_task_modal_render')); 
-    ReactDOM.render(<ShowTaskModal route={ route } task_id={id}/>,document.getElementById('show_task_modal_render'));
-    $("#show_task_modal").modal(); 
+    const element_id = 'show_task_modal_render';
+    const modal_id = 'show_task_modal';
+    ReactDOM.unmountComponentAtNode(document.getElementById(element_id)); 
+    ReactDOM.render(<ShowTaskModal route = { route } task_id = { task_id }/>,document.getElementById(element_id));
+    $("#"+modal_id).modal(); 
 }
 window.showUserModal = id => {
     console.log('showUserModal');
