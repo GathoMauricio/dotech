@@ -101,7 +101,7 @@ class ShowProjectModal extends Component{
                                                 Descripción:
                                             </label>
                                             &nbsp;
-                                            <textarea name="description" defaultValue={this.state.project_name} id="txt_project_description" className="form-control" rows="5" readOnly></textarea>
+                                            <textarea name="description" defaultValue={this.state.project_description} id="txt_project_description" className="form-control" rows="5" readOnly></textarea>
                                             <small id="description_project_error" style={{color:'#d30035'}}></small>
                                         </div>
                                         <div className="col-md-12">
