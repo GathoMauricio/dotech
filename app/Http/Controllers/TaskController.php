@@ -103,7 +103,7 @@ class TaskController extends Controller
                 'title' => '<a href="#" onclick="showTaskModal('.$task->id.')">'.$task->title.'</a>',
                 'user' => '<a href="#" onclick="showUserModal('.$task->user_id.')">'.$task->user['name'].' '.$task->user['middle_name'].' '.$task->user['last_name'].'</a>',
                 'deadline' => $task->deadline,
-                'comments' => '<a href="#" onclick="showTaskCommentsModal('.$task->id.')">'.count(TaskComment::where('task_id', $task->id)->get()).' <span class="icon icon-bubble" style="color:#3498DB;"></span></a>',
+                'comments' => '<a href="#" onclick="showTaskCommentsModal('.$task->id.')"><span id="tbl_count_comments_task_'.$task->id.'">'.count(TaskComment::where('task_id', $task->id)->get()).'</span> <span class="icon icon-bubble" style="color:#3498DB;"></span></a>',
                 'status' => '<label style="color:'.$statusColor.'" class="font-weight-bold">'.$task->status.'</label>',
                 'options' => $btnEdit."&nbsp;&nbsp;".$btnArchive."&nbsp;&nbsp;".$btnDelete
             ];

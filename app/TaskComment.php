@@ -1,9 +1,7 @@
 <?php
-
 namespace App;
-
 use Illuminate\Database\Eloquent\Model;
-
+use Auth;
 class TaskComment extends Model
 {
     protected $table = 'tasks_comments';
@@ -18,6 +16,15 @@ class TaskComment extends Model
         'created_at',
         'updated_at'
     ];
+
+    protected static function boot()
+	{
+		parent::boot();
+
+		static::creating(function ($query) {
+			$query->user_id = Auth::user()->id;
+		});
+	}
     
     public function task()
     {

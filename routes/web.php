@@ -34,6 +34,9 @@ Route::post('task_store','TaskController@store')->name('task_store')->middleware
 Route::get('show_task_ajax','TaskController@showAjax')->name('show_task_ajax')->middleware('auth');
 Route::get('task_edit/{id}','TaskController@edit')->name('task_edit')->middleware('auth');
 Route::put('task_update/{id}','TaskController@update')->name('task_update')->middleware('auth');
+#Task Comments
+Route::get('index_task_comment_ajax','TaskCommentController@indexAjax')->name('index_task_comment_ajax');
+Route::post('store_task_comment_ajax','TaskCommentController@storeAjax')->name('store_task_comment_ajax');
 #Projects
 Route::post('store_project_ajax','ProjectController@storeAjax')->name('store_project_ajax')->middleware('auth');;
 Route::get('show_project_ajax','ProjectController@showAjax')->name('show_project_ajax')->middleware('auth');
@@ -41,51 +44,33 @@ Route::put('update_project_ajax','ProjectController@updateAjax')->name('update_p
 #users
 Route::put('update_user_password','UserController@updatePassword')->name('update_user_password');
 
-/*
+
 Route::get('helper',function(){
-    $conexion = mysqli_connect("localhost", "root", "", "dotech");
+    /*
+    $conexion = mysqli_connect("localhost", "root", "", "taskfreak");
     $conexion2 = mysqli_connect("localhost", "root", "", "dotech_laravel");
-    $sql = "SELECT * FROM empleado";
+    $sql = "SELECT * FROM frk_itemcomment";
     $datos = mysqli_query($conexion,$sql);
     while($fila=mysqli_fetch_array($datos))
     {
-        
-        $sql2 = "INSERT INTO users (
+        $sql2 = "INSERT INTO tasks_comments (
             id,
-            status_user_id,
-            rol_user_id,
-            location_user_id,
-            name,
-            middle_name,
-            last_name,
-            phone,
-            emergency_phone,
-            address,
-            email,
-            password,
-            token,
+            task_id,
+            user_id,
+            body,
             created_at,
             updated_at
         ) VALUES (
-            $fila[id_empleado],
-            $fila[id_estatus_empleado],
-            $fila[id_rol_empleado],
-            $fila[id_localidad_empleado],
-            '$fila[nombre_empleado]',
-            '$fila[apaterno_empleado]',
-            '$fila[amaterno_empleado]',
-            '$fila[telefono_empleado]',
-            '$fila[telefono_emergencia_empleado]',
-            '$fila[direccion_empleado]',
-            '$fila[email_empleado]',
-            '".bcrypt($fila['email_empleado'])."',
-            '".\Str::random(64)."',
-            '2020-11-25 00:23:36',
-            '2020-11-25 00:23:36'
+            $fila[itemCommentId],
+            $fila[itemId],
+            $fila[memberId],
+            '$fila[body]',
+            '$fila[postDate]',
+            '$fila[postDate]'
         );";
-        mysqli_query($conexion2,$sql2);
-        
-        echo $fila['id_empleado'].'-'.$fila['nombre_empleado']."<br>";
+        echo mysqli_query($conexion2,$sql2).'<br/>'.$sql2.'<br/>';
+        echo $fila['body'].'<br/>';
     }
+    */
 })->name('helper');
-*/
+

@@ -56,6 +56,25 @@
     ;
 }
 
+.comment-box-modal::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px $prymary_sys;
+    border-radius: 10px;
+    background-color: #F5F5F5;
+}
+
+.comment-box-modal::-webkit-scrollbar {
+    width: 12px;
+    background-color: #F5F5F5;
+}
+
+.comment-box-modal::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+    background-color: $prymary_sys;
+    ;
+}
+
+
 .btn-default-sys{
     background-color: #AEB6BF;
     color:black;
@@ -65,4 +84,11 @@
     background-color: $prymary_sys;
     color:white;
     font-weight: bold;
+}
+.comment-item{
+    width: 100%;
+    background-color: white;
+    border-radius: 5px;
+    padding:10px;
+    opacity: 0.9;
 }

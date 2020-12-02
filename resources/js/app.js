@@ -11,6 +11,7 @@ require('./components/tables/TaskTable');
 require('./components/modals/CreateProjectModal');
 import ShowTaskModal from './components/modals/ShowTaskModal';
 import ShowProjectModal from './components/modals/ShowProjectModal';
+import IndexCommentTask from './components/modals/IndexCommentTask';
 /*++ End ReactComponents ++*/
 
 /*++ Start TableFunctions ++*/
@@ -71,9 +72,13 @@ window.deleteTaskModal = id => {
     console.log('deleteTaskModal');
     $("#delete_task_modal").modal(); 
 }
-window.showTaskCommentsModal = id => {
-    console.log('showTaskCommentsModal');
-    $("#show_comments_task_modal").modal(); 
+window.showTaskCommentsModal = task_id => {
+    const route = $("#txt_index_task_comment_route_ajax").val();
+    const element_id = 'index_task_comment_modal_render';
+    const modal_id = 'index_task_comment_modal';
+    ReactDOM.unmountComponentAtNode(document.getElementById(element_id)); 
+    ReactDOM.render(<IndexCommentTask route = { route } task_id = { task_id }/>,document.getElementById(element_id));
+    $("#"+modal_id).modal(); 
 }
 window.msg = (title,text) => Swal.fire({
     titleText: title,

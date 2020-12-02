@@ -9,5 +9,6 @@
 <div id="task_table_render"></div>
 @include('tasks.show_task_modal')
 @include('projects.show_project_modal')
+@include('comments.index_task_comment_modal')
 @endif
 @endsection

@@ -101,9 +101,14 @@
         body {
             background:url({{ asset('img/background_black_red.jpg')}});
         }
-
+        .comment-box-modal{
+            background:url({{ asset('img/background_black_red.jpg')}});
+            width: 100%;
+            height: 400px;
+            overflow: hidden;
+            overflow-y:scroll;
+        }
         
-
         .menu_vp {
             position: fixed;
             top: 0;
@@ -145,19 +150,6 @@
             -moz-box-shadow: 0px -1px 37px -9px rgba(131,47,47,1);
         }
 
-        
-
-        .index-comment {
-            width: 100%;
-            padding: 5px;
-        }
-
-        .index-item-comment {
-            width: 100%;
-            border-radius: 10px;
-            background-color: #D5D8DC;
-            padding: 10px;
-        }
     </style>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
