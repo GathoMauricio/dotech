@@ -49,7 +49,11 @@
                 <a href="#" onclick="">
                     <p style="cursor:pointer;" class="text-center">
                         <!--<img src="{{ env('APP_URL').'/public/storage'.'/'.Auth::user()->image }}" width="20" height="20">-->
-                        <img src="{{ asset('img/perfil.png') }}" width="50" height="50" style="border-radius:150px;">    
+                        @if(Auth::user()->image == 'perfil.png')
+                        <img src="{{asset('img')}}/{{ Auth::user()->image }}" width="50" height="50" style="border-radius:150px;" />
+                        @else
+                        <img src="{{asset('storage')}}/{{ Auth::user()->image }}" width="50" height="50" style="border-radius:150px;" />
+                        @endif
                         <span style="display:none;" class="label-item-menu">
                             <br>
                             {{ Auth::user()->name }} {{ Auth::user()->middle_name }} {{ Auth::user()->last_name }} 

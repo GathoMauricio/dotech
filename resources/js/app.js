@@ -11,6 +11,7 @@ require('./components/tables/TaskTable');
 require('./components/modals/CreateProjectModal');
 import ShowTaskModal from './components/modals/ShowTaskModal';
 import ShowProjectModal from './components/modals/ShowProjectModal';
+import ShowUserModal from './components/modals/ShowUserModal';
 import IndexCommentTask from './components/modals/IndexCommentTask';
 /*++ End ReactComponents ++*/
 
@@ -57,9 +58,13 @@ window.showTaskModal = task_id => {
     ReactDOM.render(<ShowTaskModal route = { route } task_id = { task_id }/>,document.getElementById(element_id));
     $("#"+modal_id).modal(); 
 }
-window.showUserModal = id => {
-    console.log('showUserModal');
-    $("#show_user_modal").modal(); 
+window.showUserModal = user_id => {
+    const route = $("#txt_show_user_route_ajax").val();
+    const element_id = 'show_user_modal_render';
+    const modal_id = 'show_user_modal';
+    ReactDOM.unmountComponentAtNode(document.getElementById(element_id)); 
+    ReactDOM.render(<ShowUserModal route = { route } user_id = { user_id }/>,document.getElementById(element_id));
+    $("#"+modal_id).modal(); 
 }
 window.editTaskModal = route => {
     window.location = route;
