@@ -6,6 +6,7 @@
 @include('layouts.no_records')
 @else
 <input type="hidden" id="txt_tasks_route" value="{{ route('task_index_ajax') }}">
+<input type="hidden" id="txt_destroy_task_route" value="{{ route('task_destroy_ajax') }}">
 <div id="task_table_render"></div>
 @include('tasks.show_task_modal')
 @include('projects.show_project_modal')

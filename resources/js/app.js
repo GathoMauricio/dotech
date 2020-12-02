@@ -68,9 +68,36 @@ window.archiveTaskModal = id => {
     console.log('archiveTaskModal');
     $("#archive_task_modal").modal(); 
 }
-window.deleteTaskModal = id => {
-    console.log('deleteTaskModal');
-    $("#delete_task_modal").modal(); 
+window.deleteTaskModal = task_id => {
+    Swal.fire({
+        title: '¿Eliminar tarea?',
+        text: "Esta acción eliminará todo el registro incluyendo los registros ligados a este y el cambio no se podrá deshacer.",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#000',
+        confirmButtonText: 'Si, eliminar!',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            const route = $("#txt_destroy_task_route").val();
+            $.ajax({
+                type: 'POST',
+                url: route,
+                data:{
+                    _token:$('meta[name="csrf-token"]').attr('content'),
+                    _method: 'DELETE', 
+                    id: task_id
+                },
+                success: data => { 
+                    console.log(data); 
+                    table.loadTaskTable();
+                    msg('Listo: ','Registro eliminado!'); 
+                },
+                error: error => { console.log(error); }
+            });
+        }
+    });
 }
 window.showTaskCommentsModal = task_id => {
     const route = $("#txt_index_task_comment_route_ajax").val();

@@ -218,4 +218,9 @@ class TaskController extends Controller
     {
         //
     }
+    public function destroyAjax(Request $request)
+    {
+        TaskComment::where('task_id', $request->id)->delete();
+        Task::findOrFail($request->id)->delete();
+    }
 }
