@@ -30,6 +30,7 @@ class User extends Authenticatable
         'phone',
         'emergency_phone',
         'address',
+        'image',
         'email', 
         'password',
         'token',
