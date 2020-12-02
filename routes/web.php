@@ -28,12 +28,15 @@ Route::get('withdraw_request_index','WithdrawRequestController@index')->name('wi
 
 #Task
 Route::get('task_index','TaskController@index')->name('task_index')->middleware('auth');
+Route::get('task_archived_index','TaskController@archivedIndex')->name('task_archived_index')->middleware('auth');
 Route::get('task_index_ajax','TaskController@indexAjax')->name('task_index_ajax')->middleware('auth');
+Route::get('task_archived_index_ajax','TaskController@archivedIndexdAjax')->name('task_archived_index_ajax')->middleware('auth');
 Route::get('task_create','TaskController@create')->name('task_create')->middleware('auth');
 Route::post('task_store','TaskController@store')->name('task_store')->middleware('auth');;
 Route::get('show_task_ajax','TaskController@showAjax')->name('show_task_ajax')->middleware('auth');
 Route::get('task_edit/{id}','TaskController@edit')->name('task_edit')->middleware('auth');
 Route::put('task_update/{id}','TaskController@update')->name('task_update')->middleware('auth');
+Route::put('task_archive_ajax','TaskController@archive')->name('task_archive_ajax')->middleware('auth');
 Route::delete('task_destroy_ajax','TaskController@destroyAjax')->name('task_destroy_ajax')->middleware('auth');
 #Task Comments
 Route::get('index_task_comment_ajax','TaskCommentController@indexAjax')->name('index_task_comment_ajax');

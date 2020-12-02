@@ -8,6 +8,7 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 /*++ Start ReactComponents ++*/
 require('./components/tables/TaskTable');
+require('./components/tables/TaskArchivedTable');
 require('./components/modals/CreateProjectModal');
 import ShowTaskModal from './components/modals/ShowTaskModal';
 import ShowProjectModal from './components/modals/ShowProjectModal';
@@ -29,6 +30,7 @@ const projectControl = new ProjectControl();
 jQuery(()=>{
     /*++ StartLoadTables ++*/
     table.loadTaskTable();
+    table.loadTaskArchivedTable();
     /*++ EndLoadTables ++*/
 
     /*++ StartAjaxForms ++*/
@@ -69,9 +71,38 @@ window.showUserModal = user_id => {
 window.editTaskModal = route => {
     window.location = route;
 }
-window.archiveTaskModal = id => {
-    console.log('archiveTaskModal');
-    $("#archive_task_modal").modal(); 
+window.archiveTaskModal = task_id => {
+    Swal.fire({
+        title: 'Archivar tarea?',
+        text: "Esta tarea se podrá visualizar posteriórmente desde la vista de tareas archivadas.",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#000',
+        confirmButtonText: 'Si, archivar!',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            
+            const route = $("#txt_archive_task_route").val();
+            $.ajax({
+                type: 'POST',
+                url: route,
+                data:{
+                    _token:$('meta[name="csrf-token"]').attr('content'),
+                    _method: 'PUT', 
+                    id: task_id
+                },
+                success: data => { 
+                    console.log(data); 
+                    table.loadTaskTable();
+                    msg('Listo: ','Tarea archivada!'); 
+                },
+                error: error => { console.log(error); }
+            });
+            
+        }
+    });
 }
 window.deleteTaskModal = task_id => {
     Swal.fire({
@@ -97,6 +128,7 @@ window.deleteTaskModal = task_id => {
                 success: data => { 
                     console.log(data); 
                     table.loadTaskTable();
+                    table.loadTaskArchivedTable();
                     msg('Listo: ','Registro eliminado!'); 
                 },
                 error: error => { console.log(error); }

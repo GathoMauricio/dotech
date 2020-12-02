@@ -48,7 +48,57 @@ class TableLoads {
             });
             this.setTableStyle(); 
         }
-    }   
+    }
+    loadTaskArchivedTable() {
+        if(document.getElementById('tbl_tasks_archived'))
+        {
+            const route = $("#txt_tasks_archived_route").val();
+            $("#tbl_tasks_archived").dataTable({
+                deferRender: true,
+                ajax: route,
+                bJQueryUI: true,
+                bScrollInfinite: true,
+                bScrollCollapse: true,
+                bPaginate: true,
+                bFilter: true,
+                bSort: true,
+                aaSorting: [[5, "desc"]],
+                pageLength: 10,
+                bDestroy: true,
+                columns: [
+                    { data: "context" },
+                    { data: "visibility" },
+                    { data: "project" },
+                    { data: "title" },
+                    { data: "user" },
+                    { data: "deadline" },
+                    { data: "comments" },
+                    { data: "status" },
+                    { data: "options" }
+                ],
+                aoColumnDefs: [
+                    {
+                        bSortable: false,
+                        aTargets: [8]
+                    },
+                ],
+                oLanguage: {
+                    sLengthMenu: "_MENU_ ",
+                    sInfo:
+                        "<b>Se muestran de _START_ a _END_ elementos de _TOTAL_ registros en total</b>",
+                    sInfoEmpty: "No hay registros para mostrar",
+                    sSearch: "",
+                    oPaginate: {
+                        sFirst: "Primer página",
+                        sLast: "Última página",
+                        sPrevious: "<b>Anterior</b>",
+                        sNext: "<b>Siguiente</b>"
+                    }
+                }
+            });
+            this.setTableStyle(); 
+        }
+    }
     setTableStyle() {
         setTimeout(function() {
             $("select[name='DataTables_Table_0_length']").prop(
