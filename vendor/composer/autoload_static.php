@@ -27,7 +27,7 @@ class ComposerStaticInitc76430cec0ac4972d1901c144bf246d6
         '801c31d8ed748cfa537fa45402288c95' => __DIR__ . '/..' . '/psy/psysh/src/functions.php',
         'b6ec61354e97f32c0ae683041c78392a' => __DIR__ . '/..' . '/scrivo/highlight.php/HighlightUtilities/functions.php',
         'ed962a97bd972bc82007176b647d4e36' => __DIR__ . '/..' . '/facade/ignition/src/helpers.php',
-        'afcf7ffd117553080ae3411f0391952a' => __DIR__ . '/../..' . '/app/CustomHelpers/FormatDates.php',
+        '08cdc424157d2aa3359ff0804fd9490f' => __DIR__ . '/../..' . '/app/custom_helpers.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -451,6 +451,7 @@ class ComposerStaticInitc76430cec0ac4972d1901c144bf246d6
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
         'App\\Http\\Controllers\\ProjectController' => __DIR__ . '/../..' . '/app/Http/Controllers/ProjectController.php',
+        'App\\Http\\Controllers\\SysLogsController' => __DIR__ . '/../..' . '/app/Http/Controllers/SysLogsController.php',
         'App\\Http\\Controllers\\TaskCommentController' => __DIR__ . '/../..' . '/app/Http/Controllers/TaskCommentController.php',
         'App\\Http\\Controllers\\TaskController' => __DIR__ . '/../..' . '/app/Http/Controllers/TaskController.php',
         'App\\Http\\Controllers\\UserController' => __DIR__ . '/../..' . '/app/Http/Controllers/UserController.php',
@@ -475,6 +476,7 @@ class ComposerStaticInitc76430cec0ac4972d1901c144bf246d6
         'App\\Providers\\RouteServiceProvider' => __DIR__ . '/../..' . '/app/Providers/RouteServiceProvider.php',
         'App\\RolUser' => __DIR__ . '/../..' . '/app/RolUser.php',
         'App\\StatusUser' => __DIR__ . '/../..' . '/app/StatusUser.php',
+        'App\\SysLog' => __DIR__ . '/../..' . '/app/SysLog.php',
         'App\\Task' => __DIR__ . '/../..' . '/app/Task.php',
         'App\\TaskComment' => __DIR__ . '/../..' . '/app/TaskComment.php',
         'App\\User' => __DIR__ . '/../..' . '/app/User.php',

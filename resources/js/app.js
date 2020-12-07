@@ -73,7 +73,7 @@ window.editTaskModal = route => {
 }
 window.archiveTaskModal = task_id => {
     Swal.fire({
-        title: 'Archivar tarea?',
+        title: '¿Archivar tarea?',
         text: "Esta tarea se podrá visualizar posteriórmente desde la vista de tareas archivadas.",
         icon: 'warning',
         showCancelButton: true,

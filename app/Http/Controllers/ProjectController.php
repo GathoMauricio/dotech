@@ -5,6 +5,10 @@ use App\Http\Requests\ProjectRequest;
 use App\Project;
 class ProjectController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index()
     {
         //
@@ -33,6 +37,7 @@ class ProjectController extends Controller
                     $html .= "<option value='$project->id' >$project->name</option>";
                 }
             }
+            createSysLog("ha creado el proyecto ".$p->name);
             return $html;
         }else{ return "Error al procesar la petición."; }
     }
@@ -62,14 +67,16 @@ class ProjectController extends Controller
     }
     public function updateAjax(ProjectRequest $request){
         $project = Project::findOrFail($request->project_id);
+        createSysLog("ha actualizado el projecto ".$project->name." : ".$project->description." por ".$request->name." : ".$request->description);
         $project->name = $request->name;
         $project->description = $request->description;
-        if($project->save()){ return [
+        if($project->save()){ 
+            return [
             'type' => 'Listo: ','msg' => 'Proyecto actualizado.',
             'project_id' => $project->id,
             'name' => $project->name,
             'description' => $project->description,
-        ]; 
+            ]; 
         }
         else{ return ['type' => 'Error: ','msg' => 'Error al actualizar el registro.']; }
     }

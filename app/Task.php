@@ -1,15 +1,12 @@
 <?php
 namespace App;
 use Auth;
-
 use Illuminate\Database\Eloquent\Model;
-
 class Task extends Model
 {
     protected $table = 'tasks';
 	protected $primaryKey = 'id';
 	public $timestamps = true;
-
     protected $fillable = [
         'id',
         'author_id',
@@ -26,17 +23,14 @@ class Task extends Model
         'created_at',
         'updated_at'
     ];
-
     protected static function boot()
 	{
 		parent::boot();
-
 		static::creating(function ($query) {
             $query->author_id = Auth::user()->id;
             $query->archived = 'NO';
 		});
-    }
-    
+    }  
     public function author()
     {
         return $this->belongsTo
@@ -47,7 +41,6 @@ class Task extends Model
         )
         ->withDefault();
     }
-
     public function user()
     {
         return $this->belongsTo
@@ -58,7 +51,6 @@ class Task extends Model
         )
         ->withDefault();
     }
-
     public function project()
     {
         return $this->belongsTo
@@ -69,5 +61,4 @@ class Task extends Model
         )
         ->withDefault();
     }
-
 }

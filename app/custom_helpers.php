@@ -20,3 +20,14 @@ if (!function_exists('formatDate')) {
         date_format(new \DateTime($date),'g:i A');
     }
 }
+if (! function_exists('createSysLog')) {
+    function createSysLog($body)
+    {
+        $log = new \App\Http\Controllers\SysLogsController();
+        $log->store(
+        Auth::user()->name." ".
+        Auth::user()->middle_name." ".
+        Auth::user()->last_name." ".
+        $body);
+    }
+}

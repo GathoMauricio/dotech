@@ -6,6 +6,10 @@ use App\User;
 use Auth;
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index()
     {
         //
@@ -59,6 +63,7 @@ class UserController extends Controller
         $user = User::findOrFail(Auth::user()->id);
         $user->password = bcrypt($request->password);
         $user->save();
+        createSysLog("actualizó su contraseña");
         return redirect('/')->with('message', 'Su contraseña se actualizo con exito.');
     }
 }

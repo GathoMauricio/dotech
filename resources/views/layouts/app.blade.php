@@ -85,6 +85,18 @@
                     </p>
                 </a>
                 <hr>
+                @if(Auth::user()->rol_user_id == 1)
+                <a href="{{ route('log_index') }}">
+                    <p style="cursor:pointer;">
+                        <span class="icon-database">
+                            <span style="display:none;" class="label-item-menu">
+                                Logs
+                            </span>
+                        </span>
+                    </p>
+                </a>
+                <hr>
+                @endif
                 <a href="{{ route('logout') }}" onclick="event.preventDefault();
             document.getElementById('logout-form').submit();">
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

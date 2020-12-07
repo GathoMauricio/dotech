@@ -15,7 +15,8 @@ class ProjectControl {
                     msg('Listo','El proyecto se creo con éxito');
                 },
                 error: (jqXHR, status, error) => {
-                    console.clear();
+                    console.log(jqXHR);
+                    //console.clear();
                     msg("Error:","Compruebe que todos los datos son correctos...");
                     $.each(jqXHR.responseJSON.errors, function(index, value) {
                         $("#"+index+"_project_error").text(value);

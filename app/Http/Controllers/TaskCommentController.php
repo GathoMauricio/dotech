@@ -4,6 +4,10 @@ use Illuminate\Http\Request;
 use App\TaskComment;
 class TaskCommentController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index()
     {
         //
@@ -45,6 +49,7 @@ class TaskCommentController extends Controller
                     'created_at' => formatDate($comment->created_at),
                 ];
             }
+            createSysLog("comentó la tarea ".$taskComment->task['title']." : ".$taskComment->body);
             return $json;
         }else{ return "Fail"; }
     }

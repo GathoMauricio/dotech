@@ -13,6 +13,7 @@ class TaskController extends Controller
     {
         $this->middleware('auth');
     }
+    
     public function index()
     {
         if(Auth::user()->rol_user_id == 1)
@@ -187,7 +188,7 @@ class TaskController extends Controller
                 'deadline' => $task->deadline,
                 'comments' => '<a href="#" onclick="showTaskCommentsModal('.$task->id.')"><span id="tbl_count_comments_task_'.$task->id.'">'.count(TaskComment::where('task_id', $task->id)->get()).'</span> <span class="icon icon-bubble" style="color:#3498DB;"></span></a>',
                 'status' => '<label style="color:'.$statusColor.'" class="font-weight-bold">'.$task->status.'</label>',
-                'options' => /*$btnEdit."&nbsp;&nbsp;".$btnArchive."&nbsp;&nbsp;".*/$btnDelete
+                'options' => $btnDelete
             ];
         }
         $data = [
@@ -195,11 +196,6 @@ class TaskController extends Controller
         ];
         return $data;
     }
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         $projects = Project::orderBy('name')->get();
@@ -213,25 +209,12 @@ class TaskController extends Controller
             'users' => $users
         ]);
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(TaskRequest $request)
     {
         $task = Task::create($request->all());
+        createSysLog("creo la tarea ".$task->title." : ".$task->description);
         return redirect('task_index')->with('message', 'La tarea '.$task->title.' se creó con éxito.');
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         //
@@ -239,7 +222,6 @@ class TaskController extends Controller
     public function showAjax(Request $request)
     {
         $task = Task::findOrFail($request->id);
-
         return [
             'priority' => $task->priority,
             'deadline' => $task->deadline,
@@ -251,12 +233,6 @@ class TaskController extends Controller
             'description' => $task->description,
         ];
     }
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         $task = Task::findOrFail($id);
@@ -272,17 +248,11 @@ class TaskController extends Controller
             'users' => $users
             ]);
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(TaskRequest $request, $id)
     {
-        $task = Task::whereId($id)->update($request->except(['_token','_method']));
+        $task = Task::findOrFail($id);
+        createSysLog("actualizó la tarea ".$task->title." : ".$task->description.", por ".$request->title." : ".$request->description);
+        $task->update($request->except(['_token','_method']));
         if($task){
             return redirect()->back()->with('message', 'La tarea  se actualizó con éxito.');
         }else{
@@ -302,6 +272,8 @@ class TaskController extends Controller
     public function destroyAjax(Request $request)
     {
         TaskComment::where('task_id', $request->id)->delete();
-        Task::findOrFail($request->id)->delete();
+        $task = Task::findOrFail($request->id);
+        createSysLog("eliminó la tarea ".$task->title." : ".$task->description);
+        $task->delete();
     }
 }

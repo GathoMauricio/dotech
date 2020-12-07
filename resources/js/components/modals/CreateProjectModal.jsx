@@ -33,14 +33,14 @@ class CreateProjectModal extends Component{
                                         &nbsp;
                                         <small className="icon icon-svg" style={{color:'#d30035',fontSize:'8px'}}></small>
                                         </label>
-                                    <input name="name" type="text"  name={ this.state.name } placeholder="Ingrese el título del proyecto." className="form-control"/>
+                                    <input name="name" type="text"  placeholder="Ingrese el título del proyecto." className="form-control"/>
                                     <small id="name_project_error" style={{color:'#d30035'}}></small>
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor={ this.state.description } className="font-weight-bold">
                                         Descripción
                                     </label>
-                                    <textarea name="description"  name={ this.state.description } placeholder="Especifique una descripción para el proyecto." className="form-control"></textarea>
+                                    <textarea name="description"  placeholder="Especifique una descripción para el proyecto." className="form-control"></textarea>
                                     <small id="description_project_error" style={{color:'#d30035'}}></small>
                                 </div>
                                 <div className="form-group">

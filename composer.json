@@ -41,7 +41,7 @@
             "database/factories"
         ],
         "files":[
-            "app/CustomHelpers/FormatDates.php"
+            "app/custom_helpers.php"
         ]
     },
     "autoload-dev": {

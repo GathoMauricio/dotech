@@ -49,6 +49,8 @@ Route::put('update_project_ajax','ProjectController@updateAjax')->name('update_p
 Route::put('update_user_password','UserController@updatePassword')->name('update_user_password')->middleware('auth');
 Route::get('show_user_ajax','UserController@showAjax')->name('show_user_ajax')->middleware('auth');
 
+#Logs
+Route::get('log_index','SysLogsController@index')->name('log_index')->middleware('auth');
 
 Route::get('helper',function(){
     /*

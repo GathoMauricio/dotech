@@ -350,7 +350,7 @@
             <div class="col-md-12">
                 <br>
                 <input type="submit" value="Actualizar" class="btn btn-primary-sys float-right">
-                <a href="{{ route('task_index') }}" class="btn btn-default-sys float-right">Cancelar</a>
+                <a href="{{ route('task_index') }}" class="btn btn-default-sys float-right">Regresar</a>
             </div>
         </div>
     </div>
