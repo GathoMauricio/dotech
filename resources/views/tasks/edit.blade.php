@@ -355,4 +355,5 @@
         </div>
     </div>
 </form>
+@include('projects.create_modal')
 @endsection

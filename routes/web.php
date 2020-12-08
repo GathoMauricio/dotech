@@ -26,6 +26,11 @@ Route::get('/home', 'HomeController@index')->name('home');
 #WhitdrawRequest
 Route::get('withdraw_request_index','WithdrawRequestController@index')->name('withdraw_request_index')->middleware('auth');
 
+#Company
+Route::get('company_index','CompanyController@index')->name('company_index');
+Route::get('company_index_ajax','CompanyController@indexAjax')->name('company_index_ajax');
+Route::get('cbo_all_companies','CompanyController@getCboItems')->name('cbo_all_companies');
+
 #Task
 Route::get('task_index','TaskController@index')->name('task_index')->middleware('auth');
 Route::get('task_archived_index','TaskController@archivedIndex')->name('task_archived_index')->middleware('auth');
@@ -53,31 +58,54 @@ Route::get('show_user_ajax','UserController@showAjax')->name('show_user_ajax')->
 Route::get('log_index','SysLogsController@index')->name('log_index')->middleware('auth');
 
 Route::get('helper',function(){
-    /*
-    $conexion = mysqli_connect("localhost", "root", "", "taskfreak");
+    
+    $conexion = mysqli_connect("localhost", "root", "", "dotech");
     $conexion2 = mysqli_connect("localhost", "root", "", "dotech_laravel");
-    $sql = "SELECT * FROM frk_itemcomment";
+    $sql = "SELECT * FROM compania";
     $datos = mysqli_query($conexion,$sql);
     while($fila=mysqli_fetch_array($datos))
     {
-        $sql2 = "INSERT INTO tasks_comments (
+        /*
+        $sql2 = "INSERT INTO companies (
             id,
-            task_id,
-            user_id,
-            body,
+            origin,
+            status,
+            name,
+            responsable,
+            rfc,
+            email,
+            phone,
+            address,
+            description,
+            image,
+            password,
+            iguala,
+            searches,
             created_at,
             updated_at
         ) VALUES (
-            $fila[itemCommentId],
-            $fila[itemId],
-            $fila[memberId],
-            '$fila[body]',
-            '$fila[postDate]',
-            '$fila[postDate]'
+            $fila[id_compania],
+            '$fila[id_origen_compania]',
+            '$fila[id_estatus_compania]',
+            '$fila[nombre_compania]',
+            '$fila[encargado_compania]',
+            '$fila[rfc_compania]',
+            '$fila[email_compania]',
+            '$fila[telefono_compania]',
+            '$fila[direccion_compania]',
+            '$fila[descripcion_compania]',
+            '$fila[logo_compania]',
+            '".bcrypt($fila['email_compania'])."',
+            '$fila[iguala]',
+            $fila[busqueda_compania],
+            '".date('Y-m-d H:i:s')."',
+            '".date('Y-m-d H:i:s')."'
         );";
+        
         echo mysqli_query($conexion2,$sql2).'<br/>'.$sql2.'<br/>';
-        echo $fila['body'].'<br/>';
+        */
+        //echo $sql2."<br><br>";//$fila['nombre_compania'].'<br/>';
     }
-    */
+    
 })->name('helper');
 

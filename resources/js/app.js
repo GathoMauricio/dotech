@@ -31,6 +31,7 @@ jQuery(()=>{
     /*++ StartLoadTables ++*/
     table.loadTaskTable();
     table.loadTaskArchivedTable();
+    table.loadCompanyTable();
     /*++ EndLoadTables ++*/
 
     /*++ StartAjaxForms ++*/

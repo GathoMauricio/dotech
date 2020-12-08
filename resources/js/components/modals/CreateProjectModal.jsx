@@ -1,6 +1,6 @@
 import React , {Component} from 'react';
 import ReactDOM from 'react-dom';
-
+import axios from 'axios';
 class CreateProjectModal extends Component{
 
     constructor(props){
@@ -10,8 +10,12 @@ class CreateProjectModal extends Component{
             _token:$('meta[name="csrf-token"]').attr('content'),
             modal_title: "Crear proyecto",
         };
+        axios.get($('#txt_cbo_company_route').val()).then(result => 
+            { 
+                $("#cbo_company_create_project").html(result.data); 
+            }).catch(console.log);;
     }
-
+    
     render() {
         return (
             <div className="modal fade" id="create_project_modal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -35,6 +39,13 @@ class CreateProjectModal extends Component{
                                         </label>
                                     <input name="name" type="text"  placeholder="Ingrese el título del proyecto." className="form-control"/>
                                     <small id="name_project_error" style={{color:'#d30035'}}></small>
+                                </div>
+                                <div className="form-group">
+                                    <label className="font-weight-bold">
+                                        Compañía
+                                        </label>
+                                    <select name="company_id" id="cbo_company_create_project" className="form-control"></select>
+                                    <small id="company_id_error" style={{color:'#d30035'}}></small>
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor={ this.state.description } className="font-weight-bold">

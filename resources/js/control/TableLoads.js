@@ -1,3 +1,5 @@
+import { ajax } from "jquery";
+
 class TableLoads {
     loadTaskTable() {
         if(document.getElementById('tbl_tasks'))
@@ -80,6 +82,53 @@ class TableLoads {
                     {
                         bSortable: false,
                         aTargets: [8]
+                    },
+                ],
+                oLanguage: {
+                    sLengthMenu: "_MENU_ ",
+                    sInfo:
+                        "<b>Se muestran de _START_ a _END_ elementos de _TOTAL_ registros en total</b>",
+                    sInfoEmpty: "No hay registros para mostrar",
+                    sSearch: "",
+                    oPaginate: {
+                        sFirst: "Primer página",
+                        sLast: "Última página",
+                        sPrevious: "<b>Anterior</b>",
+                        sNext: "<b>Siguiente</b>"
+                    }
+                }
+            });
+            this.setTableStyle(); 
+        }
+    }
+    loadCompanyTable() {
+        if(document.getElementById('company_table_sort'))
+        {
+            const route = $("#txt_index_company_route").val();
+            $("#company_table_sort").dataTable({
+                deferRender: true,
+                ajax: {url:route,dataSrc:""},
+                bJQueryUI: true,
+                bScrollInfinite: true,
+                bScrollCollapse: true,
+                bPaginate: true,
+                bFilter: true,
+                bSort: true,
+                aaSorting: [[0, "asc"]],
+                pageLength: 10,
+                bDestroy: true,
+                columns: [
+                    { data: "name" },
+                    { data: "responsable" },
+                    { data: "email" },
+                    { data: "phone" },
+                    //{ data: "address" },
+                    { data: "options" }
+                ],
+                aoColumnDefs: [
+                    {
+                        bSortable: false,
+                        aTargets: [4]
                     },
                 ],
                 oLanguage: {

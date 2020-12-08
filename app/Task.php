@@ -30,7 +30,7 @@ class Task extends Model
             $query->author_id = Auth::user()->id;
             $query->archived = 'NO';
 		});
-    }  
+    } 
     public function author()
     {
         return $this->belongsTo

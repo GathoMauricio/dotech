@@ -85,6 +85,16 @@
                     </p>
                 </a>
                 <hr>
+                <a href="{{ route('company_index') }}">
+                    <p style="cursor:pointer;">
+                        <span class="icon-office">
+                            <span style="display:none;" class="label-item-menu">
+                                Compañias
+                            </span>
+                        </span>
+                    </p>
+                </a>
+                <hr>
                 @if(Auth::user()->rol_user_id == 1)
                 <a href="{{ route('log_index') }}">
                     <p style="cursor:pointer;">

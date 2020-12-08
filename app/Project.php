@@ -12,13 +12,23 @@ class Project extends Model
 
     protected $fillable = [
         'id',
+        'company_id',
         'author_id',
         'name',
         'description',
         'created_at',
         'updated_at'
     ];
-
+    public function company()
+    {
+        return $this->belongsTo
+        (
+            'App\Company',
+            'company_id',
+            'id'
+        )
+        ->withDefault();
+    }
     protected static function boot()
 	{
 		parent::boot();
