@@ -50,7 +50,7 @@ class TaskController extends Controller
     }
     public function indexAjax()
     {
-        if(Auth::user()->rol_user_id == 1)
+        if(Auth::user()->rol_user_id == 1 || Auth::user()->rol_user_id == 2)
         {
             $tasks = Task::
             where('archived','NO')->get();
@@ -124,7 +124,7 @@ class TaskController extends Controller
     }
     public function archivedIndexdAjax()
     {
-        if(Auth::user()->rol_user_id == 1)
+        if(Auth::user()->rol_user_id == 1 || Auth::user()->rol_user_id == 2)
         {
             $tasks = Task::
             where('archived','SI')->get();
