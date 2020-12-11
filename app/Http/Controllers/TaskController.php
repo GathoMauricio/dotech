@@ -98,12 +98,16 @@ class TaskController extends Controller
             $btnEdit = "";
             $btnDelete = "";
             $btnArchive = "";
-            if($task->author_id == Auth::user()->id || Auth::user()->rol_user_id == 1)
+            if(Auth::user()->rol_user_id == 1 || Auth::user()->rol_user_id == 2)
             {
                 $btnEdit = '<span onclick="editTaskModal(\''.route('task_edit',$task->id).'\');" title="Editar..." class="icon icon-pencil" style="color:#F1C40F;cursor:pointer;"></span>';
                 $btnArchive = '<span onclick="archiveTaskModal('.$task->id.');"  title="Archivar..." class="icon icon-share" style="color:#3498DB;cursor:pointer;"></span>';
-                $btnDelete = '<span onclick="deleteTaskModal('.$task->id.');"  title="Eliminar..." class="icon icon-bin" style="color:#C0392B;cursor:pointer;"></span>';
                 
+                
+            }
+            if(Auth::user()->rol_user_id == 1)
+            {
+                $btnDelete = '<span onclick="deleteTaskModal('.$task->id.');"  title="Eliminar..." class="icon icon-bin" style="color:#C0392B;cursor:pointer;"></span>';
             }
             $json[] = [
                 'context' => $context,
@@ -172,12 +176,16 @@ class TaskController extends Controller
             $btnEdit = "";
             $btnDelete = "";
             $btnArchive = "";
-            if($task->author_id == Auth::user()->id || Auth::user()->rol_user_id == 1)
+            if(Auth::user()->rol_user_id == 1 || Auth::user()->rol_user_id == 2)
             {
                 $btnEdit = '<span onclick="editTaskModal(\''.route('task_edit',$task->id).'\');" title="Editar..." class="icon icon-pencil" style="color:#F1C40F;cursor:pointer;"></span>';
                 $btnArchive = '<span onclick="archiveTaskModal('.$task->id.');"  title="Archivar..." class="icon icon-share" style="color:#3498DB;cursor:pointer;"></span>';
-                $btnDelete = '<span onclick="deleteTaskModal('.$task->id.');"  title="Eliminar..." class="icon icon-bin" style="color:#C0392B;cursor:pointer;"></span>';
                 
+                
+            }
+            if(Auth::user()->rol_user_id == 1)
+            {
+                $btnDelete = '<span onclick="deleteTaskModal('.$task->id.');"  title="Eliminar..." class="icon icon-bin" style="color:#C0392B;cursor:pointer;"></span>';
             }
             $json[] = [
                 'context' => $context,
