@@ -61,50 +61,27 @@ Route::get('helper',function(){
     
     $conexion = mysqli_connect("localhost", "root", "", "dotech");
     $conexion2 = mysqli_connect("localhost", "root", "", "dotech_laravel");
-    $sql = "SELECT * FROM compania";
+    $sql = "SELECT * FROM comentario_compania";
     $datos = mysqli_query($conexion,$sql);
     while($fila=mysqli_fetch_array($datos))
     {
-        /*
-        $sql2 = "INSERT INTO companies (
+        $sql2 = "INSERT INTO company_follows (
             id,
-            origin,
-            status,
-            name,
-            responsable,
-            rfc,
-            email,
-            phone,
-            address,
-            description,
-            image,
-            password,
-            iguala,
-            searches,
+            company_id,
+            author_id,
+            body,
             created_at,
             updated_at
         ) VALUES (
+            $fila[id_comentario_compania],
             $fila[id_compania],
-            '$fila[id_origen_compania]',
-            '$fila[id_estatus_compania]',
-            '$fila[nombre_compania]',
-            '$fila[encargado_compania]',
-            '$fila[rfc_compania]',
-            '$fila[email_compania]',
-            '$fila[telefono_compania]',
-            '$fila[direccion_compania]',
-            '$fila[descripcion_compania]',
-            '$fila[logo_compania]',
-            '".bcrypt($fila['email_compania'])."',
-            '$fila[iguala]',
-            $fila[busqueda_compania],
-            '".date('Y-m-d H:i:s')."',
-            '".date('Y-m-d H:i:s')."'
-        );";
-        
-        echo mysqli_query($conexion2,$sql2).'<br/>'.$sql2.'<br/>';
-        */
-        //echo $sql2."<br><br>";//$fila['nombre_compania'].'<br/>';
+            $fila[id_empleado],
+            '$fila[texto_comentario_compania]',
+            '".$fila['fecha_comentario_compania']." ".$fila['hora_comentario_compania']."',
+            '".$fila['fecha_comentario_compania']." ".$fila['hora_comentario_compania']."'
+        )";
+        //echo $fila['texto_comentario_compania']."<br><br>";
+        echo $sql2." ".mysqli_query($conexion2,$sql2)."<br><br>";
     }
     
 })->name('helper');

@@ -43,6 +43,7 @@ return array(
     'App\\Providers\\EventServiceProvider' => $baseDir . '/app/Providers/EventServiceProvider.php',
     'App\\Providers\\RouteServiceProvider' => $baseDir . '/app/Providers/RouteServiceProvider.php',
     'App\\RolUser' => $baseDir . '/app/RolUser.php',
+    'App\\Sale' => $baseDir . '/app/Sale.php',
     'App\\StatusUser' => $baseDir . '/app/StatusUser.php',
     'App\\SysLog' => $baseDir . '/app/SysLog.php',
     'App\\Task' => $baseDir . '/app/Task.php',

@@ -48,6 +48,7 @@
             </div>
         </div>
         <div class="row">
+            <!--
             <div class="col-md-6">
                 <div class="form-group">
                     <a href="#" class="float-right font-weight-bold link-sys" onclick="createProjectModal();">
@@ -65,8 +66,10 @@
                     @endif
                 </div>
             </div>
-            <div class="col-md-6">
+            -->
+            <div class="col-md-12">
                 <div class="form-group">
+                    <input type="hidden" name="project_id" value="0">
                     <label for="user_id" class="font-weight-bold color-primary-sys">Usuario</label>
                     <select name="user_id" class="custom-select">
                         <option value selected>--Seleccione una opción--</option>
