@@ -20,7 +20,7 @@ class CompanyController extends Controller
         foreach($companies as $company)
         {
             
-            $spanFollows = "<a href='#' style='cursor:pointer;color:black;'>".count(CompanyFollow::where('company_id',$company->id)->get())."<span title='Seguimientos...' class='icon icon-bubble'></span></a>&nbsp;&nbsp;";
+            $spanFollows = "<a href='#' onclick='indexCompanyFollow(".$company->id.");' style='cursor:pointer;color:black;'>".count(CompanyFollow::where('company_id',$company->id)->get())."<span title='Seguimientos...' class='icon icon-bubble'></span></a>&nbsp;&nbsp;";
             $spanQuotations = "<a href='#' style='cursor:pointer;color:#2980B9;'>".count(Sale::where('company_id',$company->id)->where('status','Pendiente')->get())."<span title='Cotizaciones...' class='icon icon-coin-dollar'></span></a>&nbsp;&nbsp;";
             $spanProjects = "<a href='#' style='cursor:pointer;color:#229954;'>".count(Sale::where('company_id',$company->id)->where('status','Proyecto')->get())."<span title='Proyectos...' class='icon icon-price-tag'></span></a>&nbsp;&nbsp;";
             $spanRejects = "<a href='#' style='cursor:pointer;color:#C0392B;'>".count(Sale::where('company_id',$company->id)->where('status','Rechazada')->get())."<span title='Rechazos...' class='icon icon-sad'></span></a>&nbsp;&nbsp;";

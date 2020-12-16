@@ -27,9 +27,13 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('withdraw_request_index','WithdrawRequestController@index')->name('withdraw_request_index')->middleware('auth');
 
 #Company
-Route::get('company_index','CompanyController@index')->name('company_index');
-Route::get('company_index_ajax','CompanyController@indexAjax')->name('company_index_ajax');
-Route::get('cbo_all_companies','CompanyController@getCboItems')->name('cbo_all_companies');
+Route::get('company_index','CompanyController@index')->name('company_index')->middleware('auth');;
+Route::get('company_index_ajax','CompanyController@indexAjax')->name('company_index_ajax')->middleware('auth');;
+Route::get('cbo_all_companies','CompanyController@getCboItems')->name('cbo_all_companies')->middleware('auth');;
+
+#CompanyFollow
+Route::get('index_company_follow','CompanyFollowController@index')->name('index_company_follow')->middleware('auth');
+Route::post('store_company_follow','CompanyFollowController@store')->name('store_company_follow')->middleware('auth');
 
 #Task
 Route::get('task_index','TaskController@index')->name('task_index')->middleware('auth');

@@ -1,5 +1,6 @@
 <?php
 namespace App;
+use Auth;
 use Illuminate\Database\Eloquent\Model;
 class CompanyFollow extends Model
 {
@@ -14,6 +15,14 @@ class CompanyFollow extends Model
         'created_at',
         'updated_at',
     ];
+    protected static function boot()
+	{
+		parent::boot();
+
+		static::creating(function ($query) {
+			$query->author_id = Auth::user()->id;
+		});
+	}
     public function company()
     {
         return $this->belongsTo
