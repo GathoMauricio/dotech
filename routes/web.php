@@ -35,6 +35,13 @@ Route::get('cbo_all_companies','CompanyController@getCboItems')->name('cbo_all_c
 Route::get('index_company_follow','CompanyFollowController@index')->name('index_company_follow')->middleware('auth');
 Route::post('store_company_follow','CompanyFollowController@store')->name('store_company_follow')->middleware('auth');
 
+#Sale
+Route::get('show_sale/{id}','SaleController@show')->name('show_sale')->middleware('auth');
+Route::get('quotes/{id}','SaleController@quotes')->name('quotes')->middleware('auth');
+Route::get('projects/{id}','SaleController@projects')->name('projects')->middleware('auth');
+Route::get('finalized/{id}','SaleController@finalized')->name('finalized')->middleware('auth');
+Route::get('rejects/{id}','SaleController@rejects')->name('rejects')->middleware('auth');
+
 #Task
 Route::get('task_index','TaskController@index')->name('task_index')->middleware('auth');
 Route::get('task_archived_index','TaskController@archivedIndex')->name('task_archived_index')->middleware('auth');
@@ -65,28 +72,79 @@ Route::get('helper',function(){
     
     $conexion = mysqli_connect("localhost", "root", "", "dotech");
     $conexion2 = mysqli_connect("localhost", "root", "", "dotech_laravel");
-    $sql = "SELECT * FROM comentario_compania";
+    $sql = "SELECT * FROM venta";
     $datos = mysqli_query($conexion,$sql);
     while($fila=mysqli_fetch_array($datos))
     {
-        $sql2 = "INSERT INTO company_follows (
+        $status = "";
+        switch($fila['id_estatus_venta'])
+        {
+            case 1: $status="Pendiente"; break;
+            case 2: $status="Proyecto"; break;
+            case 3: $status="Rechazada"; break;
+            case 4: $status="Finalizado"; break;
+        }
+        
+        $sql2 = "INSERT INTO sales (
             id,
             company_id,
+            department_id,
             author_id,
-            body,
+            status,
+            description,
+            investment,
+            estimated,
+            utility,
+            iva,
+            commision_percent,
+            commision_pay,
+            deadline,
+            delivery_days,
+            shipping,
+            payment_type,
+            credit,
+            currency,
+            observation,
+            material,
+            closed_at,
             created_at,
             updated_at
-        ) VALUES (
-            $fila[id_comentario_compania],
+        ) VALUES(
+            $fila[id_venta],
             $fila[id_compania],
+            $fila[id_departamento_compania],
             $fila[id_empleado],
-            '$fila[texto_comentario_compania]',
-            '".$fila['fecha_comentario_compania']." ".$fila['hora_comentario_compania']."',
-            '".$fila['fecha_comentario_compania']." ".$fila['hora_comentario_compania']."'
-        )";
-        //echo $fila['texto_comentario_compania']."<br><br>";
-        echo $sql2." ".mysqli_query($conexion2,$sql2)."<br><br>";
+            '$status',
+            '$fila[descripcion_venta]',
+            '$fila[precio_total_compra_venta]',
+            '$fila[precio_total_venta]',
+            '$fila[utilidad_total_venta]',
+            '$fila[total_con_iva]',
+            '$fila[comision_venta]',
+            '$fila[total_comision]',
+            '$fila[vencimiento_cotizacion_venta]',
+            '$fila[tiempo_entrega]',
+            '$fila[incluye_envio]',
+            '$fila[forma_pago]',
+            '$fila[credito]',
+            '$fila[divisa]',
+            '$fila[observacion_venta]',
+            '$fila[material_venta]',
+            '$fila[ts_finalizado]',
+            '$fila[fecha_cotizacion_venta] 00:00',
+            '$fila[fecha_cotizacion_venta] 00:00'
+        );";
+        echo $sql2."<br/>";
+        /*
+        if(mysqli_query($conexion2,$sql2))
+        {
+            echo $status."<br>";
+        }
+
+        if (mysqli_connect_errno()) {
+            printf("Connect failed: %s\n", mysqli_connect_error());
+        }
+        */
     }
     
 })->name('helper');
-

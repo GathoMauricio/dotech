@@ -21,9 +21,10 @@ class CompanyController extends Controller
         {
             
             $spanFollows = "<a href='#' onclick='indexCompanyFollow(".$company->id.");' style='cursor:pointer;color:black;'>".count(CompanyFollow::where('company_id',$company->id)->get())."<span title='Seguimientos...' class='icon icon-bubble'></span></a>&nbsp;&nbsp;";
-            $spanQuotations = "<a href='#' style='cursor:pointer;color:#2980B9;'>".count(Sale::where('company_id',$company->id)->where('status','Pendiente')->get())."<span title='Cotizaciones...' class='icon icon-coin-dollar'></span></a>&nbsp;&nbsp;";
-            $spanProjects = "<a href='#' style='cursor:pointer;color:#229954;'>".count(Sale::where('company_id',$company->id)->where('status','Proyecto')->get())."<span title='Proyectos...' class='icon icon-price-tag'></span></a>&nbsp;&nbsp;";
-            $spanRejects = "<a href='#' style='cursor:pointer;color:#C0392B;'>".count(Sale::where('company_id',$company->id)->where('status','Rechazada')->get())."<span title='Rechazos...' class='icon icon-sad'></span></a>&nbsp;&nbsp;";
+            $spanQuotations = "<a href='".route('quotes',$company->id)."' style='cursor:pointer;color:#2980B9;'>".count(Sale::where('company_id',$company->id)->where('status','Pendiente')->get())."<span title='Cotizaciones...' class='icon icon-coin-dollar'></span></a>&nbsp;&nbsp;";
+            $spanProjects = "<a href='".route('projects',$company->id)."' style='cursor:pointer;color:#229954;'>".count(Sale::where('company_id',$company->id)->where('status','Proyecto')->get())."<span title='Proyectos...' class='icon icon-price-tag'></span></a>&nbsp;&nbsp;";
+            $spanFinalized = "<a href='".route('finalized',$company->id)."' style='cursor:pointer;color:#F39C12;'>".count(Sale::where('company_id',$company->id)->where('status','Finalizada')->get())."<span title='Finalizados...' class='icon icon-smile'></span></a>&nbsp;&nbsp;";
+            $spanRejects = "<a href='".route('rejects',$company->id)."' style='cursor:pointer;color:#C0392B;'>".count(Sale::where('company_id',$company->id)->where('status','Rechazada')->get())."<span title='Rechazos...' class='icon icon-sad'></span></a>&nbsp;&nbsp;";
             $spanUpdate = "<a href='#' style='cursor:pointer;color:orange;'><span title='Actualizar...' class='icon icon-pencil'></span></a>&nbsp;&nbsp;";
             $spanDelete = "<a href='#' style='cursor:pointer;color:red;'><span title='Eliminar..' class='icon icon-bin' style='cursor:pointer;color:red;'></span></a>&nbsp;&nbsp;";
             
@@ -33,7 +34,7 @@ class CompanyController extends Controller
                 'email' => "<a href='mailto:".$company['email']."'>".$company['email']."</a>",
                 'phone' => "<a href='tel:".$company['phone']."'>".$company['phone']."</a>",
                 //'address' => $company['address'],
-                'options' => $spanFollows.$spanQuotations.$spanProjects.$spanRejects.$spanUpdate.$spanDelete
+                'options' => $spanFollows.$spanQuotations.$spanProjects.$spanFinalized.$spanRejects.$spanUpdate.$spanDelete
             ];
         }
         return $json;
