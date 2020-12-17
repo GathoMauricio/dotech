@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
+use App\Company;
 use App\Sale;
 class SaleController extends Controller
 {
@@ -18,24 +19,32 @@ class SaleController extends Controller
     }
     public function quotes($id)
     {
+        $company = Company::findOrFail($id);
         $sales = Sale::where('company_id', $id)->where('status','Pendiente')->get();
-        return view('sale.quotes',['sales' => $sales]);
+        return view('sale.quotes',['company' => $company, 'sales' => $sales]);
     }
     public function projects($id)
     {
-        return view('sale.projects',[]);
+        $company = Company::findOrFail($id);
+        $sales = Sale::where('company_id', $id)->where('status','Proyecto')->get();
+        return view('sale.projects',['company' => $company, 'sales' => $sales]);
     }
     public function finalized($id)
     {
-        return view('sale.finalized',[]);
+        $company = Company::findOrFail($id);
+        $sales = Sale::where('company_id', $id)->where('status','Finalizado')->get();
+        return view('sale.finalized',['company' => $company, 'sales' => $sales]);
     }
     public function rejects($id)
     {
-        return view('sale.rejects',[]);
+        $company = Company::findOrFail($id);
+        $sales = Sale::where('company_id', $id)->where('status','Rechazada')->get();
+        return view('sale.rejects',['company' => $company, 'sales' => $sales]);
     }
     public function show($id)
     {
-        return view('sale.show',[]);
+        $sale = Sale::findOrFail($id);
+        return view('sale.show',['sale' => $sale]);
     }
     public function edit($id)
     {

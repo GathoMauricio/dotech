@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-<h4 class="title_page">Cotizaciones</h4>
+<h4 class="title_page">Cotizaciones {{ $company->name }}</h4>
 
 @if(count($sales) <= 0)
 @include('layouts.no_records')
@@ -13,6 +13,7 @@
             <th>Inversión</th>
             <th>Estimado</th>
             <th>Descriptción</th>
+            <th>Observación</th>
             <th>Opciones</th>
         </tr>
     </thead>
@@ -23,7 +24,8 @@
             <td>${{ $sale->investment }}</td>
             <td>${{ $sale->estimated }}</td>
             <td>{{ $sale->description }}</td>
-            <td>Opciones</td>
+            <td>{{ $sale->observation }}</td>
+            <td><a href="{{ route('show_sale',$sale->id) }}">Ver cotización>></a></td>
         </tr>
         @endforeach
     </tbody>
