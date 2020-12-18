@@ -72,38 +72,34 @@ Route::get('helper',function(){
     
     $conexion = mysqli_connect("localhost", "root", "", "dotech");
     $conexion2 = mysqli_connect("localhost", "root", "", "dotech_laravel");
-    $sql = "SELECT * FROM retiro";
+    $sql = "SELECT * FROM proveedor";
     $datos = mysqli_query($conexion,$sql);
     while($fila=mysqli_fetch_array($datos))
     {
-        $sql2 = "INSERT INTO whitdrawals (
+        $sql2 = "INSERT INTO whitdrawal_providers (
             id,
-            sale_id,
-            whitdrawal_provider_id,
-            whitdrawal_account_id,
-            whitdrawal_department_id,
-            status,
-            type,
-            description,
-            quantity,
-            invoive,
-            document,
+            name,
+            bank,
+            account,
+            pay_type,
+            rfc,
+            address,
+            manager,
+            phone,
             created_at,
             updated_at
         ) VALUES(
-            $fila[id_retiro],
-            $fila[id_venta],
             $fila[id_proveedor],
-            $fila[id_cuenta],
-            $fila[id_departamento_retiro],
-            '$fila[id_estatus_retiro]',
-            '$fila[id_tipo_retiro]',
-            '$fila[descripcion_retiro]',
-            '$fila[precio_compra_retiro]',
-            '$fila[con_sin_factura]',
-            '$fila[documento_retiro]',
-            '$fila[fecha_retiro] 00:00',
-            '$fila[fecha_retiro] 00:00'
+            '$fila[nombre_proveedor]',
+            '$fila[banco_proveedor]',
+            '$fila[cuenta_proveedor]',
+            '$fila[forma_pago_proveedor]',
+            '$fila[rfc_proveedor]',
+            '$fila[direccion_proveedor]',
+            '$fila[ejecutivo_proveedor]',
+            '$fila[telefono_proveedor]',
+            '".date('Y-m-d H:i:s')."',
+            '".date('Y-m-d H:i:s')."'
         );";
         //mysqli_query($conexion2,$sql2);
         echo $sql2."<br/>";

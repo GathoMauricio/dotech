@@ -29,6 +29,7 @@ return array(
     'App\\Http\\Controllers\\TaskCommentController' => $baseDir . '/app/Http/Controllers/TaskCommentController.php',
     'App\\Http\\Controllers\\TaskController' => $baseDir . '/app/Http/Controllers/TaskController.php',
     'App\\Http\\Controllers\\UserController' => $baseDir . '/app/Http/Controllers/UserController.php',
+    'App\\Http\\Controllers\\WhitdrawalController' => $baseDir . '/app/Http/Controllers/WhitdrawalController.php',
     'App\\Http\\Controllers\\WithdrawRequestController' => $baseDir . '/app/Http/Controllers/WithdrawRequestController.php',
     'App\\Http\\Kernel' => $baseDir . '/app/Http/Kernel.php',
     'App\\Http\\Middleware\\Authenticate' => $baseDir . '/app/Http/Middleware/Authenticate.php',
