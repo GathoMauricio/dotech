@@ -91,4 +91,37 @@
         </tr>
     </tbody>
 </table>
+<table class="table table-dark">
+    <thead>
+        <tr>
+            <th colspan="8" class="title_page" style="background-color:white;">
+                <h5 class="font-weight-bold">Productos</h5>
+            </th>
+        </tr>
+        <tr>
+            <th>Cant</th>
+            <th>Descripción</th>
+            <th>P/U Compra</th>
+            <th>P/U Venta</th>
+            <th>Desc</th>
+            <th>Total Compra</th>
+            <th>Total Venta</th>
+            <th>Utilidad</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach($products as $product)
+        <tr>
+            <td>{{ $product->quantity }}</td>
+            <td>{{ $product->description }}</td>
+            <td>${{ $product->unity_price_buy }}</td>
+            <td>${{ $product->unity_price_sell }}</td>
+            <td>{{ $product->discount }}</td>
+            <td>${{ $product->total_buy }}</td>
+            <td>${{ $product->total_sell }}</td>
+            <td>${{ $product->utility }}</td>
+        </tr>
+        @endforeach
+    </tbody>
+</table>
 @endsection

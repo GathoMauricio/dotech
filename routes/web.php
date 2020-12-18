@@ -72,30 +72,49 @@ Route::get('helper',function(){
     
     $conexion = mysqli_connect("localhost", "root", "", "dotech");
     $conexion2 = mysqli_connect("localhost", "root", "", "dotech_laravel");
-    $sql = "SELECT * FROM departamento_compania";
+    $sql = "SELECT * FROM producto_venta";
     $datos = mysqli_query($conexion,$sql);
     while($fila=mysqli_fetch_array($datos))
     {
-        $sql2 = "INSERT INTO company_department (
+        $total =  ($fila['precio_lista_producto']*$fila['cantidad_producto_venta'])-((($fila['precio_lista_producto']*$fila['cantidad_producto_venta']) * $fila['descuento_producto_venta']) / 100);
+        
+        $sql2 = "INSERT INTO product_sale (
             id,
-            company_id,
-            name,
-            manager,
-            email,
-            phone,
+            sale_id,
+            description,
+            unity_price_buy,
+            unity_price_sell,
+            quantity,
+            discount,
+            total_buy,
+            total_sell,
+            utility,
             created_at,
             updated_at
         ) VALUES(
-            $fila[id_departamento_compania],
-            $fila[id_compania],
-            '$fila[nombre_departamento_compania]',
-            '$fila[encargado_departamento_compania]',
-            '$fila[email_departamento_compania]',
-            '$fila[telefono_departamento_compania]',
+            $fila[id_producto_venta],
+            $fila[id_venta],
+            '$fila[descripcion_producto]',
+            '$fila[precio_lista_producto]',
+            '$fila[precio_lista_producto]',
+            '$fila[cantidad_producto_venta]',
+            '$fila[descuento_producto_venta]',
+            '$total',
+            '$total',
+            '$fila[utilidad_venta_producto]',
             '".date('Y-m-d H:i:s')."',
             '".date('Y-m-d H:i:s')."'
         );";
-        echo $sql2."<br/>";
+        //mysqli_query($conexion2,$sql2);
+        //echo $sql2."<br/>";
+        
     }
+    /*
+    $unitarioV = 4567;
+    $cantidad = 150;
+    $desc = 10;
+    $total = ($unitarioV * $cantidad)-((($unitarioV * $cantidad) * $desc) / 100);
+    echo $total;
+    */
     
 })->name('helper');

@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Company;
 use App\Sale;
+use App\ProductSale;
 class SaleController extends Controller
 {
     public function index()
@@ -44,7 +45,11 @@ class SaleController extends Controller
     public function show($id)
     {
         $sale = Sale::findOrFail($id);
-        return view('sale.show',['sale' => $sale]);
+        $products = ProductSale::where('sale_id',$id)->get();
+        return view('sale.show',[
+            'sale' => $sale,
+            'products' => $products
+            ]);
     }
     public function edit($id)
     {
