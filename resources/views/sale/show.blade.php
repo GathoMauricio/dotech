@@ -6,6 +6,7 @@
     @else
     {{ $sale->status }}:
     @endif
+    <br>
     {{ $sale->description }} 
 </h4>
 <table class="table table-dark">
@@ -45,6 +46,24 @@
             </th>
         </tr>
         <tr>
+            <th colspan="2">
+                <span class="font-weight-bold">Observaciones: </span>
+                @if(empty($sale->observation))
+                N/A
+                @else
+                {{ $sale->observation }}
+                @endif
+            </th>
+            <th colspan="2">
+                <span class="font-weight-bold">Material: </span>
+                @if(empty($sale->material))
+                N/A
+                @else
+                {{ $sale->material }}
+                @endif
+            </th>
+        </tr>
+        <tr>
             <th>
                 Inversión estimada 
                 <span onclick="msg('Info',this.title);" title="Cantidad estimada que se pretende invertir." class="icon icon-info info-click"></span>
@@ -57,6 +76,10 @@
                 Utilidad estimada
                 <span onclick="msg('Info',this.title);" title="Utilidad que se pretende generar a partir de la inversión contra la ventana." class="icon icon-info info-click"></span>
             </th>
+            <th>
+                Divisa
+                <span onclick="msg('Info',this.title);" title="Divisa seleccionada." class="icon icon-info info-click"></span>
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -64,6 +87,7 @@
             <td>${{ $sale->investment }}</td>
             <td>${{ $sale->estimated }}</td>
             <td>${{ $sale->utility }}</td>
+            <td>{{ $sale->currency }}</td>
         </tr>
     </tbody>
 </table>

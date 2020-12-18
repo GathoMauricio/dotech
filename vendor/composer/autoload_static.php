@@ -440,6 +440,7 @@ class ComposerStaticInitc76430cec0ac4972d1901c144bf246d6
 
     public static $classMap = array (
         'App\\Company' => __DIR__ . '/../..' . '/app/Company.php',
+        'App\\CompanyDepartment' => __DIR__ . '/../..' . '/app/CompanyDepartment.php',
         'App\\CompanyFollow' => __DIR__ . '/../..' . '/app/CompanyFollow.php',
         'App\\Console\\Commands\\ShowGatho' => __DIR__ . '/../..' . '/app/Console/Commands/ShowGatho.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
@@ -451,6 +452,7 @@ class ComposerStaticInitc76430cec0ac4972d1901c144bf246d6
         'App\\Http\\Controllers\\Auth\\ResetPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ResetPasswordController.php',
         'App\\Http\\Controllers\\Auth\\VerificationController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/VerificationController.php',
         'App\\Http\\Controllers\\CompanyController' => __DIR__ . '/../..' . '/app/Http/Controllers/CompanyController.php',
+        'App\\Http\\Controllers\\CompanyDepartmentController' => __DIR__ . '/../..' . '/app/Http/Controllers/CompanyDepartmentController.php',
         'App\\Http\\Controllers\\CompanyFollowController' => __DIR__ . '/../..' . '/app/Http/Controllers/CompanyFollowController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\ProjectController' => __DIR__ . '/../..' . '/app/Http/Controllers/ProjectController.php',
