@@ -72,79 +72,30 @@ Route::get('helper',function(){
     
     $conexion = mysqli_connect("localhost", "root", "", "dotech");
     $conexion2 = mysqli_connect("localhost", "root", "", "dotech_laravel");
-    $sql = "SELECT * FROM venta";
+    $sql = "SELECT * FROM departamento_compania";
     $datos = mysqli_query($conexion,$sql);
     while($fila=mysqli_fetch_array($datos))
     {
-        $status = "";
-        switch($fila['id_estatus_venta'])
-        {
-            case 1: $status="Pendiente"; break;
-            case 2: $status="Proyecto"; break;
-            case 3: $status="Rechazada"; break;
-            case 4: $status="Finalizado"; break;
-        }
-        
-        $sql2 = "INSERT INTO sales (
+        $sql2 = "INSERT INTO company_department (
             id,
             company_id,
-            department_id,
-            author_id,
-            status,
-            description,
-            investment,
-            estimated,
-            utility,
-            iva,
-            commision_percent,
-            commision_pay,
-            deadline,
-            delivery_days,
-            shipping,
-            payment_type,
-            credit,
-            currency,
-            observation,
-            material,
-            closed_at,
+            name,
+            manager,
+            email,
+            phone,
             created_at,
             updated_at
         ) VALUES(
-            $fila[id_venta],
-            $fila[id_compania],
             $fila[id_departamento_compania],
-            $fila[id_empleado],
-            '$status',
-            '$fila[descripcion_venta]',
-            '$fila[precio_total_compra_venta]',
-            '$fila[precio_total_venta]',
-            '$fila[utilidad_total_venta]',
-            '$fila[total_con_iva]',
-            '$fila[comision_venta]',
-            '$fila[total_comision]',
-            '$fila[vencimiento_cotizacion_venta]',
-            '$fila[tiempo_entrega]',
-            '$fila[incluye_envio]',
-            '$fila[forma_pago]',
-            '$fila[credito]',
-            '$fila[divisa]',
-            '$fila[observacion_venta]',
-            '$fila[material_venta]',
-            '$fila[ts_finalizado]',
-            '$fila[fecha_cotizacion_venta] 00:00',
-            '$fila[fecha_cotizacion_venta] 00:00'
+            $fila[id_compania],
+            '$fila[nombre_departamento_compania]',
+            '$fila[encargado_departamento_compania]',
+            '$fila[email_departamento_compania]',
+            '$fila[telefono_departamento_compania]',
+            '".date('Y-m-d H:i:s')."',
+            '".date('Y-m-d H:i:s')."'
         );";
         echo $sql2."<br/>";
-        /*
-        if(mysqli_query($conexion2,$sql2))
-        {
-            echo $status."<br>";
-        }
-
-        if (mysqli_connect_errno()) {
-            printf("Connect failed: %s\n", mysqli_connect_error());
-        }
-        */
     }
     
 })->name('helper');

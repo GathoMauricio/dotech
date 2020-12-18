@@ -3,7 +3,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 class CompanyDepartment extends Model
 {
-    protected $table = 'company_follows';
+    protected $table = 'company_department';
 	protected $primaryKey = 'id';
 	public $timestamps = true;
     protected $fillable = [

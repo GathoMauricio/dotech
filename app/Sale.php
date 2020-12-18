@@ -45,7 +45,7 @@ class Sale extends Model
     {
         return $this->belongsTo
         (
-            'App\Department',
+            'App\CompanyDepartment',
             'department_id',
             'id'
         )
