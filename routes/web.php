@@ -72,41 +72,41 @@ Route::get('helper',function(){
     
     $conexion = mysqli_connect("localhost", "root", "", "dotech");
     $conexion2 = mysqli_connect("localhost", "root", "", "dotech_laravel");
-    $sql = "SELECT * FROM producto_venta";
+    $sql = "SELECT * FROM retiro";
     $datos = mysqli_query($conexion,$sql);
     while($fila=mysqli_fetch_array($datos))
     {
-        $total =  ($fila['precio_lista_producto']*$fila['cantidad_producto_venta'])-((($fila['precio_lista_producto']*$fila['cantidad_producto_venta']) * $fila['descuento_producto_venta']) / 100);
-        
-        $sql2 = "INSERT INTO product_sale (
+        $sql2 = "INSERT INTO whitdrawals (
             id,
             sale_id,
+            whitdrawal_provider_id,
+            whitdrawal_account_id,
+            whitdrawal_department_id,
+            status,
+            type,
             description,
-            unity_price_buy,
-            unity_price_sell,
             quantity,
-            discount,
-            total_buy,
-            total_sell,
-            utility,
+            invoive,
+            document,
             created_at,
             updated_at
         ) VALUES(
-            $fila[id_producto_venta],
+            $fila[id_retiro],
             $fila[id_venta],
-            '$fila[descripcion_producto]',
-            '$fila[precio_lista_producto]',
-            '$fila[precio_lista_producto]',
-            '$fila[cantidad_producto_venta]',
-            '$fila[descuento_producto_venta]',
-            '$total',
-            '$total',
-            '$fila[utilidad_venta_producto]',
-            '".date('Y-m-d H:i:s')."',
-            '".date('Y-m-d H:i:s')."'
+            $fila[id_proveedor],
+            $fila[id_cuenta],
+            $fila[id_departamento_retiro],
+            '$fila[id_estatus_retiro]',
+            '$fila[id_tipo_retiro]',
+            '$fila[descripcion_retiro]',
+            '$fila[precio_compra_retiro]',
+            '$fila[con_sin_factura]',
+            '$fila[documento_retiro]',
+            '$fila[fecha_retiro] 00:00',
+            '$fila[fecha_retiro] 00:00'
         );";
         //mysqli_query($conexion2,$sql2);
-        //echo $sql2."<br/>";
+        echo $sql2."<br/>";
         
     }
     /*
