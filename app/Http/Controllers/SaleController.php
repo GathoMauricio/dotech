@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use App\Company;
 use App\Sale;
 use App\ProductSale;
+use App\Whitdrawal;
 class SaleController extends Controller
 {
     public function index()
@@ -46,9 +47,11 @@ class SaleController extends Controller
     {
         $sale = Sale::findOrFail($id);
         $products = ProductSale::where('sale_id',$id)->get();
+        $whitdrawals = Whitdrawal::where('sale_id',$id)->get();
         return view('sale.show',[
             'sale' => $sale,
-            'products' => $products
+            'products' => $products,
+            'whitdrawals' => $whitdrawals
             ]);
     }
     public function edit($id)

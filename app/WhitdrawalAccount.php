@@ -3,7 +3,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 class WhitdrawalAccount extends Model
 {
-    protected $table = 'whitdrawals';
+    protected $table = 'whitdrawal_accounts';
 	protected $primaryKey = 'id';
 	public $timestamps = true;
     protected $fillable = [

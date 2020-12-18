@@ -124,4 +124,56 @@
         @endforeach
     </tbody>
 </table>
+<table class="table table-dark">
+    <thead>
+        <tr>
+            <th colspan="9" class="title_page" style="background-color:white;">
+                <h5 class="font-weight-bold">Retiros</h5>
+            </th>
+        </tr>
+        <tr>
+            <th>Fecha</th>
+            <th>Proveedor</th>
+            <th>Descripción</th>
+            <th>Cuenta</th>
+            <th>Departamento</th>
+            <th>Tipo de retiro</th>
+            <th>Cantidad</th>
+            <th>Estatus</th>
+            <th>Documento</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach($whitdrawals as $whitdrawal)
+        <tr>
+            <td>{{ formatDate($whitdrawal->created_at) }}</td>
+            <td>{{ $whitdrawal->provider['name'] }}</td>
+            <td>{{ $whitdrawal->description }}</td>
+
+            @if(empty($whitdrawal->account['name']))
+            <td>No definida</td>
+            @else
+            <td>{{ $whitdrawal->account['name'] }}</td>
+            @endif
+
+            <td>{{ $whitdrawal->department['name'] }}</td>
+            <td>{{ $whitdrawal->type }}</td>
+            <td>{{ $whitdrawal->quantity }}</td>
+            <td>{{ $whitdrawal->status }}</td>
+            @if($whitdrawal->invoive == 'SI')
+                @if(empty($whitdrawal->document))
+                <td>No subido aún</td>
+                @else
+                <td><a href="#">{{ $whitdrawal->document }}</a></td>
+                @endif
+            @else
+                N/A
+            @endif
+        </tr>
+        @endforeach
+        @if(count($whitdrawals) <= 0)
+        <tr><td colspan="9">No hay retiros aún</td></tr>
+        @endif
+    </tbody>
+</table>
 @endsection
