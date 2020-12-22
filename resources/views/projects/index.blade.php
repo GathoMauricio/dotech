@@ -25,7 +25,7 @@
             <td>${{ $sale->estimated }}</td>
             <td>{{ $sale->description }}</td>
             <td>{{ $sale->observation }}</td>
-            <td><a href="{{ route('show_sale',$sale->id) }}">Ver cotización>></a></td>
+            <td><a href="{{ route('show_sale',$sale->id) }}">Ver proyecto>></a></td>
         </tr>
         @endforeach
     </tbody>
