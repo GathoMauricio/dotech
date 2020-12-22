@@ -25,7 +25,7 @@ class CompanyFollowController extends Controller
     }
     public function store(Request $request)
     {
-        CompanyFollow::create([
+        $follow = CompanyFollow::create([
             'company_id' => $request->company_id,
             'body' => $request->body
         ]);
@@ -39,6 +39,7 @@ class CompanyFollowController extends Controller
                 'created_at' => formatDate($companyFollow->created_at)
             ];
         }
+        createSysLog("dió seguimiento a la compañía ".$follow->company['name']." (".$follow->body.") ");
         return $json;
     }
     public function show($id)
