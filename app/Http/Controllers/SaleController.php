@@ -13,6 +13,16 @@ class SaleController extends Controller
     {
         //
     }
+    public function indexQuotes()
+    {
+        $sales = Sale::where('status','Pendiente')->get();
+        return view('quotes.index',['sales' => $sales]);
+    }
+    public function indexProyects()
+    {
+        $sales = Sale::where('status','Proyecto')->get();
+        return view('projects.index',['sales' => $sales]);
+    }
     public function create()
     {
         //

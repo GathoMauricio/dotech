@@ -85,6 +85,26 @@
                     </p>
                 </a>
                 <hr>
+                <a href="{{ route('index_quotes') }}">
+                    <p style="cursor:pointer;">
+                        <span class="icon-coin-dollar">
+                            <span style="display:none;" class="label-item-menu">
+                                Cotizaciones
+                            </span>
+                        </span>
+                    </p>
+                </a>
+                <hr>
+                <a href="{{ route('index_proyects') }}">
+                    <p style="cursor:pointer;">
+                        <span class="icon-price-tag">
+                            <span style="display:none;" class="label-item-menu">
+                                Proyectos
+                            </span>
+                        </span>
+                    </p>
+                </a>
+                <hr>
                 <a href="{{ route('company_index') }}">
                     <p style="cursor:pointer;">
                         <span class="icon-office">

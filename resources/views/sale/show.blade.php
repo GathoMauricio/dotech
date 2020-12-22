@@ -229,7 +229,7 @@
         </tr>
         @endforeach
         @if(count($documents) <= 0)
-        <tr><td colspan="3">No hay documnetos aún</td></tr>
+        <tr><td colspan="3">No hay documentos aún</td></tr>
         @endif
     </tbody>
 </table>
