@@ -72,32 +72,24 @@ Route::get('helper',function(){
     
     $conexion = mysqli_connect("localhost", "root", "", "dotech");
     $conexion2 = mysqli_connect("localhost", "root", "", "dotech_laravel");
-    $sql = "SELECT * FROM proveedor";
+    $sql = "SELECT * FROM documento_venta";
     $datos = mysqli_query($conexion,$sql);
     while($fila=mysqli_fetch_array($datos))
     {
-        $sql2 = "INSERT INTO whitdrawal_providers (
+        $sql2 = "INSERT INTO sale_documents (
             id,
-            name,
-            bank,
-            account,
-            pay_type,
-            rfc,
-            address,
-            manager,
-            phone,
+            sale_id,
+            description,
+            document,
+            inner_identifier,
             created_at,
             updated_at
         ) VALUES(
-            $fila[id_proveedor],
-            '$fila[nombre_proveedor]',
-            '$fila[banco_proveedor]',
-            '$fila[cuenta_proveedor]',
-            '$fila[forma_pago_proveedor]',
-            '$fila[rfc_proveedor]',
-            '$fila[direccion_proveedor]',
-            '$fila[ejecutivo_proveedor]',
-            '$fila[telefono_proveedor]',
+            $fila[id_documento_venta],
+            $fila[id_venta],
+            '$fila[descripcion_documento_venta]',
+            '$fila[ruta_documento_venta]',
+            '$fila[folio_interno_venta]',
             '".date('Y-m-d H:i:s')."',
             '".date('Y-m-d H:i:s')."'
         );";

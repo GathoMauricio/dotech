@@ -5,6 +5,8 @@ use App\Company;
 use App\Sale;
 use App\ProductSale;
 use App\Whitdrawal;
+use App\SalePayment;
+use App\SaleDocument;
 class SaleController extends Controller
 {
     public function index()
@@ -48,10 +50,14 @@ class SaleController extends Controller
         $sale = Sale::findOrFail($id);
         $products = ProductSale::where('sale_id',$id)->get();
         $whitdrawals = Whitdrawal::where('sale_id',$id)->get();
+        $payments = SalePayment::where('sale_id',$id)->get();
+        $documnets = SaleDocument::where('sale_id',$id)->get();
         return view('sale.show',[
             'sale' => $sale,
             'products' => $products,
-            'whitdrawals' => $whitdrawals
+            'whitdrawals' => $whitdrawals,
+            'payments' => $payments,
+            'documents' => $documnets
             ]);
     }
     public function edit($id)

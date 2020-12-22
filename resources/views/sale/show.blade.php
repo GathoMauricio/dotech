@@ -9,16 +9,17 @@
     <br>
     {{ $sale->description }} 
 </h4>
-<table class="table table-dark">
+<span class="float-right title_page">
+    Autor: 
+    {{ $sale->author['name'] }} 
+    {{ $sale->author['middle_name'] }} 
+    {{ $sale->author['last_name'] }}
+</span>
+<table class="table table-dark" id="companyTableShow" style="display:none;">
     <thead>
         <tr>
             <th colspan="4" class="title_page" style="background-color:white;">
-                <span class="float-right">
-                    Autor: 
-                    {{ $sale->author['name'] }} 
-                    {{ $sale->author['middle_name'] }} 
-                    {{ $sale->author['last_name'] }}
-                </span>
+                <span onclick="showCompany();" class="icon icon-enlarge2 float-right"></span>
                 <h5 class="font-weight-bold">Compañía: {{ $sale->company['name'] }}</h5>
             </th>
         </tr>
@@ -29,6 +30,7 @@
             <th>Email</th>
         </tr>
     </thead>
+    <div>
     <tbody>
         <tr>
             <td>{{ $sale->department['name'] }}</td>
@@ -37,6 +39,7 @@
             <td>{{ $sale->department['email'] }}</td>
         </tr>
     </tbody>
+    </div>
 </table>
 <table class="table table-dark">
     <thead>
@@ -158,7 +161,7 @@
 
             <td>{{ $whitdrawal->department['name'] }}</td>
             <td>{{ $whitdrawal->type }}</td>
-            <td>{{ $whitdrawal->quantity }}</td>
+            <td>${{ $whitdrawal->quantity }}</td>
             <td>{{ $whitdrawal->status }}</td>
             @if($whitdrawal->invoive == 'SI')
                 @if(empty($whitdrawal->document))
@@ -173,6 +176,60 @@
         @endforeach
         @if(count($whitdrawals) <= 0)
         <tr><td colspan="9">No hay retiros aún</td></tr>
+        @endif
+    </tbody>
+</table>
+<table class="table table-dark">
+    <thead>
+        <tr>
+            <th colspan="4" class="title_page" style="background-color:white;">
+                <h5 class="font-weight-bold">Pagos</h5>
+            </th>
+        </tr>
+        <tr>
+            <th>Fecha</th>
+            <th>Descripción</th>
+            <th>Monto</th>
+            <th>Comprobante</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach($payments as $payment)
+        <tr>
+            <td>{{ formatDate($payment->created_at) }}</td>
+            <td>{{ $payment->description }}</td>
+            <td>${{ $payment->amount }}</td>
+            <td>{{ $payment->document }}</td>
+        </tr>
+        @endforeach
+        @if(count($payments) <= 0)
+        <tr><td colspan="4">No hay pagos aún</td></tr>
+        @endif
+    </tbody>
+</table>
+<table class="table table-dark">
+    <thead>
+        <tr>
+            <th colspan="3" class="title_page" style="background-color:white;">
+                <h5 class="font-weight-bold">Documnetos</h5>
+            </th>
+        </tr>
+        <tr>
+            <th>Fecha</th>
+            <th>Descripción</th>
+            <th>Enlace</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach($documents as $documnet)
+        <tr>
+            <td>{{ formatDate($documnet->created_at) }}</td>
+            <td>{{ $documnet->description }}</td>
+            <td>{{ $documnet->document }}</td>
+        </tr>
+        @endforeach
+        @if(count($documents) <= 0)
+        <tr><td colspan="3">No hay documnetos aún</td></tr>
         @endif
     </tbody>
 </table>
