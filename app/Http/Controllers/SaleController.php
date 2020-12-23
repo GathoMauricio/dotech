@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Company;
+use App\CompanyDepartment;
 use App\Sale;
 use App\ProductSale;
 use App\Whitdrawal;
@@ -73,8 +74,12 @@ class SaleController extends Controller
     public function edit($id)
     {
         $sale = Sale::findOrFail($id);
+        $companies = Company::orderBy('name')->get();
+        $departments = CompanyDepartment::where('company_id',$sale->company_id)->orderBy('name')->get();
         return view('sale.edit',[
-            'sale' => $sale
+            'sale' => $sale,
+            'companies' => $companies,
+            'departments' => $departments
         ]);
     }
     public function update(Request $request, $id)

@@ -264,3 +264,20 @@ window.indexCompanyFollow = company_id => {
         });
     });    
 };
+window.loadDepartmentsByCompany = company_id => {
+    $("#load_departments_by_company").css('display','block');
+    $.ajax({
+        type: 'GET',
+        url: $("#txt_route_load_departments_by_id").val(),
+        data:{id:company_id},
+        success: data => {
+            let html = '';
+            $.each(data, function(index, value) {
+                html += '<option value="'+value.id+'">'+value.name+'</option>';
+            });
+            $("#cbo_departments_by_company").html(html);
+            $("#load_departments_by_company").css('display','none');
+        },
+        error: error => console.log(error)
+    });
+};

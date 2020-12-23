@@ -35,6 +35,9 @@ Route::get('cbo_all_companies','CompanyController@getCboItems')->name('cbo_all_c
 Route::get('index_company_follow','CompanyFollowController@index')->name('index_company_follow')->middleware('auth');
 Route::post('store_company_follow','CompanyFollowController@store')->name('store_company_follow')->middleware('auth');
 
+#CompanyDepartment
+Route::get('load_departments_by_id','CompanyDepartmentController@loadDepartemnsById')->name('load_departments_by_id')->middleware('auth');
+
 #Sale
 Route::get('show_sale/{id}','SaleController@show')->name('show_sale')->middleware('auth');
 Route::get('edit_sale/{id}','SaleController@edit')->name('edit_sale')->middleware('auth');
