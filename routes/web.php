@@ -37,6 +37,7 @@ Route::post('store_company_follow','CompanyFollowController@store')->name('store
 
 #Sale
 Route::get('show_sale/{id}','SaleController@show')->name('show_sale')->middleware('auth');
+Route::get('edit_sale/{id}','SaleController@edit')->name('edit_sale')->middleware('auth');
 Route::get('quotes/{id}','SaleController@quotes')->name('quotes')->middleware('auth');
 Route::get('projects/{id}','SaleController@projects')->name('projects')->middleware('auth');
 Route::get('finalized/{id}','SaleController@finalized')->name('finalized')->middleware('auth');

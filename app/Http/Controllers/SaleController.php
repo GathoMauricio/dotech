@@ -72,7 +72,10 @@ class SaleController extends Controller
     }
     public function edit($id)
     {
-        //
+        $sale = Sale::findOrFail($id);
+        return view('sale.edit',[
+            'sale' => $sale
+        ]);
     }
     public function update(Request $request, $id)
     {

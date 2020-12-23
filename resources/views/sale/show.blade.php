@@ -15,11 +15,10 @@
     {{ $sale->author['middle_name'] }} 
     {{ $sale->author['last_name'] }}
 </span>
-<table class="table table-dark" id="companyTableShow" style="display:none;">
+<table class="table table-dark">
     <thead>
         <tr>
             <th colspan="4" class="title_page" style="background-color:white;">
-                <span onclick="showCompany();" class="icon icon-enlarge2 float-right"></span>
                 <h5 class="font-weight-bold">Compañía: {{ $sale->company['name'] }}</h5>
             </th>
         </tr>
@@ -44,12 +43,18 @@
 <table class="table table-dark">
     <thead>
         <tr>
-            <th colspan="4" class="title_page" style="background-color:white;">
+            <th colspan="5" class="title_page" style="background-color:white;">
+                <div class="float-right">
+                    <a href="{{ route('edit_sale',$sale->id) }}" style="padding:5px;"><span class="icon icon-pencil"></span></a>
+                    @if(Auth::user()->rol_user_id == 1)
+                    <a href="#" style="padding:5px;"><span class="icon icon-bin"></span></a>
+                    @endif
+                </div>
                 <h5 class="font-weight-bold">Detalles</h5>
             </th>
         </tr>
         <tr>
-            <th colspan="2">
+            <th colspan="3">
                 <span class="font-weight-bold">Observaciones: </span>
                 @if(empty($sale->observation))
                 N/A
@@ -80,6 +85,10 @@
                 <span onclick="msg('Info',this.title);" title="Utilidad que se pretende generar a partir de la inversión contra la ventana." class="icon icon-info info-click"></span>
             </th>
             <th>
+                IVA
+                <span onclick="msg('Info',this.title);" title="IVA que se cobrará con base a la venta." class="icon icon-info info-click"></span>
+            </th>
+            <th>
                 Divisa
                 <span onclick="msg('Info',this.title);" title="Divisa seleccionada." class="icon icon-info info-click"></span>
             </th>
@@ -90,7 +99,37 @@
             <td>${{ $sale->investment }}</td>
             <td>${{ $sale->estimated }}</td>
             <td>${{ $sale->utility }}</td>
+            <td>${{ $sale->iva }}</td>
             <td>{{ $sale->currency }}</td>
+        </tr>
+        <tr>
+            <th>
+                Deadline
+                <span onclick="msg('Info',this.title);" title="Fecha límite para entregar el proyecto." class="icon icon-info info-click"></span>
+            </th>
+            <th>
+                Comisión %
+                <span onclick="msg('Info',this.title);" title="Porcentaje de comisión para el autor." class="icon icon-info info-click"></span>
+            </th>
+            <th>
+                Comisión $
+                <span onclick="msg('Info',this.title);" title="Comisión estimada con base a la cotización." class="icon icon-info info-click"></span>
+            </th>
+            <th>
+                Envio
+                <span onclick="msg('Info',this.title);" title="Indica si el proyecto contará con envio." class="icon icon-info info-click"></span>
+            </th>
+            <th>
+                Crédito
+                <span onclick="msg('Info',this.title);" title="Indica si el proyecto contará con un crédito." class="icon icon-info info-click"></span>
+            </th>
+        </tr>
+        <tr>
+            <td>{{  formatDate($sale->deadline) }}</td>
+            <td>{{ $sale->commision_percent }}%</td>
+            <td>${{ $sale->commision_pay }}</td>
+            <td>{{ $sale->shipping }}</td>
+            <td>{{ $sale->credit }}</td>
         </tr>
     </tbody>
 </table>
@@ -125,6 +164,9 @@
             <td>${{ $product->utility }}</td>
         </tr>
         @endforeach
+        @if(count($products) <= 0)
+        <tr><td colspan="9">No hay productos aún</td></tr>
+        @endif
     </tbody>
 </table>
 <table class="table table-dark">
