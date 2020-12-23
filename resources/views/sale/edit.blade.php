@@ -85,39 +85,45 @@
             <div class="col-md-3">
                 <div class="form-group">
                     <label for="investment" class="color-primary-sys font-weight-bold">Inversión</label>
-                    <input name="investment" value="{{ old('investment',$sale->investment) }}" type="text" class="form-control currency_mask">
+                    <input name="investment" onchange="calculateCurrencies()" id="txt_investment_amount" type="text" value="{{ old('investment',$sale->investment) }}" class="form-control currency_mask">
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="form-group">
                     <label for="estimated" class="color-primary-sys font-weight-bold">Venta</label>
-                    <input name="estimated" value="{{ old('estimated',$sale->estimated) }}" type="text" class="form-control currency_mask">
+                    <input name="estimated" onchange="calculateCurrencies()" id="txt_estimated_amount" value="{{ old('estimated',$sale->estimated) }}" type="text" class="form-control currency_mask">
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="form-group">
                     <label for="utility" class="color-primary-sys font-weight-bold">Utilidad</label>
-                    <input name="utility" value="{{ old('utility',$sale->utility) }}" type="text" class="form-control currency_mask" readonly>
+                    <input name="utility"  onchange="calculateCurrencies()" id="txt_utility_amount" value="{{ old('utility',$sale->utility) }}" type="text" class="form-control currency_mask" readonly>
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="form-group">
                     <label for="iva" class="color-primary-sys font-weight-bold">IVA</label>
-                    <input name="iva" value="{{ old('iva',$sale->iva) }}" type="text" class="form-control currency_mask" readonly>
+                    <input name="iva" id="txt_iva_amount"  onchange="calculateCurrencies()" value="{{ old('iva',$sale->iva) }}" type="text" class="form-control currency_mask" readonly>
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="form-group">
                     <label for="deadline" class="color-primary-sys font-weight-bold">Deadline</label>
                     <input name="deadline" value="{{ old('deadline',$sale->deadline) }}" type="date" class="form-control date_mask">
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label  class="color-primary-sys font-weight-bold">Total</label>
+                    <input  id="txt_total_amount"  onchange="calculateCurrencies()"  type="text" class="form-control currency_mask" readonly>
+                </div>
+            </div>
+            <div class="col-md-3">
                 <div class="form-group">
                     <label for="commision_percent" class="color-primary-sys font-weight-bold">Comisión %</label>
-                    <select name="commision_percent" type="text" class="custom-select">
+                    <select name="commision_percent"  onchange="calculateCurrencies()" id="cbo_commision_percent" type="text" class="custom-select">
                         @if($sale->commision_percent == '0')
                         <option value="0" selected>0%</option>
                         <option value="8">8%</option>
@@ -136,10 +142,10 @@
                     </select>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="form-group">
                     <label for="commision_pay" class="color-primary-sys font-weight-bold">Comisión $</label>
-                    <input name="commision_pay" value="{{ old('commision_pay',$sale->commision_pay) }}" type="text" class="form-control currency_mask" readonly>
+                    <input name="commision_pay" id="txt_commision_pay_amount" value="{{ old('commision_pay',$sale->commision_pay) }}" type="text" class="form-control currency_mask" readonly>
                 </div>
             </div>
         </div>

@@ -290,3 +290,16 @@ window.loadDepartmentsByCompany = company_id => {
         error: error => console.log(error)
     });
 };
+window.calculateCurrencies = () => {
+    let investment = $("#txt_investment_amount").val();
+    let estimated = $("#txt_estimated_amount").val();
+    let commisionPercent = $("#cbo_commision_percent").val();
+    let utility = parseFloat(estimated) - parseFloat(investment);
+    let iva = parseFloat(estimated * 16) / 100;
+    let total = parseFloat(estimated) + parseFloat(iva);
+    let commisionPay = parseFloat(total * commisionPercent) / 100;
+    $("#txt_iva_amount").val(iva);
+    $("#txt_total_amount").val(total);
+    $("#txt_utility_amount").val(utility);
+    $("#txt_commision_pay_amount").val(commisionPay);
+};
