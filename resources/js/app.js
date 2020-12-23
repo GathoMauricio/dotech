@@ -37,7 +37,7 @@ jQuery(()=>{
     /*++ StartAjaxForms ++*/
     projectControl.storeProjectAjax();
     /*++ EndAjaxForms ++*/
-
+    VMasker($('.currency_mask')).maskNumber();
     /*
     jQuery('.date_mask').datetimepicker({
         timepicker:false,
