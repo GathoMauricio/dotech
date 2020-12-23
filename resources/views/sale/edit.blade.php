@@ -8,7 +8,9 @@
     {{ $sale->status }}
     @endif 
     {{ $sale->description }}</h4>
-<form action="#">
+<form action="{{ route('update_sale',$sale->id) }}" method="POST">
+    @csrf
+    @method('PUT')
     <div class="container">
         <div class="row">
             <div class="col-md-4">
@@ -40,6 +42,9 @@
                         <option value="Finalizado" selected>Finalizado</option>
                         @endif
                     </select>
+                    @if($errors->has('status'))
+                    <small class="color-primary-sys font-weight-bold">{{ $errors->first('status') }}</small>
+                    @endif
                 </div>
             </div>
             <div class="col-md-4">
@@ -55,6 +60,9 @@
                         @endif
                         @endforeach
                     </select>
+                    @if($errors->has('company_id'))
+                    <small class="color-primary-sys font-weight-bold">{{ $errors->first('company_id') }}</small>
+                    @endif
                 </div>
             </div>
             <div class="col-md-4">
@@ -70,6 +78,9 @@
                         @endif
                         @endforeach
                     </select>
+                    @if($errors->has('department_id'))
+                    <small class="color-primary-sys font-weight-bold">{{ $errors->first('department_id') }}</small>
+                    @endif
                 </div>
             </div>
         </div>
@@ -77,7 +88,11 @@
             <div class="col-md-12">
                 <div class="form-group">
                     <label for="description" class="color-primary-sys font-weight-bold">Descripción</label>
+                    <span class="color-primary-sys font-weight-bold">*</span>
                     <textarea name="description" class="form-control">{{ old('description',$sale->description) }}</textarea>
+                    @if($errors->has('description'))
+                    <small class="color-primary-sys font-weight-bold">{{ $errors->first('description') }}</small>
+                    @endif
                 </div>
             </div>
         </div>
@@ -85,25 +100,39 @@
             <div class="col-md-3">
                 <div class="form-group">
                     <label for="investment" class="color-primary-sys font-weight-bold">Inversión</label>
+                    <span class="color-primary-sys font-weight-bold">*</span>
                     <input name="investment" onchange="calculateCurrencies()" id="txt_investment_amount" type="text" value="{{ old('investment',$sale->investment) }}" class="form-control currency_mask">
+                    @if($errors->has('investment'))
+                    <small class="color-primary-sys font-weight-bold">{{ $errors->first('investment') }}</small>
+                    @endif
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="form-group">
                     <label for="estimated" class="color-primary-sys font-weight-bold">Venta</label>
+                    <span class="color-primary-sys font-weight-bold">*</span>
                     <input name="estimated" onchange="calculateCurrencies()" id="txt_estimated_amount" value="{{ old('estimated',$sale->estimated) }}" type="text" class="form-control currency_mask">
+                    @if($errors->has('estimated'))
+                    <small class="color-primary-sys font-weight-bold">{{ $errors->first('estimated') }}</small>
+                    @endif
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="form-group">
                     <label for="utility" class="color-primary-sys font-weight-bold">Utilidad</label>
                     <input name="utility"  onchange="calculateCurrencies()" id="txt_utility_amount" value="{{ old('utility',$sale->utility) }}" type="text" class="form-control currency_mask" readonly>
+                    @if($errors->has('utility'))
+                    <small class="color-primary-sys font-weight-bold">{{ $errors->first('utility') }}</small>
+                    @endif
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="form-group">
                     <label for="iva" class="color-primary-sys font-weight-bold">IVA</label>
                     <input name="iva" id="txt_iva_amount"  onchange="calculateCurrencies()" value="{{ old('iva',$sale->iva) }}" type="text" class="form-control currency_mask" readonly>
+                    @if($errors->has('iva'))
+                    <small class="color-primary-sys font-weight-bold">{{ $errors->first('iva') }}</small>
+                    @endif
                 </div>
             </div>
         </div>
@@ -112,12 +141,18 @@
                 <div class="form-group">
                     <label for="deadline" class="color-primary-sys font-weight-bold">Deadline</label>
                     <input name="deadline" value="{{ old('deadline',$sale->deadline) }}" type="date" class="form-control date_mask">
+                    @if($errors->has('deadline'))
+                    <small class="color-primary-sys font-weight-bold">{{ $errors->first('deadline') }}</small>
+                    @endif
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="form-group">
                     <label  class="color-primary-sys font-weight-bold">Total</label>
                     <input  id="txt_total_amount"  onchange="calculateCurrencies()"  type="text" class="form-control currency_mask" readonly>
+                    @if($errors->has(''))
+                    <small class="color-primary-sys font-weight-bold">{{ $errors->first('') }}</small>
+                    @endif
                 </div>
             </div>
             <div class="col-md-3">
@@ -140,12 +175,18 @@
                         <option value="13" selected>13%</option>
                         @endif
                     </select>
+                    @if($errors->has('commision_percent'))
+                    <small class="color-primary-sys font-weight-bold">{{ $errors->first('commision_percent') }}</small>
+                    @endif
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="form-group">
                     <label for="commision_pay" class="color-primary-sys font-weight-bold">Comisión $</label>
                     <input name="commision_pay" id="txt_commision_pay_amount" value="{{ old('commision_pay',$sale->commision_pay) }}" type="text" class="form-control currency_mask" readonly>
+                    @if($errors->has('commision_pay'))
+                    <small class="color-primary-sys font-weight-bold">{{ $errors->first('commision_pay') }}</small>
+                    @endif
                 </div>
             </div>
         </div>
@@ -162,12 +203,15 @@
                         <option value="No" selected>No</option>
                     @endif
                     </select>
+                    @if($errors->has('shipping'))
+                    <small class="color-primary-sys font-weight-bold">{{ $errors->first('shipping') }}</small>
+                    @endif
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="form-group">
-                    <label for="creadit" class="color-primary-sys font-weight-bold">Crédito</label>
-                    <select name="creadit" class="custom-select">
+                    <label for="credit" class="color-primary-sys font-weight-bold">Crédito</label>
+                    <select name="credit" class="custom-select">
                         @if($sale->credit == 'N/A')
                         <option value="N/A" selected>N/A</option>
 						<option value="15 Días">15 Días</option>
@@ -193,6 +237,9 @@
                         <option value="90 Días" selected>90 Dias</option>
                         @endif
                     </select>
+                    @if($errors->has('credit'))
+                    <small class="color-primary-sys font-weight-bold">{{ $errors->first('credit') }}</small>
+                    @endif
                 </div>
             </div>
             <div class="col-md-3">
@@ -224,6 +271,9 @@
                         <option value="Cheque" selected>Cheque</option>
                         @endif
                     </select>
+                    @if($errors->has('payment_type'))
+                    <small class="color-primary-sys font-weight-bold">{{ $errors->first('payment_type') }}</small>
+                    @endif
                 </div>
             </div>
             <div class="col-md-3">
@@ -238,6 +288,9 @@
                         <option value="USD" señected>USD</option>
                         @endif
                     </select>
+                    @if($errors->has('currency'))
+                    <small class="color-primary-sys font-weight-bold">{{ $errors->first('currency') }}</small>
+                    @endif
                 </div>
             </div>
         </div>
@@ -246,17 +299,24 @@
                 <div class="form-group">
                     <label for="observation" class="color-primary-sys font-weight-bold">Observaciones</label>
                     <textarea name="observation" class="form-control">{{ old('observation',$sale->observation) }}</textarea>
+                    @if($errors->has('observation'))
+                    <small class="color-primary-sys font-weight-bold">{{ $errors->first('observation') }}</small>
+                    @endif
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="material" class="color-primary-sys font-weight-bold">Material</label>
                     <textarea name="material" class="form-control">{{ old('material',$sale->material) }}</textarea>
+                    @if($errors->has('material'))
+                    <small class="color-primary-sys font-weight-bold">{{ $errors->first('material') }}</small>
+                    @endif
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-md-12">
+                Los campos marcados con <span class="color-primary-sys font-weight-bold">*</span> son obligatorios.
                 <div class="float-right">
                     <a href="{{ route('show_sale',$sale->id) }}" class="btn btn-secondary">Cancelar</a>  
                     <input type="submit" value="Actualizar información" class="btn btn-primary-sys">

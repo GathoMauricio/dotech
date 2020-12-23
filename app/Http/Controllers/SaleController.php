@@ -8,6 +8,7 @@ use App\ProductSale;
 use App\Whitdrawal;
 use App\SalePayment;
 use App\SaleDocument;
+use App\Http\Requests\SaleRequest;
 class SaleController extends Controller
 {
     public function index()
@@ -28,9 +29,10 @@ class SaleController extends Controller
     {
         //
     }
-    public function store(Request $request)
+    public function store(SaleRequest $request)
     {
-        //
+        $sale = Sale::create($request->all());
+        return redirect('show_sale/' . $sale->id)->with('message', 'Registro creado.');
     }
     public function quotes($id)
     {
@@ -82,9 +84,11 @@ class SaleController extends Controller
             'departments' => $departments
         ]);
     }
-    public function update(Request $request, $id)
+    public function update(SaleRequest $request, $id)
     {
-        //
+        $sale = Sale::findOrFail($id);
+        $sale->update($request->all());
+        return redirect('show_sale/' . $sale->id)->with('message', 'Información actualizada.');
     }
     public function destroy($id)
     {

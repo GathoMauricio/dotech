@@ -8,26 +8,26 @@ class CreateSalesTable extends Migration
     {
         Schema::create('sales', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->biginteger('company_id');
-            $table->biginteger('department_id');
-            $table->biginteger('author_id');
-            $table->string('status');
-            $table->text('description');
-            $table->string('investment');
-            $table->string('estimated');
-            $table->string('utility');
-            $table->string('iva');
+            $table->biginteger('company_id')->nullable();
+            $table->biginteger('department_id')->nullable();
+            $table->biginteger('author_id')->nullable();
+            $table->string('status')->nullable();
+            $table->text('description')->nullable();
+            $table->string('investment')->nullable();
+            $table->string('estimated')->nullable();
+            $table->string('utility')->nullable();
+            $table->string('iva')->nullable();
             $table->string('commision_percent');
-            $table->string('commision_pay');
-            $table->date('deadline');
-            $table->string('delivery_days');
-            $table->string('shipping');
-            $table->string('payment_type');
-            $table->string('credit');
-            $table->string('currency');
-            $table->text('observation');
-            $table->text('material');
-            $table->timestamp('closed_at');
+            $table->string('commision_pay')->nullable();
+            $table->date('deadline')->nullable();
+            $table->string('delivery_days')->nullable();
+            $table->string('shipping')->nullable();
+            $table->string('payment_type')->nullable();
+            $table->string('credit')->nullable();
+            $table->string('currency')->nullable();
+            $table->text('observation')->nullable();
+            $table->text('material')->nullable();
+            $table->timestamp('closed_at')->nullable();
             $table->timestamps();
         });
     }
