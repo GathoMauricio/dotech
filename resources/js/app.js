@@ -29,6 +29,7 @@ const projectControl = new ProjectControl();
 /*++ Start JqueryReady ++*/
 jQuery(()=>{
     /*++ StartLoadTables ++*/
+    calculateCurrencies();
     table.loadTaskTable();
     table.loadTaskArchivedTable();
     table.loadCompanyTable();
