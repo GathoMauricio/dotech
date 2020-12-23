@@ -10,7 +10,7 @@ class SysLogsController extends Controller
     }
     public function index()
     {
-        $logs = SysLog::orderBy('id','desc')->paginate(15);
+        $logs = SysLog::orderBy('id','desc')->paginate(20);
         return view('logs.index',['logs' => $logs]);
     }
     public function create()

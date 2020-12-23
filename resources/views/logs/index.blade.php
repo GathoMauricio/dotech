@@ -5,12 +5,20 @@
 {{ $logs->links() }}
 </div>
 <br><br>
-@foreach($logs as $log)
-<div style="width:100%;">
-    <span style="color:#2980B9">{{ formatDate($log->created_at) }}</span> : {{ $log->body }}
+<div style="width:100%;background-color:black;">
+    <table style="width:100%;">
+        @foreach($logs as $log)
+        <tr>
+            <td style="color:#2ECC71" width="30%">
+                {{ formatDate($log->created_at) }}
+            </td>
+            <td style="color:white;" width="70%">
+                {{ $log->body }}
+            </td>
+        </tr>
+        @endforeach
+    </table>
 </div>
-<br/>
-@endforeach
 <div class="float-right">
     {{ $logs->links() }}
 </div>
