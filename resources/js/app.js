@@ -37,6 +37,15 @@ jQuery(()=>{
     /*++ StartAjaxForms ++*/
     projectControl.storeProjectAjax();
     /*++ EndAjaxForms ++*/
+
+    /*
+    jQuery('.date_mask').datetimepicker({
+        timepicker:false,
+        mask:false,
+        formatDate:'Y-m-d',
+    });
+    */
+
 });
 /*++ End JqueryReady ++*/
 
