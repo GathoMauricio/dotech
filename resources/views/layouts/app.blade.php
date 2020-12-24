@@ -220,6 +220,7 @@
         });       
     });
     </script>
+    @include('companies.show_modal')
 </body>
 
 </html>

@@ -101,7 +101,7 @@
                 <div class="form-group">
                     <label for="investment" class="color-primary-sys font-weight-bold">Inversión</label>
                     <span class="color-primary-sys font-weight-bold">*</span>
-                    <input name="investment" onchange="calculateCurrencies()" id="txt_investment_amount" type="text" value="{{ old('investment',$sale->investment) }}" class="form-control currency_mask">
+                    <input name="investment" onchange="calculateCurrencies()" id="txt_investment_amount" type="number" value="{{ old('investment',$sale->investment) }}" class="form-control currency_mask">
                     @if($errors->has('investment'))
                     <small class="color-primary-sys font-weight-bold">{{ $errors->first('investment') }}</small>
                     @endif
@@ -111,7 +111,7 @@
                 <div class="form-group">
                     <label for="estimated" class="color-primary-sys font-weight-bold">Venta</label>
                     <span class="color-primary-sys font-weight-bold">*</span>
-                    <input name="estimated" onchange="calculateCurrencies()" id="txt_estimated_amount" value="{{ old('estimated',$sale->estimated) }}" type="text" class="form-control currency_mask">
+                    <input name="estimated" onchange="calculateCurrencies()" id="txt_estimated_amount" value="{{ old('estimated',$sale->estimated) }}" type="number" class="form-control currency_mask">
                     @if($errors->has('estimated'))
                     <small class="color-primary-sys font-weight-bold">{{ $errors->first('estimated') }}</small>
                     @endif
@@ -140,6 +140,7 @@
             <div class="col-md-3">
                 <div class="form-group">
                     <label for="deadline" class="color-primary-sys font-weight-bold">Deadline</label>
+                    <span class="color-primary-sys font-weight-bold">*</span>
                     <input name="deadline" value="{{ old('deadline',$sale->deadline) }}" type="date" class="form-control date_mask">
                     @if($errors->has('deadline'))
                     <small class="color-primary-sys font-weight-bold">{{ $errors->first('deadline') }}</small>

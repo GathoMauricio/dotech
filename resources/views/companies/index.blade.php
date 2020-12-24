@@ -21,7 +21,7 @@
         </tr>
     </thead>
     <tbody>
-
+        
     </tbody>
 </table>
 @include('companies.follow_modal')

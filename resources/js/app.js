@@ -29,7 +29,7 @@ const projectControl = new ProjectControl();
 /*++ Start JqueryReady ++*/
 jQuery(()=>{
     /*++ StartLoadTables ++*/
-    calculateCurrencies();
+    setTimeout(calculateCurrencies,1000);
     table.loadTaskTable();
     table.loadTaskArchivedTable();
     table.loadCompanyTable();
@@ -38,7 +38,11 @@ jQuery(()=>{
     /*++ StartAjaxForms ++*/
     projectControl.storeProjectAjax();
     /*++ EndAjaxForms ++*/
-    VMasker($('.currency_mask')).maskNumber();
+    VMasker($('._currency_mask')).maskMoney({
+        precision: 2,
+        separator: '.',
+        delimiter: '.',
+      });
     /*
     jQuery('.date_mask').datetimepicker({
         timepicker:false,
@@ -299,8 +303,30 @@ window.calculateCurrencies = () => {
     let iva = parseFloat(estimated * 16) / 100;
     let total = parseFloat(estimated) + parseFloat(iva);
     let commisionPay = parseFloat(total * commisionPercent) / 100;
+    
     $("#txt_iva_amount").val(iva);
     $("#txt_total_amount").val(total);
     $("#txt_utility_amount").val(utility);
     $("#txt_commision_pay_amount").val(commisionPay);
+};
+window.showCompanyModal = id => {
+    const route = $("#txt_company_show_ajax").val();
+    $.ajax({
+        type: "GET",
+        url: route,
+        data:{ id:id },
+        success: data => {
+            $("#span_origin_modal").text(data.origin);
+            $("#span_status_modal").text(data.status);
+            $("#span_name_modal").text(data.name);
+            $("#span_responsable_modal").text(data.responsable);
+            $("#span_rfc_modal").text(data.rfc);
+            $("#span_email_modal").text(data.email);
+            $("#span_phone_modal").text(data.phone);
+            $("#span_address_modal").text(data.address);
+            $("#span_description_modal").text(data.description);
+            $("#conmpany_show_modal").modal();
+        },
+        error: () => console.log
+    }); 
 };

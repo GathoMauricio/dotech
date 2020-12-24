@@ -29,6 +29,12 @@ class SaleController extends Controller
     {
         //
     }
+    public function createSale($id)
+    {
+        $company = Company::findOrFail($id);
+        $departments = CompanyDepartment::where('company_id', $id)->get();
+        return view('sale.create',['company' => $company, 'departments' => $departments]);
+    }
     public function store(SaleRequest $request)
     {
         $sale = Sale::create($request->all());

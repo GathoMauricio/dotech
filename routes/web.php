@@ -28,8 +28,10 @@ Route::get('withdraw_request_index','WithdrawRequestController@index')->name('wi
 
 #Company
 Route::get('company_index','CompanyController@index')->name('company_index')->middleware('auth');;
-Route::get('company_index_ajax','CompanyController@indexAjax')->name('company_index_ajax')->middleware('auth');;
-Route::get('cbo_all_companies','CompanyController@getCboItems')->name('cbo_all_companies')->middleware('auth');;
+Route::get('company_index_ajax','CompanyController@indexAjax')->name('company_index_ajax')->middleware('auth');
+Route::get('cbo_all_companies','CompanyController@getCboItems')->name('cbo_all_companies')->middleware('auth');
+Route::get('company_show_ajax','CompanyController@showAjax')->name('company_show_ajax')->middleware('auth');
+Route::get('company_edit','CompanyController@edit')->name('company_edit')->middleware('auth');
 
 #CompanyFollow
 Route::get('index_company_follow','CompanyFollowController@index')->name('index_company_follow')->middleware('auth');
@@ -43,6 +45,7 @@ Route::get('show_sale/{id}','SaleController@show')->name('show_sale')->middlewar
 Route::post('store_sale','SaleController@store')->name('store_sale')->middleware('auth');
 Route::get('edit_sale/{id}','SaleController@edit')->name('edit_sale')->middleware('auth');
 Route::put('update_sale/{id}','SaleController@update')->name('update_sale')->middleware('auth');
+Route::get('create_sale/{id?}','SaleController@createSale')->name('create_sale')->middleware('auth');;
 
 Route::get('quotes/{id}','SaleController@quotes')->name('quotes')->middleware('auth');
 Route::get('projects/{id}','SaleController@projects')->name('projects')->middleware('auth');

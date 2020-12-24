@@ -20,6 +20,7 @@ class CompanyController extends Controller
         foreach($companies as $company)
         {
             
+            $spanCreate = "<a href='".route('create_sale',$company->id)."' style='cursor:pointer;color:black;'><span title='Crear cotización...' class='icon icon-file-text2'></span></a>&nbsp;&nbsp;";
             $spanFollows = "<a href='#' onclick='indexCompanyFollow(".$company->id.");' style='cursor:pointer;color:black;'>".count(CompanyFollow::where('company_id',$company->id)->get())."<span title='Seguimientos...' class='icon icon-bubble'></span></a>&nbsp;&nbsp;";
             $spanQuotations = "<a href='".route('quotes',$company->id)."' style='cursor:pointer;color:#2980B9;'>".count(Sale::where('company_id',$company->id)->where('status','Pendiente')->get())."<span title='Cotizaciones...' class='icon icon-coin-dollar'></span></a>&nbsp;&nbsp;";
             $spanProjects = "<a href='".route('projects',$company->id)."' style='cursor:pointer;color:#229954;'>".count(Sale::where('company_id',$company->id)->where('status','Proyecto')->get())."<span title='Proyectos...' class='icon icon-price-tag'></span></a>&nbsp;&nbsp;";
@@ -29,12 +30,12 @@ class CompanyController extends Controller
             $spanDelete = "<a href='#' style='cursor:pointer;color:red;'><span title='Eliminar..' class='icon icon-bin' style='cursor:pointer;color:red;'></span></a>&nbsp;&nbsp;";
             
             $json[] = [
-                'name' => "<a href='#'>".$company['name']."</a>",
+                'name' => "<a href='#' onclick='showCompanyModal(".$company->id.")'>".$company['name']."</a>",
                 'responsable' => $company['responsable'],
                 'email' => "<a href='mailto:".$company['email']."'>".$company['email']."</a>",
                 'phone' => "<a href='tel:".$company['phone']."'>".$company['phone']."</a>",
                 //'address' => $company['address'],
-                'options' => $spanFollows.$spanQuotations.$spanProjects.$spanFinalized.$spanRejects.$spanUpdate.$spanDelete
+                'options' => $spanCreate.$spanFollows.$spanQuotations.$spanProjects.$spanFinalized.$spanRejects.$spanUpdate.$spanDelete
             ];
         }
         return $json;
@@ -60,6 +61,11 @@ class CompanyController extends Controller
     public function show($id)
     {
         //
+    }
+    public function showAjax(Request $request)
+    {
+        $company = Company::findOrFail($request->id);
+        return $company;
     }
     public function edit($id)
     {
