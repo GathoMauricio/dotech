@@ -7,25 +7,35 @@
 <table class="table table-bordered" id="index_table">
     <thead>
         <tr>
-            <th>Fecha</th>
+            <th>Folio</th>
             <th>Compañía</th>
-            <th>Inversión</th>
-            <th>Estimado</th>
             <th>Descriptción</th>
-            <th>Observación</th>
-            <th>Opciones</th>
+            <th>Precio</th>
+            <th>Fecha</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
         @foreach($sales as $sale)
         <tr>
-            <td>{{ formatDate($sale->created_at) }}</td>
+            <td>{{ $sale->id }}</td>
             <td>{{ $sale->company['name'] }}</td>
-            <td>${{ $sale->investment }}</td>
-            <td>${{ $sale->estimated }}</td>
             <td>{{ $sale->description }}</td>
-            <td>{{ $sale->observation }}</td>
-            <td><a href="{{ route('show_sale',$sale->id) }}">Ver cotización>></a></td>
+            <td>${{ $sale->estimated }}</td>
+            <td>{{ formatDate($sale->created_at) }}</td>
+            <td>
+                <span class="icon-eye" title="Vizualizar" style="cursor:pointer;"></span>
+                <br>
+                <span class="icon-checkmark" title="Cambiar estatus" style="cursor:pointer;"></span>
+                <br>
+                <span class="icon-pencil" title="Editar" style="cursor:pointer;"></span>
+                <br>
+                <span class="icon-bubble" title="Seguimientos" style="cursor:pointer;"></span>
+                @if(Auth::user()->rol_user_id == 1)
+                <br>
+                <span class="icon-bin" title="Eliminar" style="cursor:pointer;"></span>
+                @endif
+            </td>
         </tr>
         @endforeach
     </tbody>
@@ -47,7 +57,7 @@
                 aoColumnDefs: [
                     {
                         bSortable: false,
-                        aTargets: [6]
+                        aTargets: [5]
                     },
                 ],
                 oLanguage: {
