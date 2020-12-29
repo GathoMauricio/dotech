@@ -24,11 +24,11 @@
             <td>${{ $sale->estimated }}</td>
             <td>{{ formatDate($sale->created_at) }}</td>
             <td>
-                <span class="icon-eye" title="Vizualizar" style="cursor:pointer;"></span>
+                <span onclick="showQuote({{ $sale->id }});" class="icon-eye" title="Vizualizar" style="cursor:pointer;"></span>
                 <br>
                 <span class="icon-checkmark" title="Cambiar estatus" style="cursor:pointer;"></span>
                 <br>
-                <span class="icon-pencil" title="Editar" style="cursor:pointer;"></span>
+                <span onclick="editQuote({{ $sale->id }});" class="icon-pencil" title="Editar" style="cursor:pointer;"></span>
                 <br>
                 <span class="icon-bubble" title="Seguimientos" style="cursor:pointer;"></span>
                 @if(Auth::user()->rol_user_id == 1)
@@ -99,4 +99,5 @@
     }
 </script>
 @endif
+@include('quotes.edit_quote_modal')
 @endsection

@@ -54,6 +54,9 @@ Route::get('rejects/{id}','SaleController@rejects')->name('rejects')->middleware
 Route::get('index_quotes','SaleController@indexQuotes')->name('index_quotes')->middleware('auth');
 Route::get('index_proyects','SaleController@indexProyects')->name('index_proyects')->middleware('auth');
 
+Route::get('show_quote_ajax','SaleController@showAjax')->name('show_quote_ajax')->middleware('auth');
+Route::put('update_quote','SaleController@updateQuote')->name('update_quote')->middleware('auth');
+
 #Task
 Route::get('task_index','TaskController@index')->name('task_index')->middleware('auth');
 Route::get('task_archived_index','TaskController@archivedIndex')->name('task_archived_index')->middleware('auth');

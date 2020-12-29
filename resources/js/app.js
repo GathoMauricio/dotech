@@ -330,3 +330,24 @@ window.showCompanyModal = id => {
         error: () => console.log
     }); 
 };
+window.editQuote = sale_id =>{
+    let route = $("#txt_show_quote_modal_ajax").val();
+    $.ajax({
+        'type': 'GET',
+        'url': route,
+        data:{ id: sale_id},
+        success: data => {
+            $("#edit_quote_modal_sale_id").val(sale_id);
+            $("#edit_quote_modal_company").text(data.company);
+            $("#edit_quote_modal_description").val(data.description);
+            $("#edit_quote_modal_observation").val(data.observation);
+            $("#edit_quote_modal_delivery_days").val(data.delivery_days);
+            $("#edit_quote_modal_shipping").val(data.shipping);
+            $("#edit_quote_modal_payment_type").val(data.payment_type);
+            $("#edit_quote_modal_credit").val(data.credit);
+            $("#edit_quote_modal_currency").val(data.currency);
+        },
+        error: () => console.log
+    });
+    $("#edit_quote_modal").modal();
+}

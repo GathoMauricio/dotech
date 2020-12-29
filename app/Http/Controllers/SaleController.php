@@ -79,6 +79,20 @@ class SaleController extends Controller
             'documents' => $documnets
             ]);
     }
+    public function showAjax(Request $request)
+    {
+        $sale = Sale::findOrFail($request->id);
+        return [
+            'company' => $sale->company['name'],
+            'description' => $sale->description,
+            'observation' => $sale->observation,
+            'delivery_days' => $sale->delivery_days,
+            'shipping' => $sale->shipping,
+            'payment_type' => $sale->payment_type,
+            'credit' => $sale->credit,
+            'currency' => $sale->currency
+        ];
+    }
     public function edit($id)
     {
         $sale = Sale::findOrFail($id);
@@ -95,6 +109,20 @@ class SaleController extends Controller
         $sale = Sale::findOrFail($id);
         $sale->update($request->all());
         return redirect('show_sale/' . $sale->id)->with('message', 'Información actualizada.');
+    }
+    public function updateQuote(Request $request)
+    {
+        $sale = Sale::findOrFail($request->sale_id);
+        $sale->description = $request->description;
+        $sale->observation = $request->observation;
+        $sale->delivery_days = $request->delivery_days;
+        $sale->shipping = $request->shipping;
+        $sale->payment_type = $request->payment_type;
+        $sale->credit = $request->credit;
+        $sale->currency = $request->currency;
+        $sale->save();
+        return redirect()->back()->with('message', 'Información actualizada.');
+        return dd($sale);
     }
     public function destroy($id)
     {
