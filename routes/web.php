@@ -54,6 +54,9 @@ Route::get('sale_follows/{id}','SaleFollowController@index')->name('sale_follows
 Route::post('store_sale_follow','SaleFollowController@store')->name('store_sale_follow')->middleware('auth');
 Route::get('delete_sale_follow/{id?}','SaleFollowController@destroy')->name('delete_sale_follow')->middleware('auth');
 
+#Sale Document 
+Route::post('store_sale_document','SaleDocumnetController@store')->name('store_sale_document')->middleware('auth');;
+
 #Products
 Route::post('store_product','ProductSaleController@store')->name('store_product')->middleware('auth');
 Route::get('show_product_ajax','ProductSaleController@showAjax')->name('show_product_ajax')->middleware('auth');

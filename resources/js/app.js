@@ -480,3 +480,7 @@ window.changeCommision = (commision_percent,sale_id) => {
         error: error => console.log(error)
     });
 };
+window.addSaleDocumentModal = sale_id => {
+    $("#txt_add_sale_document_modal_sale_id").val(sale_id);
+    $("#add_sale_document_modal").modal();
+};
