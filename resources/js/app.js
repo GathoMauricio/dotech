@@ -426,3 +426,7 @@ window.changeStatusModal = sale_id => {
     $("#txt_change_status_id").val(sale_id);
     $("#change_status_modal").modal();
 };
+window.addSaleFollowModal = sale_id => {
+    $("#txt_add_sale_follow_sale_id").val(sale_id);
+    $("#add_sale_follow_modal").modal();
+};

@@ -1,16 +1,4 @@
 <?php
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
 Route::get('/', function () {
     if(Auth::check())
     {
@@ -59,6 +47,10 @@ Route::get('show_quote_ajax','SaleController@showAjax')->name('show_quote_ajax')
 Route::put('update_quote','SaleController@updateQuote')->name('update_quote')->middleware('auth');
 Route::get('quote_products/{id}','SaleController@quoteProducts')->name('quote_products')->middleware('auth');
 
+#Sale Follows
+Route::get('sale_follows/{id}','SaleFollowController@index')->name('sale_follows')->middleware('auth');
+Route::post('store_sale_follow','SaleFollowController@store')->name('store_sale_follow')->middleware('auth');
+
 #Products
 Route::post('store_product','ProductSaleController@store')->name('store_product')->middleware('auth');
 Route::get('show_product_ajax','ProductSaleController@showAjax')->name('show_product_ajax')->middleware('auth');
@@ -93,27 +85,26 @@ Route::get('log_index','SysLogsController@index')->name('log_index')->middleware
 Route::get('helper',function(){
     
     $conexion = mysqli_connect("localhost", "root", "", "dotech");
+    mysqli_set_charset ($conexion, 'utf8');
     $conexion2 = mysqli_connect("localhost", "root", "", "dotech_laravel");
-    $sql = "SELECT * FROM documento_venta";
+    $sql = "SELECT * FROM comentario_venta";
     $datos = mysqli_query($conexion,$sql);
     while($fila=mysqli_fetch_array($datos))
     {
-        $sql2 = "INSERT INTO sale_documents (
+        $sql2 = "INSERT INTO sale_follows (
             id,
             sale_id,
-            description,
-            document,
-            inner_identifier,
+            author_id,
+            body,
             created_at,
             updated_at
         ) VALUES(
-            $fila[id_documento_venta],
+            $fila[id_comentario_venta],
             $fila[id_venta],
-            '$fila[descripcion_documento_venta]',
-            '$fila[ruta_documento_venta]',
-            '$fila[folio_interno_venta]',
-            '".date('Y-m-d H:i:s')."',
-            '".date('Y-m-d H:i:s')."'
+            $fila[id_empleado],
+            '$fila[texto_comentario_venta]',
+            '$fila[fecha_comentario_venta] $fila[hora_comentario_venta]',
+            '$fila[fecha_comentario_venta] $fila[hora_comentario_venta]'
         );";
         //mysqli_query($conexion2,$sql2);
         echo $sql2."<br/>";
