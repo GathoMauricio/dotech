@@ -62,7 +62,7 @@ Route::get('quote_products/{id}','SaleController@quoteProducts')->name('quote_pr
 Route::post('store_product','ProductSaleController@store')->name('store_product')->middleware('auth');
 Route::get('show_product_ajax','ProductSaleController@showAjax')->name('show_product_ajax')->middleware('auth');
 Route::put('update_product','ProductSaleController@update')->name('update_product')->middleware('auth');
-
+Route::get('delete_product/{id?}','ProductSaleController@destroy')->name('delete_product')->middleware('auth');
 #Task
 Route::get('task_index','TaskController@index')->name('task_index')->middleware('auth');
 Route::get('task_archived_index','TaskController@archivedIndex')->name('task_archived_index')->middleware('auth');

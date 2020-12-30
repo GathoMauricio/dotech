@@ -49,6 +49,8 @@ class ProductSaleController extends Controller
     }
     public function destroy($id)
     {
-        //
+        $product = ProductSale::findOrFail($id);
+        $product->delete();
+        return redirect()->back()->with('message', 'Producto eliminado');
     }
 }

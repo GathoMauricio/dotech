@@ -25,7 +25,9 @@
             <td>{{ $product->discount }}%</td>
             <td>${{ $product->total_sell }}</td>
             <td>
-                <span onclick="editProductModal({{ $product->id }})" class="icon-pencil"></span>
+                <span onclick="editProductModal({{ $product->id }})" class="icon-pencil" style="cursor:pointer;color:#F39C12;"></span>
+                <br>
+                <span onclick="deleteProductModal({{ $product->id }})" class="icon-bin" style="cursor:pointer;color:#E74C3C ;"></span>
             </td>
         </tr>
         @endforeach
@@ -38,6 +40,7 @@
     </tbody>
 </table>
 @endif
+<input type="hidden" id="txt_delete_product_route" value="{{ route('delete_product') }}">
 @include('quotes.add_product_modal')
 @include('quotes.edit_product_modal')
 @endsection
