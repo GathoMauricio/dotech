@@ -130,6 +130,7 @@
             <td>
                 <b>Comisión
                     <input type="hidden" id="txt_change_commision_route" value="{{ route('change_commision') }}">
+                    @if(Auth::user()->rol_user_id == 1)
                     <select onchange="changeCommision(this.value,{{ $sale->id }});" style="width:50%;">
                         @if($sale->commision_percent == '0')
                         <option value="0" selected>0%</option>
@@ -147,6 +148,7 @@
                         <option value="13" selected>13%</option>
                         @endif
                     </select>
+                    @endif
                 </b>
             </td>
             <td><b>Utilidad <label>-</label> Comisión</b></td>
@@ -178,12 +180,22 @@
             <td><b>Monto</b></td>
             <td><b>Comprobante</b></td>
         </tr>
-
+        @foreach($payments as $payment)
+        <tr>
+            <td>{{ formatDate($payment->created_at) }}</td>
+            <td>{{ $payment->description }}</td>
+            <td>{{ $payment->amount }}</td>
+            <td>{{ $payment->document }}</td>
+        </tr>
+        @endforeach
+        @if(count($payments)<=0)
+        <tr><td colspan="4" class="text-center">Sin registros</td></tr>
+        @endif
     </table>
 
     <table class="table" border="5">
         <tr>
-            <td colspan="2" style="background-color:#d30035;color:white;font-weight:bold;">
+            <td colspan="3" style="background-color:#d30035;color:white;font-weight:bold;">
                 <center>
                     <label>Archivos</label>
                     <label style="float:right;padding:5px;"><span
@@ -193,10 +205,20 @@
             </td>
         </tr>
         <tr>
+            <td><b>Fecha</b></td>
             <td><b>Descripción</b></td>
             <td><b>Archivo</b></td>
         </tr>
-
+        @foreach($documents as $document)
+        <tr>
+            <td>{{ formatDate($document->created_at) }}</td>
+            <td>{{ $document->description }}</td>
+            <td>{{ $document->document }}</td>
+        </tr>
+        @endforeach
+        @if(count($documents)<=0)
+        <tr><td colspan="3" class="text-center">Sin registros</td></tr>
+        @endif
     </table>
 
     <table class="table" border="5">
@@ -234,6 +256,9 @@
             <td>{{ $whitdrawal->document }}</td>
         </tr>
         @endforeach
+        @if(count($whitdrawals)<=0)
+        <tr><td colspan="9" class="text-center">Sin registros</td></tr>
+        @endif
     </table>
 </center>
 
