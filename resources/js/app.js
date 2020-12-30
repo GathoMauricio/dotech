@@ -419,7 +419,10 @@ window.deleteProductModal = product_id => {
         if (result.isConfirmed) {
             let route = $("#txt_delete_product_route").val();
             window.location = route+'/'+product_id;
-            //Swal.fire("Deleted!", "Your file has been deleted.", "success");
         }
     });
+};
+window.changeStatusModal = sale_id => {
+    $("#txt_change_status_id").val(sale_id);
+    $("#change_status_modal").modal();
 };

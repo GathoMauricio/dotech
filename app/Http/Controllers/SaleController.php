@@ -122,7 +122,6 @@ class SaleController extends Controller
         $sale->currency = $request->currency;
         $sale->save();
         return redirect()->back()->with('message', 'Información actualizada.');
-        return dd($sale);
     }
     public function quoteProducts($id)
     {
@@ -141,5 +140,12 @@ class SaleController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function updateStatus(Request $request)
+    {
+        $sale = Sale::findOrFail($request->sale_id);
+        $sale->status = $request->status;
+        $sale->save();
+        return redirect()->back()->with('message', 'Información actualizada.');
     }
 }

@@ -7,12 +7,12 @@
 <table class="table table-bordered" id="index_table">
     <thead>
         <tr>
-            <th>Folio</th>
-            <th>Compañía</th>
-            <th>Descriptción</th>
-            <th>Precio</th>
-            <th>Fecha</th>
-            <th></th>
+            <th width="15%">Folio</th>
+            <th width="15%">Compañía</th>
+            <th width="25%">Descriptción</th>
+            <th width="15%">Precio</th>
+            <th width="15%">Fecha</th>
+            <th width="15%"></th>
         </tr>
     </thead>
     <tbody>
@@ -24,16 +24,16 @@
             <td>${{ $sale->estimated }}</td>
             <td>{{ formatDate($sale->created_at) }}</td>
             <td>
-                <a href="{{ route('quote_products',$sale->id) }}"><span class="icon-eye" title="Vizualizar" style="cursor:pointer;"></span></a>
+                <a href="{{ route('quote_products',$sale->id) }}"><span class="icon-eye" title="Productos" style="cursor:pointer;color:#3498DB"> Productos</span></a>
                 <br>
-                <span class="icon-checkmark" title="Cambiar estatus" style="cursor:pointer;"></span>
+                <a href="#" onclick="changeStatusModal({{ $sale->id }});"><span class="icon-checkmark" title="Cambiar estatus" style="cursor:pointer;color:#2ECC71"> Estatus</span></a>
                 <br>
-                <span onclick="editQuote({{ $sale->id }});" class="icon-pencil" title="Editar" style="cursor:pointer;"></span>
+                <a href="#" onclick="editQuote({{ $sale->id }});"><span class="icon-pencil" title="Editar" style="cursor:pointer;color:#F39C12"> Editar</span></a>
                 <br>
-                <span class="icon-bubble" title="Seguimientos" style="cursor:pointer;"></span>
+                <a href="#"><span class="icon-bubble" title="Seguimientos" style="cursor:pointer;color:#2980B9"> Seguimientos</span></a>
                 @if(Auth::user()->rol_user_id == 1)
                 <br>
-                <span class="icon-bin" title="Eliminar" style="cursor:pointer;"></span>
+                <a href="#"><span class="icon-bin" title="Eliminar" style="cursor:pointer;color:#C0392B"> Eliminar</span></a>
                 @endif
             </td>
         </tr>
@@ -99,5 +99,6 @@
     }
 </script>
 @endif
+@include('quotes.change_status_modal')
 @include('quotes.edit_quote_modal')
 @endsection
