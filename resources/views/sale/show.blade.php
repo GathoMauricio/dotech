@@ -6,15 +6,186 @@
     @else
     {{ $sale->status }}:
     @endif
-    <br>
-    {{ $sale->description }} 
+    {{ $sale->id }}
+    {{ $sale->description }}
 </h4>
+<h5 class="text-center">{{ $sale->company['name'] }}</h5>
+<!--
 <span class="float-right title_page">
     Autor: 
     {{ $sale->author['name'] }} 
     {{ $sale->author['middle_name'] }} 
     {{ $sale->author['last_name'] }}
 </span>
+-->
+<center>
+    <table style="width:60%" border="1">
+        <tr>
+            <td style="padding:5px;">
+                <b>Encargado</b>
+            </td>
+            <td style="padding:5px;">{{ $sale->department['manager'] }}</td>
+        </tr>
+        <tr>
+            <td style="padding:5px;">
+                <b>Departamento</b>
+            </td>
+            <td style="padding:5px;">{{ $sale->department['name'] }}</td>
+        </tr>
+        <tr>
+            <td style="padding:5px;">
+                <b>Télefono</b>
+            </td>
+            <td style="padding:5px;">{{ $sale->department['phone'] }}</td>
+        </tr>
+        <tr>
+            <td style="padding:5px;">
+                <b>Email</b>
+            </td>
+            <td style="padding:5px;">{{ $sale->department['email'] }}</td>
+        </tr>
+    </table>
+</center>
+<center>
+    <table style="width:60%;" border="1">
+        <tr>
+            <td colspan="3" style="padding:5px;">
+                <center>
+                    <label>
+                        {{ $sale->author['name'] }}
+                        {{ $sale->author['middle_name'] }}
+                        {{ $sale->author['last_name'] }}
+                    </label>
+                </center>
+            </td>
+        </tr>
+        <tr>
+            <td style="padding:5px;">
+                <center>
+                    <span onclick="mostrarCotizacion(0);" class="icon-file-pdf" style="cursor:pointer;"> Ver
+                        cotización</span>
+                </center>
+            </td>
+            <td style="padding:5px;">
+                <center>
+                    <span onclick="solicitarRetiro(0);" class="icon-credit-card" style="cursor:pointer;"> Solicitar
+                        retito</span>
+                </center>
+            </td>
+            <td style="padding:5px;">
+                <center>
+                    <span onclick="comentariosVenta(0);" class="icon-bubble2" style="cursor:pointer;">
+                        Seguimientos</span>
+                </center>
+            </td>
+        </tr>
+    </table>
+
+    <table style="width:60%;" border="5">
+        <tr>
+            <td colspan="4" style="background-color:#5DADE2;">
+                <label style="float:right;padding:5px;">
+                    <span onclick="editarProyecto(0);" class="icon-pencil"
+                        style="cursor:pointer;color:white;" title="Editar proyecto...">
+                    </span>
+                </label>
+                <center><label>Cotizado</label></center>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <b>Compra</b>
+                <span title="Cantidad que se pretende invertir en este proyecto..." class="icon-info"></span>
+            </td>
+            <td>
+                <b>Venta</b>
+                <span title="Cantidad en la que se le ofreció al cliente..." class="icon-info"></span>
+            </td>
+            <td colspan="2">
+                <b>Utilidad proyectada</b>
+                <span title="Utilidad esperada en este proyecto..." class="icon-info"></span>
+            </td>
+        </tr>
+        <tr>
+            <td>${{ $sale->estimated }}</td>
+            <td>${{ $sale->estimated + $sale->iva }}</td>
+            <td colspan="2">${{ $sale->utility }}</td>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4" style="background-color:#5DADE2;">
+                <center><label>Real</label></center>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <b>Total compras</b>
+                <span title="Cantidad que se ha invertido hasta el momento..." class="icon-info"></span>
+            </td>
+            <td>
+                <b>Utilidad bruta</b>
+                <span title="Utilidad bruta generada según el total de compras hasta el momento..."
+                    class="icon-info"></span>
+            </td>
+            <td>
+                <b>Comisión
+                    <select onchange="cambiarComision(this.value,0);" style="width:50%;">
+
+                    </select>
+                </b>
+            </td>
+            <td><b>Utilidad <label>-</label> Comisión</b></td>
+        </tr>
+        <tr>
+            <td>$0</td>
+            <td>$0</td>
+            <td>$0</td>
+            <td>$0</td>
+        </tr>
+        <tr>
+            <td colspan="4" style="word-wrap:break-word;"><b>Observaciones/Material:</b>{{ $sale->material }}</td>
+        </tr>
+    </table>
+
+    <table style="width:60%;table-layout: fixed;" border="5">
+        <tr>
+            <td colspan="4" style="background-color:#5DADE2;">
+                <center>
+                    <label>Pagos</label>
+                    <label style="float:right;padding:5px;"><span onclick="agregarPago(0);" class="icon-plus"
+                            style="cursor:pointer;color:white;" title="Agregar pago..."></span></label>
+                </center>
+            </td>
+        </tr>
+        <tr>
+            <td><b>Fecha</b></td>
+            <td><b>Descripción</b></td>
+            <td><b>Monto</b></td>
+            <td><b>Comprobante</b></td>
+        </tr>
+
+    </table>
+
+    <table style="width:60%;table-layout: fixed;" border="5">
+        <tr>
+            <td colspan="2" style="background-color:#5DADE2;">
+                <center>
+                    <label>Archivos</label>
+                    <label style="float:right;padding:5px;"><span
+                            onclick="agregarArchivoProyecto(0);" class="icon-plus"
+                            style="cursor:pointer;color:white;" title="Agregar archivo..."></span></label>
+                </center>
+            </td>
+        </tr>
+        <tr>
+            <td><b>Descripción</b></td>
+            <td><b>Archivo</b></td>
+        </tr>
+
+    </table>
+</center>
+
+<!--
 <table class="table table-dark">
     <thead>
         <tr>
@@ -275,4 +446,5 @@
         @endif
     </tbody>
 </table>
+-->
 @endsection
