@@ -56,6 +56,12 @@ Route::get('index_proyects','SaleController@indexProyects')->name('index_proyect
 
 Route::get('show_quote_ajax','SaleController@showAjax')->name('show_quote_ajax')->middleware('auth');
 Route::put('update_quote','SaleController@updateQuote')->name('update_quote')->middleware('auth');
+Route::get('quote_products/{id}','SaleController@quoteProducts')->name('quote_products')->middleware('auth');
+
+#Products
+Route::post('store_product','ProductSaleController@store')->name('store_product')->middleware('auth');
+Route::get('show_product_ajax','ProductSaleController@showAjax')->name('show_product_ajax')->middleware('auth');
+Route::put('update_product','ProductSaleController@update')->name('update_product')->middleware('auth');
 
 #Task
 Route::get('task_index','TaskController@index')->name('task_index')->middleware('auth');

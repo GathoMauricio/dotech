@@ -24,7 +24,7 @@
             <td>${{ $sale->estimated }}</td>
             <td>{{ formatDate($sale->created_at) }}</td>
             <td>
-                <span onclick="showQuote({{ $sale->id }});" class="icon-eye" title="Vizualizar" style="cursor:pointer;"></span>
+                <a href="{{ route('quote_products',$sale->id) }}"><span class="icon-eye" title="Vizualizar" style="cursor:pointer;"></span></a>
                 <br>
                 <span class="icon-checkmark" title="Cambiar estatus" style="cursor:pointer;"></span>
                 <br>

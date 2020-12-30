@@ -124,6 +124,20 @@ class SaleController extends Controller
         return redirect()->back()->with('message', 'Información actualizada.');
         return dd($sale);
     }
+    public function quoteProducts($id)
+    {
+        $sale = Sale::findOrFail($id);
+        $products = ProductSale::where('sale_id',$id)->get();
+        $total=0;
+        foreach($products as $product){ $total += $product->total_sell; }
+        $totalIva = $total + (($total * 16) / 100);
+        return view('quotes.products',[ 
+            'sale'=> $sale, 
+            'products' => $products,
+            'total' => $total,
+            'totalIva' => $totalIva
+            ]);
+    }
     public function destroy($id)
     {
         //

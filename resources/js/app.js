@@ -346,8 +346,31 @@ window.editQuote = sale_id =>{
             $("#edit_quote_modal_payment_type").val(data.payment_type);
             $("#edit_quote_modal_credit").val(data.credit);
             $("#edit_quote_modal_currency").val(data.currency);
+            $("#edit_quote_modal").modal();
         },
         error: () => console.log
     });
-    $("#edit_quote_modal").modal();
-}
+    
+};
+window.addProductModal = () => {
+    $("#add_product_modal").modal();
+};
+window.editProductModal = product_id => {
+    
+    let route = $("#txt_show_product_ajax").val();
+    $.ajax({
+        'type': 'GET',
+        'url': route,
+        data:{ id: product_id},
+        success: data => {
+            $("#txt_add_product_modal_id").val(data.id);
+            $("#txt_add_product_modal_sale_id").val(data.sale_id);
+            $("#txt_add_product_modal_description").val(data.description);
+            $("#txt_add_product_modal_quantity").val(data.quantity);
+            $("#txt_add_product_modal_discount").val(data.discount);
+            $("#txt_add_product_modal_unity_price_sell").val(data.unity_price_sell);
+            $("#edit_product_modal").modal();
+        },
+        error: () => console.log
+    });
+};

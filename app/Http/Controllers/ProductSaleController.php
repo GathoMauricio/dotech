@@ -1,82 +1,52 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
-
+use App\ProductSale;
 class ProductSaleController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         //
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         //
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        $product = ProductSale::create([
+            'sale_id' => $request->sale_id,
+            'description' => $request->description,
+            'quantity' => $request->quantity,
+            'discount' => $request->discount,
+            'unity_price_sell' => $request->unity_price_sell,
+            'total_sell' => ($request->quantity * $request->unity_price_sell)
+        ]);
+        return redirect()->back()->with('message', 'Producto agregado');
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         //
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    public function showAjax(Request $request){
+        $product = ProductSale::findOrFail($request->id);
+        return $product;
+    }
     public function edit($id)
     {
         //
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $product = ProductSale::findOrFail($request->id);
+        $product->description = $request->description;
+        $product->quantity = $request->quantity;
+        $product->discount = $request->discount;
+        $product->unity_price_sell = $request->unity_price_sell;
+        $product->total_sell = ($request->quantity * $request->unity_price_sell);
+        $product->save();
+        return redirect()->route('quote_products',$request->sale_id)->with('message', 'Producto actualizado');
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         //
