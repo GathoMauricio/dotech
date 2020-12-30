@@ -21,11 +21,17 @@
             <td>{{ $follow->author['name'] }} {{ $follow->author['middle_name'] }} {{ $follow->author['last_name'] }}</td>
             <td>{{ $follow->body }}</td>
             <td>{{ formatDate($follow->created_at) }}</td>
-            <td>Opc</td>
+            <td>
+                @if(Auth::user()->id == $follow->author['id'])
+                <br>
+                <a href="#" onclick="deleteSaleFollow({{ $follow->id }})"><span class="icon-bin" title="Eliminar" style="cursor:pointer;color:#C0392B"> Eliminar</span></a>
+                @endif
+            </td>
         </tr>
         @endforeach
     </tbody>
 </table>
 @endif
+<input type="hidden" id="txt_delete_sale_follow_route" value="{{ route('delete_sale_follow') }}">
 @include('sale.add_sale_follow_modal')
 @endsection

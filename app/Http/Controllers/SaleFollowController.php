@@ -36,6 +36,8 @@ class SaleFollowController extends Controller
     }
     public function destroy($id)
     {
-        //
+        $saleFollow = SaleFollow::findOrFail($id);
+        $saleFollow->delete();
+        return redirect()->back()->with('message', 'Seguimiento eliminado');
     }
 }

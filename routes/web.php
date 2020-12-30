@@ -50,6 +50,7 @@ Route::get('quote_products/{id}','SaleController@quoteProducts')->name('quote_pr
 #Sale Follows
 Route::get('sale_follows/{id}','SaleFollowController@index')->name('sale_follows')->middleware('auth');
 Route::post('store_sale_follow','SaleFollowController@store')->name('store_sale_follow')->middleware('auth');
+Route::get('delete_sale_follow/{id?}','SaleFollowController@destroy')->name('delete_sale_follow')->middleware('auth');
 
 #Products
 Route::post('store_product','ProductSaleController@store')->name('store_product')->middleware('auth');

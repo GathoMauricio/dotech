@@ -430,3 +430,20 @@ window.addSaleFollowModal = sale_id => {
     $("#txt_add_sale_follow_sale_id").val(sale_id);
     $("#add_sale_follow_modal").modal();
 };
+window.deleteSaleFollow = id => {
+    Swal.fire({
+        title: "Alto",
+        text: "El registro se eliminará de forma permanente",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Si, eliminar",
+        cancelButtonText: "Cancelar"
+    }).then(result => {
+        if (result.isConfirmed) {
+            let route = $("#txt_delete_sale_follow_route").val();
+            window.location = route+'/'+id;
+        }
+    });
+};
