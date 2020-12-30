@@ -20,6 +20,13 @@ if (!function_exists('formatDate')) {
         date_format(new \DateTime($date),'g:i A');
     }
 }
+if (!function_exists('onlyDate')) {
+    function onlyDate($date)
+    {
+        $d = explode(' ',$date);
+        return $d[0];
+    }
+}
 if (! function_exists('createSysLog')) {
     function createSysLog($body)
     {

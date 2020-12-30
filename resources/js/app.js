@@ -464,3 +464,19 @@ window.deleteSale = sale_id => {
         }
     });
 };
+
+window.changeCommision = (commision_percent,sale_id) => {
+    let route = $("#txt_change_commision_route").val();
+    $.ajax({
+        'type': 'GET',
+        'url': route,
+        'data': {
+            commision_percent:commision_percent,
+            sale_id:sale_id
+        },
+        success: data => { 
+            window.location.reload();
+        },
+        error: error => console.log(error)
+    });
+};

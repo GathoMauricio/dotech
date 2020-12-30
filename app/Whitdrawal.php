@@ -47,7 +47,7 @@ class Whitdrawal extends Model
         return $this->belongsTo
         (
             'App\WhitdrawalAccount',
-            'status_user_id',
+            'whitdrawal_account_id',
             'id'
         )
         ->withDefault();

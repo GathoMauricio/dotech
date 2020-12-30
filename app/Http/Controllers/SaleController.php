@@ -73,12 +73,31 @@ class SaleController extends Controller
         $whitdrawals = Whitdrawal::where('sale_id',$id)->get();
         $payments = SalePayment::where('sale_id',$id)->get();
         $documnets = SaleDocument::where('sale_id',$id)->get();
+
+        $totalSell = 0;
+        foreach($whitdrawals as $whitdrawal)
+        {
+            if($whitdrawal->status == 'Aprobado')
+            {
+                $totalSell += $whitdrawal->quantity;
+            }
+        }
+        $grossProfit = floatval($sale->estimated) - floatval($totalSell);
+        $grossNoIvaProfit = ($grossProfit - ($grossProfit * 0.16));
+        $commision = ($grossNoIvaProfit * $sale->commision_percent) / 100;
+        $grossNoIvaProfitNoCommision = $grossNoIvaProfit -$commision;
         return view('sale.show',[
             'sale' => $sale,
             'products' => $products,
             'whitdrawals' => $whitdrawals,
             'payments' => $payments,
-            'documents' => $documnets
+            'documents' => $documnets,
+
+            'totalSell' => $totalSell,
+            'grossProfit' => $grossProfit,
+            'grossNoIvaProfit' => $grossNoIvaProfit,
+            'commision' => $commision,
+            'grossNoIvaProfitNoCommision' => $grossNoIvaProfitNoCommision
             ]);
     }
     public function showAjax(Request $request)
@@ -155,5 +174,12 @@ class SaleController extends Controller
         $sale->status = $request->status;
         $sale->save();
         return redirect()->back()->with('message', 'Información actualizada.');
+    }
+    public function changeCommision(Request $request)
+    {
+        $sale = Sale::findOrFail($request->sale_id);
+        $sale->commision_percent = $request->commision_percent;
+        $sale->save();
+        return $sale;
     }
 }

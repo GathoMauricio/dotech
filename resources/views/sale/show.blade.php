@@ -19,7 +19,7 @@
 </span>
 -->
 <center>
-    <table style="width:60%" border="1">
+    <table class="table" border="1">
         <tr>
             <td style="padding:5px;">
                 <b>Encargado</b>
@@ -47,7 +47,7 @@
     </table>
 </center>
 <center>
-    <table style="width:60%;" border="1">
+    <table class="table" border="1">
         <tr>
             <td colspan="3" style="padding:5px;">
                 <center>
@@ -81,9 +81,9 @@
         </tr>
     </table>
 
-    <table style="width:60%;" border="5">
+    <table class="table" border="5">
         <tr>
-            <td colspan="4" style="background-color:#5DADE2;">
+            <td colspan="4" style="background-color:#d30035;color:white;font-weight:bold;">
                 <label style="float:right;padding:5px;">
                     <span onclick="editarProyecto(0);" class="icon-pencil"
                         style="cursor:pointer;color:white;" title="Editar proyecto...">
@@ -107,13 +107,13 @@
             </td>
         </tr>
         <tr>
-            <td>${{ $sale->estimated }}</td>
-            <td>${{ $sale->estimated + $sale->iva }}</td>
+            <td>${{ $sale->investment }}</td>
+            <td>${{ $sale->estimated}}</td>
             <td colspan="2">${{ $sale->utility }}</td>
             </td>
         </tr>
         <tr>
-            <td colspan="4" style="background-color:#5DADE2;">
+            <td colspan="4" style="background-color:#d30035;color:white;font-weight:bold;">
                 <center><label>Real</label></center>
             </td>
         </tr>
@@ -129,27 +129,42 @@
             </td>
             <td>
                 <b>Comisión
-                    <select onchange="cambiarComision(this.value,0);" style="width:50%;">
-
+                    <input type="hidden" id="txt_change_commision_route" value="{{ route('change_commision') }}">
+                    <select onchange="changeCommision(this.value,{{ $sale->id }});" style="width:50%;">
+                        @if($sale->commision_percent == '0')
+                        <option value="0" selected>0%</option>
+                        <option value="8">8%</option>
+                        <option value="13">13%</option>
+                        @endif
+                        @if($sale->commision_percent == '8')
+                        <option value="0">0%</option>
+                        <option value="8" selected>8%</option>
+                        <option value="13">13%</option>
+                        @endif
+                        @if($sale->commision_percent == '13')
+                        <option value="0">0%</option>
+                        <option value="8">8%</option>
+                        <option value="13" selected>13%</option>
+                        @endif
                     </select>
                 </b>
             </td>
             <td><b>Utilidad <label>-</label> Comisión</b></td>
         </tr>
         <tr>
-            <td>$0</td>
-            <td>$0</td>
-            <td>$0</td>
-            <td>$0</td>
+            <td>${{ $totalSell }}</td>
+            <td>${{ $grossProfit }} - IVA = {{ $grossNoIvaProfit }}</td>
+            <td>${{ $commision }}</td>
+            <td>${{ $grossNoIvaProfitNoCommision }}</td>
         </tr>
         <tr>
             <td colspan="4" style="word-wrap:break-word;"><b>Observaciones/Material:</b>{{ $sale->material }}</td>
         </tr>
     </table>
 
-    <table style="width:60%;table-layout: fixed;" border="5">
+    <table class="table" border="5">
         <tr>
-            <td colspan="4" style="background-color:#5DADE2;">
+            <td colspan="4" style="background-color:#d30035;color:white;font-weight:bold;">
                 <center>
                     <label>Pagos</label>
                     <label style="float:right;padding:5px;"><span onclick="agregarPago(0);" class="icon-plus"
@@ -166,9 +181,9 @@
 
     </table>
 
-    <table style="width:60%;table-layout: fixed;" border="5">
+    <table class="table" border="5">
         <tr>
-            <td colspan="2" style="background-color:#5DADE2;">
+            <td colspan="2" style="background-color:#d30035;color:white;font-weight:bold;">
                 <center>
                     <label>Archivos</label>
                     <label style="float:right;padding:5px;"><span
@@ -182,6 +197,43 @@
             <td><b>Archivo</b></td>
         </tr>
 
+    </table>
+
+    <table class="table" border="5">
+        <tr>
+            <td colspan="9" style="background-color:#d30035;color:white;font-weight:bold;">
+                <center>
+                    <label>Retiros</label>
+                    <label style="float:right;padding:5px;"><span
+                            onclick="agregarArchivoProyecto(0);" class="icon-plus"
+                            style="cursor:pointer;color:white;" title="Solicitar retiro..."></span></label>
+                </center>
+            </td>
+        </tr>
+        <tr>
+            <td><b>Fecha</b></td>
+            <td><b>Proveedor</b></td>
+            <td><b>Descripción</b></td>
+            <td><b>Cuenta</b></td>
+            <td><b>Departamento</b></td>
+            <td><b>Tipo de retiro</b></td>
+            <td><b>Cantidad</b></td>
+            <td><b>Estatus</b></td>
+            <td><b>Documento</b></td>
+        </tr>
+        @foreach($whitdrawals as $whitdrawal)
+        <tr>
+            <td>{{ onlyDate($whitdrawal->created_at) }}</td>
+            <td>{{ $whitdrawal->provider['name'] }}</td>
+            <td>{{ $whitdrawal->description }}</td>
+            <td>{{ $whitdrawal->account['name'] }}</td>
+            <td>{{ $whitdrawal->department['name'] }}</td>
+            <td>{{ $whitdrawal->type }}</td>
+            <td>{{ $whitdrawal->quantity }}</td>
+            <td>{{ $whitdrawal->status }}</td>
+            <td>{{ $whitdrawal->document }}</td>
+        </tr>
+        @endforeach
     </table>
 </center>
 
