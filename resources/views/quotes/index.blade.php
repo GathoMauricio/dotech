@@ -33,7 +33,7 @@
                 <a href="{{ route('sale_follows',$sale->id) }}"><span class="icon-bubble" title="Seguimientos" style="cursor:pointer;color:#2980B9"> Seguimientos</span></a>
                 @if(Auth::user()->rol_user_id == 1)
                 <br>
-                <a href="#"><span class="icon-bin" title="Eliminar" style="cursor:pointer;color:#C0392B"> Eliminar</span></a>
+                <a href="#" onclick="deleteSale({{ $sale->id }})"><span class="icon-bin" title="Eliminar" style="cursor:pointer;color:#C0392B"> Eliminar</span></a>
                 @endif
             </td>
         </tr>
@@ -99,6 +99,7 @@
     }
 </script>
 @endif
+<input type="text" id="txt_delete_sale_route" value="{{ route('delete_sale') }}">
 @include('quotes.change_status_modal')
 @include('quotes.edit_quote_modal')
 @endsection

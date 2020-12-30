@@ -34,7 +34,8 @@ Route::post('store_sale','SaleController@store')->name('store_sale')->middleware
 Route::get('edit_sale/{id}','SaleController@edit')->name('edit_sale')->middleware('auth');
 Route::put('update_sale/{id}','SaleController@update')->name('update_sale')->middleware('auth');
 Route::get('create_sale/{id?}','SaleController@createSale')->name('create_sale')->middleware('auth');
-Route::put('update_status_sale','SaleController@updateStatus')->name('update_status_sale')->middleware('auth');;
+Route::put('update_status_sale','SaleController@updateStatus')->name('update_status_sale')->middleware('auth');
+Route::get('delete_sale/{id?}','SaleController@destroy')->name('delete_sale')->middleware('auth');
 
 Route::get('quotes/{id}','SaleController@quotes')->name('quotes')->middleware('auth');
 Route::get('projects/{id}','SaleController@projects')->name('projects')->middleware('auth');

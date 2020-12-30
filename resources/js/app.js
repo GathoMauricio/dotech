@@ -447,3 +447,20 @@ window.deleteSaleFollow = id => {
         }
     });
 };
+window.deleteSale = sale_id => {
+    Swal.fire({
+        title: "Alto",
+        text: "El registro se eliminará de forma permanente",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Si, eliminar",
+        cancelButtonText: "Cancelar"
+    }).then(result => {
+        if (result.isConfirmed) {
+            let route = $("#txt_delete_sale_route").val();
+            window.location = route+'/'+sale_id;
+        }
+    });
+};

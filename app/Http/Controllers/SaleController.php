@@ -8,6 +8,8 @@ use App\ProductSale;
 use App\Whitdrawal;
 use App\SalePayment;
 use App\SaleDocument;
+use App\SaleFollow;
+
 use App\Http\Requests\SaleRequest;
 class SaleController extends Controller
 {
@@ -139,7 +141,13 @@ class SaleController extends Controller
     }
     public function destroy($id)
     {
-        //
+        Sale::findOrFail($id)->delete();
+        ProductSale::where('sale_id',$id)->delete();
+        Whitdrawal::where('sale_id',$id)->delete();
+        SalePayment::where('sale_id',$id)->delete();
+        SaleDocument::where('sale_id',$id)->delete();
+        SaleFollow::where('sale_id',$id)->delete();
+        return redirect()->back()->with('message', 'El registro se eliminó por completo.');
     }
     public function updateStatus(Request $request)
     {
