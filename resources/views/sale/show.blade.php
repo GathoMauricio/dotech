@@ -169,7 +169,7 @@
             <td colspan="4" style="background-color:#d30035;color:white;font-weight:bold;">
                 <center>
                     <label>Pagos</label>
-                    <label style="float:right;padding:5px;"><span onclick="agregarPago(0);" class="icon-plus"
+                    <label style="float:right;padding:5px;"><span onclick="addSalePaymentModal({{ $sale->id }});" class="icon-plus"
                             style="cursor:pointer;color:white;" title="Agregar pago..."></span></label>
                 </center>
             </td>
@@ -231,7 +231,7 @@
                 <center>
                     <label>Retiros</label>
                     <label style="float:right;padding:5px;"><span
-                            onclick="agregarArchivoProyecto(0);" class="icon-plus"
+                            onclick="addSaleWhitdrawal({{ $sale->id }});" class="icon-plus"
                             style="cursor:pointer;color:white;" title="Solicitar retiro..."></span></label>
                 </center>
             </td>
@@ -257,10 +257,14 @@
             <td>{{ $whitdrawal->type }}</td>
             <td>{{ $whitdrawal->quantity }}</td>
             <td>{{ $whitdrawal->status }}</td>
+            @if($whitdrawal->invoive == 'SI')
             @if(!empty($whitdrawal->document))
-            <td class="text-center"><a href="{{ env('APP_URL').'/storage/'.$whitdrawal->document }}" target="_BLANK"><span class="icon-eye"></span></a></td>
-            @else 
-            <td class="text-center"><a href="#"><span class="icon-upload"></span></a></td>
+                <td class="text-center"><a href="{{ env('APP_URL').'/storage/'.$whitdrawal->document }}" target="_BLANK"><span class="icon-eye"></span></a></td>
+                @else 
+                <td class="text-center"><a href="#" onclick="addWhitdralDocumentModal({{ $whitdrawal->id }});"><span class="icon-upload"></span></a></td>
+                @endif
+            @else
+            <td class="text-center">N/A</td>
             @endif
         </tr>
         @endforeach
@@ -269,5 +273,9 @@
         @endif
     </table>
 </center>
+@include('sale.add_whitdrawal_document_modal')
+@include('sale.add_sale_payment_modal')
 @include('sale.add_sale_document_modal')
+@include('sale.add_sale_whitdrawal_modal')
+
 @endsection

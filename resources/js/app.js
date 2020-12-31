@@ -484,3 +484,15 @@ window.addSaleDocumentModal = sale_id => {
     $("#txt_add_sale_document_modal_sale_id").val(sale_id);
     $("#add_sale_document_modal").modal();
 };
+window.addSalePaymentModal = sale_id => {
+    $("#txt_add_sale_payment_modal_sale_id").val(sale_id);
+    $("#add_sale_payment_modal").modal();
+};
+window.addSaleWhitdrawal = sale_id => {
+    $("#txt_add_sale_whitdrawal_modal_sale_id").val(sale_id);
+    $("#add_sale_whitdrawal_modal").modal();
+};
+window.addWhitdralDocumentModal = id => {
+    $("#txt_add_whitdrawal_document_modal_id").val(id);
+    $("#add_whitdrawal_document_modal").modal();
+};

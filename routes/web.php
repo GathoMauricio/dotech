@@ -11,7 +11,7 @@ Route::get('/', function () {
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
-#WhitdrawRequest
+#Sale Whitdraw temporaly
 Route::get('withdraw_request_index','WithdrawRequestController@index')->name('withdraw_request_index')->middleware('auth');
 
 #Company
@@ -55,13 +55,21 @@ Route::post('store_sale_follow','SaleFollowController@store')->name('store_sale_
 Route::get('delete_sale_follow/{id?}','SaleFollowController@destroy')->name('delete_sale_follow')->middleware('auth');
 
 #Sale Document 
-Route::post('store_sale_document','SaleDocumnetController@store')->name('store_sale_document')->middleware('auth');;
+Route::post('store_sale_document','SaleDocumnetController@store')->name('store_sale_document')->middleware('auth');
+
+#Sale Payment
+Route::post('store_sale_payment','SalePaymentController@store')->name('store_sale_payment')->middleware('auth');
 
 #Products
 Route::post('store_product','ProductSaleController@store')->name('store_product')->middleware('auth');
 Route::get('show_product_ajax','ProductSaleController@showAjax')->name('show_product_ajax')->middleware('auth');
 Route::put('update_product','ProductSaleController@update')->name('update_product')->middleware('auth');
 Route::get('delete_product/{id?}','ProductSaleController@destroy')->name('delete_product')->middleware('auth');
+
+#Whitdrawal
+Route::post('store_sale_whitdrawal','WhitdrawalController@store')->name('store_sale_whitdrawal')->middleware('auth');
+Route::post('store_whitdrawal_document','WhitdrawalController@uploadDocument')->name('store_whitdrawal_document')->middleware('auth');
+
 #Task
 Route::get('task_index','TaskController@index')->name('task_index')->middleware('auth');
 Route::get('task_archived_index','TaskController@archivedIndex')->name('task_archived_index')->middleware('auth');

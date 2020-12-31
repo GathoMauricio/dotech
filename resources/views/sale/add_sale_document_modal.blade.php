@@ -13,7 +13,7 @@
             </div>
             <form action="{{ route('store_sale_document') }}" method="POST" accept-charset="UTF-8" enctype="multipart/form-data">
                 @csrf
-                <input type="text" name="sale_id" id="txt_add_sale_document_modal_sale_id">
+                <input type="hidden" name="sale_id" id="txt_add_sale_document_modal_sale_id">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
