@@ -62,20 +62,29 @@
         <tr>
             <td style="padding:5px;">
                 <center>
-                    <span onclick="mostrarCotizacion(0);" class="icon-file-pdf" style="cursor:pointer;"> Ver
-                        cotización</span>
+                    <a href="#">
+                        <span onclick="mostrarCotizacion(0);" class="icon-file-pdf" style="cursor:pointer;"> Ver
+                            cotización
+                        </span>
+                    </a>
                 </center>
             </td>
             <td style="padding:5px;">
                 <center>
-                    <span onclick="solicitarRetiro(0);" class="icon-credit-card" style="cursor:pointer;"> Solicitar
-                        retito</span>
+                    <a href="#">
+                        <span onclick="addSaleWhitdrawal({{ $sale->id }});" class="icon-credit-card" style="cursor:pointer;"> Solicitar
+                            retito
+                        </span>
+                    </a>
                 </center>
             </td>
             <td style="padding:5px;">
                 <center>
-                    <span onclick="comentariosVenta(0);" class="icon-bubble2" style="cursor:pointer;">
-                        Seguimientos</span>
+                    <a href="{{ route('sale_follows',$sale->id) }}" target="_BLANK">
+                        <span class="icon-bubble2" style="cursor:pointer;">
+                            Seguimientos
+                        </span>
+                    </a>
                 </center>
             </td>
         </tr>
