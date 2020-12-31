@@ -54,7 +54,7 @@ Route::get('change_commision','SaleController@changeCommision')->name('change_co
 Route::post('store_sale_by_company','SaleController@storeSaleByCompany')->name('store_sale_by_company')->middleware('auth');
 Route::post('store_quote','SaleController@storeQuote')->name('store_quote')->middleware('auth');;
 #Email
-Route::get('send_sale/{id}','SaleController@sendSale')->name('send_sale')->middleware('auth');
+Route::get('send_sale','SaleController@sendSale')->name('send_sale')->middleware('auth');
 
 #PDF Sale
 Route::get('load_sale_pdf/{id}','SaleController@loadPDF')->name('load_sale_pdf')->middleware('auth');

@@ -5,7 +5,7 @@
 &nbsp;&nbsp;
 <a href="{{ route('load_sale_pdf',$sale->id) }}" target="_BLANK"><span class="icon-file-pdf"></span> Ver cotizacion</a>
 &nbsp;&nbsp;
-<a href="{{ route('send_sale',$sale->id) }}" ><span class="icon-envelop"></span> Enviar cotización</a>
+<a href="#" onclick="sendQuoteModal({{ $sale->id }},'{{ $sale->department['email'] }}')" ><span class="icon-envelop"></span> Enviar cotización</a>
 @if(count($products) <= 0)
 @include('layouts.no_records')
 @else
@@ -45,6 +45,7 @@
 </table>
 @endif
 <input type="hidden" id="txt_delete_product_route" value="{{ route('delete_product') }}">
+@include('quotes.send_quote_modal')
 @include('quotes.add_product_modal')
 @include('quotes.edit_product_modal')
 @endsection

@@ -518,3 +518,9 @@ window.aproveWithdrawalModal = whitdrawal_account_id => {
     $("#txt_aprove_withdrawal_modal_id").val(whitdrawal_account_id);
     $("#aprove_withdrawal_modal").modal();
 };
+window.sendQuoteModal = (sale_id,email) => {
+    alert(email);
+    $("#txt_send_quote_modal_email").text(email);
+    $("#txt_send_quote_modal_sale_id").val(sale_id);
+    $("#send_quote_modal").modal();
+}

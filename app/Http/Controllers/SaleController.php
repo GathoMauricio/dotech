@@ -207,9 +207,9 @@ class SaleController extends Controller
         );
         return $pdf->stream('Cotizacion.pdf');
     }
-    public function sendSale($id)
+    public function sendSale(Request $request)
     {
-        
+        $id = $request->sale_id;
         $sale = Sale::findOrFail($id);
         $saleProducts =ProductSale::where('sale_id', $id)->get();
         $subtotal = 0;
@@ -230,9 +230,14 @@ class SaleController extends Controller
                 'total' => $total
             ]
         );
-        \Mail::send('email.sale', ['sale' => $sale], function ($mail) use ($pdf,$sale) {
+        $emails=[$sale->department['email']];
+        if(!empty($request->extra_email))
+        {
+            $emails=[$sale->department['email'] ,$request->extra_email];
+        }
+        \Mail::send('email.sale', ['sale' => $sale], function ($mail) use ($pdf,$sale,$emails) {
             $mail->from($sale->author['email'],env('APP_NAME'));
-            $mail->to([$sale->department['email'],'mauricio2769@gmail.com']);
+            $mail->to($emails);
             $mail->attachData($pdf->output(), 'Cotizacion_'.$sale->id.'.pdf');
         });
         return redirect()->back()->with('message', 'La cotización se envió con éxito.');
