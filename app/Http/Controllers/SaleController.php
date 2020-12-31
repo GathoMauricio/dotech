@@ -73,7 +73,8 @@ class SaleController extends Controller
         $whitdrawals = Whitdrawal::where('sale_id',$id)->get();
         $payments = SalePayment::where('sale_id',$id)->get();
         $documnets = SaleDocument::where('sale_id',$id)->get();
-
+        $sale->utility = $sale->estimated - $sale->investment;
+        $sale->save();
         $totalSell = 0;
         foreach($whitdrawals as $whitdrawal)
         {
@@ -84,7 +85,7 @@ class SaleController extends Controller
         }
         $grossProfit = floatval($sale->estimated) - floatval($totalSell);
         $grossNoIvaProfit = ($grossProfit - ($grossProfit * 0.16));
-        $commision = ($grossNoIvaProfit * $sale->commision_percent) / 100;
+        $commision = ($sale->utility * $sale->commision_percent) / 100;
         $grossNoIvaProfitNoCommision = $grossNoIvaProfit -$commision;
         return view('sale.show',[
             'sale' => $sale,
@@ -205,5 +206,51 @@ class SaleController extends Controller
             ]
         );
         return $pdf->stream('Cotizacion.pdf');
+    }
+    public function sendSale($id)
+    {
+        
+        $sale = Sale::findOrFail($id);
+        $saleProducts =ProductSale::where('sale_id', $id)->get();
+        $subtotal = 0;
+        foreach($saleProducts as $saleProduct)
+        {
+            $subtotal += ($saleProduct->unity_price_sell * $saleProduct->quantity);
+        }
+        $iva = ($subtotal * 16) / 100;
+        $total = $subtotal + $iva;
+        $logo = parseBase64(public_path("img/dotech_fondo.png"));
+        $pdf = \PDF::loadView('pdf.sale',
+            [
+                'logo' => $logo,
+                'sale' => $sale,
+                'saleProducts' => $saleProducts,
+                'subtotal' => $subtotal,
+                'iva' => $iva,
+                'total' => $total
+            ]
+        );
+        \Mail::send('email.sale', ['sale' => $sale], function ($mail) use ($pdf,$sale) {
+            $mail->from($sale->author['email'],env('APP_NAME'));
+            $mail->to([$sale->department['email'],'mauricio2769@gmail.com']);
+            $mail->attachData($pdf->output(), 'Cotizacion_'.$sale->id.'.pdf');
+        });
+        return redirect()->back()->with('message', 'La cotización se envió con éxito.');
+    }
+    public function storeSaleByCompany(Request $request)
+    {
+        $sale = Sale::create($request->all());
+        if($sale)
+        {
+            return redirect()->route('quote_products',$sale->id)->with('message', 'La cotización se creó con éxito ahora puede agregar productos.');
+        }else{ return "Error"; }
+    }
+    public function storeQuote(Request $request)
+    {
+        $sale = Sale::create($request->all());
+        if($sale)
+        {
+            return redirect()->route('quote_products',$sale->id)->with('message', 'La cotización se creó con éxito ahora puede agregar productos.');
+        }else{ return "Error"; }
     }
 }

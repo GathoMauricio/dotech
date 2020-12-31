@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Whitdrawal;
+use App\WhitdrawalAccount;
 class WhitdrawalController extends Controller
 {
     public function index()
@@ -30,6 +31,19 @@ class WhitdrawalController extends Controller
         $whitdrawal->document = $name;
         $whitdrawal->save();
         return redirect()->back()->with('message', 'El documento se almacenó con éxito con el nombre: '.$whitdrawal->document);
+    }
+    public function aprove(Request $request)
+    {
+        $whitdrawal = Whitdrawal::findOrFail($request->id);
+        $whitdrawal->status= 'Aprobado';
+        $whitdrawal->whitdrawal_account_id = $request->whitdrawal_account_id;
+        $whitdrawal->whitdrawal_department_id = $request->whitdrawal_department_id;
+        $whitdrawal->type = $request->type;
+        $whitdrawal->save();
+        $account = WhitdrawalAccount::findOrFail($request->whitdrawal_account_id);
+        $account->balance = floatval($account->balance) - floatval($whitdrawal->quantity);
+        $account->save();
+        return redirect()->back()->with('message', 'La solicitud se ha aprovado y la cantidad se ha descontado de la cuenta seleccionada.');
     }
     public function show($id)
     {

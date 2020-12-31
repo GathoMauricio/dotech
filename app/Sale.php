@@ -31,6 +31,20 @@ class Sale extends Model
         'created_at',
         'updated_at',
     ];
+    protected static function boot()
+	{
+		parent::boot();
+
+		static::creating(function ($query) {
+            $query->author_id = \Auth::user()->id;
+            $query->investment = 0;
+            $query->estimated = 0;
+            $query->iva = 0;
+            $query->utility = 0;
+            $query->commision_percent = 0;
+            $query->commision_pay = 0;
+		});
+	}
     public function company()
     {
         return $this->belongsTo

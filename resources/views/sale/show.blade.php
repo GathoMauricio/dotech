@@ -122,20 +122,7 @@
             </td>
         </tr>
         <tr>
-            <td colspan="4" style="background-color:#d30035;color:white;font-weight:bold;">
-                <center><label>Real</label></center>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <b>Total compras</b>
-                <span title="Cantidad que se ha invertido hasta el momento..." class="icon-info"></span>
-            </td>
-            <td>
-                <b>Utilidad bruta</b>
-                <span title="Utilidad bruta generada según el total de compras hasta el momento..."
-                    class="icon-info"></span>
-            </td>
+            
             <td>
                 <b>Comisión
                     <input type="hidden" id="txt_change_commision_route" value="{{ route('change_commision') }}">
@@ -160,17 +147,81 @@
                     @endif
                 </b>
             </td>
+            <td>
+                <b>Venta + IVA</b>
+                <span title="Utilidad bruta generada según el total de compras hasta el momento..."
+                    class="icon-info"></span>
+            </td>
             <td><b>Utilidad <label>-</label> Comisión</b></td>
         </tr>
         <tr>
-            <td>${{ $totalSell }}</td>
-            <td>${{ $grossProfit }} - IVA = {{ $grossNoIvaProfit }}</td>
             <td>${{ $commision }}</td>
-            <td>${{ $grossNoIvaProfitNoCommision }}</td>
+            <td>${{ $sale->estimated}} + ${{ $sale->iva}} = ${{ $sale->estimated + $sale->iva }}</td>
+            <td>${{$sale->utility}} - ${{ $commision }} = ${{ $sale->utility - $commision }}</td>
         </tr>
         <tr>
-            <td colspan="4" style="word-wrap:break-word;"><b>Observaciones/Material:</b>{{ $sale->material }}</td>
+            <td colspan="4" style="word-wrap:break-word;"><b>Observaciones/Material:</b> {{ $sale->observation }}</td>
         </tr>
+    </table>
+
+    <table class="table" border="5">
+        <thead>
+            <tr>
+                <td colspan="5" style="background-color:#d30035;color:white;font-weight:bold;">
+                <!--
+                    <label style="float:right;padding:5px;">
+                        <span class="icon-plus"
+                            style="cursor:pointer;color:white;" title="Agregar producto...">
+                        </span>
+                    </label>
+                -->
+                    <center><label>Productos</label></center>
+                </td>
+            </tr>
+            <tr>
+                <th>Cant</th>
+                <th>Producto</th>
+                <th>P/U</th>
+                <th>Descuento</th>
+                <th>Venta</th>
+                <!--<th></th>-->
+            </tr>
+        </thead>
+        <tbody>
+            @php
+            $totalProduct = 0;
+            $totalProductIva = 0;
+            @endphp
+            @foreach($products as $product)
+            @php
+            $totalProduct += $product->total_sell;
+            $totalProductIva = ($totalProduct * 16) / 100;
+            @endphp
+            <tr>
+                <td>{{ $product->quantity }}</td>
+                <td>{{ $product->description }}</td>
+                <td>${{ $product->unity_price_sell }}</td>
+                <td>{{ $product->discount }}%</td>
+                <td>${{ $product->total_sell }}</td>
+                <!--
+                <td>
+                    <span onclick="editProductModal({{ $product->id }})" class="icon-pencil" style="cursor:pointer;color:#F39C12;"></span>
+                    <br>
+                    <span onclick="deleteProductModal({{ $product->id }})" class="icon-bin" style="cursor:pointer;color:#E74C3C ;"></span>
+                </td>
+                -->
+            </tr>
+            @endforeach
+            <tr>
+                <td colspan="6" class="text-right">Subtotal: ${{ $totalProduct }}</td>
+            </tr>
+            <tr>
+                <td colspan="6" class="text-right">IVA: ${{ $totalProductIva }}</td>
+            </tr>
+            <tr>
+                <td colspan="6" class="text-right">Total: ${{ $totalProduct+$totalProductIva }}</td>
+            </tr>
+        </tbody>
     </table>
 
     <table class="table" border="5">
@@ -261,11 +312,29 @@
             <td>{{ onlyDate($whitdrawal->created_at) }}</td>
             <td>{{ $whitdrawal->provider['name'] }}</td>
             <td>{{ $whitdrawal->description }}</td>
+            @if(!empty( $whitdrawal->account['name']))
             <td>{{ $whitdrawal->account['name'] }}</td>
+            @else
+            <td class="text-center"><img src="{{ asset('img/loading.gif') }}" width="60"></td>
+            @endif
+            @if(!empty( $whitdrawal->department['name']))
             <td>{{ $whitdrawal->department['name'] }}</td>
+            @else
+            <td class="text-center"><img src="{{ asset('img/loading.gif') }}" width="60"></td>
+            @endif
+            @if(!empty( $whitdrawal->type))
             <td>{{ $whitdrawal->type }}</td>
-            <td>{{ $whitdrawal->quantity }}</td>
-            <td>{{ $whitdrawal->status }}</td>
+            @else
+            <td class="text-center"><img src="{{ asset('img/loading.gif') }}" width="60"></td>
+            @endif
+            <td>${{ $whitdrawal->quantity }}</td>
+            <td>
+                {{ $whitdrawal->status }}
+                @if(Auth::user()->rol_user_id == 1 && $whitdrawal->status == 'Pendiente')
+                <br/>
+                <a href="#" onclick="aproveWithdrawalModal({{ $whitdrawal->id }});"><span class="icon-checkmark"></span> Aprobar</a>
+                @endif
+            </td>
             @if($whitdrawal->invoive == 'SI')
             @if(!empty($whitdrawal->document))
                 <td class="text-center"><a href="{{ env('APP_URL').'/storage/'.$whitdrawal->document }}" target="_BLANK"><span class="icon-eye"></span></a></td>
@@ -282,6 +351,7 @@
         @endif
     </table>
 </center>
+@include('withdrawal.aprove_withdrawal_modal')
 @include('sale.add_whitdrawal_document_modal')
 @include('sale.add_sale_payment_modal')
 @include('sale.add_sale_document_modal')

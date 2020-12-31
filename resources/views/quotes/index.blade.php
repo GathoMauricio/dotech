@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @section('content')
 <h4 class="title_page ">Cotizaciones</h4>
+<a href="#" onclick="addQuoteModal();"><span class="icon-plus"></span> Agregar cotización</a>
 @if(count($sales) <= 0)
 @include('layouts.no_records')
 @else
@@ -99,7 +100,8 @@
     }
 </script>
 @endif
-<input type="text" id="txt_delete_sale_route" value="{{ route('delete_sale') }}">
+<input type="hidden" id="txt_delete_sale_route" value="{{ route('delete_sale') }}">
+@include('quotes.add_quote_modal')
 @include('quotes.change_status_modal')
 @include('quotes.edit_quote_modal')
 @endsection

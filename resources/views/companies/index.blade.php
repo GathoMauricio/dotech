@@ -5,19 +5,15 @@
 @if(count($companies) <= 0)
 @include('layouts.no_records')
 @else
-<!--
-<div id="company_table_renderrender"></div>
--->
 <input type="hidden" id="txt_index_company_route" value="{{ route('company_index_ajax') }}">
 <table id="company_table_sort" class="table table-bordered">
     <thead>
         <tr>
-            <th >Nombre</th>
-            <th >Enacargado</th>
-            <th >Email</th>
-            <th >Teléfono</th>
-            <!--<th >Dirección</th>-->
-            <th >Opciones</th>
+            <th width="20%">Nombre</th>
+            <th width="20%">Enacargado</th>
+            <th width="20%">Email</th>
+            <th width="20%">Teléfono</th>
+            <th width="20%">Opciones</th>
         </tr>
     </thead>
     <tbody>
@@ -25,5 +21,6 @@
     </tbody>
 </table>
 @include('companies.follow_modal')
+@include('quotes.add_quote_by_company_modal')
 @endif
 @endsection

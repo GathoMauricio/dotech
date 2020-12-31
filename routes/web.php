@@ -20,6 +20,7 @@ Route::get('company_index_ajax','CompanyController@indexAjax')->name('company_in
 Route::get('cbo_all_companies','CompanyController@getCboItems')->name('cbo_all_companies')->middleware('auth');
 Route::get('company_show_ajax','CompanyController@showAjax')->name('company_show_ajax')->middleware('auth');
 Route::get('company_edit','CompanyController@edit')->name('company_edit')->middleware('auth');
+Route::get('company_department_show_ajax','CompanyController@showCompanyDepartmentAjax')->name('company_department_show_ajax')->middleware('auth');;
 
 #CompanyFollow
 Route::get('index_company_follow','CompanyFollowController@index')->name('index_company_follow')->middleware('auth');
@@ -49,6 +50,12 @@ Route::put('update_quote','SaleController@updateQuote')->name('update_quote')->m
 Route::get('quote_products/{id}','SaleController@quoteProducts')->name('quote_products')->middleware('auth');
 Route::get('change_commision','SaleController@changeCommision')->name('change_commision')->middleware('auth');
 
+#Quotes
+Route::post('store_sale_by_company','SaleController@storeSaleByCompany')->name('store_sale_by_company')->middleware('auth');
+Route::post('store_quote','SaleController@storeQuote')->name('store_quote')->middleware('auth');;
+#Email
+Route::get('send_sale/{id}','SaleController@sendSale')->name('send_sale')->middleware('auth');
+
 #PDF Sale
 Route::get('load_sale_pdf/{id}','SaleController@loadPDF')->name('load_sale_pdf')->middleware('auth');
 
@@ -72,6 +79,7 @@ Route::get('delete_product/{id?}','ProductSaleController@destroy')->name('delete
 #Whitdrawal
 Route::post('store_sale_whitdrawal','WhitdrawalController@store')->name('store_sale_whitdrawal')->middleware('auth');
 Route::post('store_whitdrawal_document','WhitdrawalController@uploadDocument')->name('store_whitdrawal_document')->middleware('auth');
+Route::post('apreove_withdrawal','WhitdrawalController@aprove')->name('apreove_withdrawal')->middleware('auth');;
 
 #Task
 Route::get('task_index','TaskController@index')->name('task_index')->middleware('auth');

@@ -496,3 +496,25 @@ window.addWhitdralDocumentModal = id => {
     $("#txt_add_whitdrawal_document_modal_id").val(id);
     $("#add_whitdrawal_document_modal").modal();
 };
+window.addQuoteByCompanyModal = company_id => {
+    let route = $("#txt_show_company_department_ajax_route").val();
+    $("#add_quote_by_company_modal_company_id").val(company_id);
+    $.ajax({
+        'type': 'GET',
+        url: route,
+        data:{ id: company_id},
+        success: data => {
+            $("#cbo_add_quote_by_company_department").html(data.department_items);
+            $("#add_quote_by_company_modal_company").text(data.company.name);
+            $("#add_quote_by_company_modal").modal();
+        },
+        error: error => console.log(error)
+    });
+};
+window.addQuoteModal = () => {
+    $("#add_quote_modal").modal();
+};
+window.aproveWithdrawalModal = whitdrawal_account_id => {
+    $("#txt_aprove_withdrawal_modal_id").val(whitdrawal_account_id);
+    $("#aprove_withdrawal_modal").modal();
+};

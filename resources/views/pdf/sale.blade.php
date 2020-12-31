@@ -48,7 +48,7 @@
                 <small>Bahía de las Palmas #33, Verónica Anzúres,</small>
                 <small>11300 Ciudad de México, D.F.</small>
                 <small>Tel: 55460615</small>
-                <small>Email: roberto.lopez@dotredes.com
+                <small>Email: {{ $sale->author['email'] }}
             </td>
         </tr>
     </table>

@@ -1,7 +1,11 @@
 @extends('layouts.app')
 @section('content')
 <h4 class="title_page ">Productos de {{ $sale->description }} para {{ $sale->company['name'] }}</h4>
-<a href="#" onclick="addProductModal();">Agregar producto</a>
+<a href="#" onclick="addProductModal();"><span class="icon-plus"></span> Agregar producto</a>
+&nbsp;&nbsp;
+<a href="{{ route('load_sale_pdf',$sale->id) }}" target="_BLANK"><span class="icon-file-pdf"></span> Ver cotizacion</a>
+&nbsp;&nbsp;
+<a href="{{ route('send_sale',$sale->id) }}" ><span class="icon-envelop"></span> Enviar cotización</a>
 @if(count($products) <= 0)
 @include('layouts.no_records')
 @else
