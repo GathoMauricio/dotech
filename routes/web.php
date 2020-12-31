@@ -47,7 +47,10 @@ Route::get('index_proyects','SaleController@indexProyects')->name('index_proyect
 Route::get('show_quote_ajax','SaleController@showAjax')->name('show_quote_ajax')->middleware('auth');
 Route::put('update_quote','SaleController@updateQuote')->name('update_quote')->middleware('auth');
 Route::get('quote_products/{id}','SaleController@quoteProducts')->name('quote_products')->middleware('auth');
-Route::get('change_commision','SaleController@changeCommision')->name('change_commision')->middleware('auth');;
+Route::get('change_commision','SaleController@changeCommision')->name('change_commision')->middleware('auth');
+
+#PDF Sale
+Route::get('load_sale_pdf/{id}','SaleController@loadPDF')->name('load_sale_pdf')->middleware('auth');
 
 #Sale Follows
 Route::get('sale_follows/{id}','SaleFollowController@index')->name('sale_follows')->middleware('auth');

@@ -182,4 +182,28 @@ class SaleController extends Controller
         $sale->save();
         return $sale;
     }
+    public function loadPDF($id)
+    {
+        $sale = Sale::findOrFail($id);
+        $saleProducts =ProductSale::where('sale_id', $id)->get();
+        $subtotal = 0;
+        foreach($saleProducts as $saleProduct)
+        {
+            $subtotal += ($saleProduct->unity_price_sell * $saleProduct->quantity);
+        }
+        $iva = ($subtotal * 16) / 100;
+        $total = $subtotal + $iva;
+        $logo = parseBase64(public_path("img/dotech_fondo.png"));
+        $pdf = \PDF::loadView('pdf.sale',
+            [
+                'logo' => $logo,
+                'sale' => $sale,
+                'saleProducts' => $saleProducts,
+                'subtotal' => $subtotal,
+                'iva' => $iva,
+                'total' => $total
+            ]
+        );
+        return $pdf->stream('Cotizacion.pdf');
+    }
 }

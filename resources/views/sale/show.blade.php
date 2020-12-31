@@ -62,9 +62,9 @@
         <tr>
             <td style="padding:5px;">
                 <center>
-                    <a href="#">
-                        <span onclick="mostrarCotizacion(0);" class="icon-file-pdf" style="cursor:pointer;"> Ver
-                            cotización
+                    <a href="{{ route('load_sale_pdf',$sale->id) }}" target="_BLANK">
+                        <span class="icon-file-pdf" style="cursor:pointer;">
+                            Ver cotización
                         </span>
                     </a>
                 </center>
@@ -72,8 +72,8 @@
             <td style="padding:5px;">
                 <center>
                     <a href="#">
-                        <span onclick="addSaleWhitdrawal({{ $sale->id }});" class="icon-credit-card" style="cursor:pointer;"> Solicitar
-                            retito
+                        <span onclick="addSaleWhitdrawal({{ $sale->id }});" class="icon-credit-card" style="cursor:pointer;">
+                            Solicitar retito
                         </span>
                     </a>
                 </center>
