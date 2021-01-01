@@ -28,4 +28,11 @@ class Company extends Model
         'created_at',
         'updated_at'
     ];
+    protected static function boot()
+	{
+		parent::boot();
+        static::creating(function ($query) {
+            $query->image = 'compania.png';
+		});
+	}
 }

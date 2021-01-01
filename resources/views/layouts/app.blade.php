@@ -47,7 +47,7 @@
             </center>
             <hr>
             <div class="content_menu_vp overflow_menu">
-                <a href="#" onclick="">
+                <a href="{{ route('config_index') }}">
                     <p style="cursor:pointer;" class="text-center">
                         <!--<img src="{{ env('APP_URL').'/public/storage'.'/'.Auth::user()->image }}" width="20" height="20">-->
                         @if(Auth::user()->image == 'perfil.png')

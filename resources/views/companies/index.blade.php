@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-<a href="#" class="float-right font-weight-bold link-sys">[ <small class="  icon-plus"></small> Agregar compañía ]</a>
+<a href="{{ route('create_company') }}" class="float-right font-weight-bold link-sys">[ <small class="  icon-plus"></small> Agregar compañía ]</a>
 <h4 class="title_page">Compañías</h4> 
 @if(count($companies) <= 0)
 @include('layouts.no_records')

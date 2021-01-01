@@ -17,6 +17,8 @@ Route::get('withdraw_request_index','WithdrawRequestController@index')->name('wi
 #Company
 Route::get('company_index','CompanyController@index')->name('company_index')->middleware('auth');;
 Route::get('company_index_ajax','CompanyController@indexAjax')->name('company_index_ajax')->middleware('auth');
+Route::get('create_company','CompanyController@create')->name('create_company')->middleware('auth');
+Route::post('store_company','CompanyController@store')->name('store_company')->middleware('auth');
 Route::get('cbo_all_companies','CompanyController@getCboItems')->name('cbo_all_companies')->middleware('auth');
 Route::get('company_show_ajax','CompanyController@showAjax')->name('company_show_ajax')->middleware('auth');
 Route::get('company_edit','CompanyController@edit')->name('company_edit')->middleware('auth');
