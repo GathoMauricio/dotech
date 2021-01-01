@@ -351,6 +351,7 @@
         @endif
     </table>
 </center>
+@include('withdrawal.add_provider_modal')
 @include('withdrawal.aprove_withdrawal_modal')
 @include('sale.add_whitdrawal_document_modal')
 @include('sale.add_sale_payment_modal')

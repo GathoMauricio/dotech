@@ -86,6 +86,9 @@ Route::post('apreove_withdrawal','WhitdrawalController@aprove')->name('apreove_w
 Route::get('disaprove_whitdrawal/{id?}','WhitdrawalController@disaproveWithdrawal')->name('disaprove_whitdrawal')->middleware('auth');
 Route::get('delete_whitdrawal/{id?}','WhitdrawalController@destroy')->name('delete_whitdrawal')->middleware('auth');
 
+#whitdrawal provider
+Route::post('store_whitdrawal_provider','WhitdrawalProviderController@store')->name('store_whitdrawal_provider')->middleware('auth');
+
 #Task
 Route::get('task_index','TaskController@index')->name('task_index')->middleware('auth');
 Route::get('task_archived_index','TaskController@archivedIndex')->name('task_archived_index')->middleware('auth');

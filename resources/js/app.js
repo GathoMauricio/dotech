@@ -557,3 +557,7 @@ window.deleteWithdrawal = whitdrawal_id => {
         }
     });
 };
+window.addProviderModal = () => {
+    $("#add_sale_whitdrawal_modal").modal('hide');
+    $("#add_provider_modal").modal();
+};

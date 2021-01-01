@@ -20,6 +20,7 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
+                                <a href="#" onclick="addProviderModal();" class="float-right"><span class="icon-plus"></span> Agregar nuevo</a>
                                 <label for="whitdrawal_provider_id"
                                     class="font-weight-bold color-primary-sys">Proovedor</label>
                                 <select name="whitdrawal_provider_id" class="custom-select">
