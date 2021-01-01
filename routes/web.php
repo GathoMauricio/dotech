@@ -129,9 +129,6 @@ Route::post('store_task_comment_ajax','TaskCommentController@storeAjax')->name('
 Route::post('store_project_ajax','ProjectController@storeAjax')->name('store_project_ajax')->middleware('auth');;
 Route::get('show_project_ajax','ProjectController@showAjax')->name('show_project_ajax')->middleware('auth');
 Route::put('update_project_ajax','ProjectController@updateAjax')->name('update_project_ajax')->middleware('auth');
-#users
-Route::put('update_user_password','UserController@updatePassword')->name('update_user_password')->middleware('auth');
-Route::get('show_user_ajax','UserController@showAjax')->name('show_user_ajax')->middleware('auth');
 
 #Logs
 Route::get('log_index','SysLogsController@index')->name('log_index')->middleware('auth');
@@ -140,8 +137,16 @@ Route::get('log_index','SysLogsController@index')->name('log_index')->middleware
 Route::get('config_index','ConfigController@index')->name('config_index')->middleware('auth');
 
 #users
+Route::put('update_user_password','UserController@updatePassword')->name('update_user_password')->middleware('auth');
+Route::get('show_user_ajax','UserController@showAjax')->name('show_user_ajax')->middleware('auth');
 Route::put('update_user_name','UserController@updateUserName')->name('update_user_name')->middleware('auth');
 Route::put('update_image_user','UserController@updateUserImage')->name('update_image_user')->middleware('auth');
+Route::get('index_user','UserController@index')->name('index_user')->middleware('auth');
+Route::get('create_user','UserController@create')->name('create_user')->middleware('auth');
+Route::post('store_user','UserController@store')->name('store_user')->middleware('auth');
+Route::get('edit_user/{id}','UserController@edit')->name('edit_user')->middleware('auth');
+Route::put('update_user/{id}','UserController@update')->name('update_user')->middleware('auth');
+Route::get('delete_user/{id?}','UserController@destroy')->name('delete_user')->middleware('auth');
 
 #providers
 Route::get('provider_index','WhitdrawalProviderController@index')->name('provider_index')->middleware('auth');

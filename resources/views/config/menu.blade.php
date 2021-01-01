@@ -10,7 +10,7 @@
     &nbsp;&nbsp;
     <a href="{{ route('log_index') }}"><span class="icon-database"></span> Log</a>
     &nbsp;&nbsp;
-    <a href="#"><span class="icon-users"></span> Usuarios</a>
+    <a href="{{ route('index_user') }}"><span class="icon-users"></span> Usuarios</a>
     &nbsp;&nbsp;
     @endif
     <a href="{{ route('logout') }}" onclick="event.preventDefault();

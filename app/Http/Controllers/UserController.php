@@ -13,15 +13,17 @@ class UserController extends Controller
     }
     public function index()
     {
-        //
+        $users = User::all();
+        return view('users.index',[ 'users' => $users ]);
     }
     public function create()
     {
-        //
+        return view('users.create');
     }
     public function store(Request $request)
     {
-        //
+        $user = User::create($request->all());
+        return redirect()->route('index_user')->with('message', 'Usuario creado');
     }
     public function show($id)
     {
@@ -48,11 +50,16 @@ class UserController extends Controller
     }
     public function edit($id)
     {
-        //
+        $user = User::findOrFail($id);
+        return view('users.edit',[ 'user' => $user]);
     }
     public function update(Request $request, $id)
     {
-        //
+        $user = User::findOrFail($id);
+        $user->name = $request->name;
+        //fields
+        $user->save();
+        return redirect()->route('edit_user')->with('message', 'Usuario actualizado');
     }
     public function updateUserName(Request $request){
         $user = User::findOrFail(Auth::user()->id);
@@ -86,7 +93,9 @@ class UserController extends Controller
     }
     public function destroy($id)
     {
-        //
+        $user = User::findOrFail($id);
+        $user->delete();
+        return redirect()->route('index_user')->with('message', 'Usuario eliminado');
     }
 
     public function updatePassword(ResetPasswordRequest $request)

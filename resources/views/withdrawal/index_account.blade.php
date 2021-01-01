@@ -25,12 +25,12 @@
             <td>{{ $account->type }}</td>
             <td>${{ $account->balance }}</td>
             <td>{{ $account->number }}</td>
-            <th>
+            <td>
                 <a href="{{ route('edit_account', $account->id) }}"><span class="icon-pencil" title="Editar" style="cursor:pointer;color:#F39C12"> Editar</span></a>
                 <br>
                 <a href="#" onclick="deleteAccount({{ $account->id }});"><span class="icon-bin" title="Eliminar" style="cursor:pointer;color:#C0392B"> Eliminar</span></a>
                 <br>
-            </th>
+            </td>
         </tr>
         @endforeach
     </tbody>

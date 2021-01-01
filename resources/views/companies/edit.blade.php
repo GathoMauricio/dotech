@@ -3,9 +3,9 @@
 <h4 class="title_page">Editar compañía</h4> 
 <center>
 @if($company->image == 'compania.png')
-<img src="{{asset('img')}}/{{ $company->image }}" width="130" height="120" />
+<img src="{{asset('img')}}/{{ $company->image }}" width="150" height="120" />
 @else
-<img src="{{asset('storage')}}/{{ $company->image }}" width="130" height="120" />
+<img src="{{asset('storage')}}/{{ $company->image }}" width="150" height="120" />
 @endif
 </center>
 <form action="{{ route('update_company',$company->id) }}" method="POST" accept-charset="UTF-8" enctype="multipart/form-data">
