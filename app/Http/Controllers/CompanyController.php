@@ -26,7 +26,7 @@ class CompanyController extends Controller
             $spanFinalized = "<a href='".route('finalized',$company->id)."' style='cursor:pointer;color:#F39C12;'>".count(Sale::where('company_id',$company->id)->where('status','Finalizado')->get())."<span title='Ver finalizados...' class='icon icon-smile'> Ver finalizados</span></a>";
             $spanRejects = "<a href='".route('rejects',$company->id)."' style='cursor:pointer;color:#C0392B;'>".count(Sale::where('company_id',$company->id)->where('status','Rechazada')->get())."<span title='Ver rechazos...' class='icon icon-sad'></span> Ver rechazos</a>";
             $spanUpdate = "<a href='".route('edit_company',$company->id)."' style='cursor:pointer;color:orange;'><span title='Actualizar...' class='icon icon-pencil'></span> Editar</a>";
-            $spanDelete = "<a href='#' style='cursor:pointer;color:red;'><span title='Eliminar..' class='icon icon-bin' style='cursor:pointer;color:red;'> Eliminar</span></a>";
+            $spanDelete = "<a href='#' onclick='deleteCompany(".$company->id.")' style='cursor:pointer;color:red;'><span title='Eliminar..' class='icon icon-bin' style='cursor:pointer;color:red;'> Eliminar</span></a>";
             
             $json[] = [
                 'name' => "<a href='#' onclick='showCompanyModal(".$company->id.")'>".$company['name']."</a>",
@@ -136,6 +136,8 @@ class CompanyController extends Controller
     }
     public function destroy($id)
     {
-        //
+        $company = Company::findOrFail($id);
+        $company->delete();
+        return redirect()->back()->with('message', 'La compañía se eliminó con éxito.');
     }
 }

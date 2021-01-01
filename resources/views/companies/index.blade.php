@@ -20,6 +20,7 @@
         
     </tbody>
 </table>
+<input type="hidden" id="txt_delete_company_route" value="{{ route('delete_company') }}">
 @include('companies.follow_modal')
 @include('quotes.add_quote_by_company_modal')
 @endif

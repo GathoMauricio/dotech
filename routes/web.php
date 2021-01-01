@@ -21,6 +21,7 @@ Route::get('create_company','CompanyController@create')->name('create_company')-
 Route::post('store_company','CompanyController@store')->name('store_company')->middleware('auth');
 Route::get('edit_company/{id}','CompanyController@edit')->name('edit_company')->middleware('auth');
 Route::put('update_company/{id}','CompanyController@update')->name('update_company')->middleware('auth');
+Route::get('delete_company/{id?}','CompanyController@destroy')->name('delete_company')->middleware('auth');
 Route::get('cbo_all_companies','CompanyController@getCboItems')->name('cbo_all_companies')->middleware('auth');
 Route::get('company_show_ajax','CompanyController@showAjax')->name('company_show_ajax')->middleware('auth');
 Route::get('company_edit','CompanyController@edit')->name('company_edit')->middleware('auth');
