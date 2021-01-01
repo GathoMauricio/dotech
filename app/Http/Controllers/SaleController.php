@@ -236,6 +236,7 @@ class SaleController extends Controller
             $emails=[$sale->department['email'] ,$request->extra_email];
         }
         \Mail::send('email.sale', ['sale' => $sale], function ($mail) use ($pdf,$sale,$emails) {
+            $mail->subject('Cotización '.env('APP_NAME'));
             $mail->from($sale->author['email'],env('APP_NAME'));
             $mail->to($emails);
             $mail->attachData($pdf->output(), 'Cotizacion_'.$sale->id.'.pdf');

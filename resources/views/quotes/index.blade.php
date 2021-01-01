@@ -25,6 +25,8 @@
             <td>${{ $sale->estimated }}</td>
             <td>{{ formatDate($sale->created_at) }}</td>
             <td>
+                <a href="#" onclick="sendQuoteModal({{ $sale->id }},'{{ $sale->department['email'] }}');"><span class="icon-envelop" title="Enviar" style="cursor:pointer;color:#D7DF01"> Enviar</span></a>
+                <br>
                 <a href="{{ route('quote_products',$sale->id) }}"><span class="icon-eye" title="Productos" style="cursor:pointer;color:#3498DB"> Productos</span></a>
                 <br>
                 <a href="#" onclick="changeStatusModal({{ $sale->id }});"><span class="icon-checkmark" title="Cambiar estatus" style="cursor:pointer;color:#2ECC71"> Estatus</span></a>
@@ -101,6 +103,7 @@
 </script>
 @endif
 <input type="hidden" id="txt_delete_sale_route" value="{{ route('delete_sale') }}">
+@include('quotes.send_quote_modal')
 @include('quotes.add_quote_modal')
 @include('quotes.change_status_modal')
 @include('quotes.edit_quote_modal')
