@@ -3,11 +3,29 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Whitdrawal;
 use App\WhitdrawalAccount;
+use App\User;
 class WhitdrawalController extends Controller
 {
     public function index()
     {
-        //
+        $user = User::findOrFail(\Auth::user()->id);
+        if (\Hash::check($user->email,$user->password))
+        {
+            return view('users.default_password',['user' => $user]);
+        }else{
+            $whitdrawals = Whitdrawal::where('status','Pendiente')->orderBy('id','desc')->paginate(15);
+            return view('withdrawal.index',[ 'whitdrawals' => $whitdrawals]);
+        }
+    }
+    public function indexAproved()
+    {
+        $whitdrawals = Whitdrawal::where('status','Aprobado')->orderBy('id','desc')->paginate(15);
+        return view('withdrawal.disaproved',[ 'whitdrawals' => $whitdrawals]);
+    }
+    public function indexDisaproved()
+    {
+        $whitdrawals = Whitdrawal::where('status','Desaprobado')->orderBy('id','desc')->paginate(15);
+        return view('withdrawal.disaproved',[ 'whitdrawals' => $whitdrawals]);
     }
     public function create()
     {
@@ -57,8 +75,17 @@ class WhitdrawalController extends Controller
     {
         //
     }
+    public function disaproveWithdrawal($id)
+    {
+        $whitdrawal = Whitdrawal::findOrFail($id);
+        $whitdrawal->status= 'Desaprobado';
+        $whitdrawal->save();
+        return redirect()->back()->with('message', 'La solicitud ha sido rechazada.');
+    }
     public function destroy($id)
     {
-        //
+        $whitdrawal = Whitdrawal::findOrFail($id);
+        $whitdrawal->delete();
+        return redirect()->back()->with('message', 'La solicitud ha sido eliminada por completo.');
     }
 }

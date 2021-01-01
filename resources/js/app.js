@@ -514,8 +514,8 @@ window.addQuoteByCompanyModal = company_id => {
 window.addQuoteModal = () => {
     $("#add_quote_modal").modal();
 };
-window.aproveWithdrawalModal = whitdrawal_account_id => {
-    $("#txt_aprove_withdrawal_modal_id").val(whitdrawal_account_id);
+window.aproveWithdrawalModal = whitdrawal_id => {
+    $("#txt_aprove_withdrawal_modal_id").val(whitdrawal_id);
     $("#aprove_withdrawal_modal").modal();
 };
 window.sendQuoteModal = (sale_id,email) => {
@@ -523,3 +523,37 @@ window.sendQuoteModal = (sale_id,email) => {
     $("#txt_send_quote_modal_sale_id").val(sale_id);
     $("#send_quote_modal").modal();
 }
+window.disaproveWithdrawal = whitdrawal_id => {
+    Swal.fire({
+        title: "Alto",
+        text: "La solicitud será rechazada y desaparecerá de esta lista.",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Si, rechazar",
+        cancelButtonText: "Cancelar"
+    }).then(result => {
+        if (result.isConfirmed) {
+            let route = $("#txt_disaprove_whitdrawal_route").val();
+            window.location = route+'/'+whitdrawal_id;
+        }
+    });
+};
+window.deleteWithdrawal = whitdrawal_id => {
+    Swal.fire({
+        title: "Alto",
+        text: "La solicitud será eliminada por completo.",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Si, eliminar",
+        cancelButtonText: "Cancelar"
+    }).then(result => {
+        if (result.isConfirmed) {
+            let route = $("#txt_delete_whitdrawal_route").val();
+            window.location = route+'/'+whitdrawal_id;
+        }
+    });
+};

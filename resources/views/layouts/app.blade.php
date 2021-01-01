@@ -66,11 +66,21 @@
                     </p>
                 </a>
                 <hr>
-                <a href="{{ route('withdraw_request_index') }}">
+                <a href="{{ route('/') }}">
                     <p style="cursor:pointer;">
                         <span class="icon-home">
                             <span style="display:none;" class="label-item-menu">
                                 Inicio
+                            </span>
+                        </span>
+                    </p>
+                </a>
+                <hr>
+                <a href="{{ route('whitdrawal_index') }}">
+                    <p style="cursor:pointer;">
+                        <span class="icon-checkmark">
+                            <span style="display:none;" class="label-item-menu">
+                                Retiros
                             </span>
                         </span>
                     </p>

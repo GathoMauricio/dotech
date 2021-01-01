@@ -2,8 +2,8 @@
 Route::get('/', function () {
     if(Auth::check())
     {
-        $whitdrawRequest = new \App\Http\Controllers\WithdrawRequestController();
-        return $whitdrawRequest->index();
+        $whitdrawal = new \App\Http\Controllers\WhitdrawalController();
+        return $whitdrawal->index();
     }else{
         return view('auth.login');
     }    
@@ -77,9 +77,14 @@ Route::put('update_product','ProductSaleController@update')->name('update_produc
 Route::get('delete_product/{id?}','ProductSaleController@destroy')->name('delete_product')->middleware('auth');
 
 #Whitdrawal
+Route::get('whitdrawal_index','WhitdrawalController@index')->name('whitdrawal_index')->middleware('auth');
+Route::get('whitdrawal_aproved','WhitdrawalController@indexAproved')->name('whitdrawal_aproved')->middleware('auth');
+Route::get('whitdrawal_disaproved','WhitdrawalController@indexDisaproved')->name('whitdrawal_disaproved')->middleware('auth');
 Route::post('store_sale_whitdrawal','WhitdrawalController@store')->name('store_sale_whitdrawal')->middleware('auth');
 Route::post('store_whitdrawal_document','WhitdrawalController@uploadDocument')->name('store_whitdrawal_document')->middleware('auth');
 Route::post('apreove_withdrawal','WhitdrawalController@aprove')->name('apreove_withdrawal')->middleware('auth');;
+Route::get('disaprove_whitdrawal/{id?}','WhitdrawalController@disaproveWithdrawal')->name('disaprove_whitdrawal')->middleware('auth');
+Route::get('delete_whitdrawal/{id?}','WhitdrawalController@destroy')->name('delete_whitdrawal')->middleware('auth');
 
 #Task
 Route::get('task_index','TaskController@index')->name('task_index')->middleware('auth');
