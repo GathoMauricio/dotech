@@ -102,6 +102,14 @@ Route::get('edit_department/{id}','WhitdrawalDepartmentController@edit')->name('
 Route::put('update_department/{id}','WhitdrawalDepartmentController@update')->name('update_department')->middleware('auth');
 Route::get('delete_department/{id?}','WhitdrawalDepartmentController@destroy')->name('delete_department')->middleware('auth');
 
+#witdrawal account
+Route::get('index_account','WhitdrawalAccountController@index')->name('index_account')->middleware('auth');
+Route::get('create_account','WhitdrawalAccountController@create')->name('create_account')->middleware('auth');
+Route::post('store_account','WhitdrawalAccountController@store')->name('store_account')->middleware('auth');
+Route::get('edit_account/{id}','WhitdrawalAccountController@edit')->name('edit_account')->middleware('auth');
+Route::put('update_account/{id}','WhitdrawalAccountController@update')->name('update_account')->middleware('auth');
+Route::get('delete_account/{id?}','WhitdrawalAccountController@destroy')->name('delete_account')->middleware('auth');
+
 #Task
 Route::get('task_index','TaskController@index')->name('task_index')->middleware('auth');
 Route::get('task_archived_index','TaskController@archivedIndex')->name('task_archived_index')->middleware('auth');
