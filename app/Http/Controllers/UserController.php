@@ -53,6 +53,14 @@ class UserController extends Controller
     {
         //
     }
+    public function updateUserName(Request $request){
+        $user = User::findOrFail(Auth::user()->id);
+        $user->name = $request->name;
+        $user->middle_name = $request->middle_name;
+        $user->last_name = $request->last_name;
+        $user->save();
+        return redirect()->back()->with('message', 'Información actualizada.');
+    }
     public function destroy($id)
     {
         //

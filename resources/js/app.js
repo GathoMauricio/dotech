@@ -561,3 +561,6 @@ window.addProviderModal = () => {
     $("#add_sale_whitdrawal_modal").modal('hide');
     $("#add_provider_modal").modal();
 };
+window.editNameModal = () => {
+    $("#edit_name_modal").modal();
+};

@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @section('content')
 <h4 class="title_page">Logs</h4> 
+@include('config.menu')
 <div class="float-right">
 {{ $logs->links() }}
 </div>

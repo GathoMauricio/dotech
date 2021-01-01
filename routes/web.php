@@ -115,6 +115,13 @@ Route::get('show_user_ajax','UserController@showAjax')->name('show_user_ajax')->
 #Logs
 Route::get('log_index','SysLogsController@index')->name('log_index')->middleware('auth');
 
+#config
+Route::get('config_index','ConfigController@index')->name('config_index')->middleware('auth');
+
+#users
+Route::put('update_user_name','UserController@updateUserName')->name('update_user_name')->middleware('auth');;
+
+
 Route::get('helper',function(){
     
     $conexion = mysqli_connect("localhost", "root", "", "dotech");

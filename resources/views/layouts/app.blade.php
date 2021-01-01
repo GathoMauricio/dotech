@@ -46,7 +46,7 @@
             </a>
             </center>
             <hr>
-            <div class="content_menu_vp">
+            <div class="content_menu_vp overflow_menu">
                 <a href="#" onclick="">
                     <p style="cursor:pointer;" class="text-center">
                         <!--<img src="{{ env('APP_URL').'/public/storage'.'/'.Auth::user()->image }}" width="20" height="20">-->
@@ -126,27 +126,11 @@
                     </p>
                 </a>
                 <hr>
-                @if(Auth::user()->rol_user_id == 1)
-                <a href="{{ route('log_index') }}">
+                <a href="{{ route('config_index') }}">
                     <p style="cursor:pointer;">
-                        <span class="icon-database">
+                        <span class="icon-cog">
                             <span style="display:none;" class="label-item-menu">
-                                Logs
-                            </span>
-                        </span>
-                    </p>
-                </a>
-                <hr>
-                @endif
-                <a href="{{ route('logout') }}" onclick="event.preventDefault();
-            document.getElementById('logout-form').submit();">
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                        @csrf
-                    </form>
-                    <p style="cursor:pointer;">
-                        <span class="icon-exit" id="item_calendar">
-                            <span style="display:none;" class="label-item-menu">
-                                Cerrar sesión
+                                Configuración
                             </span>
                         </span>
                     </p>
