@@ -230,18 +230,17 @@ class SaleController extends Controller
                 'total' => $total
             ]
         );
-        $emails=[$sale->department['email']];
+        $emails=$sale->department['email'];
         if(!empty($request->extra_email))
         {
             $emails=[$sale->department['email'] ,$request->extra_email];
         }
         \Mail::send('email.sale', ['sale' => $sale], function ($mail) use ($pdf,$sale,$emails) {
-            $mail->subject('Cotización '.env('APP_NAME'));
             $mail->from($sale->author['email'],env('APP_NAME'));
             $mail->to($emails);
             $mail->attachData($pdf->output(), 'Cotizacion_'.$sale->id.'.pdf');
         });
-        return redirect()->back()->with('message', 'La cotización se envió con éxito.');
+        return redirect()->back()->with('message', 'Se envió la cotización '.$sale->description.' a '.$sale->company->name.' con éxito.');
     }
     public function storeSaleByCompany(Request $request)
     {
