@@ -25,7 +25,7 @@ class CompanyController extends Controller
             $spanProjects = "<a href='".route('projects',$company->id)."' style='cursor:pointer;color:#229954;'>".count(Sale::where('company_id',$company->id)->where('status','Proyecto')->get())."<span title='Ver proyectos...' class='icon icon-price-tag'></span> Ver proyectos</a>";
             $spanFinalized = "<a href='".route('finalized',$company->id)."' style='cursor:pointer;color:#F39C12;'>".count(Sale::where('company_id',$company->id)->where('status','Finalizado')->get())."<span title='Ver finalizados...' class='icon icon-smile'> Ver finalizados</span></a>";
             $spanRejects = "<a href='".route('rejects',$company->id)."' style='cursor:pointer;color:#C0392B;'>".count(Sale::where('company_id',$company->id)->where('status','Rechazada')->get())."<span title='Ver rechazos...' class='icon icon-sad'></span> Ver rechazos</a>";
-            $spanUpdate = "<a href='#' style='cursor:pointer;color:orange;'><span title='Actualizar...' class='icon icon-pencil'></span> Editar</a>";
+            $spanUpdate = "<a href='".route('edit_company',$company->id)."' style='cursor:pointer;color:orange;'><span title='Actualizar...' class='icon icon-pencil'></span> Editar</a>";
             $spanDelete = "<a href='#' style='cursor:pointer;color:red;'><span title='Eliminar..' class='icon icon-bin' style='cursor:pointer;color:red;'> Eliminar</span></a>";
             
             $json[] = [
@@ -100,11 +100,39 @@ class CompanyController extends Controller
     }
     public function edit($id)
     {
-        //
+        $company = Company::findOrFail($id);
+        return view('companies.edit',[ 'company' => $company]);
     }
     public function update(Request $request, $id)
     {
-        //
+        $company = Company::findOrFail($id);
+        $company->origin = $request->origin;
+        $company->status = $request->status;
+        $company->name = $request->name;
+        $company->responsable = $request->responsable;
+        $company->rfc = $request->rfc;
+        $company->email = $request->email;
+        $company->phone = $request->phone;
+        $company->address = $request->address;
+        $company->description = $request->description;
+        $company->iguala = $request->iguala;
+        if(!empty($request->image))
+        {
+            if($company->image != 'compania.png')
+            {
+                if(\Storage::get($company->image)){
+                    \Storage::disk('local')->delete($company->image);
+                }
+            }
+            $file = $request->file('image');
+            $name =  "Company_[".$company->id."]_".\Str::random(8)."_".$file->getClientOriginalName();
+            \Storage::disk('local')->put($name,  \File::get($file));
+            $company->image = $name;
+            $company->save();
+            return redirect()->back()->with('message', 'La compañía se actualizó y su imagen se almacenó con éxito.');
+        }
+        $company->save();
+        return redirect()->back()->with('message', 'La compañía se actualizó con éxito.');
     }
     public function destroy($id)
     {
