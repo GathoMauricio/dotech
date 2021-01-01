@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use  App\Http\Requests\ResetPasswordRequest;
 use App\User;
 use Auth;
+use Storage;
 class UserController extends Controller
 {
     public function __construct()
@@ -60,6 +61,28 @@ class UserController extends Controller
         $user->last_name = $request->last_name;
         $user->save();
         return redirect()->back()->with('message', 'Información actualizada.');
+    }
+    public function updateUserImage(Request $request)
+    {
+        $user = User::findOrFail(Auth::user()->id);
+        $file = $request->file('image');
+        $name =  "UserImage_[".$user->id."]_".\Str::random(8)."_".$file->getClientOriginalName();
+        Storage::disk('local')->put($name,  \File::get($file));
+        if($user->image != 'perfil.png')
+        {
+            if(Storage::get($user->image)){
+                Storage::disk('local')->delete($user->image);
+                $user->image = $name;
+                $user->save();
+                return redirect()->back()->with('message', 'La foto se actualizo con éxito.');
+            }else{ 
+                return redirect()->back()->with('message', 'Fallo al eliminar la imagen anterior.');
+            }
+        }else{
+            $user->image = $name;
+            $user->save();
+            return redirect()->back()->with('message', 'La foto se actualizo con éxito.');
+        }
     }
     public function destroy($id)
     {

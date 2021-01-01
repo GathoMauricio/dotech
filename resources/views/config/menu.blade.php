@@ -1,7 +1,7 @@
 <p class="text-right">
     <a href="{{ route('config_index') }}"><span class="icon-home"></span> Inicio</a>
     &nbsp;&nbsp;
-    <a href="#"><span class="icon-cart"></span> Proveedores de retiro</a>
+    <a href="{{ route('provider_index') }}"><span class="icon-cart"></span> Proveedores de retiro</a>
     &nbsp;&nbsp;
     @if(Auth::user()->rol_user_id == 1)
     <a href="#"><span class="icon-tree"></span> Departamentos de retiro</a>

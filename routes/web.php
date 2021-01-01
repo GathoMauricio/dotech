@@ -119,8 +119,14 @@ Route::get('log_index','SysLogsController@index')->name('log_index')->middleware
 Route::get('config_index','ConfigController@index')->name('config_index')->middleware('auth');
 
 #users
-Route::put('update_user_name','UserController@updateUserName')->name('update_user_name')->middleware('auth');;
+Route::put('update_user_name','UserController@updateUserName')->name('update_user_name')->middleware('auth');
+Route::put('update_image_user','UserController@updateUserImage')->name('update_image_user')->middleware('auth');
 
+#providers
+Route::get('provider_index','WhitdrawalProviderController@index')->name('provider_index')->middleware('auth');
+Route::get('edit_provider/{id}','WhitdrawalProviderController@edit')->name('edit_provider')->middleware('auth');
+Route::put('update_whitdrawal/{id}','WhitdrawalProviderController@update')->name('update_whitdrawal')->middleware('auth');
+Route::get('delete_whitdrawal/{id?}','WhitdrawalProviderController@destroy')->name('delete_whitdrawal')->middleware('auth');
 
 Route::get('helper',function(){
     

@@ -6,14 +6,21 @@
 
 <center>
     <div id="user_image">
-        <br><br><br><br><br>
+        <br><br><br><br><br><br>
         <p style="background-color:black;opacity:0.8;padding:5px;">
-            <a href="#" class="font-weight-bold" style="color:white;"><span class="icon-pencil"></span> Editar</a>
+            <label for="user_image_label" class="label_file" style="color:white;">
+                <span class="icon-camera"></span>
+                Cambiar
+            </label>
+            <form action="{{ route('update_image_user') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            {{ method_field('PUT') }}
+            <input onchange="this.form.submit();" type="file" name="image" id="user_image_label" style="display:none;" accept="image/jpg, image/jpeg, image/bmp, image/png"/>
+            </form>
         </p>
-    </div>
-    
+    </div>   
 </center>
-<br>
+<br><br>
 <table class="table">
     <tr>
         <th width="45%"> <h5 class="font-weight-bold color-primary-sys">Nombre</h5> </th>
