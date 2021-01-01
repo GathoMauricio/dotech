@@ -4,7 +4,7 @@
     <a href="{{ route('provider_index') }}"><span class="icon-cart"></span> Proveedores de retiro</a>
     &nbsp;&nbsp;
     @if(Auth::user()->rol_user_id == 1)
-    <a href="#"><span class="icon-tree"></span> Departamentos de retiro</a>
+    <a href="{{ route('index_department') }}"><span class="icon-tree"></span> Departamentos de retiro</a>
     &nbsp;&nbsp;
     <a href="#"><span class="icon-credit-card"></span> Cuentas de retiro</a>
     &nbsp;&nbsp;

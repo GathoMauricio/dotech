@@ -94,6 +94,14 @@ Route::get('delete_whitdrawal/{id?}','WhitdrawalController@destroy')->name('dele
 #whitdrawal provider
 Route::post('store_whitdrawal_provider','WhitdrawalProviderController@store')->name('store_whitdrawal_provider')->middleware('auth');
 
+#witdrawal department
+Route::get('index_department','WhitdrawalDepartmentController@index')->name('index_department')->middleware('auth');
+Route::get('create_department','WhitdrawalDepartmentController@create')->name('create_department')->middleware('auth');
+Route::post('store_department','WhitdrawalDepartmentController@store')->name('store_department')->middleware('auth');
+Route::get('edit_department/{id}','WhitdrawalDepartmentController@edit')->name('edit_department')->middleware('auth');
+Route::put('update_department/{id}','WhitdrawalDepartmentController@update')->name('update_department')->middleware('auth');
+Route::get('delete_department/{id?}','WhitdrawalDepartmentController@destroy')->name('delete_department')->middleware('auth');
+
 #Task
 Route::get('task_index','TaskController@index')->name('task_index')->middleware('auth');
 Route::get('task_archived_index','TaskController@archivedIndex')->name('task_archived_index')->middleware('auth');

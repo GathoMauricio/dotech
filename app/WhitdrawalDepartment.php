@@ -8,6 +8,8 @@ class WhitdrawalDepartment extends Model
 	public $timestamps = true;
     protected $fillable = [
         'id',
-        'name'
+        'name',
+        'created_at',
+        'updated_at',
     ];
 }
