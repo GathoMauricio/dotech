@@ -31,6 +31,7 @@ class UserController extends Controller
     {
         $user = User::create($request->all());
         $user->password = bcrypt($request->email);
+        $user->token = \Str::random(60);
         if(!empty($request->image))
         {
             $file = $request->file('image');
@@ -70,15 +71,40 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::findOrFail($id);
-        return view('users.edit',[ 'user' => $user]);
+        $statuses = StatusUser::all();
+        $rols = RolUser::all();
+        $locations = LocationUser::orderBy('name')->get();
+        return view('users.edit',[ 'user' => $user,'statuses' => $statuses, 'rols' => $rols, 'locations' => $locations]);
     }
     public function update(Request $request, $id)
     {
         $user = User::findOrFail($id);
+        $user->status_user_id = $request->status_user_id;
+        $user->rol_user_id = $request->rol_user_id;
+        $user->location_user_id = $request->location_user_id;
         $user->name = $request->name;
-        //fields
+        $user->middle_name = $request->middle_name;
+        $user->last_name = $request->last_name;
+        $user->phone = $request->phone;
+        $user->emergency_phone = $request->emergency_phone;
+        $user->address = $request->address;
+        if(!empty($request->image))
+        {
+            if($user->image != 'perfil.png' || !empty($user->image))
+            {
+                if(\Storage::get($user->image)){
+                    \Storage::disk('local')->delete($user->image);
+                }
+            }
+            $file = $request->file('image');
+            $name =  "User_[".$user->id."]_".\Str::random(8)."_".$file->getClientOriginalName();
+            \Storage::disk('local')->put($name,  \File::get($file));
+            $user->image = $name;
+            $user->save();
+            return redirect()->route('edit_user',$user->id)->with('message', 'La usuario se actualizó y su imagen se almacenó con éxito.');
+        }
         $user->save();
-        return redirect()->route('edit_user')->with('message', 'Usuario actualizado');
+        return redirect()->route('edit_user',$user->id)->with('message', 'Usuario actualizado');
     }
     public function updateUserName(Request $request){
         $user = User::findOrFail(Auth::user()->id);
