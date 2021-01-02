@@ -55,7 +55,7 @@
                 bPaginate: true,
                 bFilter: true,
                 bSort: true,
-                aaSorting: [[1, "asc"]],
+                aaSorting: [[2, "asc"]],
                 pageLength: 10,
                 bDestroy: true,
                 aoColumnDefs: [

@@ -1,8 +1,12 @@
 <?php
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
-use  App\Http\Requests\ResetPasswordRequest;
+use App\Http\Requests\ResetPasswordRequest;
+use App\Http\Requests\UserRequest;
 use App\User;
+use App\StatusUser;
+use App\RolUser;
+use App\LocationUser;
 use Auth;
 use Storage;
 class UserController extends Controller
@@ -18,11 +22,26 @@ class UserController extends Controller
     }
     public function create()
     {
-        return view('users.create');
+        $statuses = StatusUser::all();
+        $rols = RolUser::all();
+        $locations = LocationUser::orderBy('name')->get();
+        return view('users.create',[ 'statuses' => $statuses, 'rols' => $rols, 'locations' => $locations]);
     }
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
         $user = User::create($request->all());
+        $user->password = bcrypt($request->email);
+        if(!empty($request->image))
+        {
+            $file = $request->file('image');
+            $name =  "User_[".$user->id."]_".\Str::random(8)."_".$file->getClientOriginalName();
+            \Storage::disk('local')->put($name,  \File::get($file));
+            $user->image = $name;
+            $user->save();
+            return redirect()->route('index_user')->with('message', 'El usuario se guardó y su imagen se almacenó con éxito.');
+        }
+        $user->save();
+        #TOTO : Make email template whit instructions about login 
         return redirect()->route('index_user')->with('message', 'Usuario creado');
     }
     public function show($id)

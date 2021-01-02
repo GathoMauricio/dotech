@@ -27,6 +27,13 @@ class User extends Authenticatable
         'created_at',
         'updated_at'
     ];
+    protected static function boot()
+	{
+		parent::boot();
+        static::creating(function ($query) {
+            $query->image = 'perfil.png';
+		});
+	}
     public function status()
     {
         return $this->belongsTo
