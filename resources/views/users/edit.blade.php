@@ -3,7 +3,7 @@
 <h4 class="title_page">Editar usuario</h4>
 @include('config.menu')
 <center>
-    @if($user->image == 'compania.png')
+    @if($user->image == 'perfil.png')
     <img src="{{asset('img')}}/{{ $user->image }}" width="150" height="120" />
     @else
     <img src="{{asset('storage')}}/{{ $user->image }}" width="150" height="120" />
