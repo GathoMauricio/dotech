@@ -78,6 +78,7 @@ class UserController extends Controller
     }
     public function update(Request $request, $id)
     {
+        //return dd($request);
         $user = User::findOrFail($id);
         $user->status_user_id = $request->status_user_id;
         $user->rol_user_id = $request->rol_user_id;
@@ -90,7 +91,7 @@ class UserController extends Controller
         $user->address = $request->address;
         if(!empty($request->image))
         {
-            if($user->image != 'perfil.png' || !empty($user->image))
+            if($user->image != 'perfil.png')
             {
                 if(\Storage::get($user->image)){
                     \Storage::disk('local')->delete($user->image);

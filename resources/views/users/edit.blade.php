@@ -141,7 +141,7 @@
                     <label for="image"   class="font-weight-bold color-primary-sys">
                         Foto
                     </label>
-                    <input name="image" value="{{ old('image',$user->image) }}" type="file" class="form-control">
+                    <input name="image" type="file" class="form-control">
                 </div>
             </div>
         </div>
