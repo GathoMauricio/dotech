@@ -10,6 +10,7 @@ class ProductSale extends Model
     protected $fillable = [
         'id',
         'sale_id',
+        'measure',
         'description',
         'unity_price_buy',
         'unity_price_sell',

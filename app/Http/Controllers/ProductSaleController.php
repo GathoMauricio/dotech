@@ -17,6 +17,7 @@ class ProductSaleController extends Controller
     {
         $newProduct = ProductSale::create([
             'sale_id' => $request->sale_id,
+            'measure' => $request->measure,
             'description' => $request->description,
             'quantity' => $request->quantity,
             'discount' => $request->discount,
@@ -50,6 +51,7 @@ class ProductSaleController extends Controller
     public function update(Request $request)
     {
         $product = ProductSale::findOrFail($request->id);
+        $product->measure = $request->measure;
         $product->description = $request->description;
         $product->quantity = $request->quantity;
         $product->discount = $request->discount;

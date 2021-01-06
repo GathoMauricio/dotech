@@ -167,7 +167,7 @@
     <table class="table" border="5">
         <thead>
             <tr>
-                <td colspan="5" style="background-color:#d30035;color:white;font-weight:bold;">
+                <td colspan="6" style="background-color:#d30035;color:white;font-weight:bold;">
                 <!--
                     <label style="float:right;padding:5px;">
                         <span class="icon-plus"
@@ -180,6 +180,7 @@
             </tr>
             <tr>
                 <th>Cant</th>
+                <th>U. Medida</th>
                 <th>Producto</th>
                 <th>P/U</th>
                 <th>Descuento</th>
@@ -199,6 +200,13 @@
             @endphp
             <tr>
                 <td>{{ $product->quantity }}</td>
+                <td>
+                    @if(!empty($product->measure))
+                    {{ $product->measure }}
+                    @else
+                    N/A
+                    @endif
+                </td>
                 <td>{{ $product->description }}</td>
                 <td>${{ $product->unity_price_sell }}</td>
                 <td>{{ $product->discount }}%</td>
@@ -212,6 +220,9 @@
                 -->
             </tr>
             @endforeach
+            @if(count($products)<=0)
+            <tr><td colspan="6" class="text-center">Sin registros</td></tr>
+            @endif
             <tr>
                 <td colspan="6" class="text-right">Subtotal: ${{ $totalProduct }}</td>
             </tr>

@@ -13,6 +13,7 @@
     <thead>
         <tr>
             <th>Cant</th>
+            <th>U. Medida</th>
             <th>Producto</th>
             <th>P/U</th>
             <th>Descuento</th>
@@ -24,6 +25,13 @@
         @foreach($products as $product)
         <tr>
             <td>{{ $product->quantity }}</td>
+            <td>
+                @if(!empty($product->measure))
+                {{ $product->measure }}
+                @else
+                N/A
+                @endif
+            </td>
             <td>{{ $product->description }}</td>
             <td>${{ $product->unity_price_sell }}</td>
             <td>{{ $product->discount }}%</td>
@@ -36,10 +44,10 @@
         </tr>
         @endforeach
         <tr>
-            <td colspan="6" class="text-right">Total: ${{$total}}</td>
+            <td colspan="7" class="text-right">Total: ${{$total}}</td>
         </tr>
         <tr>
-            <td colspan="6" class="text-right">Total + IVA: ${{$totalIva}}</td>
+            <td colspan="7" class="text-right">Total + IVA: ${{$totalIva}}</td>
         </tr>
     </tbody>
 </table>

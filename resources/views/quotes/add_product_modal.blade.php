@@ -26,7 +26,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label for="quantity" class="font-weight-bold color-primary-sys">
                                     Cantidad
@@ -34,7 +34,15 @@
                                 <input type="number" name="quantity" value="1" min="1" class="form-control" required>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="measure" class="font-weight-bold color-primary-sys">
+                                    Unida de medida
+                                </label>
+                                <input type="text" name="measure" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label for="discount" class="font-weight-bold color-primary-sys">
                                     Descuento
@@ -42,7 +50,7 @@
                                 <input type="number" name="discount" value="0" min="0" class="form-control" required>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label for="unity_price_sell" class="font-weight-bold color-primary-sys">
                                     P/U Venta

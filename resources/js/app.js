@@ -394,6 +394,7 @@ window.editProductModal = product_id => {
         success: data => {
             $("#txt_add_product_modal_id").val(data.id);
             $("#txt_add_product_modal_sale_id").val(data.sale_id);
+            $("#txt_add_product_modal_measure").val(data.measure);
             $("#txt_add_product_modal_description").val(data.description);
             $("#txt_add_product_modal_quantity").val(data.quantity);
             $("#txt_add_product_modal_discount").val(data.discount);

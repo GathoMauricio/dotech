@@ -29,28 +29,36 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label for="quantity" class="font-weight-bold color-primary-sys">
                                     Cantidad
                                 </label>
-                                <input id="txt_add_product_modal_quantity" type="number" name="quantity" value="1" min="1" class="form-control">
+                                <input id="txt_add_product_modal_quantity" type="number" name="quantity" value="1" min="1" class="form-control" required>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="measure" class="font-weight-bold color-primary-sys">
+                                    Unidad de medida
+                                </label>
+                                <input id="txt_add_product_modal_measure" type="text" name="measure" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label for="discount" class="font-weight-bold color-primary-sys">
                                     Descuento
                                 </label>
-                                <input id="txt_add_product_modal_discount" type="number" name="discount" value="0" min="0" class="form-control">
+                                <input id="txt_add_product_modal_discount" type="number" name="discount" value="0" min="0" class="form-control" required>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label for="unity_price_sell" class="font-weight-bold color-primary-sys">
                                     P/U Venta
                                 </label>
-                                <input type="number" id="txt_add_product_modal_unity_price_sell" name="unity_price_sell" value="1" min="1" class="form-control">
+                                <input type="number" id="txt_add_product_modal_unity_price_sell" name="unity_price_sell" value="1" min="1" class="form-control" required>
                             </div>
                         </div>
                     </div>
