@@ -64,6 +64,13 @@ class CompanyController extends Controller
     public function store(Request $request)
     {
         $company = Company::create($request->all());
+        $department = CompanyDepartment::create([
+            'company_id' => $company->id,
+            'name' => 'General',
+            'manager' => $company->responsable,
+            'email' => $company->email,
+            'phone' => $company->phone
+        ]);
         if(!empty($request->image))
         {
             $file = $request->file('image');
@@ -71,9 +78,10 @@ class CompanyController extends Controller
             \Storage::disk('local')->put($name,  \File::get($file));
             $company->image = $name;
             $company->save();
-            return redirect()->route('company_index')->with('message', 'La compañía se guardó y su imagen se almacenó con éxito.');
+            return redirect()->route('company_index')->with('message', 'La compañía se guardó, su imagen se almacenó con éxito y se creó su departamento '.$department->name);
         }
-        return redirect()->route('company_index')->with('message', 'La compañía se almacenó con éxito.');
+        
+        return redirect()->route('company_index')->with('message', 'La compañía se almacenó con éxito y se creó su departamento '.$department->name);
     }
     public function show($id)
     {

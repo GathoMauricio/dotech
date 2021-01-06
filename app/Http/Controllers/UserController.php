@@ -78,7 +78,6 @@ class UserController extends Controller
     }
     public function update(Request $request, $id)
     {
-        //return dd($request);
         $user = User::findOrFail($id);
         $user->status_user_id = $request->status_user_id;
         $user->rol_user_id = $request->rol_user_id;
