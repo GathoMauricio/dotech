@@ -9,6 +9,7 @@ use App\Whitdrawal;
 use App\SalePayment;
 use App\SaleDocument;
 use App\SaleFollow;
+use PDF;
 
 use App\Http\Requests\SaleRequest;
 class SaleController extends Controller
@@ -195,7 +196,7 @@ class SaleController extends Controller
         $iva = ($subtotal * 16) / 100;
         $total = $subtotal + $iva;
         $logo = parseBase64(public_path("img/dotech_fondo.png"));
-        $pdf = \PDF::loadView('pdf.sale',
+        $pdf = PDF::loadView('pdf.sale',
             [
                 'logo' => $logo,
                 'sale' => $sale,
