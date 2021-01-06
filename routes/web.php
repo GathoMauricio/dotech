@@ -154,16 +154,108 @@ Route::get('edit_provider/{id}','WhitdrawalProviderController@edit')->name('edit
 Route::put('update_whitdrawal/{id}','WhitdrawalProviderController@update')->name('update_whitdrawal')->middleware('auth');
 Route::get('delete_whitdrawal/{id?}','WhitdrawalProviderController@destroy')->name('delete_whitdrawal')->middleware('auth');
 
-Route::get('helper',function(){
+
+#Helpers
+/*
+Route::get('helper_sales',function(){
     
     $conexion = mysqli_connect("localhost", "root", "", "dotech");
     mysqli_set_charset ($conexion, 'utf8');
-    $conexion2 = mysqli_connect("localhost", "root", "", "dotech_laravel");
+    //$conexion2 = mysqli_connect("localhost", "root", "", "dotech_laravel");
+    $sql = "SELECT * FROM venta";
+    $datos = mysqli_query($conexion,$sql);
+    while($fila=mysqli_fetch_array($datos))
+    {
+        $sql2 = "INSERT INTO sales(
+            id,
+            company_id,
+            department_id,
+            author_id,
+            status,
+            description,
+            estimated,
+            commision_percent,
+            commision_pay,
+            delivery_days,
+            shipping,
+            payment_type,
+            credit,
+            currency,
+            observation,
+            material,
+            closed_at,
+            created_at,
+            updated_at
+        ) VALUES(
+            $fila[id_venta],
+            $fila[id_compania],
+            $fila[id_departamento_compania],
+            $fila[id_empleado],
+            '$fila[id_estatus_venta]',
+            '$fila[descripcion_venta]',
+            '$fila[precio_total_venta]',
+            '$fila[comision_venta]',
+            '$fila[total_comision]',
+            '$fila[tiempo_entrega]',
+            '$fila[incluye_envio]',
+            '$fila[forma_pago]',
+            '$fila[credito]',
+            '$fila[divisa]',
+            '$fila[observacion_venta]',
+            '$fila[material_venta]',
+            '$fila[ts_finalizado]',
+            '$fila[fecha_venta] 00:00:00',
+            '$fila[fecha_venta] 00:00:00'
+            
+        );";
+        //mysqli_query($conexion2,$sql2);
+        echo $sql2."<br/>";
+        
+    }
+})->name('helper_sales');
+
+Route::get('helper_sale_documents',function(){
+    
+    $conexion = mysqli_connect("localhost", "root", "", "dotech");
+    mysqli_set_charset ($conexion, 'utf8');
+    //$conexion2 = mysqli_connect("localhost", "root", "", "dotech_laravel");
+    $sql = "SELECT * FROM documento_venta";
+    $datos = mysqli_query($conexion,$sql);
+    while($fila=mysqli_fetch_array($datos))
+    {
+        $sql2 = "INSERT INTO sale_documents(
+            id,
+            sale_id,
+            description,
+            document,
+            inner_identifier,
+            created_at,
+            updated_at
+        ) VALUES(
+            $fila[id_documento_venta],
+            $fila[id_venta],
+            '$fila[descripcion_documento_venta]',
+            '$fila[ruta_documento_venta]',
+            '$fila[folio_interno_venta]',
+            '".date('Y-m-d H:i:s')."',
+            '".date('Y-m-d H:i:s')."'
+            
+        );";
+        //mysqli_query($conexion2,$sql2);
+        echo $sql2."<br/>";
+        
+    }
+})->name('helper_sale_documents');
+Route::get('helper_sale_follows',function(){
+    
+    $conexion = mysqli_connect("localhost", "root", "", "dotech");
+    mysqli_set_charset ($conexion, 'utf8');
+    //$conexion2 = mysqli_connect("localhost", "root", "", "dotech_laravel");
     $sql = "SELECT * FROM comentario_venta";
     $datos = mysqli_query($conexion,$sql);
     while($fila=mysqli_fetch_array($datos))
     {
-        $sql2 = "INSERT INTO sale_follows (
+        $sql2 = "INSERT INTO sale_follows(
             id,
             sale_id,
             author_id,
@@ -177,17 +269,63 @@ Route::get('helper',function(){
             '$fila[texto_comentario_venta]',
             '$fila[fecha_comentario_venta] $fila[hora_comentario_venta]',
             '$fila[fecha_comentario_venta] $fila[hora_comentario_venta]'
+            
         );";
         //mysqli_query($conexion2,$sql2);
         echo $sql2."<br/>";
         
     }
-    /*
-    $unitarioV = 4567;
-    $cantidad = 150;
-    $desc = 10;
-    $total = ($unitarioV * $cantidad)-((($unitarioV * $cantidad) * $desc) / 100);
-    echo $total;
-    */
+})->name('helper_sale_follows');
+Route::get('helper_whitdrawals',function(){
     
-})->name('helper');
+    $conexion = mysqli_connect("localhost", "root", "", "dotech");
+    mysqli_set_charset ($conexion, 'utf8');
+    //$conexion2 = mysqli_connect("localhost", "root", "", "dotech_laravel");
+    $sql = "SELECT * FROM retiro";
+    $datos = mysqli_query($conexion,$sql);
+    while($fila=mysqli_fetch_array($datos))
+    {
+        $sql2 = "INSERT INTO whitdrawals(
+            id,
+            sale_id,
+            whitdrawal_provider_id,
+            whitdrawal_account_id,
+            whitdrawal_department_id,
+            
+
+            status,
+            type,
+            description,
+            quantity,
+            invoive,
+            document,
+
+
+            created_at,
+            updated_at
+        ) VALUES(
+            $fila[id_retiro],
+            $fila[id_venta],
+            $fila[id_proveedor],
+            $fila[id_cuenta],
+            $fila[id_departamento_retiro],
+
+            '$fila[id_estatus_retiro]',
+            '$fila[id_tipo_retiro]',
+            '$fila[descripcion_retiro]',
+            '$fila[precio_compra_retiro]',
+            '$fila[con_sin_factura]',
+            '$fila[documento_retiro]',
+
+            '".date('Y-m-d H:i:s')."',
+            '".date('Y-m-d H:i:s')."'
+            
+        );";
+        //mysqli_query($conexion2,$sql2);
+        echo $sql2."<br/>";
+        
+    }
+})->name('helper_whitdrawals');
+*/
+
+
