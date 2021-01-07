@@ -154,6 +154,15 @@ Route::get('edit_provider/{id}','WhitdrawalProviderController@edit')->name('edit
 Route::put('update_whitdrawal/{id}','WhitdrawalProviderController@update')->name('update_whitdrawal')->middleware('auth');
 Route::get('delete_whitdrawal/{id?}','WhitdrawalProviderController@destroy')->name('delete_whitdrawal')->middleware('auth');
 
+#services
+Route::get('index_service','ServiceController@index')->name('index_service')->middleware('auth');
+Route::get('processing_service','ServiceController@processing')->name('processing_service')->middleware('auth');
+Route::get('finished_service','ServiceController@finished')->name('finished_service')->middleware('auth');
+Route::get('canceled_service','ServiceController@canceled')->name('canceled_service')->middleware('auth');
+Route::get('show_service','ServiceController@show')->name('show_service')->middleware('auth');
+Route::get('create_service','ServiceController@create')->name('create_service')->middleware('auth');
+Route::get('edit_service','ServiceController@edit')->name('edit_service')->middleware('auth');
+Route::get('delete_service','ServiceController@destroy')->name('delete_service')->middleware('auth');
 
 #Helpers
 /*
@@ -326,6 +335,64 @@ Route::get('helper_whitdrawals',function(){
         
     }
 })->name('helper_whitdrawals');
+Route::get('helper_services',function(){
+    
+    $conexion = mysqli_connect("localhost", "root", "", "dotech");
+    mysqli_set_charset ($conexion, 'utf8');
+    //$conexion2 = mysqli_connect("localhost", "root", "", "dotech_laravel");
+    $sql = "SELECT * FROM expediente";
+    $datos = mysqli_query($conexion,$sql);
+    while($fila=mysqli_fetch_array($datos))
+    {
+        $sql2 = "INSERT INTO services(
+            id,
+            author_id,
+            technical_id,
+            location_id,
+            company_id,
+            department_id,
+            
+
+            status,
+            type,
+            subject,
+            description,
+            feedback,
+            
+            programed_at,
+            contacted_at,
+            closed_at,
+
+
+            created_at,
+            updated_at
+        ) VALUES(
+            $fila[id_expediente],
+            $fila[id_gerente_expediente],
+            $fila[id_tecnico_expediente],
+            $fila[id_localidad],
+            $fila[id_compania],
+            NULL,
+
+            '$fila[id_estatus_expediente]',
+            '$fila[id_tipo_expediente]',
+            '$fila[asunto_expediente]',
+            '$fila[problematica_expediente]',
+            '$fila[solucion_expediente]',
+            
+            '$fila[fecha_expediente] $fila[hora_expediente]',
+            '$fila[timestamp_contacto]',
+            '$fila[timestamp_salida]',
+
+            '$fila[timestamp_asignacion]',
+            '$fila[timestamp_asignacion]'
+            
+        );";
+        //mysqli_query($conexion2,$sql2);
+        echo $sql2."<br/>";
+        
+    }
+})->name('helper_services');
 */
 
 
