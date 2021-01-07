@@ -31,7 +31,7 @@ class UserController extends Controller
     {
         $user = User::create($request->all());
         $user->password = bcrypt($request->email);
-        $user->token = \Str::random(60);
+        $user->api_token = \Str::random(60);
         if(!empty($request->image))
         {
             $file = $request->file('image');

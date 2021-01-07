@@ -23,7 +23,7 @@ class User extends Authenticatable
         'image',
         'email', 
         'password',
-        'token',
+        'api_token',
         'created_at',
         'updated_at'
     ];
