@@ -47,11 +47,11 @@
                 <a href="#" onclick="followServiceModal({{ $service->id }})"><span class="icon-bubble"
                         title="Seguimientos" style="cursor:pointer;color:#2980B9"> Seguimientos</span></a>
                 <br>
-                <a href="{{ route('show_service') }}"><span class="icon-eye" title="Detalles"
-                        style="cursor:pointer;color:#3498DB"> Detalles</span></a>
+                <a href="{{ route('show_service',$service->id) }}"><span class="icon-eye" title="Detalles"
+                    style="cursor:pointer;color:#3498DB"> Detalles</span></a>
                 <br>
-                <a href="{{ route('edit_service') }}"><span class="icon-pencil" title="Editar"
-                        style="cursor:pointer;color:#F39C12"> Editar</span></a>
+                <a href="{{ route('edit_service',$service->id) }}"><span class="icon-pencil" title="Editar"
+                    style="cursor:pointer;color:#F39C12"> Editar</span></a>
                 @if(Auth::user()->rol_user_id == 1)
                 <br>
                 <a href="#" onclick="deleteService({{ $service->id }})"><span class="icon-bin" title="Eliminar"
