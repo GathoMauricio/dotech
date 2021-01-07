@@ -47,10 +47,11 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
+                    <a href="{{ route('create_company') }}" class="float-right"><span class="icon-plus"></span> Agregar compañía</a>
                     <label for="company_id" class="font-weight-bold color-primary-sys">
                         Compañía
                     </label>
-                    <select onchange="loadDepartmentsByCompany(this.value)" name="company_id" class="custom-select">
+                    <select id="cbo_company_to_create_department" onchange="loadDepartmentsByCompany(this.value)" name="company_id" class="custom-select">
                         @foreach($companies as $company)
                         <option value="{{ $company->id }}">{{ $company->name }}</option>
                         @endforeach
@@ -59,7 +60,7 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    
+                    <a href="#" onclick="addDepartmentCompanyModal()" class="float-right"><span class="icon-plus"></span> Agregar departamento</a>
                     <label for="department_id" class="font-weight-bold color-primary-sys">
                         Departamento 
                         <span id="load_departments_by_company" class="icon-spinner9 float-right" style="color:#3498DB;display:none"></span>
@@ -120,5 +121,6 @@
         </div>
     </div>
 </form>
+@include('companies.add_department_company_modal')
 <input type="hidden" id="txt_route_load_departments_by_id" value="{{ route('load_departments_by_id') }}">
 @endsection

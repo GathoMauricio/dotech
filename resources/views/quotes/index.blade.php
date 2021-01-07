@@ -105,6 +105,7 @@
 <input type="hidden" id="txt_delete_sale_route" value="{{ route('delete_sale') }}">
 @include('quotes.send_quote_modal')
 @include('quotes.add_quote_modal')
+@include('companies.add_department_company_modal')
 @include('quotes.change_status_modal')
 @include('quotes.edit_quote_modal')
 @endsection

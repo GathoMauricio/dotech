@@ -9,4 +9,13 @@ class CompanyDepartmentController extends Controller
         $departmens = CompanyDepartment::where('company_id', $request->id)->get();
         return $departmens;
     }
+    public function store(Request $request)
+    {
+        $department = CompanyDepartment::create($request->all());
+        if($department)
+        {
+            return redirect()->back()
+            ->with('message', 'El departamento en '.$department->company['name'].' se agregó con éxisto.');
+        }
+    }
 }

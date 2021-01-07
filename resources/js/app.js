@@ -498,6 +498,7 @@ window.addWhitdralDocumentModal = id => {
     $("#add_whitdrawal_document_modal").modal();
 };
 window.addQuoteByCompanyModal = company_id => {
+    $("#cbo_company_to_create_department").val(company_id);
     let route = $("#txt_show_company_department_ajax_route").val();
     $("#add_quote_by_company_modal_company_id").val(company_id);
     $.ajax({
@@ -653,3 +654,8 @@ window.deleteUser = id => {
 window.showUserImage = src => {
     alert(src);
 };
+window.addDepartmentCompanyModal = () => {
+    let company_id = $("#cbo_company_to_create_department").val();
+    $("#txt_add_department_company_id").val(company_id);
+    $("#add_department_company_modal").modal();
+}

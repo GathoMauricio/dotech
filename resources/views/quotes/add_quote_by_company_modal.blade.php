@@ -89,6 +89,8 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
+                                    <input type="hidden"  id="cbo_company_to_create_department">
+                                    <a href="#" onclick="addDepartmentCompanyModal()" class="float-right"><span class="icon-plus"></span> Agregar departamento</a>
                                     <label for="department_id" class="font-weight-bold color-primary-sys">
                                         Departamento
                                     </label>

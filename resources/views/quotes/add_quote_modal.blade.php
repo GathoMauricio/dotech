@@ -19,11 +19,12 @@
                 <div class="modal-body">
                     <div class="container">
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="form-group">
+                                    <a href="{{ route('create_company') }}"class="float-right"><span class="icon-plus"></span> Agregar compañía</a>
                                     <label for="company_id" class="color-primary-sys font-weight-bold">Compañía</label>
                                     <input type="hidden" id="txt_route_load_departments_by_id" value="{{ route('load_departments_by_id') }}">
-                                    <select onchange="loadDepartmentsByCompany(this.value)" name="company_id" class="custom-select">
+                                    <select id="cbo_company_to_create_department" onchange="loadDepartmentsByCompany(this.value)" name="company_id" class="custom-select">
                                         @php 
                                             $companies = \App\Company::orderBy('name')->get(); 
                                             $company_id= $companies[0]->id;
@@ -37,10 +38,14 @@
                                     @endif
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="form-group">
+                                    <a href="#" onclick="addDepartmentCompanyModal()" class="float-right"><span class="icon-plus"></span> Agregar departamento</a>
+                                    <label for="department_id" class="color-primary-sys font-weight-bold">
+                                        Departamento
                                     <span id="load_departments_by_company" class="icon-spinner9 float-right" style="color:#3498DB;display:none"></span>
-                                    <label for="department_id" class="color-primary-sys font-weight-bold">Departamento</label>
+                                    </label>
+                                    
                                     <select name="department_id" id="cbo_departments_by_company" class="custom-select">
                                         @php 
                                             $departments = \App\CompanyDepartment::where('company_id',$company_id)->get(); 

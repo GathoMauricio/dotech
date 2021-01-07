@@ -13,6 +13,7 @@ class CompanyDepartment extends Model
         'manager',
         'email',
         'phone',
+        'address',
         'created_at',
         'updated_at'
     ];

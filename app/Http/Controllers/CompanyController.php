@@ -69,7 +69,8 @@ class CompanyController extends Controller
             'name' => 'General',
             'manager' => $company->responsable,
             'email' => $company->email,
-            'phone' => $company->phone
+            'phone' => $company->phone,
+            'address' => $company->address
         ]);
         if(!empty($request->image))
         {
