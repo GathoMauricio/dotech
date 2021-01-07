@@ -33,7 +33,13 @@
             <td>{{ $service->id }}</td>
             <td>{{ $service->author['name'] }} {{ $service->author['middle_name'] }}</td>
             <td>{{ $service->type }}</td>
-            <td>{{ $service->company['name'] }}</td>
+            <td>
+                <b>{{ $service->company['name'] }}</b>
+                <br>
+                <i>{{ $service->department['name'] }}</i>
+                <br>
+                {{ $service->department['manager'] }}
+            </td>
             <td>{{ $service->subject }}</td>
             <td>{{ $service->technical['name'] }} {{ $service->technical['middle_name'] }}</td>
             <td>{{ formatDate($service->programed_at) }}</td>

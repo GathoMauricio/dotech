@@ -2,6 +2,10 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Service;
+use App\ServiceLocation;
+use App\Company;
+use App\CompanyDepartment;
+use App\User;
 class ServiceController extends Controller
 {
     public function index()
@@ -26,11 +30,26 @@ class ServiceController extends Controller
     }
     public function create()
     {
-        //
+        $locations = ServiceLocation::orderBy('name')->get();
+        $companies = Company::orderBy('name')->get();
+        $departments = CompanyDepartment::where('company_id',$companies[0]->id)->orderBy('name')->get();
+        $users = User::where('status_user_id',1)->orderBy('name')->get();
+        return view('services.create',[
+            'locations' => $locations,
+            'users' => $users,
+            'companies' => $companies,
+            'departments' => $departments
+        ]);
     }
     public function store(Request $request)
     {
-        //
+        $service = Service::create($request->all());
+        if($service){
+            $service->programed_at = $request->date.' '.$request->time;
+            $service->save();
+            return redirect()->route('index_service')
+            ->with('message', 'El servicio para '.$service->department['manager'].' se creó con exito.');
+        }
     }
     public function show($id)
     {

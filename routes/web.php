@@ -159,9 +159,10 @@ Route::get('index_service','ServiceController@index')->name('index_service')->mi
 Route::get('processing_service','ServiceController@processing')->name('processing_service')->middleware('auth');
 Route::get('finished_service','ServiceController@finished')->name('finished_service')->middleware('auth');
 Route::get('canceled_service','ServiceController@canceled')->name('canceled_service')->middleware('auth');
-Route::get('show_service','ServiceController@show')->name('show_service')->middleware('auth');
+Route::get('show_service/{id}','ServiceController@show')->name('show_service')->middleware('auth');
 Route::get('create_service','ServiceController@create')->name('create_service')->middleware('auth');
-Route::get('edit_service','ServiceController@edit')->name('edit_service')->middleware('auth');
+Route::post('store_service','ServiceController@store')->name('store_service')->middleware('auth');
+Route::get('edit_service/{id}','ServiceController@edit')->name('edit_service')->middleware('auth');
 Route::get('delete_service','ServiceController@destroy')->name('delete_service')->middleware('auth');
 
 #Helpers
