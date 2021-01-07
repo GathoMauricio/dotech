@@ -5,6 +5,7 @@ use App\Service;
 use App\ServiceLocation;
 use App\Company;
 use App\CompanyDepartment;
+use App\ServiceFollow;
 use App\User;
 class ServiceController extends Controller
 {

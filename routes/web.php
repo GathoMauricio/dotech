@@ -396,4 +396,33 @@ Route::get('helper_services',function(){
 })->name('helper_services');
 */
 
-
+Route::get('helper_service_follows',function(){
+    
+    $conexion = mysqli_connect("localhost", "root", "", "dotech");
+    mysqli_set_charset ($conexion, 'utf8');
+    //$conexion2 = mysqli_connect("localhost", "root", "", "dotech_laravel");
+    $sql = "SELECT * FROM comentario_expediente";
+    $datos = mysqli_query($conexion,$sql);
+    while($fila=mysqli_fetch_array($datos))
+    {
+        $sql2 = "INSERT INTO service_follows(
+            id,
+            service_id,
+            author_id,
+            body,
+            created_at,
+            updated_at
+        ) VALUES(
+            $fila[id_comentario_expediente],
+            $fila[id_expediente],
+            $fila[id_empleado],
+            '$fila[texto_comentario_expediente]',
+            '$fila[timestamp_comentario_expediente]',
+            '$fila[timestamp_comentario_expediente]'
+            
+        );";
+        //mysqli_query($conexion2,$sql2);
+        echo $sql2."<br/>";
+        
+    }
+})->name('helper_service_follows');

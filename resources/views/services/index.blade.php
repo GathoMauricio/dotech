@@ -44,8 +44,15 @@
             <td>{{ $service->technical['name'] }} {{ $service->technical['middle_name'] }}</td>
             <td>{{ formatDate($service->programed_at) }}</td>
             <td>
-                <a href="#" onclick="followServiceModal({{ $service->id }})"><span class="icon-bubble"
-                        title="Seguimientos" style="cursor:pointer;color:#2980B9"> Seguimientos</span></a>
+                <a 
+                href="#" 
+                onclick="followServiceModal({{ $service->id }})">
+                    <span class="icon-bubble"
+                        title="Seguimientos" style="cursor:pointer;color:#2980B9"> 
+                        {{ count(App\ServiceFollow::where('service_id',$service->id)->get()) }}
+                        Seguimientos
+                    </span>
+                    </a>
                 <br>
                 <a href="{{ route('show_service',$service->id) }}"><span class="icon-eye" title="Detalles"
                         style="cursor:pointer;color:#3498DB"> Detalles</span></a>
