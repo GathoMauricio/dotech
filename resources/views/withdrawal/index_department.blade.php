@@ -1,5 +1,7 @@
 @extends('layouts.app')
 @section('content')
+<img src="{{ asset('img/withdrawal_header.png') }}" style="width:100%;" height="200" />
+<br><br>
 <h4 class="title_page">Departamentos de retiro</h4> 
 @include('config.menu')
 <br/>

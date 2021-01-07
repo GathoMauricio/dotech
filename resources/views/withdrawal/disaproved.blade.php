@@ -1,5 +1,7 @@
 @extends('layouts.app')
 @section('content')
+<img src="{{ asset('img/withdrawal_header.png') }}" style="width:100%;" height="200" />
+<br><br>
 <h4 class="title_page ">Retiros desaprobados</h4>
 <a href="{{ route('whitdrawal_index') }}" class="float-right"><span class="icon-point-up"></span> Ver solicitudes pendientes</a>
 @if(count($whitdrawals) <= 0)
