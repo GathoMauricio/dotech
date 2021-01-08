@@ -169,6 +169,8 @@ Route::get('delete_service','ServiceController@destroy')->name('delete_service')
 Route::get('index_service_follow','ServiceFollowController@index')->name('index_service_follow')->middleware('auth');
 Route::post('store_service_follow','ServiceFollowController@store')->name('store_service_follow')->middleware('auth');
 
+#Service images
+Route::get('show_service_image','ServiceImageController@show')->name('show_service_image')->middleware('auth');
 
 #Helpers
 /*

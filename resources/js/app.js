@@ -755,3 +755,17 @@ window.addDepartmentCompanyModal = () => {
     $("#txt_add_department_company_id").val(company_id);
     $("#add_department_company_modal").modal();
 }
+window.showServiceImage = id => {
+    let route = $("#txt_show_service_image").val();
+    $.ajax({
+        'type': 'GET',
+        'url': route,
+        data:{ id:id },
+        success: data =>{ 
+            $("#show_image_description").text(data.description);
+            $("#show_image_container").css('background-image','url('+data.image+')');
+            $("#show_image_modal").css('display', 'flex');
+        },
+        error: error => console.log(error)
+    });
+};

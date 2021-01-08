@@ -6,6 +6,7 @@ use App\ServiceLocation;
 use App\Company;
 use App\CompanyDepartment;
 use App\ServiceFollow;
+use App\ServiceImage;
 use App\User;
 class ServiceController extends Controller
 {
@@ -54,7 +55,14 @@ class ServiceController extends Controller
     }
     public function show($id)
     {
-        //
+        $service = Service::findOrFail($id);
+        $images = ServiceImage::where('service_id', $id)->get();
+        $follows = ServiceFollow::where('service_id', $id)->get();
+        return view('services.show',[
+            'service' => $service,
+            'images' => $images,
+            'follows' => $follows
+        ]);
     }
     public function edit($id)
     {
