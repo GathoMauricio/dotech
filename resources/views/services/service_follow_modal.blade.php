@@ -14,7 +14,7 @@
             </div>
             <div class="modal-footer">
                 <input type="hidden" id="txt_index_service_follow" value="{{ route('index_service_follow') }}">
-                <form action="{{ route('store_service_follow') }}" id="form_store_service_follow" style='width: 100%' class="form"   method="POST">
+                <form action="{{ route('store_service_follow') }}" id="form_store_service_follow" style='width: 100%' class="form" method="POST">
                     <div class="container">
                         <div class="row">
                             <div class="col-md-12">

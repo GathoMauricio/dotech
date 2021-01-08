@@ -218,7 +218,6 @@ window.indexServiceFollow = service_id => {
             id: service_id
         },
         success: data => {
-            console.log(data);
             $("#ServiceFollowBox").html("");
             let counter = 0;
             $.each(data, function(index, value) {
@@ -259,7 +258,6 @@ window.indexServiceFollow = service_id => {
     $("#form_store_service_follow").on("submit", e => {
         e.preventDefault();
         const form = $("#form_store_service_follow");
-        console.log("guardando...");
         $.ajax({
             type: "POST",
             url: form.prop("action"),
@@ -304,6 +302,7 @@ window.indexServiceFollow = service_id => {
             },
             error: error => console.log(error)
         });
+
     });
 };
 window.indexCompanyFollow = company_id => {

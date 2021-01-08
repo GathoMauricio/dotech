@@ -24,7 +24,6 @@ class ServiceFollowController extends Controller
     }
     public function store(Request $request)
     {
-        //return $request;
         $follow = ServiceFollow::create([
             'service_id' => $request->service_id,
             'body' => $request->body
@@ -39,7 +38,7 @@ class ServiceFollowController extends Controller
                 'created_at' => formatDate($serviceFollow->created_at)
             ];
         }
-        createSysLog("dió seguimiento a al expediente ".$follow->service['id']." (".$follow->body.") ");
+        createSysLog("Dió seguimiento a al expediente ".$follow->service['id']." (".$follow->body.") ");
         return $json;
     }
     public function show($id)
