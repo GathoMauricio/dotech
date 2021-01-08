@@ -165,6 +165,11 @@ Route::post('store_service','ServiceController@store')->name('store_service')->m
 Route::get('edit_service/{id}','ServiceController@edit')->name('edit_service')->middleware('auth');
 Route::get('delete_service','ServiceController@destroy')->name('delete_service')->middleware('auth');
 
+#Service Follows
+Route::get('index_service_follow','ServiceFollowController@index')->name('index_service_follow')->middleware('auth');
+Route::post('store_service_follow','ServiceFollowController@store')->name('store_service_follow')->middleware('auth');
+
+
 #Helpers
 /*
 Route::get('helper_sales',function(){
@@ -394,8 +399,6 @@ Route::get('helper_services',function(){
         
     }
 })->name('helper_services');
-*/
-
 Route::get('helper_service_follows',function(){
     
     $conexion = mysqli_connect("localhost", "root", "", "dotech");
@@ -426,3 +429,6 @@ Route::get('helper_service_follows',function(){
         
     }
 })->name('helper_service_follows');
+*/
+
+

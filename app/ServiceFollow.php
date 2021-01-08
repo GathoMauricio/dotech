@@ -1,6 +1,7 @@
 <?php
 namespace App;
 use Illuminate\Database\Eloquent\Model;
+use Auth;
 class ServiceFollow extends Model
 {
     protected $table = 'service_follows';
@@ -14,6 +15,14 @@ class ServiceFollow extends Model
         'created_at',
         'updated_at'
     ];
+    protected static function boot()
+	{
+		parent::boot();
+
+		static::creating(function ($query) {
+			$query->author_id = Auth::user()->id;
+		});
+	}
     public function service()
     {
         return $this->belongsTo

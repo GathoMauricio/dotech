@@ -46,7 +46,7 @@
             <td>
                 <a 
                 href="#" 
-                onclick="followServiceModal({{ $service->id }})">
+                onclick="indexServiceFollow({{ $service->id }})">
                     <span class="icon-bubble"
                         title="Seguimientos" style="cursor:pointer;color:#2980B9"> 
                         {{ count(App\ServiceFollow::where('service_id',$service->id)->get()) }}
@@ -130,5 +130,6 @@
     }
     </script>
     @endif
+    @include('services.service_follow_modal')
     <input type="hidden" id="txt_delete_service_route" value="{{ route('delete_service') }}">
     @endsection
