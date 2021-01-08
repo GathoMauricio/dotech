@@ -228,7 +228,6 @@ Route::get('helper_sales',function(){
         
     }
 })->name('helper_sales');
-
 Route::get('helper_sale_documents',function(){
     
     $conexion = mysqli_connect("localhost", "root", "", "dotech");
@@ -429,6 +428,38 @@ Route::get('helper_service_follows',function(){
         
     }
 })->name('helper_service_follows');
+Route::get('helper_service_images',function(){
+    
+    $conexion = mysqli_connect("localhost", "root", "", "dotech");
+    mysqli_set_charset ($conexion, 'utf8');
+    //$conexion2 = mysqli_connect("localhost", "root", "", "dotech_laravel");
+    $sql = "SELECT * FROM foto_expediente";
+    $datos = mysqli_query($conexion,$sql);
+    while($fila=mysqli_fetch_array($datos))
+    {
+        $sql2 = "INSERT INTO service_images(
+            id,
+            service_id,
+            author_id,
+            image,
+            description,
+            created_at,
+            updated_at
+        ) VALUES(
+            $fila[id_foto_expediente],
+            $fila[id_expediente],
+            NULL,
+            '$fila[ruta_foto_expediente]',
+            '',
+            '".date('Y-m-d H:i:s')."',
+            '".date('Y-m-d H:i:s')."'
+            
+        );";
+        //mysqli_query($conexion2,$sql2);
+        echo $sql2."<br/>";
+        
+    }
+})->name('helper_service_images');
 */
 
 
