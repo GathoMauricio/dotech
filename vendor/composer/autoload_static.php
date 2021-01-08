@@ -469,6 +469,8 @@ class ComposerStaticInitc76430cec0ac4972d1901c144bf246d6
     );
 
     public static $classMap = array (
+        'App\\Binnacle' => __DIR__ . '/../..' . '/app/Binnacle.php',
+        'App\\BinnacleImage' => __DIR__ . '/../..' . '/app/BinnacleImage.php',
         'App\\Company' => __DIR__ . '/../..' . '/app/Company.php',
         'App\\CompanyDepartment' => __DIR__ . '/../..' . '/app/CompanyDepartment.php',
         'App\\CompanyFollow' => __DIR__ . '/../..' . '/app/CompanyFollow.php',
@@ -483,6 +485,8 @@ class ComposerStaticInitc76430cec0ac4972d1901c144bf246d6
         'App\\Http\\Controllers\\Auth\\RegisterController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/RegisterController.php',
         'App\\Http\\Controllers\\Auth\\ResetPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ResetPasswordController.php',
         'App\\Http\\Controllers\\Auth\\VerificationController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/VerificationController.php',
+        'App\\Http\\Controllers\\BinnacleController' => __DIR__ . '/../..' . '/app/Http/Controllers/BinnacleController.php',
+        'App\\Http\\Controllers\\BinnacleImageController' => __DIR__ . '/../..' . '/app/Http/Controllers/BinnacleImageController.php',
         'App\\Http\\Controllers\\CompanyController' => __DIR__ . '/../..' . '/app/Http/Controllers/CompanyController.php',
         'App\\Http\\Controllers\\CompanyDepartmentController' => __DIR__ . '/../..' . '/app/Http/Controllers/CompanyDepartmentController.php',
         'App\\Http\\Controllers\\CompanyFollowController' => __DIR__ . '/../..' . '/app/Http/Controllers/CompanyFollowController.php',

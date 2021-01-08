@@ -9,6 +9,7 @@ use App\Whitdrawal;
 use App\SalePayment;
 use App\SaleDocument;
 use App\SaleFollow;
+use App\Binnacle;
 use PDF;
 
 use App\Http\Requests\SaleRequest;
@@ -74,6 +75,8 @@ class SaleController extends Controller
         $whitdrawals = Whitdrawal::where('sale_id',$id)->get();
         $payments = SalePayment::where('sale_id',$id)->get();
         $documnets = SaleDocument::where('sale_id',$id)->get();
+        $binnacles = Binnacle::where('sale_id',$id)->get();
+
         $sale->utility = $sale->estimated - $sale->investment;
         $sale->save();
         $totalSell = 0;
@@ -94,6 +97,7 @@ class SaleController extends Controller
             'whitdrawals' => $whitdrawals,
             'payments' => $payments,
             'documents' => $documnets,
+            'binnacles' => $binnacles,
 
             'totalSell' => $totalSell,
             'grossProfit' => $grossProfit,

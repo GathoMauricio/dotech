@@ -6,6 +6,8 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'App\\Binnacle' => $baseDir . '/app/Binnacle.php',
+    'App\\BinnacleImage' => $baseDir . '/app/BinnacleImage.php',
     'App\\Company' => $baseDir . '/app/Company.php',
     'App\\CompanyDepartment' => $baseDir . '/app/CompanyDepartment.php',
     'App\\CompanyFollow' => $baseDir . '/app/CompanyFollow.php',
@@ -20,6 +22,8 @@ return array(
     'App\\Http\\Controllers\\Auth\\RegisterController' => $baseDir . '/app/Http/Controllers/Auth/RegisterController.php',
     'App\\Http\\Controllers\\Auth\\ResetPasswordController' => $baseDir . '/app/Http/Controllers/Auth/ResetPasswordController.php',
     'App\\Http\\Controllers\\Auth\\VerificationController' => $baseDir . '/app/Http/Controllers/Auth/VerificationController.php',
+    'App\\Http\\Controllers\\BinnacleController' => $baseDir . '/app/Http/Controllers/BinnacleController.php',
+    'App\\Http\\Controllers\\BinnacleImageController' => $baseDir . '/app/Http/Controllers/BinnacleImageController.php',
     'App\\Http\\Controllers\\CompanyController' => $baseDir . '/app/Http/Controllers/CompanyController.php',
     'App\\Http\\Controllers\\CompanyDepartmentController' => $baseDir . '/app/Http/Controllers/CompanyDepartmentController.php',
     'App\\Http\\Controllers\\CompanyFollowController' => $baseDir . '/app/Http/Controllers/CompanyFollowController.php',

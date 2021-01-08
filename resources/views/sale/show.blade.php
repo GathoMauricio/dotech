@@ -361,6 +361,45 @@
         <tr><td colspan="9" class="text-center">Sin registros</td></tr>
         @endif
     </table>
+    <table class="table" border="5">
+        <tr>
+            <td colspan="4" style="background-color:#d30035;color:white;font-weight:bold;">
+                <center>
+                    <label>Bitácoras</label>
+                    <label style="float:right;padding:5px;"><span
+                            onclick="addBinnacle({{ $sale->id }});" class="icon-plus"
+                            style="cursor:pointer;color:white;" title="Agregar bitácora..."></span></label>
+                </center>
+            </td>
+        </tr>
+        <tr>
+            <td><b>Fecha</b></td>
+            <td><b>Autor</b></td>
+            <td><b>Descripción</b></td>
+            <td></td>
+        </tr>
+        @foreach($binnacles as $binnacle)
+        <tr>
+            <td>{{ formatDate($binnacle->created_at) }}</td>
+            <td>{{ $binnacle->author['name'] }} {{ $binnacle->author['middle_name'] }} {{ $binnacle->author['last_name'] }}</td>
+            <td>{{ $binnacle->description }}</td>
+            <td>
+                <a href="#" onclick="">
+                    <span class="icon-image" title="Imágenes" style="cursor:pointer;color:#2c49ec">
+                        {{ count(App\BinnacleImage::where('binnacle_id',$binnacle->id)->get()) }}
+                        Imágenes
+                    </span>
+                    </a>
+                <br>
+            </td>
+        </tr>
+        @endforeach
+        @if(count($binnacles)<=0)
+        <tr><td colspan="4" class="text-center">Sin registros</td></tr>
+        @endif
+    </table>
+
+
 </center>
 @include('withdrawal.add_provider_modal')
 @include('withdrawal.aprove_withdrawal_modal')
