@@ -151,8 +151,8 @@ Route::get('delete_user/{id?}','UserController@destroy')->name('delete_user')->m
 #providers
 Route::get('provider_index','WhitdrawalProviderController@index')->name('provider_index')->middleware('auth');
 Route::get('edit_provider/{id}','WhitdrawalProviderController@edit')->name('edit_provider')->middleware('auth');
-Route::put('update_whitdrawal/{id}','WhitdrawalProviderController@update')->name('update_whitdrawal')->middleware('auth');
-Route::get('delete_whitdrawal/{id?}','WhitdrawalProviderController@destroy')->name('delete_whitdrawal')->middleware('auth');
+Route::put('update_provider/{id}','WhitdrawalProviderController@update')->name('update_provider')->middleware('auth');
+Route::get('delete_provider/{id?}','WhitdrawalProviderController@destroy')->name('delete_provider')->middleware('auth');
 
 #services
 Route::get('index_service','ServiceController@index')->name('index_service')->middleware('auth');
