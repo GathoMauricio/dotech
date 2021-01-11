@@ -5,7 +5,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title font-weight-bold color-primary-sys" id="exampleModalLabel">
-                    Aprovar retiro
+                    Aprobar retiro
                 </h5>
                 
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
