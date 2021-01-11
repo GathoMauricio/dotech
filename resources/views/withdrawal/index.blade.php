@@ -45,7 +45,7 @@
             <td>
                 <a href="#" onclick="aproveWithdrawalModal({{ $whitdrawal->id }});"><span class="icon-point-up" title="Aprovar" style="cursor:pointer;color:#74DF00"> Aprobar</span></a>
                 <br>
-                <a href="#" onclick="disaproveWithdrawal({{ $whitdrawal->id }});"><span class="icon-point-down" title="Desaprobar" style="cursor:pointer;color:#FFBF00"> Desaprobar</span></a>
+                <a href="#" onclick="disaproveWithdrawal({{ $whitdrawal->id }});"><span class="icon-point-down" title="Desaprobar" style="cursor:pointer;color:#FFBF00"> Rechazar</span></a>
                 <br>
                 <a href="#" onclick="deleteWithdrawal({{ $whitdrawal->id }});"><span class="icon-bin" title="Eliminar" style="cursor:pointer;color:#DF0101"> Eliminar</span></a>
                 <br>
@@ -58,5 +58,6 @@
 @endif
 <input type="hidden" id="txt_disaprove_whitdrawal_route" value="{{ route('disaprove_whitdrawal') }}">
 <input type="hidden" id="txt_delete_whitdrawal_route" value="{{ route('delete_whitdrawal') }}">
+<input type="hidden" id="txt_show_whitdrawal_route" value="{{ route('show_whitdrawal') }}">
 @include('withdrawal.aprove_withdrawal_modal')
 @endsection

@@ -63,9 +63,10 @@ class WhitdrawalController extends Controller
         $account->save();
         return redirect()->back()->with('message', 'La solicitud se ha aprovado y la cantidad se ha descontado de la cuenta seleccionada.');
     }
-    public function show($id)
+    public function show(Request $request)
     {
-        //
+        $whitdrawal = Whitdrawal::findOrFail($request->id);
+        return $whitdrawal;
     }
     public function edit($id)
     {

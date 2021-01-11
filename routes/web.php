@@ -90,6 +90,8 @@ Route::post('store_whitdrawal_document','WhitdrawalController@uploadDocument')->
 Route::post('apreove_withdrawal','WhitdrawalController@aprove')->name('apreove_withdrawal')->middleware('auth');;
 Route::get('disaprove_whitdrawal/{id?}','WhitdrawalController@disaproveWithdrawal')->name('disaprove_whitdrawal')->middleware('auth');
 Route::get('delete_whitdrawal/{id?}','WhitdrawalController@destroy')->name('delete_whitdrawal')->middleware('auth');
+Route::get('show_whitdrawal','WhitdrawalController@show')->name('show_whitdrawal')->middleware('auth');
+
 
 #whitdrawal provider
 Route::post('store_whitdrawal_provider','WhitdrawalProviderController@store')->name('store_whitdrawal_provider')->middleware('auth');

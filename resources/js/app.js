@@ -613,6 +613,17 @@ window.addQuoteModal = () => {
     $("#add_quote_modal").modal();
 };
 window.aproveWithdrawalModal = whitdrawal_id => {
+    let route = $("#txt_show_whitdrawal_route").val();
+    $.ajax({
+        type: "GET",
+        url: route,
+        data: { id: whitdrawal_id},
+        success: data => {
+            console.log(data);
+            $("#txt_aprove_withdrawal_description").text(data.description);
+        },
+        error: error => console.log(error)
+    });
     $("#txt_aprove_withdrawal_modal_id").val(whitdrawal_id);
     $("#aprove_withdrawal_modal").modal();
 };

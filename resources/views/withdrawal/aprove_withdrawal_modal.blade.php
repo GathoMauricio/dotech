@@ -7,9 +7,13 @@
                 <h5 class="modal-title font-weight-bold color-primary-sys" id="exampleModalLabel">
                     Aprovar retiro
                 </h5>
+                
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
+            </div>
+            <div class="p-3 font-weight-bold" id="txt_aprove_withdrawal_description">
+                
             </div>
             <form action="{{ route('apreove_withdrawal') }}" method="POST">
                 @csrf
@@ -17,7 +21,7 @@
                 <input type="hidden" name="status" value="Aprobado">
                 <div class="container">
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label for="whitdrawal_account_id" class="font-weight-bold color-primary-sys">
                                     Seleccione la cuenta
@@ -30,7 +34,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label for="whitdrawal_department_id" class="font-weight-bold color-primary-sys">
                                     Seleccione el departamento
@@ -43,7 +47,9 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label for="type" class="font-weight-bold color-primary-sys">
                                     Seleccione el tipo de retiro
@@ -53,6 +59,14 @@
                                     <option value="Cheque">Cheque</option>
                                     <option value="Transferencia">Transferencia</option>
                                 </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="type" class="font-weight-bold color-primary-sys">
+                                    Subir factura
+                                </label>
+                                <input type="file" name="file" class="form-control">
                             </div>
                         </div>
                     </div>
