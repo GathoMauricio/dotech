@@ -232,6 +232,8 @@ Route::get('helper_sales',function(){
         
     }
 })->name('helper_sales');
+*/
+/*
 Route::get('helper_sale_documents',function(){
     
     $conexion = mysqli_connect("localhost", "root", "", "dotech");
@@ -264,6 +266,8 @@ Route::get('helper_sale_documents',function(){
         
     }
 })->name('helper_sale_documents');
+*/
+/*
 Route::get('helper_sale_follows',function(){
     
     $conexion = mysqli_connect("localhost", "root", "", "dotech");
@@ -294,6 +298,8 @@ Route::get('helper_sale_follows',function(){
         
     }
 })->name('helper_sale_follows');
+*/
+/*
 Route::get('helper_whitdrawals',function(){
     
     $conexion = mysqli_connect("localhost", "root", "", "dotech");
@@ -344,6 +350,8 @@ Route::get('helper_whitdrawals',function(){
         
     }
 })->name('helper_whitdrawals');
+*/
+/*
 Route::get('helper_services',function(){
     
     $conexion = mysqli_connect("localhost", "root", "", "dotech");
