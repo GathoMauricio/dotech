@@ -58,7 +58,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Aprovar</button>
+                    <button type="submit" class="btn btn-primary">Aprobar</button>
                 </div>
             </form>
         </div>
