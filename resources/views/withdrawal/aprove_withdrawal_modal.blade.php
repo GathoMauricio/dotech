@@ -15,7 +15,7 @@
             <div class="p-3 font-weight-bold" id="txt_aprove_withdrawal_description">
                 
             </div>
-            <form action="{{ route('apreove_withdrawal') }}" method="POST">
+            <form action="{{ route('apreove_withdrawal') }}" method="POST"  accept-charset="UTF-8" enctype="multipart/form-data">
                 @csrf
                 <input type="hidden" name="id" id="txt_aprove_withdrawal_modal_id">
                 <input type="hidden" name="status" value="Aprobado">

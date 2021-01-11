@@ -35,6 +35,7 @@ class WhitdrawalController extends Controller
     {
         $whitdrawal = Whitdrawal::create($request->all());
         if($whitdrawal){
+            createSysLog("Creo una solicitud de retiro: ".$whitdrawal->description);
             return redirect()->back()->with('message', 'Solicitud de retiro agreagada');
         }else{
             return "error";
@@ -48,6 +49,7 @@ class WhitdrawalController extends Controller
         \Storage::disk('local')->put($name,  \File::get($file));
         $whitdrawal->document = $name;
         $whitdrawal->save();
+        createSysLog("Subió la factura del retiro: ".$whitdrawal->description);
         return redirect()->back()->with('message', 'El documento se almacenó con éxito con el nombre: '.$whitdrawal->document);
     }
     public function aprove(Request $request)
@@ -60,7 +62,15 @@ class WhitdrawalController extends Controller
         $whitdrawal->save();
         $account = WhitdrawalAccount::findOrFail($request->whitdrawal_account_id);
         $account->balance = floatval($account->balance) - floatval($whitdrawal->quantity);
+        if(!empty($request->file))
+        {
+            $file = $request->file('file');
+            $name =  "WhitdrawalDocument_[".$whitdrawal->id."]_".\Str::random(8)."_".$file->getClientOriginalName();
+            \Storage::disk('local')->put($name,  \File::get($file));
+            $whitdrawal->document = $name;
+        }
         $account->save();
+        createSysLog("Aprobó retiro: ".$whitdrawal->description);
         return redirect()->back()->with('message', 'La solicitud se ha aprovado y la cantidad se ha descontado de la cuenta seleccionada.');
     }
     public function show(Request $request)
@@ -81,12 +91,14 @@ class WhitdrawalController extends Controller
         $whitdrawal = Whitdrawal::findOrFail($id);
         $whitdrawal->status= 'Desaprobado';
         $whitdrawal->save();
+        createSysLog("Rechazó el retiro: ".$whitdrawal->description);
         return redirect()->back()->with('message', 'La solicitud ha sido rechazada.');
     }
     public function destroy($id)
     {
         $whitdrawal = Whitdrawal::findOrFail($id);
         $whitdrawal->delete();
+        createSysLog("Eliminó retiro: ".$whitdrawal->description);
         return redirect()->back()->with('message', 'La solicitud ha sido eliminada por completo.');
     }
 }

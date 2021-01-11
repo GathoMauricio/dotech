@@ -104,7 +104,7 @@
     }
 </script>
 @endif
-<input type="text" id="txt_delete_sale_route" value="{{ route('delete_sale') }}">
+<input type="hidden" id="txt_delete_sale_route" value="{{ route('delete_sale') }}">
 @include('quotes.change_status_modal')
 @include('quotes.edit_quote_modal')
 @endsection
