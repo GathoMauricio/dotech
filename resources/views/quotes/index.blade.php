@@ -27,7 +27,7 @@
             <td>
                 <a href="#" onclick="sendQuoteModal({{ $sale->id }},'{{ $sale->department['email'] }}');"><span class="icon-envelop" title="Enviar" style="cursor:pointer;color:#D7DF01"> Enviar</span></a>
                 <br>
-                <a href="{{ route('quote_products',$sale->id) }}"><span class="icon-eye" title="Productos" style="cursor:pointer;color:#3498DB"> Productos</span></a>
+                <a href="{{ route('quote_products',$sale->id) }}" target="_blank"><span class="icon-eye" title="Productos" style="cursor:pointer;color:#3498DB"> Productos</span></a>
                 <br>
                 <a href="#" onclick="changeStatusModal({{ $sale->id }});"><span class="icon-checkmark" title="Cambiar estatus" style="cursor:pointer;color:#2ECC71"> Estatus</span></a>
                 <br>
