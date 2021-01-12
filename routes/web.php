@@ -149,6 +149,8 @@ Route::post('store_user','UserController@store')->name('store_user')->middleware
 Route::get('edit_user/{id}','UserController@edit')->name('edit_user')->middleware('auth');
 Route::put('update_user/{id}','UserController@update')->name('update_user')->middleware('auth');
 Route::get('delete_user/{id?}','UserController@destroy')->name('delete_user')->middleware('auth');
+Route::put('update_my_password','UserController@updateMyPassword')->name('update_my_password')->middleware('auth');
+Route::put('update_password_admin','UserController@updatePasswordAdmin')->name('update_password_admin')->middleware('auth');
 
 #providers
 Route::get('provider_index','WhitdrawalProviderController@index')->name('provider_index')->middleware('auth');

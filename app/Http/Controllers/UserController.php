@@ -142,7 +142,6 @@ class UserController extends Controller
         $user->delete();
         return redirect()->route('index_user')->with('message', 'Usuario eliminado');
     }
-
     public function updatePassword(ResetPasswordRequest $request)
     {
         $user = User::findOrFail(Auth::user()->id);
@@ -150,5 +149,21 @@ class UserController extends Controller
         $user->save();
         createSysLog("actualizó su contraseña");
         return redirect('/')->with('message', 'Su contraseña se actualizo con exito.');
+    }
+    public function updateMyPassword(Request $request)
+    {
+        $user = User::findOrFail(Auth::user()->id);
+        $user->password = bcrypt($request->password);
+        $user->save();
+        createSysLog("actualizó su contraseña");
+        return redirect()->back()->with('message', 'Su contraseña se actualizo con exito.');
+    }
+    public function updatePasswordAdmin(Request $request)
+    {
+        $user = User::findOrFail($request->id);
+        $user->password = bcrypt($request->password);
+        $user->save();
+        createSysLog("actualizó la contraseña de ".$user->name." ".$user->middle_name." ".$user->last_name);
+        return redirect()->back()->with('message', 'La contraseña se actualizo con exito.');
     }
 }

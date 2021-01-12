@@ -1,5 +1,8 @@
 @extends('layouts.app')
 @section('content')
+<p class="text-right">
+    <a href="{{ route('index_user') }}"><span class="icon-cross"></span></a>
+</p>
 <h4 class="title_page">Editar usuario</h4>
 @include('config.menu')
 <center>
@@ -9,6 +12,8 @@
     <img src="{{asset('storage')}}/{{ $user->image }}" width="150" height="120" />
     @endif
 </center>
+<hr>
+<h5 class="title_page">Información personal</h5>
 <form action="{{ route('update_user',$user->id) }}" method="POST" accept-charset="UTF-8" enctype="multipart/form-data">
     @csrf
     @method('PUT')
@@ -148,11 +153,40 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="float-right">
-                    <a href="{{ route('index_user') }}" class="btn btn-secondary">Cancelar</a>
                     <input type="submit" value="Actualizar" class="btn btn-primary">
                 </div>
             </div>
         </div>
+    </div>
+</form>
+<hr>
+<h5 class="title_page">Cambiar contraseña</h5>
+<form action="{{ route('update_password_admin') }}" id="form_edit_password" method="POST">
+    @csrf
+    @method('PUT')
+    <input type="hidden" name="id"  value="{{ $user->id }}" />
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="currency" class="font-weight-bold color-primary-sys">
+                        Nueva contraseña
+                    </label>
+                    <input type="password" name="password" id="txt_edit_password" class="form-control" required>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="currency" class="font-weight-bold color-primary-sys">
+                        Repetir contraseña
+                    </label>
+                    <input type="password" name="password_confirm" id="txt_edit_password_confirm" class="form-control" required>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Actualizar</button>
     </div>
 </form>
 @endsection

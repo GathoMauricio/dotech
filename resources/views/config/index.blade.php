@@ -48,11 +48,12 @@
                 **************
             </h5> 
         </td>
-        <td width="10%"><a href="#"><span class="icon-pencil"></span> Editar</a></td>
+        <td width="10%"><a href="#" onclick="editPasswordModal();"><span class="icon-pencil"></span> Editar</a></td>
     </tr>
 
 </table>
 @include('config.edit_name_modal')
+@include('config.edit_password_modal')
 @php 
 if(Auth::user()->image == 'perfil.png')
 {

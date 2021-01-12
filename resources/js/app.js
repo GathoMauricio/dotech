@@ -43,13 +43,30 @@ jQuery(() => {
         separator: ".",
         delimiter: "."
     });
-    /*
-    jQuery('.date_mask').datetimepicker({
-        timepicker:false,
-        mask:false,
-        formatDate:'Y-m-d',
+    /*+Form edit my password+++*/
+    $("#form_edit_my_password").on('submit',e => {
+        const password = $("#txt_edit_my_password").val();
+        const password_confirm = $("#txt_edit_my_password_confirm").val();
+        if(password == password_confirm)
+        {
+            return true;
+        }else{
+            e.preventDefault();
+            msg('Error: ','Las contraseñas no coinciden');
+        }
     });
-    */
+    $("#form_edit_password").on('submit',e => {
+        const password = $("#txt_edit_password").val();
+        const password_confirm = $("#txt_edit_password_confirm").val();
+        if(password == password_confirm)
+        {
+            return true;
+        }else{
+            e.preventDefault();
+            msg('Error: ','Las contraseñas no coinciden');
+        }
+    });
+
 });
 /*++ End JqueryReady ++*/
 
@@ -779,4 +796,8 @@ window.showServiceImage = id => {
         },
         error: error => console.log(error)
     });
+};
+
+window.editPasswordModal = () => {
+    $("#edit_password_modal").modal();
 };
