@@ -104,7 +104,8 @@
     <tbody>
         <tr>
             <th width="15%" style="background-color:#D5D8DC;">Cantidad</th>
-            <th width="40%" style="background-color:#D5D8DC;">Descripción</th>
+            <th width="15%" style="background-color:#D5D8DC;">U. Medida</th>
+            <th width="25%" style="background-color:#D5D8DC;">Descripción</th>
             <th width="15%" style="background-color:#D5D8DC;">P. Lista</th>
             <th width="15%" style="background-color:#D5D8DC;">Descuento</th>
             <th width="15%" style="background-color:#D5D8DC;">Importe</th>
@@ -112,6 +113,11 @@
         @foreach($saleProducts as $saleProduct)
         <tr>
             <td style="text-align:center">{{ $saleProduct->quantity }}</td>
+            @if(!empty($saleProduct->measure))
+            <td style="text-align:center">{{ $saleProduct->quantity }}</td>
+            @else
+            <td style="text-align:center">N/A</td>
+            @endif
             <td style="padding:3px;">{{ $saleProduct->description }}</td>
             <td style="text-align:center">${{ number_format($saleProduct->unity_price_sell,2) }}</td>
             <td style="text-align:center">{{ $saleProduct->discount }}%</td>
