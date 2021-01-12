@@ -177,7 +177,7 @@ Route::post('store_service_follow','ServiceFollowController@store')->name('store
 Route::get('show_service_image','ServiceImageController@show')->name('show_service_image')->middleware('auth');
 
 #Helpers
-/*
+
 Route::get('helper_sales',function(){
     
     $conexion = mysqli_connect("localhost", "root", "", "dotech");
@@ -187,6 +187,22 @@ Route::get('helper_sales',function(){
     $datos = mysqli_query($conexion,$sql);
     while($fila=mysqli_fetch_array($datos))
     {
+        $status = '';
+        switch($fila['id_estatus_venta'])
+        {
+            case 1: 
+                $status = 'Pendiente';
+            break;
+            case 2: 
+                $status = 'Proyecto';
+            break;
+            case 3: 
+                $status = 'Rechazada';
+            break;
+            case 4: 
+                $status = 'Finalizado';
+            break;
+        }
         $sql2 = "INSERT INTO sales(
             id,
             company_id,
@@ -212,7 +228,7 @@ Route::get('helper_sales',function(){
             $fila[id_compania],
             $fila[id_departamento_compania],
             $fila[id_empleado],
-            '$fila[id_estatus_venta]',
+            '$status',
             '$fila[descripcion_venta]',
             '$fila[precio_total_venta]',
             '$fila[comision_venta]',
@@ -225,8 +241,8 @@ Route::get('helper_sales',function(){
             '$fila[observacion_venta]',
             '$fila[material_venta]',
             '$fila[ts_finalizado]',
-            '$fila[fecha_venta] 00:00:00',
-            '$fila[fecha_venta] 00:00:00'
+            '$fila[fecha_cotizacion_venta] 00:00:00',
+            '$fila[fecha_cotizacion_venta] 00:00:00'
             
         );";
         //mysqli_query($conexion2,$sql2);
@@ -234,8 +250,8 @@ Route::get('helper_sales',function(){
         
     }
 })->name('helper_sales');
-*/
-/*
+
+
 Route::get('helper_sale_documents',function(){
     
     $conexion = mysqli_connect("localhost", "root", "", "dotech");
@@ -268,8 +284,8 @@ Route::get('helper_sale_documents',function(){
         
     }
 })->name('helper_sale_documents');
-*/
-/*
+
+
 Route::get('helper_sale_follows',function(){
     
     $conexion = mysqli_connect("localhost", "root", "", "dotech");
@@ -300,8 +316,65 @@ Route::get('helper_sale_follows',function(){
         
     }
 })->name('helper_sale_follows');
-*/
-/*
+
+Route::get('helper_sale_products',function(){
+    
+    $conexion = mysqli_connect("localhost", "root", "", "dotech");
+    mysqli_set_charset ($conexion, 'utf8');
+    //$conexion2 = mysqli_connect("localhost", "root", "", "dotech_laravel");
+    $sql = "SELECT * FROM producto_venta";
+    $datos = mysqli_query($conexion,$sql);
+    while($fila=mysqli_fetch_array($datos))
+    {
+        $sql2 = "INSERT INTO product_sale(
+            id,
+            sale_id,
+
+            measure,
+            description,
+
+            unity_price_buy,
+            unity_price_sell,
+
+            quantity,
+            discount,
+
+            total_buy,
+            total_sell,
+
+            utility,
+            created_at,
+            updated_at
+        ) VALUES(
+            $fila[id_producto_venta],
+            $fila[id_venta],
+            
+            NULL,
+            '".str_replace("'","",$fila['descripcion_producto'])."',
+
+            '$fila[precio_compra_producto]',
+            '$fila[precio_venta_producto]',
+
+            '$fila[cantidad_producto_venta]',
+            '$fila[descuento_producto_venta]',
+
+            '$fila[precio_lista_producto]',
+            '$fila[precio_lista_producto]',
+
+            '$fila[utilidad_venta_producto]',
+
+            '".date('Y-m-d H:i:s')."',
+            '".date('Y-m-d H:i:s')."'
+
+            
+        );";
+        //mysqli_query($conexion2,$sql2);
+        echo $sql2."<br/>";
+        
+    }
+})->name('helper_sale_products');
+
+
 Route::get('helper_whitdrawals',function(){
     
     $conexion = mysqli_connect("localhost", "root", "", "dotech");
@@ -311,6 +384,32 @@ Route::get('helper_whitdrawals',function(){
     $datos = mysqli_query($conexion,$sql);
     while($fila=mysqli_fetch_array($datos))
     {
+        $status = '';
+        switch($fila['id_estatus_retiro'])
+        {
+            case 1: 
+                $status = 'Pendiente';
+            break;
+            case 2: 
+                $status = 'Aprobado';
+            break;
+            case 3: 
+                $status = 'Rechazado';
+            break;
+        }
+        $type = '';
+        switch($fila['id_tipo_retiro'])
+        {
+            case 1: 
+                $type = 'Efectivo';
+            break;
+            case 2: 
+                $type = 'Cheque';
+            break;
+            case 3: 
+                $type = 'Transferencia';
+            break;
+        }
         $sql2 = "INSERT INTO whitdrawals(
             id,
             sale_id,
@@ -336,15 +435,15 @@ Route::get('helper_whitdrawals',function(){
             $fila[id_cuenta],
             $fila[id_departamento_retiro],
 
-            '$fila[id_estatus_retiro]',
-            '$fila[id_tipo_retiro]',
+            '$status',
+            '$type',
             '$fila[descripcion_retiro]',
             '$fila[precio_compra_retiro]',
             '$fila[con_sin_factura]',
             '$fila[documento_retiro]',
 
-            '".date('Y-m-d H:i:s')."',
-            '".date('Y-m-d H:i:s')."'
+            '$fila[fecha_retiro] 00:00:00',
+            '$fila[fecha_retiro] 00:00:00'
             
         );";
         //mysqli_query($conexion2,$sql2);
@@ -352,7 +451,7 @@ Route::get('helper_whitdrawals',function(){
         
     }
 })->name('helper_whitdrawals');
-*/
+
 /*
 Route::get('helper_services',function(){
     
