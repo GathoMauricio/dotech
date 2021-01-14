@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Task;
+use App\User;
 use Auth;
 class ApiTaskController extends Controller
 {
@@ -20,5 +21,14 @@ class ApiTaskController extends Controller
             })->get();
         }
         return $tasks;
+    }
+    public function show($id)
+    {
+        $task = Task::findOrFail($id);
+        $taskUser = User::findOrFail($task->user_id);
+        return [
+            'task' => $task,
+            'taskUser' => $taskUser
+        ];
     }
 }
