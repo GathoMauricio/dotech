@@ -26,9 +26,17 @@ class ApiTaskController extends Controller
     {
         $task = Task::findOrFail($id);
         $taskUser = User::findOrFail($task->user_id);
+        $users = User::orderBy('name')->get();
         return [
             'task' => $task,
-            'taskUser' => $taskUser
+            'taskUser' => $taskUser,
+            'users' => $users
         ];
+    }
+    public function update(Request $request, $id)
+    {
+        $task = Task::findOrFail($id);
+        $task->fill($request->all())->save();
+        return "El registro se actualizó con éxito.";
     }
 }
