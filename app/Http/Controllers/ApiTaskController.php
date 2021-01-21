@@ -39,4 +39,10 @@ class ApiTaskController extends Controller
         $task->fill($request->all())->save();
         return "El registro se actualizó con éxito.";
     }
+    public function destroy($id)
+    {
+        $task = Task::findOrFail($id);
+        $task->delete();
+        return "Registro eliminado.";
+    } 
 }
