@@ -54,3 +54,9 @@ if (!function_exists('parseBase64')) {
         return $data;
     }
 }
+if (!function_exists('getUrl')) {
+    function getUrl()
+    {
+        return 'http://460962160f25.ngrok.io/dotech/public';
+    }
+}
