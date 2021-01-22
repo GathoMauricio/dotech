@@ -18,7 +18,7 @@ class ApiTaskController extends Controller
                 $query->orWhere('user_id',Auth::user()->id);
                 $query->orWhere('author_id',Auth::user()->id);
                 $query->orWhere('visibility','Público');
-            })->get();
+            })->orderBy('id','DESC')->get();
         }
         return $tasks;
     }

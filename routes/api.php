@@ -9,6 +9,9 @@ Route::get('login','ApiUserController@login')->name('login');
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::middleware('auth:api')->get('/get_current_version', function (Request $request) {
+    return '1.0.1';
+});
 
 #menu
 Route::middleware('auth:api')->get('menu_index','ApiMenuController@index')->name('menu_index');
