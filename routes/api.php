@@ -10,7 +10,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::middleware('auth:api')->get('/get_current_version', function (Request $request) {
-    return '1.0.1';
+    return [
+        'currentVersion' => '1.0.1',
+        'downloadLink' => getUrl().'/mobile/dotech_mobile_1_0_1.apk'
+    ];
 });
 
 #menu
