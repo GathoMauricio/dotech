@@ -1,21 +1,20 @@
 <?php
 namespace App;
-use Auth;
-
 use Illuminate\Database\Eloquent\Model;
-
-class Project extends Model
+use Auth;
+class Expense extends Model
 {
-    protected $table = 'projects';
+    protected $table = 'expenses';
 	protected $primaryKey = 'id';
 	public $timestamps = true;
 
     protected $fillable = [
         'id',
-        'company_id',
         'author_id',
-        'name',
-        'description',
+        'status',
+        'title',
+        'detail',
+        'amount',
         'created_at',
         'updated_at'
     ];
@@ -27,16 +26,7 @@ class Project extends Model
 			$query->author_id = Auth::user()->id;
 		});
 	}
-    public function company()
-    {
-        return $this->belongsTo
-        (
-            'App\Company',
-            'company_id',
-            'id'
-        )
-        ->withDefault();
-    }
+
     public function author()
     {
         return $this->belongsTo

@@ -10,6 +10,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+#menu
+Route::middleware('auth:api')->get('menu_index','ApiMenuController@index')->name('menu_index');
+
 #Tasks
 Route::middleware('auth:api')->get('tasks_index','ApiTaskController@index')->name('tasks_index');
 Route::middleware('auth:api')->get('tasks_show/{id}','ApiTaskController@show')->name('tasks_show');

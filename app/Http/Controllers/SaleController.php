@@ -11,6 +11,7 @@ use App\SaleDocument;
 use App\SaleFollow;
 use App\Binnacle;
 use PDF;
+use Auth;
 
 use App\Http\Requests\SaleRequest;
 class SaleController extends Controller
@@ -21,7 +22,12 @@ class SaleController extends Controller
     }
     public function indexQuotes()
     {
-        $sales = Sale::where('status','Pendiente')->get();
+        if(Auth::user()->rol_user_id == 1)
+        {
+            $sales = Sale::where('status','Pendiente')->get();
+        }else{ 
+            $sales = Sale::where('status','Pendiente')->where('author_id',Auth::user()->id)->get();
+        }
         return view('quotes.index',['sales' => $sales]);
     }
     public function indexProyects()
