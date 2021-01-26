@@ -38,3 +38,4 @@ Route::middleware('auth:api')->get('binnacle_index/{id}','ApiBinnacleController@
 
 #Binnacle Images
 Route::middleware('auth:api')->get('binnacle_image_index/{id}','ApiBinnacleImageController@index')->name('binnacle_image_index');
+Route::middleware('auth:api')->post('upload_binnacle_image','ApiBinnacleImageController@store')->name('upload_binnacle_image');
