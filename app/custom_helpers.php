@@ -57,7 +57,8 @@ if (!function_exists('parseBase64')) {
 if (!function_exists('getUrl')) {
     function getUrl()
     {
-        return 'http://192.168.137.222/dotech/public';
+        //return 'http://192.168.137.222/dotech/public';
+        return 'http://dotech.victoriapro.mx/public';
         //return 'http://95a24b9db594.ngrok.io/dotech/public';
     }
 }
