@@ -452,7 +452,7 @@ Route::get('helper_whitdrawals',function(){
     }
 })->name('helper_whitdrawals');
 
-/*
+
 Route::get('helper_services',function(){
     
     $conexion = mysqli_connect("localhost", "root", "", "dotech");
@@ -573,6 +573,6 @@ Route::get('helper_service_images',function(){
         
     }
 })->name('helper_service_images');
-*/
+
 
 
