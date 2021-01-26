@@ -22,7 +22,7 @@
             <td>{{ $sale->company['name'] }}</td>
             <td>{{ $sale->description }}</td>
             <td>${{ $sale->estimated }}</td>
-            <td>{{ formatDate($sale->created_at) }}</td>
+            <td>{{ onlyDate($sale->created_at) }}</td>
             <td>
                 <!--
                 <a href="{{ route('quote_products',$sale->id) }}"><span class="icon-eye" title="Productos" style="cursor:pointer;color:#3498DB"> Productos</span></a>

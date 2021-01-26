@@ -23,7 +23,7 @@
             <td>{{ $sale->company['name'] }}</td>
             <td>{{ $sale->description }}</td>
             <td>${{ $sale->estimated }}</td>
-            <td>{{ formatDate($sale->created_at) }}</td>
+            <td>{{ onlyDate($sale->created_at) }}</td>
             <td>
                 <a href="#" onclick="sendQuoteModal({{ $sale->id }},'{{ $sale->department['email'] }}');"><span class="icon-envelop" title="Enviar" style="cursor:pointer;color:#D7DF01"> Enviar</span></a>
                 <br>
