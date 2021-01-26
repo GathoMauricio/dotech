@@ -28,3 +28,13 @@ Route::middleware('auth:api')->delete('tasks_delete/{id}','ApiTaskController@des
 #TaskChat
 Route::middleware('auth:api')->get('task_chat_index/{id}','ApiTaskCommentController@index')->name('task_chat_index');
 Route::middleware('auth:api')->post('task_chat_store','ApiTaskCommentController@store')->name('task_chat_store');
+
+#Projects
+Route::middleware('auth:api')->get('project_index','ApiProjectController@index')->name('project_index');
+Route::middleware('auth:api')->get('projects_show/{id}','ApiProjectController@show')->name('projects_show');
+
+#Binnacles
+Route::middleware('auth:api')->get('binnacle_index/{id}','ApiBinnacleController@index')->name('binnacle_index');
+
+#Binnacle Images
+Route::middleware('auth:api')->get('binnacle_image_index/{id}','ApiBinnacleImageController@index')->name('binnacle_image_index');

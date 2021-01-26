@@ -58,6 +58,6 @@ if (!function_exists('getUrl')) {
     function getUrl()
     {
         //return 'http://192.168.137.222/dotech/public';
-        return 'http://460962160f25.ngrok.io/dotech/public';
+        return 'http://95a24b9db594.ngrok.io/dotech/public';
     }
 }
