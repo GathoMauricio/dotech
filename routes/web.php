@@ -177,7 +177,7 @@ Route::post('store_service_follow','ServiceFollowController@store')->name('store
 Route::get('show_service_image','ServiceImageController@show')->name('show_service_image')->middleware('auth');
 
 #Helpers
-
+/*
 Route::get('helper_sales',function(){
     
     $conexion = mysqli_connect("localhost", "root", "", "dotech");
@@ -573,6 +573,4 @@ Route::get('helper_service_images',function(){
         
     }
 })->name('helper_service_images');
-
-
-
+*/
