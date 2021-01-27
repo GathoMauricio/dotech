@@ -59,6 +59,6 @@ if (!function_exists('getUrl')) {
     {
         //return 'http://192.168.137.222/dotech/public';
         return 'http://dotech.victoriapro.mx/public';
-        //return 'http://95a24b9db594.ngrok.io/dotech/public';
+        //return 'http://60d7b9b8775b.ngrok.io/dotech/public';
     }
 }

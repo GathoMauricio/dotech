@@ -35,6 +35,7 @@ Route::middleware('auth:api')->get('projects_show/{id}','ApiProjectController@sh
 
 #Binnacles
 Route::middleware('auth:api')->get('binnacle_index/{id}','ApiBinnacleController@index')->name('binnacle_index');
+Route::middleware('auth:api')->post('binnacle_create','ApiBinnacleController@store')->name('binnacle_create');
 
 #Binnacle Images
 Route::middleware('auth:api')->get('binnacle_image_index/{id}','ApiBinnacleImageController@index')->name('binnacle_image_index');

@@ -25,7 +25,23 @@ class ApiBinnacleController extends Controller
     }
     public function store(Request $request)
     {
-        //
+        $binnacle = Binnacle::create([
+            'sale_id' => $request->sale_id,
+            'description' => $request->description
+        ]);
+        if($binnacle)
+        {
+            return  [
+                'error' => 0,
+                'msg' => 'Bitácora creada ahora puede agregar imagenes.',
+                'id' => $binnacle->id
+            ];
+        }else{
+            return  [
+                'error' => 1,
+                'msg' => 'Error al crear registro..'
+            ];
+        }
     }
     public function show($id)
     {
