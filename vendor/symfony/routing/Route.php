@@ -324,7 +324,7 @@ class Route implements \Serializable
      */
     public function getOption($name)
     {
-        return $this->options[$name] ?? null;
+        return isset($this->options[$name]) ? $this->options[$name] : null;
     }
 
     /**
@@ -397,7 +397,7 @@ class Route implements \Serializable
      */
     public function getDefault($name)
     {
-        return $this->defaults[$name] ?? null;
+        return isset($this->defaults[$name]) ? $this->defaults[$name] : null;
     }
 
     /**
@@ -490,7 +490,7 @@ class Route implements \Serializable
      */
     public function getRequirement($key)
     {
-        return $this->requirements[$key] ?? null;
+        return isset($this->requirements[$key]) ? $this->requirements[$key] : null;
     }
 
     /**

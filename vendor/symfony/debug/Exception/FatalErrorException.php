@@ -74,7 +74,7 @@ class FatalErrorException extends \ErrorException
 
     protected function setTrace($trace)
     {
-        $traceReflector = new \ReflectionProperty(\Exception::class, 'trace');
+        $traceReflector = new \ReflectionProperty('Exception', 'trace');
         $traceReflector->setAccessible(true);
         $traceReflector->setValue($this, $trace);
     }

@@ -19,14 +19,14 @@ namespace Symfony\Component\Routing;
  */
 class RouteCompiler implements RouteCompilerInterface
 {
-    public const REGEX_DELIMITER = '#';
+    const REGEX_DELIMITER = '#';
 
     /**
      * This string defines the characters that are automatically considered separators in front of
      * optional placeholders (with default and no static text following). Such a single separator
      * can be left out together with the optional placeholder from matching and generating URLs.
      */
-    public const SEPARATORS = '/,;.:-_~+*=@|';
+    const SEPARATORS = '/,;.:-_~+*=@|';
 
     /**
      * The maximum supported length of a PCRE subpattern name
@@ -34,7 +34,7 @@ class RouteCompiler implements RouteCompilerInterface
      *
      * @internal
      */
-    public const VARIABLE_MAXIMUM_LENGTH = 32;
+    const VARIABLE_MAXIMUM_LENGTH = 32;
 
     /**
      * {@inheritdoc}

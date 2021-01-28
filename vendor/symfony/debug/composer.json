@@ -1,7 +1,7 @@
 {
     "name": "symfony/debug",
     "type": "library",
-    "description": "Provides tools to ease debugging PHP code",
+    "description": "Symfony Debug Component",
     "keywords": [],
     "homepage": "https://symfony.com",
     "license": "MIT",

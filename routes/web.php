@@ -1,7 +1,4 @@
 <?php
-Route::get('test', function() {
-    \Storage::disk('google')->put('test.txt', 'Hello World');
-});
 Route::get('/', function () {
     if(Auth::check())
     {
