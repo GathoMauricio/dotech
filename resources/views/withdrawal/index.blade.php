@@ -25,9 +25,7 @@
             <th width="10%">Cantidad</th>
             <th width="10%">Factura</th>
             <th width="10%">Fecha</th>
-            @if(Auth::user()->rol_user_id == 1)
             <th width="20%"></th>
-            @endif
         </tr>
     </thead>
     <tbody>
@@ -50,6 +48,16 @@
                 <a href="#" onclick="deleteWithdrawal({{ $whitdrawal->id }});"><span class="icon-bin" title="Eliminar" style="cursor:pointer;color:#DF0101"> Eliminar</span></a>
                 <br>
             </td>
+            @else
+                @if($whitdrawal->invoive == 'SI')
+                @if(!empty($whitdrawal->document))
+                    <td class="text-center"><a href="{{ env('APP_URL').'/storage/'.$whitdrawal->document }}" target="_BLANK"><span class="icon-eye"></span></a></td>
+                    @else 
+                    <td class="text-center"><a href="#" onclick="addWhitdralDocumentModal({{ $whitdrawal->id }});"><span class="icon-upload"></span></a></td>
+                    @endif
+                @else
+                <td class="text-center">N/A</td>
+                @endif
             @endif
         </tr>
         @endforeach
@@ -60,4 +68,5 @@
 <input type="hidden" id="txt_delete_whitdrawal_route" value="{{ route('delete_whitdrawal') }}">
 <input type="hidden" id="txt_show_whitdrawal_route" value="{{ route('show_whitdrawal') }}">
 @include('withdrawal.aprove_withdrawal_modal')
+@include('sale.add_whitdrawal_document_modal')
 @endsection
