@@ -493,6 +493,22 @@ window.editQuote = sale_id => {
         error: () => console.log
     });
 };
+window.editProject = sale_id => {
+    let route = $("#txt_show_quote_modal_ajax").val();
+    $.ajax({
+        type: "GET",
+        url: route,
+        data: { id: sale_id },
+        success: data => {
+            $("#edit_quote_modal_sale_id").val(sale_id);
+            $("#edit_quote_modal_company").text(data.company);
+            $("#edit_quote_modal_description").val(data.description);
+            $("#edit_quote_modal_observation").val(data.observation);
+            $("#edit_project_modal").modal();
+        },
+        error: () => console.log
+    });
+};
 window.addProductModal = () => {
     $("#add_product_modal").modal();
 };

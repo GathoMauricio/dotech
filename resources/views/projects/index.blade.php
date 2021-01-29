@@ -35,6 +35,8 @@
                 -->
                 <a href="{{ route('show_sale',$sale->id) }}"><span class="icon-eye" title="Proyecto" style="cursor:pointer;color:#3498DB"> Proyecto</span></a>
                 <br>
+                <a href="#" onclick="editProject({{ $sale->id }});"><span class="icon-pencil" title="Editar" style="cursor:pointer;color:#F39C12"> Editar</span></a>
+                <br>
                 <a href="{{ route('sale_follows',$sale->id) }}"><span class="icon-bubble" title="Seguimientos" style="cursor:pointer;color:#2980B9"> Seguimientos</span></a>
                 @if(Auth::user()->rol_user_id == 1)
                 <br>
@@ -105,6 +107,5 @@
 </script>
 @endif
 <input type="hidden" id="txt_delete_sale_route" value="{{ route('delete_sale') }}">
-@include('quotes.change_status_modal')
-@include('quotes.edit_quote_modal')
+@include('projects.edit_project_modal')
 @endsection
