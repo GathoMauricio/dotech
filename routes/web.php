@@ -1,9 +1,4 @@
 <?php
-
-Route::get('pdf',function(){
-    return view('pdf.binnacle');
-})->name('test');
-
 Route::get('/', function () {
     if(Auth::check())
     {

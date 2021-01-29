@@ -59,6 +59,34 @@ class ApiBinnacleController extends Controller
     {
         //
     }
+    public function show_json($id){
+        $binnacle = Binnacle::findOrFail($id);
+        return [
+            'binnacle' => $binnacle,
+            'sale' => $binnacle->sale,
+            'company' => $binnacle->sale->company,
+            'department' => $binnacle->sale->department
+        ];
+    }
+    public function sendPdf(Request $request)
+    {
+        $binnacle = Binnacle::findOrFail($request->binnacle_id);
+        $logo = parseBase64(public_path("img/dotech_fondo.png"));
+        if(!empty($binnacle->firm)) $firm = parseBase64(public_path("storage/".$binnacle->firm)); else $firm = NULL;
+        $pdf = \PDF::loadView('pdf.binnacle',
+            [
+                'logo' => $logo,
+                'firm' => $firm,
+                'binnacle' => $binnacle
+            ]
+        );
+        \Mail::send('email.binnacle', ['binnacle' => $binnacle], function ($mail) use ($binnacle ,$pdf, $request) {
+            $mail->from('dotechapp@dotredes.com',env('APP_NAME'));
+            $mail->to($request->email);
+            $mail->attachData($pdf->output(), 'Bitacora '.$binnacle->created_at.'.pdf');
+        });
+        return 'La bitácora se envió con éxito.';
+    }
     public function edit($id)
     {
         //
