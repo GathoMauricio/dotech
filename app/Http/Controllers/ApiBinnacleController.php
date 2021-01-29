@@ -43,6 +43,18 @@ class ApiBinnacleController extends Controller
             ];
         }
     }
+    public function storeFirm(Request $request)
+    {
+        $binnacle = Binnacle::findOrFail($request->binnacle_id);
+        $image = $request->firma;  // your base64 encoded
+        $image = str_replace('data:image/png;base64,', '', $image);
+        $image = str_replace(' ', '+', $image);
+        $imageName = 'BinnacleFirm_'.$binnacle->id.'.'.'png';
+        \Storage::disk('local')->put($imageName,base64_decode($image));
+        $binnacle->firm = $imageName;
+        $binnacle->save();
+        return $binnacle;
+    }
     public function show($id)
     {
         //
