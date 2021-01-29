@@ -384,7 +384,7 @@
             <td>{{ $binnacle->author['name'] }} {{ $binnacle->author['middle_name'] }} {{ $binnacle->author['last_name'] }}</td>
             <td>{{ $binnacle->description }}</td>
             <td>
-                <a href="#" onclick="">
+                <a href="#" onclick="addBinnacleImage({{ $binnacle->id }})">
                     <span class="icon-plus" title="Imágenes" style="cursor:pointer;color:#c52cec">
                         Nuevo
                     </span>
@@ -407,8 +407,11 @@
 
 <input type="hidden" id="txt_view_binnacle_images_route" value="{{ route('binnacle_images_index') }}">
 </center>
+
 @include('withdrawal.add_provider_modal')
 @include('withdrawal.aprove_withdrawal_modal')
+@include('sale.add_binnacle_modal')
+@include('sale.add_binnacle_image_modal')
 @include('sale.add_whitdrawal_document_modal')
 @include('sale.add_sale_payment_modal')
 @include('sale.add_sale_document_modal')

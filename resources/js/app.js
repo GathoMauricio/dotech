@@ -826,4 +826,13 @@ window.viewBinnacleImages = (binnacle_id, count) => {
         msg("Aviso: ","No hay imagenes para mostrar");
     }
 
-}
+};
+
+window.addBinnacle = sale_id => {
+    $("#txt_add_sale_id").val(sale_id);
+    $("#add_binnacle_modal").modal();
+};
+window.addBinnacleImage = binnacle_id => {
+    $("#txt_add_binnacle_image_id").val(binnacle_id);
+    $("#add_binnacle_image_modal").modal();
+};

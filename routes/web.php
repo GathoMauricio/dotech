@@ -181,9 +181,12 @@ Route::post('store_service_follow','ServiceFollowController@store')->name('store
 #Service images
 Route::get('show_service_image','ServiceImageController@show')->name('show_service_image')->middleware('auth');
 
+#Binnacles
+Route::post('store_binnacle','BinnacleController@store')->name('store_binnacle')->middleware('auth');
+
 #Binnacles Images
 Route::get('binnacle_images_index/{id?}','BinnacleImageController@index')->name('binnacle_images_index')->middleware('auth');
-
+Route::post('store_binnacle_image','BinnacleImageController@store')->name('store_binnacle_image')->middleware('auth');
 #Helpers
 /*
 Route::get('helper_sales',function(){

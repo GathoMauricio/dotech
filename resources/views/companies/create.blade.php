@@ -89,7 +89,7 @@
                     <label for="image" class="font-weight-bold color-primary-sys">
                         Foto
                     </label>
-                    <input name="image" type="file" class="form-control">
+                    <input name="image" type="file" class="form-control" accept="image/x-png,image/gif,image/jpeg">
                 </div>
             </div>
         </div>
