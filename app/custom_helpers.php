@@ -60,6 +60,6 @@ if (!function_exists('getUrl')) {
         //return 'http://192.168.137.222/dotech/public';
         //return 'http://dotech.victoriapro.mx/public';
         return 'http://dotredes.dyndns.biz:8080/dotech/public';
-        //return 'http://60d7b9b8775b.ngrok.io/dotech/public';
+        //return 'http://7352bce4cd22.ngrok.io/dotech/public';
     }
 }

@@ -376,7 +376,7 @@
             <td><b>Fecha</b></td>
             <td><b>Autor</b></td>
             <td><b>Descripción</b></td>
-            <td></td>
+            <td><b>Imágenes</b></td>
         </tr>
         @foreach($binnacles as $binnacle)
         <tr>
@@ -385,11 +385,17 @@
             <td>{{ $binnacle->description }}</td>
             <td>
                 <a href="#" onclick="">
+                    <span class="icon-plus" title="Imágenes" style="cursor:pointer;color:#c52cec">
+                        Nuevo
+                    </span>
+                </a>
+                <br>
+                <a href="#" onclick="viewBinnacleImages({{ $binnacle->id }},{{ count(App\BinnacleImage::where('binnacle_id',$binnacle->id)->get()) }})">
                     <span class="icon-image" title="Imágenes" style="cursor:pointer;color:#2c49ec">
                         {{ count(App\BinnacleImage::where('binnacle_id',$binnacle->id)->get()) }}
                         Imágenes
                     </span>
-                    </a>
+                </a>
                 <br>
             </td>
         </tr>
@@ -399,7 +405,7 @@
         @endif
     </table>
 
-
+<input type="hidden" id="txt_view_binnacle_images_route" value="{{ route('binnacle_images_index') }}">
 </center>
 @include('withdrawal.add_provider_modal')
 @include('withdrawal.aprove_withdrawal_modal')

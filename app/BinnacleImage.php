@@ -14,6 +14,7 @@ class BinnacleImage extends Model
         'id',
         'binnacle_id',
         'author_id',
+        'image',
         'description',
         'created_at',
         'updated_at'

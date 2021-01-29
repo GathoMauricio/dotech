@@ -1,4 +1,9 @@
 <?php
+/*
+Route::get('test',function(){
+    return view('test');
+})->name('test');
+*/
 Route::get('/', function () {
     if(Auth::check())
     {
@@ -175,6 +180,9 @@ Route::post('store_service_follow','ServiceFollowController@store')->name('store
 
 #Service images
 Route::get('show_service_image','ServiceImageController@show')->name('show_service_image')->middleware('auth');
+
+#Binnacles Images
+Route::get('binnacle_images_index/{id?}','BinnacleImageController@index')->name('binnacle_images_index')->middleware('auth');
 
 #Helpers
 /*

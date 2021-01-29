@@ -44,26 +44,24 @@ jQuery(() => {
         delimiter: "."
     });
     /*+Form edit my password+++*/
-    $("#form_edit_my_password").on('submit',e => {
+    $("#form_edit_my_password").on('submit', e => {
         const password = $("#txt_edit_my_password").val();
         const password_confirm = $("#txt_edit_my_password_confirm").val();
-        if(password == password_confirm)
-        {
+        if (password == password_confirm) {
             return true;
-        }else{
+        } else {
             e.preventDefault();
-            msg('Error: ','Las contraseñas no coinciden');
+            msg('Error: ', 'Las contraseñas no coinciden');
         }
     });
-    $("#form_edit_password").on('submit',e => {
+    $("#form_edit_password").on('submit', e => {
         const password = $("#txt_edit_password").val();
         const password_confirm = $("#txt_edit_password_confirm").val();
-        if(password == password_confirm)
-        {
+        if (password == password_confirm) {
             return true;
-        }else{
+        } else {
             e.preventDefault();
-            msg('Error: ','Las contraseñas no coinciden');
+            msg('Error: ', 'Las contraseñas no coinciden');
         }
     });
 
@@ -237,21 +235,21 @@ window.indexServiceFollow = service_id => {
         success: data => {
             $("#ServiceFollowBox").html("");
             let counter = 0;
-            $.each(data, function(index, value) {
+            $.each(data, function (index, value) {
                 counter++;
                 $("#ServiceFollowBox").append(
                     '<div class="comment-item">' +
-                        '<label class="color-primary-sys font-weight-bold">' +
-                        value.author +
-                        "</label>" +
-                        "<br/>" +
-                        value.body +
-                        "<br/>" +
-                        '<span class="font-weight-bold float-right">' +
-                        value.created_at +
-                        "</span>" +
-                        "<br/>" +
-                        "</div><br/>"
+                    '<label class="color-primary-sys font-weight-bold">' +
+                    value.author +
+                    "</label>" +
+                    "<br/>" +
+                    value.body +
+                    "<br/>" +
+                    '<span class="font-weight-bold float-right">' +
+                    value.created_at +
+                    "</span>" +
+                    "<br/>" +
+                    "</div><br/>"
                 );
             });
             setTimeout(() => {
@@ -263,8 +261,8 @@ window.indexServiceFollow = service_id => {
             if (counter <= 0) {
                 $("#ServiceFollowBox").html(
                     '<center><span style="background-color:#F7DC6F;padding:5px;border-radius:3px;" class="text-center font-weight-bold">' +
-                        "Aún no se han agregado seguimientos en esta compañía" +
-                        "</span></center>"
+                    "Aún no se han agregado seguimientos en esta compañía" +
+                    "</span></center>"
                 );
             }
             $("#service_follow_modal").modal("show");
@@ -287,21 +285,21 @@ window.indexServiceFollow = service_id => {
                 form[0].reset();
                 $("#ServiceFollowBox").html("");
                 let counter = 0;
-                $.each(data, function(index, value) {
+                $.each(data, function (index, value) {
                     counter++;
                     $("#ServiceFollowBox").append(
                         '<div class="comment-item">' +
-                            '<label class="color-primary-sys font-weight-bold">' +
-                            value.author +
-                            "</label>" +
-                            "<br/>" +
-                            value.body +
-                            "<br/>" +
-                            '<span class="font-weight-bold float-right">' +
-                            value.created_at +
-                            "</span>" +
-                            "<br/>" +
-                            "</div><br/>"
+                        '<label class="color-primary-sys font-weight-bold">' +
+                        value.author +
+                        "</label>" +
+                        "<br/>" +
+                        value.body +
+                        "<br/>" +
+                        '<span class="font-weight-bold float-right">' +
+                        value.created_at +
+                        "</span>" +
+                        "<br/>" +
+                        "</div><br/>"
                     );
                 });
                 $("#ServiceFollowBox").animate(
@@ -311,8 +309,8 @@ window.indexServiceFollow = service_id => {
                 if (counter <= 0) {
                     $("#ServiceFollowBox").html(
                         '<center><span style="background-color:#F7DC6F;padding:5px;border-radius:3px;" class="text-center font-weight-bold">' +
-                            "Aún no se han agregado seguimientos en esta compañía" +
-                            "</span></center>"
+                        "Aún no se han agregado seguimientos en esta compañía" +
+                        "</span></center>"
                     );
                 }
                 $("#service_service_modal").modal("show");
@@ -333,21 +331,21 @@ window.indexCompanyFollow = company_id => {
         success: data => {
             $("#CompanyFollowBox").html("");
             let counter = 0;
-            $.each(data, function(index, value) {
+            $.each(data, function (index, value) {
                 counter++;
                 $("#CompanyFollowBox").append(
                     '<div class="comment-item">' +
-                        '<label class="color-primary-sys font-weight-bold">' +
-                        value.author +
-                        "</label>" +
-                        "<br/>" +
-                        value.body +
-                        "<br/>" +
-                        '<span class="font-weight-bold float-right">' +
-                        value.created_at +
-                        "</span>" +
-                        "<br/>" +
-                        "</div><br/>"
+                    '<label class="color-primary-sys font-weight-bold">' +
+                    value.author +
+                    "</label>" +
+                    "<br/>" +
+                    value.body +
+                    "<br/>" +
+                    '<span class="font-weight-bold float-right">' +
+                    value.created_at +
+                    "</span>" +
+                    "<br/>" +
+                    "</div><br/>"
                 );
             });
             setTimeout(() => {
@@ -359,8 +357,8 @@ window.indexCompanyFollow = company_id => {
             if (counter <= 0) {
                 $("#CompanyFollowBox").html(
                     '<center><span style="background-color:#F7DC6F;padding:5px;border-radius:3px;" class="text-center font-weight-bold">' +
-                        "Aún no se han agregado seguimientos en esta compañía" +
-                        "</span></center>"
+                    "Aún no se han agregado seguimientos en esta compañía" +
+                    "</span></center>"
                 );
             }
             $("#company_follow_modal").modal("show");
@@ -383,21 +381,21 @@ window.indexCompanyFollow = company_id => {
                 form[0].reset();
                 $("#CompanyFollowBox").html("");
                 let counter = 0;
-                $.each(data, function(index, value) {
+                $.each(data, function (index, value) {
                     counter++;
                     $("#CompanyFollowBox").append(
                         '<div class="comment-item">' +
-                            '<label class="color-primary-sys font-weight-bold">' +
-                            value.author +
-                            "</label>" +
-                            "<br/>" +
-                            value.body +
-                            "<br/>" +
-                            '<span class="font-weight-bold float-right">' +
-                            value.created_at +
-                            "</span>" +
-                            "<br/>" +
-                            "</div><br/>"
+                        '<label class="color-primary-sys font-weight-bold">' +
+                        value.author +
+                        "</label>" +
+                        "<br/>" +
+                        value.body +
+                        "<br/>" +
+                        '<span class="font-weight-bold float-right">' +
+                        value.created_at +
+                        "</span>" +
+                        "<br/>" +
+                        "</div><br/>"
                     );
                 });
                 $("#CompanyFollowBox").animate(
@@ -407,8 +405,8 @@ window.indexCompanyFollow = company_id => {
                 if (counter <= 0) {
                     $("#CompanyFollowBox").html(
                         '<center><span style="background-color:#F7DC6F;padding:5px;border-radius:3px;" class="text-center font-weight-bold">' +
-                            "Aún no se han agregado seguimientos en esta compañía" +
-                            "</span></center>"
+                        "Aún no se han agregado seguimientos en esta compañía" +
+                        "</span></center>"
                     );
                 }
                 $("#company_follow_modal").modal("show");
@@ -425,7 +423,7 @@ window.loadDepartmentsByCompany = company_id => {
         data: { id: company_id },
         success: data => {
             let html = "";
-            $.each(data, function(index, value) {
+            $.each(data, function (index, value) {
                 html +=
                     '<option value="' +
                     value.id +
@@ -532,7 +530,7 @@ window.deleteProductModal = product_id => {
     }).then(result => {
         if (result.isConfirmed) {
             let route = $("#txt_delete_product_route").val();
-            window.location = route+'/'+product_id;
+            window.location = route + '/' + product_id;
         }
     });
 };
@@ -557,7 +555,7 @@ window.deleteSaleFollow = id => {
     }).then(result => {
         if (result.isConfirmed) {
             let route = $("#txt_delete_sale_follow_route").val();
-            window.location = route+'/'+id;
+            window.location = route + '/' + id;
         }
     });
 };
@@ -574,21 +572,21 @@ window.deleteSale = sale_id => {
     }).then(result => {
         if (result.isConfirmed) {
             let route = $("#txt_delete_sale_route").val();
-            window.location = route+'/'+sale_id;
+            window.location = route + '/' + sale_id;
         }
     });
 };
 
-window.changeCommision = (commision_percent,sale_id) => {
+window.changeCommision = (commision_percent, sale_id) => {
     let route = $("#txt_change_commision_route").val();
     $.ajax({
         'type': 'GET',
         'url': route,
         'data': {
-            commision_percent:commision_percent,
-            sale_id:sale_id
+            commision_percent: commision_percent,
+            sale_id: sale_id
         },
-        success: data => { 
+        success: data => {
             window.location.reload();
         },
         error: error => console.log(error)
@@ -617,7 +615,7 @@ window.addQuoteByCompanyModal = company_id => {
     $.ajax({
         'type': 'GET',
         url: route,
-        data:{ id: company_id},
+        data: { id: company_id },
         success: data => {
             $("#cbo_add_quote_by_company_department").html(data.department_items);
             $("#add_quote_by_company_modal_company").text(data.company.name);
@@ -634,7 +632,7 @@ window.aproveWithdrawalModal = whitdrawal_id => {
     $.ajax({
         type: "GET",
         url: route,
-        data: { id: whitdrawal_id},
+        data: { id: whitdrawal_id },
         success: data => {
             console.log(data);
             $("#txt_aprove_withdrawal_description").text(data.description);
@@ -644,7 +642,7 @@ window.aproveWithdrawalModal = whitdrawal_id => {
     $("#txt_aprove_withdrawal_modal_id").val(whitdrawal_id);
     $("#aprove_withdrawal_modal").modal();
 };
-window.sendQuoteModal = (sale_id,email) => {
+window.sendQuoteModal = (sale_id, email) => {
     $("#txt_send_quote_modal_email").text(email);
     $("#txt_send_quote_modal_sale_id").val(sale_id);
     $("#send_quote_modal").modal();
@@ -662,7 +660,7 @@ window.disaproveWithdrawal = whitdrawal_id => {
     }).then(result => {
         if (result.isConfirmed) {
             let route = $("#txt_disaprove_whitdrawal_route").val();
-            window.location = route+'/'+whitdrawal_id;
+            window.location = route + '/' + whitdrawal_id;
         }
     });
 };
@@ -679,7 +677,7 @@ window.deleteWithdrawal = whitdrawal_id => {
     }).then(result => {
         if (result.isConfirmed) {
             let route = $("#txt_delete_whitdrawal_route").val();
-            window.location = route+'/'+whitdrawal_id;
+            window.location = route + '/' + whitdrawal_id;
         }
     });
 };
@@ -703,7 +701,7 @@ window.deleteWithdrawal = id => {
     }).then(result => {
         if (result.isConfirmed) {
             let route = $("#txt_delete_whitdrawal_route").val();
-            window.location = route+'/'+id;
+            window.location = route + '/' + id;
         }
     });
 };
@@ -720,7 +718,7 @@ window.deleteCompany = id => {
     }).then(result => {
         if (result.isConfirmed) {
             let route = $("#txt_delete_company_route").val();
-            window.location = route+'/'+id;
+            window.location = route + '/' + id;
         }
     });
 };
@@ -737,7 +735,7 @@ window.deleteDepartment = id => {
     }).then(result => {
         if (result.isConfirmed) {
             let route = $("#txt_delete_department_route").val();
-            window.location = route+'/'+id;
+            window.location = route + '/' + id;
         }
     });
 };
@@ -754,7 +752,7 @@ window.deleteAccount = id => {
     }).then(result => {
         if (result.isConfirmed) {
             let route = $("#txt_delete_account_route").val();
-            window.location = route+'/'+id;
+            window.location = route + '/' + id;
         }
     });
 };
@@ -771,7 +769,7 @@ window.deleteUser = id => {
     }).then(result => {
         if (result.isConfirmed) {
             let route = $("#txt_delete_user_route").val();
-            window.location = route+'/'+id;
+            window.location = route + '/' + id;
         }
     });
 };
@@ -788,10 +786,10 @@ window.showServiceImage = id => {
     $.ajax({
         'type': 'GET',
         'url': route,
-        data:{ id:id },
-        success: data =>{ 
+        data: { id: id },
+        success: data => {
             $("#show_image_description").text(data.description);
-            $("#show_image_container").css('background-image','url('+data.image+')');
+            $("#show_image_container").css('background-image', 'url(' + data.image + ')');
             $("#show_image_modal").css('display', 'flex');
         },
         error: error => console.log(error)
@@ -801,3 +799,31 @@ window.showServiceImage = id => {
 window.editPasswordModal = () => {
     $("#edit_password_modal").modal();
 };
+
+window.viewBinnacleImages = (binnacle_id, count) => {
+    if (count > 0) {
+        const route = $("#txt_view_binnacle_images_route").val();
+        let viewer = new PhotoViewer();
+        viewer.disableEmailLink();
+        viewer.disablePhotoLink();
+        viewer.enableLoop();
+        viewer.enableAutoPlay();
+        viewer.setFontSize(16);
+        $.ajax({
+            type: 'GET',
+            url: route+'/'+binnacle_id,
+            data: { },
+            success: data => {
+                $.each(data,(index,item) => {
+                    viewer.add(item.url,item.description,item.date);
+                });
+                viewer.show(0);
+            },
+            error: error => console.log(error)
+        });
+        
+    }else{
+        msg("Aviso: ","No hay imagenes para mostrar");
+    }
+
+}
