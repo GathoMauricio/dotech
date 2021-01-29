@@ -1,9 +1,9 @@
 <?php
-/*
-Route::get('test',function(){
-    return view('test');
+
+Route::get('pdf',function(){
+    return view('pdf.binnacle');
 })->name('test');
-*/
+
 Route::get('/', function () {
     if(Auth::check())
     {
@@ -183,10 +183,18 @@ Route::get('show_service_image','ServiceImageController@show')->name('show_servi
 
 #Binnacles
 Route::post('store_binnacle','BinnacleController@store')->name('store_binnacle')->middleware('auth');
+Route::get('binnacle_show_json/{id?}','BinnacleController@show_json')->name('binnacle_show_json')->middleware('auth');
+Route::post('send_binnacle_pdf','BinnacleController@sendPdf')->name('send_binnacle_pdf')->middleware('auth');
+
+#Binnacle PDF
+Route::get('binnacle_pdf/{id}','BinnacleController@makePdf')->name('binnacle_pdf')->middleware('auth');
 
 #Binnacles Images
 Route::get('binnacle_images_index/{id?}','BinnacleImageController@index')->name('binnacle_images_index')->middleware('auth');
 Route::post('store_binnacle_image','BinnacleImageController@store')->name('store_binnacle_image')->middleware('auth');
+
+
+
 #Helpers
 /*
 Route::get('helper_sales',function(){

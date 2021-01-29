@@ -363,7 +363,7 @@
     </table>
     <table class="table" border="5">
         <tr>
-            <td colspan="4" style="background-color:#d30035;color:white;font-weight:bold;">
+            <td colspan="5" style="background-color:#d30035;color:white;font-weight:bold;">
                 <center>
                     <label>Bitácoras</label>
                     <label style="float:right;padding:5px;"><span
@@ -376,6 +376,7 @@
             <td><b>Fecha</b></td>
             <td><b>Autor</b></td>
             <td><b>Descripción</b></td>
+            <td><b>Firma</b></td>
             <td><b>Imágenes</b></td>
         </tr>
         @foreach($binnacles as $binnacle)
@@ -384,16 +385,36 @@
             <td>{{ $binnacle->author['name'] }} {{ $binnacle->author['middle_name'] }} {{ $binnacle->author['last_name'] }}</td>
             <td>{{ $binnacle->description }}</td>
             <td>
+                @if(!empty($binnacle->firm))
+                <img src="{{ asset('storage') }}/{{ $binnacle->firm }}" width="80" height="80">
+                
+                @else
+                <center>No disponible</center>
+                @endif
+            </td>
+            <td>
                 <a href="#" onclick="addBinnacleImage({{ $binnacle->id }})">
-                    <span class="icon-plus" title="Imágenes" style="cursor:pointer;color:#c52cec">
+                    <span class="icon-plus" title="Agregar imagen..." style="cursor:pointer;color:#c52cec">
                         Nuevo
                     </span>
                 </a>
                 <br>
                 <a href="#" onclick="viewBinnacleImages({{ $binnacle->id }},{{ count(App\BinnacleImage::where('binnacle_id',$binnacle->id)->get()) }})">
-                    <span class="icon-image" title="Imágenes" style="cursor:pointer;color:#2c49ec">
+                    <span class="icon-image" title="ver imágenes..." style="cursor:pointer;color:#2c49ec">
                         {{ count(App\BinnacleImage::where('binnacle_id',$binnacle->id)->get()) }}
                         Imágenes
+                    </span>
+                </a>
+                <br>
+                <a href="{{ route('binnacle_pdf',$binnacle->id) }}" target="_blank">
+                    <span class="icon-file-pdf" title="Ver pdf..." style="cursor:pointer;color:#ec422c">
+                        PDF
+                    </span>
+                </a>
+                <br>
+                <a href="#" onclick="sendBinnacle({{ $binnacle->id }});">
+                    <span class="icon-envelop" title="Enviar pdf..." style="cursor:pointer;color:#b3d420">
+                        Enviar
                     </span>
                 </a>
                 <br>
@@ -401,13 +422,13 @@
         </tr>
         @endforeach
         @if(count($binnacles)<=0)
-        <tr><td colspan="4" class="text-center">Sin registros</td></tr>
+        <tr><td colspan="5" class="text-center">Sin registros</td></tr>
         @endif
     </table>
-
+    <input type="hidden" id="txt_get_binnacle" value="{{ route('binnacle_show_json') }}">
 <input type="hidden" id="txt_view_binnacle_images_route" value="{{ route('binnacle_images_index') }}">
 </center>
-
+@include('sale.send_binnacle_pdf_modal')
 @include('withdrawal.add_provider_modal')
 @include('withdrawal.aprove_withdrawal_modal')
 @include('sale.add_binnacle_modal')

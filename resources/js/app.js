@@ -852,3 +852,19 @@ window.addBinnacleImage = binnacle_id => {
     $("#txt_add_binnacle_image_id").val(binnacle_id);
     $("#add_binnacle_image_modal").modal();
 };
+
+window.sendBinnacle = binnacle_id => {
+    const route = $("#txt_get_binnacle").val();
+    $.ajax({
+        type: 'GET',
+        url: route+'/'+binnacle_id,
+        data: {},
+        success: data => { 
+            console.log(data);
+            $("#txt_binnacle_id_send_pdf").val(data.binnacle.id);
+            $("#txt_email_binnacle_pdf").val(data.department.email);
+            $("#send_binnacle_pdf_modal").modal();
+        },
+        error: error => console.log(error)
+    });
+};
