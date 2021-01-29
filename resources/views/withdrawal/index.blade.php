@@ -33,7 +33,7 @@
         <tr>
             <td>{{ $whitdrawal->id }}</td>
             <td>{{ $whitdrawal->provider['name'] }}</td>
-            <td>{{ $whitdrawal->sale['description'] }}</td>
+            <td><a href="{{ route('show_sale',$whitdrawal->sale_id) }}" target="_blank">{{ $whitdrawal->sale['description'] }}</a></td>
             <td>{{ $whitdrawal->description }}</td>
             <td>{{ $whitdrawal->sale->author['name'] }}</td>
             <td>${{ $whitdrawal->quantity }}</td>
