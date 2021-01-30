@@ -39,7 +39,15 @@
                 {{ $whitdrawal->sale['description'] }}
             </a></td>
             <td>{{ $whitdrawal->description }}</td>
-            <td>{{ $whitdrawal->sale->author['name'] }}</td>
+            <td>
+                @if(!empty($whitdrawal->author['name']))
+                {{ $whitdrawal->author['name'] }} 
+                {{ $whitdrawal->author['middle_name'] }} 
+                {{ $whitdrawal->author['last_name'] }}
+                @else
+                No definido
+                @endif
+            </td>
             <td>${{ $whitdrawal->quantity }}</td>
             <td>{{ $whitdrawal->invoive }}</td>
             <td>{{ onlyDate($whitdrawal->created_at) }}</td>
