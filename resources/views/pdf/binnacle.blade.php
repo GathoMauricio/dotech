@@ -9,17 +9,12 @@
         body {
             margin: 3cm 2cm 2cm;
         }
-
         header {
             position: fixed;
             top: 0.5cm;
             left: 0.5cm;
             right: 0.5cm;
             height: 0.5cm;
-            
-            color: white;
-            text-align: center;
-            line-height: 30px;
         }
 
         footer {
@@ -38,19 +33,22 @@
 </head>
 <body>
 <header>
-    <table border="1" style="width:100%">
-        <tr>
-            <td width="40%" >
-                <img src="{{ $logo }}" width="150" height="80">
-            </td>
-            <td width="60%" style="color:black;">
-                <p><h2 style="color:#d30035;font-weight:bold;">Bitácora</h2></p>
-                <small>Bahía de las Palmas #33, Verónica Anzúres,</small>
-                <small>11300 Ciudad de México, D.F.</small>
-                <small>Tel: 55460615</small>
-            </td>
-        </tr>
-    </table>
+    <table border="1" style="width:100%;">
+            <tr>
+                <td width="30%" >
+                    <img src="{{ $logo }}" width="50%" height="">
+                </td>
+                <td width="40%" style="color:black;">
+                    <p><h1 style="color:#d30035;font-weight:bold;text-align:center;">Bitácora</h1></p>
+                    <small>Bahía de las Palmas #33, Verónica Anzúres,</small>
+                    <small>11300 Ciudad de México, D.F.</small>
+                    <small>Tel: 55460615</small>
+                </td>
+                <td width="30%" style="text-align: right">
+                    <img src="{{ $logo2 }}" width="50%" height="">
+                </td>
+            </tr>
+        </table>
 </header>
 
 <main><br/><br/><br>

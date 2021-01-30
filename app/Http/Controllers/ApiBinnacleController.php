@@ -72,10 +72,12 @@ class ApiBinnacleController extends Controller
     {
         $binnacle = Binnacle::findOrFail($request->binnacle_id);
         $logo = parseBase64(public_path("img/dotech_fondo.png"));
+        $logo2 = parseBase64(public_path("storage/".$binnacle->sale->company['image']));
         if(!empty($binnacle->firm)) $firm = parseBase64(public_path("storage/".$binnacle->firm)); else $firm = NULL;
         $pdf = \PDF::loadView('pdf.binnacle',
             [
                 'logo' => $logo,
+                'logo2' => $logo2,
                 'firm' => $firm,
                 'binnacle' => $binnacle
             ]
