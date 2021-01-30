@@ -100,7 +100,7 @@
         </td>
     </tr>
     <tr>
-        <td width="100%">
+        <td width="100%" colspan="2">
             <span style="color:#d30035;font-weight:bold;">
                 Proyecto {{ $binnacle->sale->id }}: 
             </span>
