@@ -90,7 +90,7 @@ class WhitdrawalController extends Controller
     {
         $whitdrawal = Whitdrawal::findOrFail($id);
         $whitdrawal->status= 'Desaprobado';
-        $whitdrawal->save();
+        $whitdrawal->delete();
         createSysLog("Rechazó el retiro: ".$whitdrawal->description);
         return redirect()->back()->with('message', 'La solicitud ha sido rechazada.');
     }

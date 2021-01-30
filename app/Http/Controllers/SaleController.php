@@ -78,7 +78,7 @@ class SaleController extends Controller
     {
         $sale = Sale::findOrFail($id);
         $products = ProductSale::where('sale_id',$id)->get();
-        $whitdrawals = Whitdrawal::where('sale_id',$id)->get();
+        $whitdrawals = Whitdrawal::where('sale_id',$id)->where('status','Aprobado')->get();
         $payments = SalePayment::where('sale_id',$id)->get();
         $documnets = SaleDocument::where('sale_id',$id)->get();
         $binnacles = Binnacle::where('sale_id',$id)->get();
