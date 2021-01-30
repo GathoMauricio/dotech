@@ -99,6 +99,14 @@
             {{ $binnacle->sale->department['email'] }}
         </td>
     </tr>
+    <tr>
+        <td width="100%">
+            <span style="color:#d30035;font-weight:bold;">
+                Proyecto {{ $binnacle->sale->id }}: 
+            </span>
+            {{ $binnacle->sale->description }}
+        </td>
+    </tr>
 </table>
 <br/><br>
 <table style="width:100%;">
