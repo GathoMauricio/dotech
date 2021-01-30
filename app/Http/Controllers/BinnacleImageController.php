@@ -12,6 +12,7 @@ class BinnacleImageController extends Controller
         foreach($images as $image)
         {
             $json[] = [
+                'id' => $image->id,
                 'url' => getUrl().'/storage/'.$image->image,
                 'description' => $image->description,
                 'date' => formatDate($image->created_at)
@@ -42,7 +43,8 @@ class BinnacleImageController extends Controller
     }
     public function show($id)
     {
-        //
+        $image = BinnacleImage::findOrFail($id);
+        return view('sale.show_binnacle_image',['image' => $image]);
     }
     public function edit($id)
     {
@@ -50,10 +52,18 @@ class BinnacleImageController extends Controller
     }
     public function update(Request $request, $id)
     {
-        //
+        $image = BinnacleImage::findOrFail($id);
+        $image->description = $request->description;
+        $image->save();
+        return redirect()->back()->with('message', 'La imagen se actualizó con éxito');
     }
     public function destroy($id)
     {
-        //
+        $image = BinnacleImage::findOrFail($id);
+        if(\Storage::get($image->image)){
+            \Storage::disk('local')->delete($image->image);
+        }
+        $image->delete();
+        return redirect()->back()->with('message', 'La imagen se eliminó con éxito');
     }
 }

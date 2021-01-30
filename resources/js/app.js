@@ -821,17 +821,23 @@ window.viewBinnacleImages = (binnacle_id, count) => {
         const route = $("#txt_view_binnacle_images_route").val();
         let viewer = new PhotoViewer();
         viewer.disableEmailLink();
-        viewer.disablePhotoLink();
+        //viewer.disablePhotoLink();
         viewer.enableLoop();
         viewer.enableAutoPlay();
         viewer.setFontSize(16);
+        const show_binnacle_image = $("#txt_show_binnacle_image_route").val();
+        viewer.permalink = () => { 
+            window.open(show_binnacle_image+'/'+$("#PhotoViewerByline").text());
+        };
+        //viewer.setOnClickEvent(viewer.permalink);
         $.ajax({
             type: 'GET',
             url: route+'/'+binnacle_id,
             data: { },
             success: data => {
+                console.log(data);
                 $.each(data,(index,item) => {
-                    viewer.add(item.url,item.description,item.date);
+                    viewer.add(item.url,item.description,item.date,''+item.id);
                 });
                 viewer.show(0);
             },
@@ -866,5 +872,39 @@ window.sendBinnacle = binnacle_id => {
             $("#send_binnacle_pdf_modal").modal();
         },
         error: error => console.log(error)
+    });
+};
+window.deleteBinnacleImage = id => {
+    Swal.fire({
+        title: "¿Eliminar tarea?",
+        text:
+            "Esta acción eliminará todo el registro y el cambio no se podrá deshacer.",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#d33",
+        cancelButtonColor: "#000",
+        confirmButtonText: "Si, eliminar!",
+        cancelButtonText: "Cancelar"
+    }).then(result => {
+        if (result.isConfirmed) {
+            const route = $("#txt_destroy_binnacle_image").val();
+            loading();
+            $.ajax({
+                type: "POST",
+                url: route+'/'+id,
+                data: {
+                    _token: $('meta[name="csrf-token"]').attr("content"),
+                    _method: "DELETE"
+                },
+                success: data => {
+                    console.log(data);
+                    window.close();
+                },
+                error: error => {
+                    window.close();
+                    console.log(error);
+                }
+            });
+        }
     });
 };

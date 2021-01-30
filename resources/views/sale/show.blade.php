@@ -426,7 +426,8 @@
         @endif
     </table>
     <input type="hidden" id="txt_get_binnacle" value="{{ route('binnacle_show_json') }}">
-<input type="hidden" id="txt_view_binnacle_images_route" value="{{ route('binnacle_images_index') }}">
+    <input type="hidden" id="txt_show_binnacle_image_route" value="{{ route('show_binnacle_image') }}">
+    <input type="hidden" id="txt_view_binnacle_images_route" value="{{ route('binnacle_images_index') }}">
 </center>
 @include('sale.send_binnacle_pdf_modal')
 @include('withdrawal.add_provider_modal')

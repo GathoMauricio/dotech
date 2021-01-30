@@ -185,10 +185,11 @@ Route::post('send_binnacle_pdf','BinnacleController@sendPdf')->name('send_binnac
 Route::get('binnacle_pdf/{id}','BinnacleController@makePdf')->name('binnacle_pdf')->middleware('auth');
 
 #Binnacles Images
+Route::get('show_binnacle_image/{id?}','BinnacleImageController@show')->name('show_binnacle_image')->middleware('auth');
 Route::get('binnacle_images_index/{id?}','BinnacleImageController@index')->name('binnacle_images_index')->middleware('auth');
 Route::post('store_binnacle_image','BinnacleImageController@store')->name('store_binnacle_image')->middleware('auth');
-
-
+Route::put('update_binnacle_image/{id}','BinnacleImageController@update')->name('update_binnacle_image')->middleware('auth');
+Route::delete('delete_binnacle_image/{id?}','BinnacleImageController@destroy')->name('delete_binnacle_image')->middleware('auth');
 
 #Helpers
 /*
