@@ -1,4 +1,6 @@
 <?php
+Route::get('miecocasa','ScrapingController@index')->name('miecocasa');
+Route::post('scraping_result','ScrapingController@result')->name('scraping_result');
 Route::get('/', function () {
     if(Auth::check())
     {
