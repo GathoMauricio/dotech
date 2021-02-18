@@ -1,8 +1,10 @@
 <?php
+/*
 Route::get('migecocasa','ScrapingController@index')->name('migecocasa');
 Route::post('scraping_result','ScrapingController@result')->name('scraping_result');
 Route::post('migeocasa_result_ajax','ScrapingController@result_ajax')->name('migeocasa_result_ajax');
 Route::get('scraping_excel','ScrapingController@excel')->name('scraping_excel');
+*/
 Route::get('/', function () {
     if(Auth::check())
     {
