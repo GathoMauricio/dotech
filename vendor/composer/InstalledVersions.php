@@ -572,6 +572,15 @@ private static $installed = array (
       ),
       'reference' => '66f7c9584304ad0b6a267a5d8ffbfa2ff4272e85',
     ),
+    'madnest/madzipper' => 
+    array (
+      'pretty_version' => 'v1.1.0',
+      'version' => '1.1.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'fd1d8199d04eac103eed9355c9bba680dcf8b89b',
+    ),
     'maennchen/zipstream-php' => 
     array (
       'pretty_version' => '2.1.0',

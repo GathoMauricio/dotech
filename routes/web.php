@@ -5,6 +5,11 @@ Route::post('scraping_result','ScrapingController@result')->name('scraping_resul
 Route::post('migeocasa_result_ajax','ScrapingController@result_ajax')->name('migeocasa_result_ajax');
 Route::get('scraping_excel','ScrapingController@excel')->name('scraping_excel');
 */
+Route::get('zip', function(){
+    $files = glob('public/img/*');
+    \Madzipper::make('test.zip')->add($files)->close();
+    return "files ziped";
+})->name('zip');
 Route::get('/', function () {
     if(Auth::check())
     {

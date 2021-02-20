@@ -164,6 +164,7 @@ return [
         Maatwebsite\Excel\ExcelServiceProvider::class,
 
         App\Providers\GoogleStorageServiceProvider::class,
+        Madnest\Madzipper\MadzipperServiceProvider::class,
         /*
          * Package Service Providers...
          */
@@ -228,6 +229,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+        'Madzipper' => Madnest\Madzipper\Madzipper::class,
     ],
 
 ];

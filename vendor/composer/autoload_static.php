@@ -182,6 +182,7 @@ class ComposerStaticInitc76430cec0ac4972d1901c144bf246d6
             'MyCLabs\\Enum\\' => 13,
             'Monolog\\' => 8,
             'Matrix\\' => 7,
+            'Madnest\\Madzipper\\' => 18,
             'Maatwebsite\\Excel\\' => 18,
         ),
         'L' => 
@@ -475,6 +476,10 @@ class ComposerStaticInitc76430cec0ac4972d1901c144bf246d6
         'Matrix\\' => 
         array (
             0 => __DIR__ . '/..' . '/markbaker/matrix/classes/src',
+        ),
+        'Madnest\\Madzipper\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/madnest/madzipper/src/Madnest/Madzipper',
         ),
         'Maatwebsite\\Excel\\' => 
         array (
@@ -3552,6 +3557,11 @@ class ComposerStaticInitc76430cec0ac4972d1901c144bf246d6
         'Maatwebsite\\Excel\\Validators\\RowValidator' => __DIR__ . '/..' . '/maatwebsite/excel/src/Validators/RowValidator.php',
         'Maatwebsite\\Excel\\Validators\\ValidationException' => __DIR__ . '/..' . '/maatwebsite/excel/src/Validators/ValidationException.php',
         'Maatwebsite\\Excel\\Writer' => __DIR__ . '/..' . '/maatwebsite/excel/src/Writer.php',
+        'Madnest\\Madzipper\\Facades\\Madzipper' => __DIR__ . '/..' . '/madnest/madzipper/src/Madnest/Madzipper/Facades/Madzipper.php',
+        'Madnest\\Madzipper\\Madzipper' => __DIR__ . '/..' . '/madnest/madzipper/src/Madnest/Madzipper/Madzipper.php',
+        'Madnest\\Madzipper\\MadzipperServiceProvider' => __DIR__ . '/..' . '/madnest/madzipper/src/Madnest/Madzipper/MadzipperServiceProvider.php',
+        'Madnest\\Madzipper\\Repositories\\RepositoryInterface' => __DIR__ . '/..' . '/madnest/madzipper/src/Madnest/Madzipper/Repositories/RepositoryInterface.php',
+        'Madnest\\Madzipper\\Repositories\\ZipRepository' => __DIR__ . '/..' . '/madnest/madzipper/src/Madnest/Madzipper/Repositories/ZipRepository.php',
         'Matrix\\Builder' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/Builder.php',
         'Matrix\\Decomposition\\Decomposition' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/Decomposition/Decomposition.php',
         'Matrix\\Decomposition\\LU' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/Decomposition/LU.php',
