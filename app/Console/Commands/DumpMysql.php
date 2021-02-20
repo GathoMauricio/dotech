@@ -41,9 +41,22 @@ class DumpMysql extends Command
         ->setDbName(env('DB_DATABASE'))->setUserName(env('DB_USERNAME'))
         ->setPassword(env('DB_PASSWORD'))
         ->dumpToFile('storage/dump_db/dump_'.date('Y-m-d').'.sql');
-        \Log::info("Mysql Database dumped...".date('Y-m-d'));
+
+        \Log::info("Base de datos creada...".date('Y-m-d'));
+
         $disk = \Storage::disk('gcs');
         $disk->put("DB_dotech_".date('Y-m-d').".sql",\File::get(storage_path('dump_db/dump_'.date('Y-m-d').'.sql')));
-        \Log::info("File cloud storage...");
+        
+        \Log::info("Base de datos almacenada...");
+        
+        $files = glob('public/storage/*');
+        \Madzipper::make('storage/zipped/storage.zip')->add($files)->close();
+        
+        \Log::info("Archivos comprimidos...");
+
+        $disk = \Storage::disk('gcs');
+        $disk->put("Storage_dotech.zip",\File::get(storage_path('zipped/storage.zip')));
+        
+        \Log::info("Archivos almacenados...");
     }
 }
