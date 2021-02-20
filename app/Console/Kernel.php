@@ -15,7 +15,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        ShowGatho::class,
+        Commands\DumpMysql::class
     ];
 
     /**
@@ -26,7 +26,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('gatho:show')->everyMinute();
+        $schedule->command('dump:mysql')->everyMinute();
     }
 
     /**
