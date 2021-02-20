@@ -1,5 +1,5 @@
 {
-    "name": "jakub-onderka/php-console-color",
+    "name": "php-parallel-lint/php-console-color",
     "license": "BSD-2-Clause",
     "authors": [
         {
@@ -15,9 +15,12 @@
     },
     "require-dev": {
         "phpunit/phpunit": "~4.3",
-        "jakub-onderka/php-parallel-lint": "1.0",
-        "jakub-onderka/php-var-dump-check": "0.*",
+        "php-parallel-lint/php-parallel-lint": "1.0",
+        "php-parallel-lint/php-var-dump-check": "0.*",
         "squizlabs/php_codesniffer": "1.*",
-        "jakub-onderka/php-code-style": "1.0"
+        "php-parallel-lint/php-code-style": "1.0"
+    },
+    "replace": {
+        "jakub-onderka/php-console-color": "*"
     }
 }
