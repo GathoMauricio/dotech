@@ -58,6 +58,6 @@ class DumpMysql extends Command
         $disk = \Storage::disk('gcs');
         $disk->put("Storage_dotech.zip",\File::get(storage_path('zipped/storage.zip')));
         */
-        \Log::info("Archivos almacenados...");
+        #\Log::info("Archivos almacenados...");
     }
 }
