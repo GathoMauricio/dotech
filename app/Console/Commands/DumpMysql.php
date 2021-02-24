@@ -49,10 +49,10 @@ class DumpMysql extends Command
         
         \Log::info("Base de datos almacenada...");
         
-        $files = glob('public/storage/*');
-        \Madzipper::make('storage/zipped/storage.zip')->add($files)->close();
+        //$files = glob('public/storage/*');
+        //\Madzipper::make('storage/zipped/storage.zip')->add($files)->close();
         
-        \Log::info("Archivos comprimidos...");
+        //\Log::info("Archivos comprimidos...");
         #TODO:Allowed memory size of 1073741824 bytes exhausted (tried to allocate 1376474824 bytes)
         /*
         $disk = \Storage::disk('gcs');
