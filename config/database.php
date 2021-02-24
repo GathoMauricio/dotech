@@ -59,7 +59,8 @@ return [
             'strict' => true,
             'engine' => null,
             'dump' => [
-                'dump_binary_path' => env('MYSQL_BINARY_PATH','')//'/usr/bin',
+                'dump_binary_path' => env('MYSQL_BINARY_PATH',''),
+                'add_extra_option' => env('MYSQL_SOCKET',''), 
             ],
             'options' => extension_loaded('pdo_mysql') ? array_filter([
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
