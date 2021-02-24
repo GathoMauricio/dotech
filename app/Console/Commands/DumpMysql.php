@@ -45,7 +45,7 @@ class DumpMysql extends Command
         \Log::info("Base de datos creada...".date('Y-m-d'));
 
         $disk = \Storage::disk('gcs');
-        $disk->put("DB_dotech_".date('Y-m-d').".sql",\File::get(storage_path('dump_db/dump_'.date('Y-m-d').'.sql')));
+        $disk->put("DB_dotech.sql",\File::get(storage_path('dump_db/dump_'.date('Y-m-d').'.sql')));
         
         \Log::info("Base de datos almacenada...");
         
