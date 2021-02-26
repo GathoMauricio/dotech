@@ -33,7 +33,7 @@
 </head>
 <body>
 <header>
-    <table border="1" style="width:100%;">
+    <table style="width:100%;">
             <tr>
                 <td width="30%" >
                     <img src="{{ $logo }}" width="50%" height="">
