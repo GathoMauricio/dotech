@@ -701,6 +701,7 @@ class ComposerStaticInitc76430cec0ac4972d1901c144bf246d6
         'App\\Http\\Controllers\\CompanyController' => __DIR__ . '/../..' . '/app/Http/Controllers/CompanyController.php',
         'App\\Http\\Controllers\\CompanyDepartmentController' => __DIR__ . '/../..' . '/app/Http/Controllers/CompanyDepartmentController.php',
         'App\\Http\\Controllers\\CompanyFollowController' => __DIR__ . '/../..' . '/app/Http/Controllers/CompanyFollowController.php',
+        'App\\Http\\Controllers\\CompanyRepositoryController' => __DIR__ . '/../..' . '/app/Http/Controllers/CompanyRepositoryController.php',
         'App\\Http\\Controllers\\ConfigController' => __DIR__ . '/../..' . '/app/Http/Controllers/ConfigController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\ExpenseController' => __DIR__ . '/../..' . '/app/Http/Controllers/ExpenseController.php',

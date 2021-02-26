@@ -39,7 +39,15 @@ Route::get('delete_company/{id?}','CompanyController@destroy')->name('delete_com
 Route::get('cbo_all_companies','CompanyController@getCboItems')->name('cbo_all_companies')->middleware('auth');
 Route::get('company_show_ajax','CompanyController@showAjax')->name('company_show_ajax')->middleware('auth');
 Route::get('company_edit','CompanyController@edit')->name('company_edit')->middleware('auth');
-Route::get('company_department_show_ajax','CompanyController@showCompanyDepartmentAjax')->name('company_department_show_ajax')->middleware('auth');;
+Route::get('company_department_show_ajax','CompanyController@showCompanyDepartmentAjax')->name('company_department_show_ajax')->middleware('auth');
+
+#CompanyRepository
+Route::get('repository_company/{id}','CompanyRepositoryController@index')->name('repository_company')->middleware('auth');
+Route::get('create_company_repository/{id}','CompanyRepositoryController@create')->name('create_company_repository')->middleware('auth');
+Route::post('store_company_repository','CompanyRepositoryController@store')->name('store_company_repository')->middleware('auth');
+Route::get('edit_company_repository/{id}','CompanyRepositoryController@edit')->name('edit_company_repository')->middleware('auth');
+Route::put('update_company_repository/{id}','CompanyRepositoryController@update')->name('update_company_repository')->middleware('auth');
+Route::get('destroy_company_repository/{id?}','CompanyRepositoryController@destroy')->name('destroy_company_repository')->middleware('auth');
 
 #CompanyFollow
 Route::get('index_company_follow','CompanyFollowController@index')->name('index_company_follow')->middleware('auth');

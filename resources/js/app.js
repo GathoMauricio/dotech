@@ -79,12 +79,11 @@ window.showProjectModal = project_id => {
     const element_id = "show_project_modal_render";
     const modal_id = "show_project_modal";
     ReactDOM.unmountComponentAtNode(document.getElementById(element_id));
-    ReactDOM.render(
-        <ShowProjectModal
-            route={route}
-            project_id={project_id}
-            user_id={user_id}
-            rol_user_id={rol_user_id}
+    ReactDOM.render( <
+        ShowProjectModal route = { route }
+        project_id = { project_id }
+        user_id = { user_id }
+        rol_user_id = { rol_user_id }
         />,
         document.getElementById(element_id)
     );
@@ -95,8 +94,10 @@ window.showTaskModal = task_id => {
     const element_id = "show_task_modal_render";
     const modal_id = "show_task_modal";
     ReactDOM.unmountComponentAtNode(document.getElementById(element_id));
-    ReactDOM.render(
-        <ShowTaskModal route={route} task_id={task_id} />,
+    ReactDOM.render( <
+        ShowTaskModal route = { route }
+        task_id = { task_id }
+        />,
         document.getElementById(element_id)
     );
     $("#" + modal_id).modal();
@@ -106,8 +107,10 @@ window.showUserModal = user_id => {
     const element_id = "show_user_modal_render";
     const modal_id = "show_user_modal";
     ReactDOM.unmountComponentAtNode(document.getElementById(element_id));
-    ReactDOM.render(
-        <ShowUserModal route={route} user_id={user_id} />,
+    ReactDOM.render( <
+        ShowUserModal route = { route }
+        user_id = { user_id }
+        />,
         document.getElementById(element_id)
     );
     $("#" + modal_id).modal();
@@ -118,8 +121,7 @@ window.editTaskModal = route => {
 window.archiveTaskModal = task_id => {
     Swal.fire({
         title: "¿Archivar tarea?",
-        text:
-            "Esta tarea se podrá visualizar posteriórmente desde la vista de tareas archivadas.",
+        text: "Esta tarea se podrá visualizar posteriórmente desde la vista de tareas archivadas.",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#d33",
@@ -152,8 +154,7 @@ window.archiveTaskModal = task_id => {
 window.deleteTaskModal = task_id => {
     Swal.fire({
         title: "¿Eliminar tarea?",
-        text:
-            "Esta acción eliminará todo el registro incluyendo los registros ligados a este y el cambio no se podrá deshacer.",
+        text: "Esta acción eliminará todo el registro incluyendo los registros ligados a este y el cambio no se podrá deshacer.",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#d33",
@@ -189,8 +190,10 @@ window.showTaskCommentsModal = task_id => {
     const element_id = "index_task_comment_modal_render";
     const modal_id = "index_task_comment_modal";
     ReactDOM.unmountComponentAtNode(document.getElementById(element_id));
-    ReactDOM.render(
-        <IndexCommentTask route={route} task_id={task_id} />,
+    ReactDOM.render( <
+        IndexCommentTask route = { route }
+        task_id = { task_id }
+        />,
         document.getElementById(element_id)
     );
     $("#" + modal_id).modal();
@@ -235,7 +238,7 @@ window.indexServiceFollow = service_id => {
         success: data => {
             $("#ServiceFollowBox").html("");
             let counter = 0;
-            $.each(data, function (index, value) {
+            $.each(data, function(index, value) {
                 counter++;
                 $("#ServiceFollowBox").append(
                     '<div class="comment-item">' +
@@ -253,8 +256,7 @@ window.indexServiceFollow = service_id => {
                 );
             });
             setTimeout(() => {
-                $("#ServiceFollowBox").animate(
-                    { scrollTop: $(document).height() * 10000 },
+                $("#ServiceFollowBox").animate({ scrollTop: $(document).height() * 10000 },
                     500
                 );
             }, 500);
@@ -285,7 +287,7 @@ window.indexServiceFollow = service_id => {
                 form[0].reset();
                 $("#ServiceFollowBox").html("");
                 let counter = 0;
-                $.each(data, function (index, value) {
+                $.each(data, function(index, value) {
                     counter++;
                     $("#ServiceFollowBox").append(
                         '<div class="comment-item">' +
@@ -302,8 +304,7 @@ window.indexServiceFollow = service_id => {
                         "</div><br/>"
                     );
                 });
-                $("#ServiceFollowBox").animate(
-                    { scrollTop: $(document).height() * 10000 },
+                $("#ServiceFollowBox").animate({ scrollTop: $(document).height() * 10000 },
                     0
                 );
                 if (counter <= 0) {
@@ -331,7 +332,7 @@ window.indexCompanyFollow = company_id => {
         success: data => {
             $("#CompanyFollowBox").html("");
             let counter = 0;
-            $.each(data, function (index, value) {
+            $.each(data, function(index, value) {
                 counter++;
                 $("#CompanyFollowBox").append(
                     '<div class="comment-item">' +
@@ -349,8 +350,7 @@ window.indexCompanyFollow = company_id => {
                 );
             });
             setTimeout(() => {
-                $("#CompanyFollowBox").animate(
-                    { scrollTop: $(document).height() * 10000 },
+                $("#CompanyFollowBox").animate({ scrollTop: $(document).height() * 10000 },
                     500
                 );
             }, 500);
@@ -381,7 +381,7 @@ window.indexCompanyFollow = company_id => {
                 form[0].reset();
                 $("#CompanyFollowBox").html("");
                 let counter = 0;
-                $.each(data, function (index, value) {
+                $.each(data, function(index, value) {
                     counter++;
                     $("#CompanyFollowBox").append(
                         '<div class="comment-item">' +
@@ -398,8 +398,7 @@ window.indexCompanyFollow = company_id => {
                         "</div><br/>"
                     );
                 });
-                $("#CompanyFollowBox").animate(
-                    { scrollTop: $(document).height() * 10000 },
+                $("#CompanyFollowBox").animate({ scrollTop: $(document).height() * 10000 },
                     0
                 );
                 if (counter <= 0) {
@@ -423,7 +422,7 @@ window.loadDepartmentsByCompany = company_id => {
         data: { id: company_id },
         success: data => {
             let html = "";
-            $.each(data, function (index, value) {
+            $.each(data, function(index, value) {
                 html +=
                     '<option value="' +
                     value.id +
@@ -826,26 +825,26 @@ window.viewBinnacleImages = (binnacle_id, count) => {
         viewer.enableAutoPlay();
         viewer.setFontSize(16);
         const show_binnacle_image = $("#txt_show_binnacle_image_route").val();
-        viewer.permalink = () => { 
-            window.open(show_binnacle_image+'/'+$("#PhotoViewerByline").text());
+        viewer.permalink = () => {
+            window.open(show_binnacle_image + '/' + $("#PhotoViewerByline").text());
         };
         //viewer.setOnClickEvent(viewer.permalink);
         $.ajax({
             type: 'GET',
-            url: route+'/'+binnacle_id,
-            data: { },
+            url: route + '/' + binnacle_id,
+            data: {},
             success: data => {
                 console.log(data);
-                $.each(data,(index,item) => {
-                    viewer.add(item.url,item.description,item.date,''+item.id);
+                $.each(data, (index, item) => {
+                    viewer.add(item.url, item.description, item.date, '' + item.id);
                 });
                 viewer.show(0);
             },
             error: error => console.log(error)
         });
-        
-    }else{
-        msg("Aviso: ","No hay imagenes para mostrar");
+
+    } else {
+        msg("Aviso: ", "No hay imagenes para mostrar");
     }
 
 };
@@ -863,9 +862,9 @@ window.sendBinnacle = binnacle_id => {
     const route = $("#txt_get_binnacle").val();
     $.ajax({
         type: 'GET',
-        url: route+'/'+binnacle_id,
+        url: route + '/' + binnacle_id,
         data: {},
-        success: data => { 
+        success: data => {
             console.log(data);
             $("#txt_binnacle_id_send_pdf").val(data.binnacle.id);
             $("#txt_email_binnacle_pdf").val(data.department.email);
@@ -877,8 +876,7 @@ window.sendBinnacle = binnacle_id => {
 window.deleteBinnacleImage = id => {
     Swal.fire({
         title: "¿Eliminar tarea?",
-        text:
-            "Esta acción eliminará todo el registro y el cambio no se podrá deshacer.",
+        text: "Esta acción eliminará todo el registro y el cambio no se podrá deshacer.",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#d33",
@@ -891,7 +889,7 @@ window.deleteBinnacleImage = id => {
             loading();
             $.ajax({
                 type: "POST",
-                url: route+'/'+id,
+                url: route + '/' + id,
                 data: {
                     _token: $('meta[name="csrf-token"]').attr("content"),
                     _method: "DELETE"
@@ -905,6 +903,42 @@ window.deleteBinnacleImage = id => {
                     console.log(error);
                 }
             });
+        }
+    });
+};
+window.deleteCompanyRepository = id => {
+    Swal.fire({
+        title: "¿Eliminar repositorio?",
+        text: "Esta acción no se podrá deshacer.",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#d33",
+        cancelButtonColor: "#000",
+        confirmButtonText: "Si, eliminar!",
+        cancelButtonText: "Cancelar"
+    }).then(result => {
+        if (result.isConfirmed) {
+            const route = $("#txt_destroy_company_repository_route").val();
+            window.location = route + '/' + id;
+            /*
+            loading();
+            $.ajax({
+                type: "POST",
+                url: route + '/' + id,
+                data: {
+                    _token: $('meta[name="csrf-token"]').attr("content"),
+                    _method: "DELETE"
+                },
+                success: data => {
+                    console.log(data);
+                    window.close();
+                },
+                error: error => {
+                    window.close();
+                    console.log(error);
+                }
+            });
+            */
         }
     });
 };

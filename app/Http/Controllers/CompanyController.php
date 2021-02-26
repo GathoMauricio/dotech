@@ -25,6 +25,7 @@ class CompanyController extends Controller
             $spanProjects = "<a href='".route('projects',$company->id)."' style='cursor:pointer;color:#229954;'>".count(Sale::where('company_id',$company->id)->where('status','Proyecto')->get())."<span title='Ver proyectos...' class='icon icon-price-tag'></span> Ver proyectos</a>";
             $spanFinalized = "<a href='".route('finalized',$company->id)."' style='cursor:pointer;color:#F39C12;'>".count(Sale::where('company_id',$company->id)->where('status','Finalizado')->get())."<span title='Ver finalizados...' class='icon icon-smile'> Ver finalizados</span></a>";
             $spanRejects = "<a href='".route('rejects',$company->id)."' style='cursor:pointer;color:#C0392B;'>".count(Sale::where('company_id',$company->id)->where('status','Rechazada')->get())."<span title='Ver rechazos...' class='icon icon-sad'></span> Ver rechazos</a>";
+            $spanRepository = "<a href='".route('repository_company',$company->id)."' style='cursor:pointer;color:#7D3C98;'><span title='Repositorio...' class='icon icon-key'></span> Repositorio</a>";
             $spanUpdate = "<a href='".route('edit_company',$company->id)."' style='cursor:pointer;color:orange;'><span title='Actualizar...' class='icon icon-pencil'></span> Editar</a>";
             $spanDelete = "<a href='#' onclick='deleteCompany(".$company->id.")' style='cursor:pointer;color:red;'><span title='Eliminar..' class='icon icon-bin' style='cursor:pointer;color:red;'> Eliminar</span></a>";
             
@@ -41,6 +42,7 @@ class CompanyController extends Controller
                 $spanProjects.'<br/>'.
                 $spanFinalized.'<br/>'.
                 $spanRejects.'<br/>'.
+                $spanRepository.'<br/>'.
                 $spanUpdate.'<br/>'.
                 $spanDelete
             ];

@@ -36,6 +36,7 @@ return array(
     'App\\Http\\Controllers\\CompanyController' => $baseDir . '/app/Http/Controllers/CompanyController.php',
     'App\\Http\\Controllers\\CompanyDepartmentController' => $baseDir . '/app/Http/Controllers/CompanyDepartmentController.php',
     'App\\Http\\Controllers\\CompanyFollowController' => $baseDir . '/app/Http/Controllers/CompanyFollowController.php',
+    'App\\Http\\Controllers\\CompanyRepositoryController' => $baseDir . '/app/Http/Controllers/CompanyRepositoryController.php',
     'App\\Http\\Controllers\\ConfigController' => $baseDir . '/app/Http/Controllers/ConfigController.php',
     'App\\Http\\Controllers\\Controller' => $baseDir . '/app/Http/Controllers/Controller.php',
     'App\\Http\\Controllers\\ExpenseController' => $baseDir . '/app/Http/Controllers/ExpenseController.php',
