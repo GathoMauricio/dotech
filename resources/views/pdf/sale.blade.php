@@ -117,9 +117,9 @@
     <table style="width:100%;">
         <tbody>
             <tr>
-                <th width="15%" style="background-color:#D5D8DC;">Cantidad</th>
-                <th width="15%" style="background-color:#D5D8DC;">U. Medida</th>
-                <th width="25%" style="background-color:#D5D8DC;">Descripción</th>
+                <th width="10%" style="background-color:#D5D8DC;">Cantidad</th>
+                <th width="10%" style="background-color:#D5D8DC;">U. Medida</th>
+                <th width="35%" style="background-color:#D5D8DC;">Descripción</th>
                 <th width="15%" style="background-color:#D5D8DC;">P. Lista</th>
                 <th width="15%" style="background-color:#D5D8DC;">Descuento</th>
                 <th width="15%" style="background-color:#D5D8DC;">Importe</th>
