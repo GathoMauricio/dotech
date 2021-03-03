@@ -2,16 +2,19 @@
 if (!function_exists('formatDate')) {
     function formatDate($date)
     {
+        /*
         $diassemanaN = array(
             "Domingo", "Lunes", "Martes", "Miércoles",
             "Jueves", "Viernes", "Sábado"
         );
+        */
         $mesesN = array(
             1 => "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio",
             "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
         );
-        return $diassemanaN[date_format(new \DateTime($date), 'N')] 
-        .' '.date_format(new \DateTime($date), 'd'). 
+        return 
+        //$diassemanaN[date_format(new \DateTime($date), 'N')] .
+        ' '.date_format(new \DateTime($date), 'd'). 
         ' de '.
         $mesesN[date_format(new \DateTime($date), 'n')].
         ' del '.
