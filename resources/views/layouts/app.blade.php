@@ -95,6 +95,7 @@
                     </p>
                 </a>
                 <hr>
+                @if(Auth::user()->rol_user_id == 1 || Auth::user()->rol_user_id == 2)
                 <a href="{{ route('index_quotes') }}">
                     <p style="cursor:pointer;">
                         <span class="icon-coin-dollar">
@@ -105,6 +106,7 @@
                     </p>
                 </a>
                 <hr>
+                @endif
                 <a href="{{ route('index_proyects') }}">
                     <p style="cursor:pointer;">
                         <span class="icon-price-tag">
