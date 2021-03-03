@@ -31,6 +31,14 @@ class ApiBinnacleController extends Controller
         ]);
         if($binnacle)
         {
+            $message = 'Ha creado la bitácora: '.
+            $binnacle->description.
+            ' para el proyecto "'.$binnacle->sale['description'].'" 
+            de la compañía '.$binnacle->sale->company['name'];
+            \Mail::send('email.notification', ['binnacle' => $binnacle, 'msg' => $message], function ($mail){
+                $mail->from('dotechapp@dotredes.com',env('APP_NAME'));
+                $mail->to(['mauricio2769@gmail.com','rortuno@dotredes.com']);
+            });
             return  [
                 'error' => 0,
                 'msg' => 'Bitácora creada ahora puede agregar imagenes.',

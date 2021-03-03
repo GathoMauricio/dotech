@@ -15,6 +15,15 @@ class BinnacleController extends Controller
     public function store(Request $request)
     {
         $binnacle = Binnacle::create($request->all());
+        $message = 'Ha creado la bitácora: '.
+        $binnacle->description.
+        ' para el proyecto "'.$binnacle->sale['description'].'" 
+        de la compañía '.$binnacle->sale->company['name'];
+        \Mail::send('email.notification', ['binnacle' => $binnacle, 'msg' => $message], function ($mail){
+            $mail->from('dotechapp@dotredes.com',env('APP_NAME'));
+            $mail->to(['mauricio2769@gmail.com','rortuno@dotredes.com']);
+        });
+
         return redirect()->back()
             ->with('message', 'La bitácora '.$binnacle->description.' se creó con éxito.');
     }
