@@ -10,7 +10,8 @@ class ApiMenuController extends Controller
 {
     public function index()
     {
-        if(Auth::user()->rol_user_id == 1)
+        //if(Auth::user()->rol_user_id == 1)
+        if(true)
         {
             $taskCount = count(Task::
             where('archived','NO')->get());

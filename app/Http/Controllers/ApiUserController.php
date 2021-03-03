@@ -37,6 +37,11 @@ class ApiUserController extends Controller
     {
         //
     }
+    public function activeUsers()
+    {
+        $users = User::where('status_user_id',1)->orderBy('name')->get();
+        return $users;
+    }
     public function create()
     {
         //

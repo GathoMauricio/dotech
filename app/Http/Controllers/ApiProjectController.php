@@ -7,7 +7,8 @@ class ApiProjectController extends Controller
 {
     public function index()
     {
-        if(Auth::user()->rol_user_id == 1)
+        //if(Auth::user()->rol_user_id == 1)
+        if(true)
         {
             $projects = Sale::where('status','Proyecto')->orderBy('id','desc')->get();
         }else{

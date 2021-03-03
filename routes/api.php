@@ -24,6 +24,7 @@ Route::middleware('auth:api')->get('tasks_index','ApiTaskController@index')->nam
 Route::middleware('auth:api')->get('tasks_show/{id}','ApiTaskController@show')->name('tasks_show');
 Route::middleware('auth:api')->put('tasks_update/{id}','ApiTaskController@update')->name('tasks_update');
 Route::middleware('auth:api')->delete('tasks_delete/{id}','ApiTaskController@destroy')->name('delete_update');
+Route::middleware('auth:api')->post('tasks_store','ApiTaskController@store')->name('tasks_store');
 
 #TaskChat
 Route::middleware('auth:api')->get('task_chat_index/{id}','ApiTaskCommentController@index')->name('task_chat_index');
@@ -47,3 +48,6 @@ Route::middleware('auth:api')->post('upload_binnacle_image','ApiBinnacleImageCon
 
 #Binnacle Firm
 Route::middleware('auth:api')->post('binnacle_firm_store','ApiBinnacleController@storeFirm')->name('binnacle_firm_store');
+
+#Users
+Route::middleware('auth:api')->get('active_users','ApiUserController@activeUsers')->name('active_users');

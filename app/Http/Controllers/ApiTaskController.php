@@ -10,7 +10,7 @@ class ApiTaskController extends Controller
         if(Auth::user()->rol_user_id == 1)
         {
             $tasks = Task::
-            where('archived','NO')->get();
+            where('archived','NO')->orderBy('id','DESC')->get();
         }else{
             $tasks = Task::
             where('archived','NO')->
@@ -20,7 +20,21 @@ class ApiTaskController extends Controller
                 $query->orWhere('visibility','Público');
             })->orderBy('id','DESC')->get();
         }
-        return $tasks;
+        $json = [];
+        foreach($tasks as $task)
+        {
+            $json [] = [
+                'id' => $task->id,
+                'context' => $task->context,
+                'visibility' => $task->visibility,
+                'status' => $task->status,
+                'title' => $task->title,
+                'user' => $task->user['name'].' '.$task->user['middle_name'].' '.$task->user['last_name'],
+                'author' => $task->author['name'].' '.$task->author['middle_name'].' '.$task->author['last_name']
+
+            ];
+        }
+        return $json;
     }
     public function show($id)
     {
@@ -38,6 +52,15 @@ class ApiTaskController extends Controller
         $task = Task::findOrFail($id);
         $task->fill($request->all())->save();
         return "El registro se actualizó con éxito.";
+    }
+    public function store(Request $request)
+    {
+        $task = Task::create($request->all());
+        if($task){
+            return ['error' => 0 , 'msg' => 'Tarea almacenada'];
+        }else{
+            return ['error' => 1 , 'msg' => 'Error al almacenar tarea'];
+        }
     }
     public function destroy($id)
     {
