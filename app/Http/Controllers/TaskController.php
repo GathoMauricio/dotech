@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
 use App\Http\Requests\TaskRequest;
 use App\Task;
@@ -7,118 +9,199 @@ use App\Project;
 use App\User;
 use App\TaskComment;
 use Auth;
+
 class TaskController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth');
     }
-    
+
     public function index()
     {
-        if(Auth::user()->rol_user_id == 1)
-        {
-            $tasks = Task::
-            where('archived','NO')->get();
-        }else{
-            $tasks = Task::
-            where('archived','NO')->
-            where(function($query) {
-                $query->orWhere('user_id',Auth::user()->id);
-                $query->orWhere('author_id',Auth::user()->id);
-                $query->orWhere('visibility','Público');
-            })->get();
+        if (Auth::user()->rol_user_id == 1) {
+            $tasks = Task::where('archived', 'NO')->get();
+        } else {
+            $tasks = Task::where('archived', 'NO')->where(function ($query) {
+                    $query->orWhere('user_id', Auth::user()->id);
+                    $query->orWhere('author_id', Auth::user()->id);
+                    $query->orWhere('visibility', 'Público');
+                })->get();
         }
-        return view('tasks.index',['tasks'=>$tasks]);
+        return view('tasks.index', ['tasks' => $tasks]);
     }
     public function archivedIndex()
     {
-        if(Auth::user()->rol_user_id == 1)
-        {
-            $tasks = Task::
-            where('archived','SI')->get();
-        }else{
-            $tasks = Task::
-            where('archived','SI')->
-            where(function($query) {
-                $query->orWhere('user_id',Auth::user()->id);
-                $query->orWhere('author_id',Auth::user()->id);
-                $query->orWhere('visibility','Público');
-            })->get();
+        if (Auth::user()->rol_user_id == 1) {
+            $tasks = Task::where('archived', 'SI')->get();
+        } else {
+            $tasks = Task::where('archived', 'SI')->where(function ($query) {
+                    $query->orWhere('user_id', Auth::user()->id);
+                    $query->orWhere('author_id', Auth::user()->id);
+                    $query->orWhere('visibility', 'Público');
+                })->get();
         }
-        return view('tasks.index_archived',['tasks'=>$tasks]);
+        return view('tasks.index_archived', ['tasks' => $tasks]);
     }
     public function indexAjax()
     {
-        if(Auth::user()->rol_user_id == 1 || Auth::user()->rol_user_id == 2)
-        {
-            $tasks = Task::
-            where('archived','NO')->get();
-        }else{
-            $tasks = Task::
-            where('archived','NO')->
-            where(function($query) {
-                $query->orWhere('user_id',Auth::user()->id);
-                $query->orWhere('author_id',Auth::user()->id);
-                $query->orWhere('visibility','Público');
-            })->get();
+        if (Auth::user()->rol_user_id == 1 || Auth::user()->rol_user_id == 2) {
+            $tasks = Task::where('archived', 'NO')->get();
+        } else {
+            $tasks = Task::where('archived', 'NO')->where(function ($query) {
+                    $query->orWhere('user_id', Auth::user()->id);
+                    $query->orWhere('author_id', Auth::user()->id);
+                    $query->orWhere('visibility', 'Público');
+                })->get();
         }
-        $json= [];
-        foreach($tasks as $task)
-        {
+        $json = [];
+        foreach ($tasks as $task) {
             $context = "";
-            switch($task->context)
-            {
-                case 'Trabajo': $context = '<span style="display:none">'.$task->context.'</span>'.'<span title="'.$task->context.'" class="icon icon-office" style="color:#9B59B6"></span>'; break;
-                case 'Reunión': $context = '<span style="display:none">'.$task->context.'</span>'.'<span title="'.$task->context.'" class="icon icon-users" style="color:#2980B9"></span>'; break;
-                case 'Documento': $context = '<span style="display:none">'.$task->context.'</span>'.'<span title="'.$task->context.'" class="icon icon-file-pdf" style="color:#EC7063"></span>'; break;
-                case 'Internet': $context = '<span style="display:none">'.$task->context.'</span>'.'<span title="'.$task->context.'" class="icon icon-chrome" style="color:#27AE60"></span>'; break;
-                case 'Teléfono': $context = '<span style="display:none">'.$task->context.'</span>'.'<span title="'.$task->context.'" class="icon icon-phone" style="color:#2874A6"></span>'; break;
-                case 'Email': $context = '<span style="display:none">'.$task->context.'</span>'.'<span title="'.$task->context.'" class="icon icon-envelop" style="color:#F7DC6F"></span>'; break;
-                case 'Hogar': $context = '<span style="display:none">'.$task->context.'</span>'.'<span title="'.$task->context.'" class="icon icon-home" style="color:#5DADE2"></span>'; break;
-                case 'Otro': $context = '<span style="display:none">'.$task->context.'</span>'.'<span title="'.$task->context.'" class="icon icon-file-empty" style="color:#D35400"></span>'; break;
-                default: $context = $task->context;
+            switch ($task->context) {
+                case 'Trabajo':
+                    $context = '<span style="display:none">' . $task->context . '</span>' . '<span title="' . $task->context . '" class="icon icon-office" style="color:#9B59B6"></span>';
+                    break;
+                case 'Reunión':
+                    $context = '<span style="display:none">' . $task->context . '</span>' . '<span title="' . $task->context . '" class="icon icon-users" style="color:#2980B9"></span>';
+                    break;
+                case 'Documento':
+                    $context = '<span style="display:none">' . $task->context . '</span>' . '<span title="' . $task->context . '" class="icon icon-file-pdf" style="color:#EC7063"></span>';
+                    break;
+                case 'Internet':
+                    $context = '<span style="display:none">' . $task->context . '</span>' . '<span title="' . $task->context . '" class="icon icon-chrome" style="color:#27AE60"></span>';
+                    break;
+                case 'Teléfono':
+                    $context = '<span style="display:none">' . $task->context . '</span>' . '<span title="' . $task->context . '" class="icon icon-phone" style="color:#2874A6"></span>';
+                    break;
+                case 'Email':
+                    $context = '<span style="display:none">' . $task->context . '</span>' . '<span title="' . $task->context . '" class="icon icon-envelop" style="color:#F7DC6F"></span>';
+                    break;
+                case 'Hogar':
+                    $context = '<span style="display:none">' . $task->context . '</span>' . '<span title="' . $task->context . '" class="icon icon-home" style="color:#5DADE2"></span>';
+                    break;
+                case 'Otro':
+                    $context = '<span style="display:none">' . $task->context . '</span>' . '<span title="' . $task->context . '" class="icon icon-file-empty" style="color:#D35400"></span>';
+                    break;
+                default:
+                    $context = $task->context;
             }
-            $visibility="";
-            switch($task->visibility)
-            {
-                case 'Público': $visibility = '<span style="display:none">'.$task->visibility.'</span>'.'<span title="'.$task->visibility.'" class="icon icon-unlocked" style="color:#229954"></span>'; break;
-                case 'Privado': $visibility = '<span style="display:none">'.$task->visibility.'</span>'.'<span title="'.$task->visibility.'" class="icon icon-lock" style="color:#C0392B"></span>'; break;
-                default: $visibility = $task->visibility;
+            $visibility = "";
+            switch ($task->visibility) {
+                case 'Público':
+                    $visibility = '<span style="display:none">' . $task->visibility . '</span>' . '<span title="' . $task->visibility . '" class="icon icon-unlocked" style="color:#229954"></span>';
+                    break;
+                case 'Privado':
+                    $visibility = '<span style="display:none">' . $task->visibility . '</span>' . '<span title="' . $task->visibility . '" class="icon icon-lock" style="color:#C0392B"></span>';
+                    break;
+                default:
+                    $visibility = $task->visibility;
             }
             $statusColor = "";
             switch ($task->status) {
-                case '20%': $statusColor = "#C0392B"; break;
-                case '40%': $statusColor = "#F39C12"; break;
-                case '60%': $statusColor = "#F1C40F"; break;
-                case '80%': $statusColor = "#58D68D"; break;
-                case '100%': $statusColor = "#229954"; break;
-                default: $statusColor = "black";
+                case '20%':
+                    $statusColor = "#C0392B";
+                    break;
+                case '40%':
+                    $statusColor = "#F39C12";
+                    break;
+                case '60%':
+                    $statusColor = "#F1C40F";
+                    break;
+                case '80%':
+                    $statusColor = "#58D68D";
+                    break;
+                case '100%':
+                    $statusColor = "#229954";
+                    break;
+                default:
+                    $statusColor = "black";
             }
             $btnEdit = "";
             $btnDelete = "";
-            $btnArchive = "";
-            if(Auth::user()->rol_user_id == 1 || Auth::user()->rol_user_id == 2)
-            {
-                $btnEdit = '<span onclick="editTaskModal(\''.route('task_edit',$task->id).'\');" title="Editar..." class="icon icon-pencil" style="color:#F1C40F;cursor:pointer;"></span>';
-                $btnArchive = '<span onclick="archiveTaskModal('.$task->id.');"  title="Archivar..." class="icon icon-share" style="color:#3498DB;cursor:pointer;"></span>';
-                
-                
+            $btnArchive = '<span onclick="archiveTaskModal(' . $task->id . ');"  title="Archivar..." class="icon icon-share" style="color:#3498DB;cursor:pointer;"></span>';
+            if (Auth::user()->rol_user_id == 1 || Auth::user()->rol_user_id == 2) {
+                $btnEdit = '<span onclick="editTaskModal(\'' . route('task_edit', $task->id) . '\');" title="Editar..." class="icon icon-pencil" style="color:#F1C40F;cursor:pointer;"></span>';
             }
-            if(Auth::user()->rol_user_id == 1)
-            {
-                $btnDelete = '<span onclick="deleteTaskModal('.$task->id.');"  title="Eliminar..." class="icon icon-bin" style="color:#C0392B;cursor:pointer;"></span>';
+            if (Auth::user()->rol_user_id == 1) {
+                $btnDelete = '<span onclick="deleteTaskModal(' . $task->id . ');"  title="Eliminar..." class="icon icon-bin" style="color:#C0392B;cursor:pointer;"></span>';
+            }
+            $statusOptions = '';
+            switch ($task->status) {
+                case '0%':
+                    $statusOptions = '
+                    <option value="0%" selected>0%</option>
+                    <option value="20%">20%</option>
+                    <option value="40%">40%</option>
+                    <option value="60%">60%</option>
+                    <option value="80%">80%</option>
+                    <option value="100%">100%</option>
+                    ';
+                    break;
+                case '20%':
+                    $statusOptions = '
+                        <option value="0%">0%</option>
+                        <option value="20%" selected>20%</option>
+                        <option value="40%">40%</option>
+                        <option value="60%">60%</option>
+                        <option value="80%">80%</option>
+                        <option value="100%">100%</option>
+                        ';
+                    break;
+                case '40%':
+                    $statusOptions = '
+                            <option value="0%">0%</option>
+                            <option value="20%">20%</option>
+                            <option value="40%" selected>40%</option>
+                            <option value="60%">60%</option>
+                            <option value="80%">80%</option>
+                            <option value="100%">100%</option>
+                            ';
+                    break;
+                case '60%':
+                    $statusOptions = '
+                                <option value="0%">0%</option>
+                                <option value="20%">20%</option>
+                                <option value="40%">40%</option>
+                                <option value="60%" selected>60%</option>
+                                <option value="80%">80%</option>
+                                <option value="100%">100%</option>
+                                ';
+                    break;
+                case '80%':
+                    $statusOptions = '
+                                    <option value="0%">0%</option>
+                                    <option value="20%">20%</option>
+                                    <option value="40%">40%</option>
+                                    <option value="60%">60%</option>
+                                    <option value="80%" selected>80%</option>
+                                    <option value="100%">100%</option>
+                                    ';
+                    break;
+                case '100%':
+                    $statusOptions = '
+                                        <option value="0%">0%</option>
+                                        <option value="20%">20%</option>
+                                        <option value="40%">40%</option>
+                                        <option value="60%">60%</option>
+                                        <option value="80%">80%</option>
+                                        <option value="100%" selected>100%</option>
+                                        ';
+                    break;
             }
             $json[] = [
                 'context' => $context,
                 'visibility' => $visibility,
-                'project' => empty($task->project_id) ? "<b>Sin proyecto</b>" : '<a href="#" onclick="showProjectModal('.$task->project_id.')" class="project_task_'.$task->project_id.'">'.$task->project['name'].'</a>',
-                'title' => '<a href="#" onclick="showTaskModal('.$task->id.')">'.$task->title.'</a>',
-                'user' => '<a href="#" onclick="showUserModal('.$task->user_id.')">'.$task->user['name'].' '.$task->user['middle_name'].' '.$task->user['last_name'].'</a>',
+                'project' => empty($task->project_id) ? "<b>Sin proyecto</b>" : '<a href="#" onclick="showProjectModal(' . $task->project_id . ')" class="project_task_' . $task->project_id . '">' . $task->project['name'] . '</a>',
+                'title' => '<a href="#" onclick="showTaskModal(' . $task->id . ')">' . $task->title . '</a>',
+                'user' => '<a href="#" onclick="showUserModal(' . $task->user_id . ')">' . $task->user['name'] . ' ' . $task->user['middle_name'] . ' ' . $task->user['last_name'] . '</a>',
                 'deadline' => $task->deadline,
-                'comments' => '<a href="#" onclick="showTaskCommentsModal('.$task->id.')"><span id="tbl_count_comments_task_'.$task->id.'">'.count(TaskComment::where('task_id', $task->id)->get()).'</span> <span class="icon icon-bubble" style="color:#3498DB;"></span></a>',
-                'status' => '<label style="color:'.$statusColor.'" class="font-weight-bold">'.$task->status.'</label>',
-                'options' => $btnEdit."&nbsp;&nbsp;".$btnArchive."&nbsp;&nbsp;".$btnDelete
+                'comments' => '<a href="#" onclick="showTaskCommentsModal(' . $task->id . ')"><span id="tbl_count_comments_task_' . $task->id . '">' . count(TaskComment::where('task_id', $task->id)->get()) . '</span> <span class="icon icon-bubble" style="color:#3498DB;"></span></a>',
+                'status' => '<center>
+                <select onchange="setTaskStatus('.$task->id.',this.value);" class="form-control">
+                '.$statusOptions.'
+                </select>
+                </center>',
+                'options' => $btnEdit . "&nbsp;&nbsp;" . $btnArchive . "&nbsp;&nbsp;" . $btnDelete
             ];
         }
         $data = [
@@ -128,74 +211,96 @@ class TaskController extends Controller
     }
     public function archivedIndexdAjax()
     {
-        if(Auth::user()->rol_user_id == 1 || Auth::user()->rol_user_id == 2)
-        {
-            $tasks = Task::
-            where('archived','SI')->get();
-        }else{
-            $tasks = Task::
-            where('archived','SI')->
-            where(function($query) {
-                $query->orWhere('user_id',Auth::user()->id);
-                $query->orWhere('author_id',Auth::user()->id);
-                $query->orWhere('visibility','Público');
-            })->get();
+        if (Auth::user()->rol_user_id == 1 || Auth::user()->rol_user_id == 2) {
+            $tasks = Task::where('archived', 'SI')->get();
+        } else {
+            $tasks = Task::where('archived', 'SI')->where(function ($query) {
+                    $query->orWhere('user_id', Auth::user()->id);
+                    $query->orWhere('author_id', Auth::user()->id);
+                    $query->orWhere('visibility', 'Público');
+                })->get();
         }
-        $json= [];
-        foreach($tasks as $task)
-        {
+        $json = [];
+        foreach ($tasks as $task) {
             $context = "";
-            switch($task->context)
-            {
-                case 'Trabajo': $context = '<span style="display:none">'.$task->context.'</span>'.'<span title="'.$task->context.'" class="icon icon-office" style="color:#9B59B6"></span>'; break;
-                case 'Reunión': $context = '<span style="display:none">'.$task->context.'</span>'.'<span title="'.$task->context.'" class="icon icon-users" style="color:#2980B9"></span>'; break;
-                case 'Documento': $context = '<span style="display:none">'.$task->context.'</span>'.'<span title="'.$task->context.'" class="icon icon-file-pdf" style="color:#EC7063"></span>'; break;
-                case 'Internet': $context = '<span style="display:none">'.$task->context.'</span>'.'<span title="'.$task->context.'" class="icon icon-chrome" style="color:#27AE60"></span>'; break;
-                case 'Teléfono': $context = '<span style="display:none">'.$task->context.'</span>'.'<span title="'.$task->context.'" class="icon icon-phone" style="color:#2874A6"></span>'; break;
-                case 'Email': $context = '<span style="display:none">'.$task->context.'</span>'.'<span title="'.$task->context.'" class="icon icon-envelop" style="color:#F7DC6F"></span>'; break;
-                case 'Hogar': $context = '<span style="display:none">'.$task->context.'</span>'.'<span title="'.$task->context.'" class="icon icon-home" style="color:#5DADE2"></span>'; break;
-                case 'Otro': $context = '<span style="display:none">'.$task->context.'</span>'.'<span title="'.$task->context.'" class="icon icon-file-empty" style="color:#D35400"></span>'; break;
-                default: $context = $task->context;
+            switch ($task->context) {
+                case 'Trabajo':
+                    $context = '<span style="display:none">' . $task->context . '</span>' . '<span title="' . $task->context . '" class="icon icon-office" style="color:#9B59B6"></span>';
+                    break;
+                case 'Reunión':
+                    $context = '<span style="display:none">' . $task->context . '</span>' . '<span title="' . $task->context . '" class="icon icon-users" style="color:#2980B9"></span>';
+                    break;
+                case 'Documento':
+                    $context = '<span style="display:none">' . $task->context . '</span>' . '<span title="' . $task->context . '" class="icon icon-file-pdf" style="color:#EC7063"></span>';
+                    break;
+                case 'Internet':
+                    $context = '<span style="display:none">' . $task->context . '</span>' . '<span title="' . $task->context . '" class="icon icon-chrome" style="color:#27AE60"></span>';
+                    break;
+                case 'Teléfono':
+                    $context = '<span style="display:none">' . $task->context . '</span>' . '<span title="' . $task->context . '" class="icon icon-phone" style="color:#2874A6"></span>';
+                    break;
+                case 'Email':
+                    $context = '<span style="display:none">' . $task->context . '</span>' . '<span title="' . $task->context . '" class="icon icon-envelop" style="color:#F7DC6F"></span>';
+                    break;
+                case 'Hogar':
+                    $context = '<span style="display:none">' . $task->context . '</span>' . '<span title="' . $task->context . '" class="icon icon-home" style="color:#5DADE2"></span>';
+                    break;
+                case 'Otro':
+                    $context = '<span style="display:none">' . $task->context . '</span>' . '<span title="' . $task->context . '" class="icon icon-file-empty" style="color:#D35400"></span>';
+                    break;
+                default:
+                    $context = $task->context;
             }
-            $visibility="";
-            switch($task->visibility)
-            {
-                case 'Público': $visibility = '<span style="display:none">'.$task->visibility.'</span>'.'<span title="'.$task->visibility.'" class="icon icon-unlocked" style="color:#229954"></span>'; break;
-                case 'Privado': $visibility = '<span style="display:none">'.$task->visibility.'</span>'.'<span title="'.$task->visibility.'" class="icon icon-lock" style="color:#C0392B"></span>'; break;
-                default: $visibility = $task->visibility;
+            $visibility = "";
+            switch ($task->visibility) {
+                case 'Público':
+                    $visibility = '<span style="display:none">' . $task->visibility . '</span>' . '<span title="' . $task->visibility . '" class="icon icon-unlocked" style="color:#229954"></span>';
+                    break;
+                case 'Privado':
+                    $visibility = '<span style="display:none">' . $task->visibility . '</span>' . '<span title="' . $task->visibility . '" class="icon icon-lock" style="color:#C0392B"></span>';
+                    break;
+                default:
+                    $visibility = $task->visibility;
             }
             $statusColor = "";
             switch ($task->status) {
-                case '20%': $statusColor = "#C0392B"; break;
-                case '40%': $statusColor = "#F39C12"; break;
-                case '60%': $statusColor = "#F1C40F"; break;
-                case '80%': $statusColor = "#58D68D"; break;
-                case '100%': $statusColor = "#229954"; break;
-                default: $statusColor = "black";
+                case '20%':
+                    $statusColor = "#C0392B";
+                    break;
+                case '40%':
+                    $statusColor = "#F39C12";
+                    break;
+                case '60%':
+                    $statusColor = "#F1C40F";
+                    break;
+                case '80%':
+                    $statusColor = "#58D68D";
+                    break;
+                case '100%':
+                    $statusColor = "#229954";
+                    break;
+                default:
+                    $statusColor = "black";
             }
             $btnEdit = "";
             $btnDelete = "";
             $btnArchive = "";
-            if(Auth::user()->rol_user_id == 1 || Auth::user()->rol_user_id == 2)
-            {
-                $btnEdit = '<span onclick="editTaskModal(\''.route('task_edit',$task->id).'\');" title="Editar..." class="icon icon-pencil" style="color:#F1C40F;cursor:pointer;"></span>';
-                $btnArchive = '<span onclick="archiveTaskModal('.$task->id.');"  title="Archivar..." class="icon icon-share" style="color:#3498DB;cursor:pointer;"></span>';
-                
-                
+            if (Auth::user()->rol_user_id == 1 || Auth::user()->rol_user_id == 2) {
+                $btnEdit = '<span onclick="editTaskModal(\'' . route('task_edit', $task->id) . '\');" title="Editar..." class="icon icon-pencil" style="color:#F1C40F;cursor:pointer;"></span>';
+                $btnArchive = '<span onclick="archiveTaskModal(' . $task->id . ');"  title="Archivar..." class="icon icon-share" style="color:#3498DB;cursor:pointer;"></span>';
             }
-            if(Auth::user()->rol_user_id == 1)
-            {
-                $btnDelete = '<span onclick="deleteTaskModal('.$task->id.');"  title="Eliminar..." class="icon icon-bin" style="color:#C0392B;cursor:pointer;"></span>';
+            if (Auth::user()->rol_user_id == 1) {
+                $btnDelete = '<span onclick="deleteTaskModal(' . $task->id . ');"  title="Eliminar..." class="icon icon-bin" style="color:#C0392B;cursor:pointer;"></span>';
             }
             $json[] = [
                 'context' => $context,
                 'visibility' => $visibility,
-                'project' => empty($task->project_id) ? "<b>Sin proyecto</b>" : '<a href="#" onclick="showProjectModal('.$task->project_id.')" class="project_task_'.$task->project_id.'">'.$task->project['name'].'</a>',
-                'title' => '<a href="#" onclick="showTaskModal('.$task->id.')">'.$task->title.'</a>',
-                'user' => '<a href="#" onclick="showUserModal('.$task->user_id.')">'.$task->user['name'].' '.$task->user['middle_name'].' '.$task->user['last_name'].'</a>',
+                'project' => empty($task->project_id) ? "<b>Sin proyecto</b>" : '<a href="#" onclick="showProjectModal(' . $task->project_id . ')" class="project_task_' . $task->project_id . '">' . $task->project['name'] . '</a>',
+                'title' => '<a href="#" onclick="showTaskModal(' . $task->id . ')">' . $task->title . '</a>',
+                'user' => '<a href="#" onclick="showUserModal(' . $task->user_id . ')">' . $task->user['name'] . ' ' . $task->user['middle_name'] . ' ' . $task->user['last_name'] . '</a>',
                 'deadline' => $task->deadline,
-                'comments' => '<a href="#" onclick="showTaskCommentsModal('.$task->id.')"><span id="tbl_count_comments_task_'.$task->id.'">'.count(TaskComment::where('task_id', $task->id)->get()).'</span> <span class="icon icon-bubble" style="color:#3498DB;"></span></a>',
-                'status' => '<label style="color:'.$statusColor.'" class="font-weight-bold">'.$task->status.'</label>',
+                'comments' => '<a href="#" onclick="showTaskCommentsModal(' . $task->id . ')"><span id="tbl_count_comments_task_' . $task->id . '">' . count(TaskComment::where('task_id', $task->id)->get()) . '</span> <span class="icon icon-bubble" style="color:#3498DB;"></span></a>',
+                'status' => '<label style="color:' . $statusColor . '" class="font-weight-bold">' . $task->status . '</label>',
                 'options' => $btnDelete
             ];
         }
@@ -207,12 +312,9 @@ class TaskController extends Controller
     public function create()
     {
         $projects = Project::orderBy('name')->get();
-        $users = User::where('status_user_id',1)->
-        orderBy('name')->
-        orderBy('middle_name')->
-        orderBy('last_name')
-        ->get();
-        return view('tasks.create',[
+        $users = User::where('status_user_id', 1)->orderBy('name')->orderBy('middle_name')->orderBy('last_name')
+            ->get();
+        return view('tasks.create', [
             'projects' => $projects,
             'users' => $users
         ]);
@@ -220,8 +322,8 @@ class TaskController extends Controller
     public function store(TaskRequest $request)
     {
         $task = Task::create($request->all());
-        createSysLog("creo la tarea ".$task->title." : ".$task->description);
-        return redirect('task_index')->with('message', 'La tarea '.$task->title.' se creó con éxito.');
+        createSysLog("creo la tarea " . $task->title . " : " . $task->description);
+        return redirect('task_index')->with('message', 'La tarea ' . $task->title . ' se creó con éxito.');
     }
     public function show($id)
     {
@@ -233,10 +335,10 @@ class TaskController extends Controller
         return [
             'priority' => $task->priority,
             'deadline' => $task->deadline,
-            'context'=> $task->context,
-            'visibility'=> $task->visibility,
+            'context' => $task->context,
+            'visibility' => $task->visibility,
             'title' => $task->title,
-            'user'=> $task->user['name'].' '.$task->user['middle_name'].' '.$task->user['last_name'],
+            'user' => $task->user['name'] . ' ' . $task->user['middle_name'] . ' ' . $task->user['last_name'],
             'status' => $task->status,
             'description' => $task->description,
         ];
@@ -245,25 +347,22 @@ class TaskController extends Controller
     {
         $task = Task::findOrFail($id);
         $projects = Project::orderBy('name')->get();
-        $users = User::where('status_user_id',1)->
-        orderBy('name')->
-        orderBy('middle_name')->
-        orderBy('last_name')
-        ->get();
-        return view('tasks.edit',[ 
-            'task' => $task ,
+        $users = User::where('status_user_id', 1)->orderBy('name')->orderBy('middle_name')->orderBy('last_name')
+            ->get();
+        return view('tasks.edit', [
+            'task' => $task,
             'projects' => $projects,
             'users' => $users
-            ]);
+        ]);
     }
     public function update(TaskRequest $request, $id)
     {
         $task = Task::findOrFail($id);
-        createSysLog("actualizó la tarea ".$task->title." : ".$task->description.", por ".$request->title." : ".$request->description);
-        $task->update($request->except(['_token','_method']));
-        if($task){
+        createSysLog("actualizó la tarea " . $task->title . " : " . $task->description . ", por " . $request->title . " : " . $request->description);
+        $task->update($request->except(['_token', '_method']));
+        if ($task) {
             return redirect()->back()->with('message', 'La tarea  se actualizó con éxito.');
-        }else{
+        } else {
             return redirect('task_index')->back()->with('message', 'Error durante la operación.');
         }
     }
@@ -281,7 +380,14 @@ class TaskController extends Controller
     {
         TaskComment::where('task_id', $request->id)->delete();
         $task = Task::findOrFail($request->id);
-        createSysLog("eliminó la tarea ".$task->title." : ".$task->description);
+        createSysLog("eliminó la tarea " . $task->title . " : " . $task->description);
         $task->delete();
+    }
+    public function setTaskStatus(Request $request)
+    {
+        $task = Task::findOrFail($request->id);
+        $task->status = $request->status;
+        $task->save();
+        return "Estatus actualizado.";
     }
 }

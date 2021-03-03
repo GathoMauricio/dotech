@@ -210,7 +210,7 @@ window.msg = (title, text) =>
     });
 window.loading = () =>
     Swal.fire({
-        titleText: "Poocesando peticion...",
+        titleText: "Procesando peticion...",
         text: "",
         confirmButtonText: "",
         toast: true,
@@ -939,6 +939,27 @@ window.deleteCompanyRepository = id => {
                 }
             });
             */
+        }
+    });
+};
+
+window.setTaskStatus = (id, status) => {
+    loading();
+    const route = $("#txt_set_task_status_route").val();
+    $.ajax({
+        type: "POST",
+        url: route,
+        data: {
+            _token: $('meta[name="csrf-token"]').attr("content"),
+            _method: "PUT",
+            id: id,
+            status: status
+        },
+        success: data => {
+            msg(data);
+        },
+        error: error => {
+            console.log(error);
         }
     });
 };

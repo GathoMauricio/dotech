@@ -14,5 +14,6 @@
 @include('users.show_user_modal')
 @include('projects.show_project_modal')
 @include('comments.index_task_comment_modal')
+<input type="hidden" id="txt_set_task_status_route" value="{{ route('set_task_status')}}" />
 @endif
 @endsection

@@ -146,6 +146,8 @@ Route::get('task_edit/{id}','TaskController@edit')->name('task_edit')->middlewar
 Route::put('task_update/{id}','TaskController@update')->name('task_update')->middleware('auth');
 Route::put('task_archive_ajax','TaskController@archive')->name('task_archive_ajax')->middleware('auth');
 Route::delete('task_destroy_ajax','TaskController@destroyAjax')->name('task_destroy_ajax')->middleware('auth');
+Route::put('set_task_status','TaskController@setTaskStatus')->name('set_task_status')->middleware('auth');
+
 #Task Comments
 Route::get('index_task_comment_ajax','TaskCommentController@indexAjax')->name('index_task_comment_ajax');
 Route::post('store_task_comment_ajax','TaskCommentController@storeAjax')->name('store_task_comment_ajax');
