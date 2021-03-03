@@ -206,9 +206,11 @@ class SaleController extends Controller
         $iva = ($subtotal * 16) / 100;
         $total = $subtotal + $iva;
         $logo = parseBase64(public_path("img/dotech_fondo.png"));
+        $logo2 = parseBase64(public_path("storage/".$sale->company['image']));
         $pdf = PDF::loadView('pdf.sale',
             [
                 'logo' => $logo,
+                'logo2' => $logo2,
                 'sale' => $sale,
                 'saleProducts' => $saleProducts,
                 'subtotal' => $subtotal,

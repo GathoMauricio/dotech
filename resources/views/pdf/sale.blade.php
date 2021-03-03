@@ -9,17 +9,13 @@
         body {
             margin: 3cm 2cm 2cm;
         }
-
         header {
             position: fixed;
             top: 0.5cm;
             left: 0.5cm;
             right: 0.5cm;
             height: 0.5cm;
-            
-            color: white;
-            text-align: center;
-            line-height: 30px;
+            padding:-30px;
         }
 
         footer {
@@ -38,20 +34,24 @@
 </head>
 <body>
 <header>
-    <table border="1" style="width:100%">
-        <tr>
-            <td width="40%" >
-                <img src="{{ $logo }}" width="150" height="80">
-            </td>
-            <td width="60%" style="color:black;">
-                <p>Numero de cotización: <span style="color:#d30035;font-weight:bold;">{{ $sale->id }}</span></p>
-                <small>Bahía de las Palmas #33, Verónica Anzúres,</small>
-                <small>11300 Ciudad de México, D.F.</small>
-                <small>Tel: 55460615</small>
-                <small>Email: {{ $sale->author['email'] }}</small>
-            </td>
-        </tr>
-    </table>
+    <table style="width:100%;">
+            <tr>
+                <td width="30%" >
+                    <img src="{{ $logo }}" width="50%" height="">
+                </td>
+                <td width="40%" style="color:black;">
+                    <p>
+                    <h1 style="color:#d30035;font-weight:bold;text-align:center;">Cotización</h1>
+                    </p>
+                    <small>Bahía de las Palmas #33, Verónica Anzúres,</small>
+                    <small>11300 Ciudad de México, D.F.</small>
+                    <small>Tel: 55460615</small>
+                </td>
+                <td width="30%" style="text-align: right">
+                    <img src="{{ $logo2 }}" width="50%" height="">
+                </td>
+            </tr>
+        </table>
 </header>
 
 <main><br/><br/><br>
@@ -59,9 +59,9 @@
     <tr>
         <td width="50%">
             <span style="color:#d30035;font-weight:bold;">
-                Compañía: 
+                Folio: 
             </span>
-            {{ $sale->company['name'] }}
+            {{ $sale->id }}
         </td>
         <td width="50%">
             <span style="color:#d30035;font-weight:bold;">
@@ -73,9 +73,9 @@
     <tr>
         <td width="50%">
             <span style="color:#d30035;font-weight:bold;">
-                Departamento: 
+                Compañía: 
             </span>
-            {{ $sale->department['name'] }}
+            {{ $sale->company['name'] }}
         </td>
         <td width="50%">
             <span style="color:#d30035;font-weight:bold;">
@@ -87,9 +87,9 @@
     <tr>
         <td width="50%">
             <span style="color:#d30035;font-weight:bold;">
-                RFC: 
+                Departamento: 
             </span>
-            {{ $sale->company['rfc'] }}
+            {{ $sale->department['name'] }}
         </td>
         <td width="50%">
             <span style="color:#d30035;font-weight:bold;">
@@ -113,61 +113,66 @@
         </td>
     </tr>
 </table>
-<br/><br>
-<table style="width:100%;">
-    <tbody>
-        <tr>
-            <th width="15%" style="background-color:#D5D8DC;">Cantidad</th>
-            <th width="15%" style="background-color:#D5D8DC;">U. Medida</th>
-            <th width="25%" style="background-color:#D5D8DC;">Descripción</th>
-            <th width="15%" style="background-color:#D5D8DC;">P. Lista</th>
-            <th width="15%" style="background-color:#D5D8DC;">Descuento</th>
-            <th width="15%" style="background-color:#D5D8DC;">Importe</th>
-        </tr>
-        @foreach($saleProducts as $saleProduct)
-        <tr>
-            <td style="text-align:center">{{ $saleProduct->quantity }}</td>
-            @if(!empty($saleProduct->measure))
-            <td style="text-align:center">{{ $saleProduct->quantity }}</td>
-            @else
-            <td style="text-align:center">N/A</td>
-            @endif
-            <td style="padding:3px;">{{ $saleProduct->description }}</td>
-            <td style="text-align:center">${{ number_format($saleProduct->unity_price_sell,2) }}</td>
-            <td style="text-align:center">{{ $saleProduct->discount }}%</td>
-            <td style="text-align:center">${{ number_format(($saleProduct->unity_price_sell * $saleProduct->quantity),2) }}</td>
-        </tr>
-        @endforeach
-        <tr>
-            <td style="text-align:center"></td>
-            <td style="padding:3px;"></td>
-            <td style="text-align:center"></td>
-            <td style="text-align:center;background-color:#D5D8DC;">DIVISA</td>
-            <td style="text-align:center;background-color:#D5D8DC;">{{ $sale->currency,2 }}</td>
-        </tr>
-        <tr>
-            <td style="text-align:center"></td>
-            <td style="padding:3px;"></td>
-            <td style="text-align:center"></td>
-            <td style="text-align:center;background-color:#D5D8DC;">SUBTOTAL</td>
-            <td style="text-align:center;background-color:#D5D8DC;">${{ number_format($subtotal,2) }}</td>
-        </tr>
-        <tr>
-            <td style="text-align:center"></td>
-            <td style="padding:3px;"></td>
-            <td style="text-align:center"></td>
-            <td style="text-align:center;background-color:#D5D8DC;">IVA</td>
-            <td style="text-align:center;background-color:#D5D8DC;">${{ number_format($iva,2) }}</td>
-        </tr>
-        <tr>
-            <td style="text-align:center"></td>
-            <td style="padding:3px;"></td>
-            <td style="text-align:center"></td>
-            <td style="text-align:center;background-color:#D5D8DC;">TOTAL</td>
-            <td style="text-align:center;;background-color:#D5D8DC;">${{ number_format($total,2) }}</td>
-        </tr>
-    </tbody>
-</table>
+<div style="padding:10px;background-color:#d30035;">
+    <table style="width:100%;">
+        <tbody>
+            <tr>
+                <th width="15%" style="background-color:#D5D8DC;">Cantidad</th>
+                <th width="15%" style="background-color:#D5D8DC;">U. Medida</th>
+                <th width="25%" style="background-color:#D5D8DC;">Descripción</th>
+                <th width="15%" style="background-color:#D5D8DC;">P. Lista</th>
+                <th width="15%" style="background-color:#D5D8DC;">Descuento</th>
+                <th width="15%" style="background-color:#D5D8DC;">Importe</th>
+            </tr>
+            @foreach($saleProducts as $saleProduct)
+            <tr style="background-color:#D5D8DC;">
+                <td style="text-align:center">{{ $saleProduct->quantity }}</td>
+                @if(!empty($saleProduct->measure))
+                <td style="text-align:center">{{ $saleProduct->measure }}</td>
+                @else
+                <td style="text-align:center">N/A</td>
+                @endif
+                <td style="padding:3px;"><small>{{ $saleProduct->description }}</small></td>
+                <td style="text-align:center">${{ number_format($saleProduct->unity_price_sell,2) }}</td>
+                <td style="text-align:center">{{ $saleProduct->discount }}%</td>
+                <td style="text-align:center">${{ number_format(($saleProduct->unity_price_sell * $saleProduct->quantity),2) }}</td>
+            </tr>
+            @endforeach
+            <tr>
+                <td style="text-align:center"></td>
+                <td style="text-align:center"></td>
+                <td style="text-align:center"></td>
+                <td style="text-align:center"></td>
+                <td style="text-align:center;background-color:#D5D8DC;">DIVISA</td>
+                <td style="text-align:center;background-color:#D5D8DC;">{{ $sale->currency }}</td>
+            </tr>
+            <tr>
+                <td style="text-align:center"></td>
+                <td style="text-align:center"></td>
+                <td style="text-align:center"></td>
+                <td style="text-align:center"></td>
+                <td style="text-align:center;background-color:#D5D8DC;">SUBTOTAL</td>
+                <td style="text-align:center;background-color:#D5D8DC;">${{ number_format($subtotal,2) }}</td>
+            </tr>
+            <tr>
+                <td style="text-align:center"></td>
+                <td style="text-align:center"></td>
+                <td style="text-align:center"></td>
+                <td style="text-align:center"></td>
+                <td style="text-align:center;background-color:#D5D8DC;">IVA</td>
+                <td style="text-align:center;background-color:#D5D8DC;">${{ number_format($iva,2) }}</td>
+            </tr>
+            <tr>
+                <td style="text-align:center"></td>
+                <td style="text-align:center"></td>
+                <td style="text-align:center"></td>
+                <td style="text-align:center"></td>
+                <td style="text-align:center;background-color:#D5D8DC;">TOTAL</td>
+                <td style="text-align:center;;background-color:#D5D8DC;">${{ number_format($total,2) }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 </main>
 
 <footer>
