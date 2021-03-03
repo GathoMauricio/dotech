@@ -58,7 +58,7 @@
                                 <label for="unity_price_sell" class="font-weight-bold color-primary-sys">
                                     P/U Venta
                                 </label>
-                                <input type="number" id="txt_add_product_modal_unity_price_sell" name="unity_price_sell" value="1" min="1" class="form-control" required>
+                                <input type="number"  step="0.01" id="txt_add_product_modal_unity_price_sell" name="unity_price_sell" value="1" min="1" class="form-control" required>
                             </div>
                         </div>
                     </div>
