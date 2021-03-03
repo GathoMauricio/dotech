@@ -21,7 +21,7 @@ class BinnacleController extends Controller
         de la compañía '.$binnacle->sale->company['name'];
         \Mail::send('email.notification', ['binnacle' => $binnacle, 'msg' => $message], function ($mail){
             $mail->from('dotechapp@dotredes.com',env('APP_NAME'));
-            $mail->to(['mauricio2769@gmail.com','rortuno@dotredes.com']);
+            $mail->to(['rortuno@dotredes.com']);
         });
 
         return redirect()->back()
