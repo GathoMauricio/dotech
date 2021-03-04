@@ -18,10 +18,17 @@ class BinnacleController extends Controller
     public function store(Request $request,$id = null)
     {
         $binnacle = Binnacle::create($request->all());
-        $message = 'Ha creado la bitácora: '.
-        $binnacle->description.
-        ' para el proyecto "'.$binnacle->sale['description'].'" 
-        de la compañía '.$binnacle->sale->company['name'];
+        if(!empty($binnacle->sale['description']))
+        {
+            $message = 'Ha creado la bitácora: '.
+            $binnacle->description.
+            ' para el proyecto "'.$binnacle->sale['description'].'" 
+            de la compañía '.$binnacle->sale->company['name'];
+        }else{
+            $message = 'Ha creado la bitácora: '.
+            $binnacle->description.' sin proyecto asociado';
+        }
+        
         \Mail::send('email.notification', ['binnacle' => $binnacle, 'msg' => $message], function ($mail){
             $mail->from('dotechapp@dotredes.com',env('APP_NAME'));
             $mail->to(['rortuno@dotredes.com']);
