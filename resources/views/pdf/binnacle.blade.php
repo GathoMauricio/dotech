@@ -52,6 +52,7 @@
 </header>
 
 <main><br/><br/><br>
+@if(!empty($binnacle->sale['description']))
 <table style="width:100%;">
     <tr>
         <td width="50%">
@@ -108,6 +109,7 @@
         </td>
     </tr>
 </table>
+@endif
 <br/><br>
 <table style="width:100%;">
     <tbody>

@@ -117,11 +117,23 @@
                     </p>
                 </a>
                 <hr>
+                <!--
                 <a href="{{ route('index_service') }}">
                     <p style="cursor:pointer;">
                         <span class="icon-aid-kit">
                             <span style="display:none;" class="label-item-menu">
                                 Expedientes
+                            </span>
+                        </span>
+                    </p>
+                </a>
+                <hr>
+                -->
+                <a href="{{ route('index_binnacle') }}">
+                    <p style="cursor:pointer;">
+                        <span class="icon-book">
+                            <span style="display:none;" class="label-item-menu">
+                                Bitácoras
                             </span>
                         </span>
                     </p>

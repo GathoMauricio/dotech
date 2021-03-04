@@ -2,17 +2,20 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Binnacle;
+use App\Sale;
 class BinnacleController extends Controller
 {
     public function index()
     {
-        //
+        $binnacles = Binnacle::orderBy('id','DESC')->paginate(15);
+        return view('binnacles.index',compact('binnacles'));
     }
     public function create()
     {
-        //
+        $sales = Sale::where('status','Proyecto')->get();
+        return view('binnacles.create',compact('sales'));
     }
-    public function store(Request $request)
+    public function store(Request $request,$id = null)
     {
         $binnacle = Binnacle::create($request->all());
         $message = 'Ha creado la bitácora: '.
@@ -23,7 +26,11 @@ class BinnacleController extends Controller
             $mail->from('dotechapp@dotredes.com',env('APP_NAME'));
             $mail->to(['rortuno@dotredes.com']);
         });
-
+        if($id)
+        { 
+            return redirect()->route('index_binnacle')
+              ->with('message', 'La bitácora '.$binnacle->description.' se creó con éxito.');  
+        }
         return redirect()->back()
             ->with('message', 'La bitácora '.$binnacle->description.' se creó con éxito.');
     }
@@ -44,7 +51,15 @@ class BinnacleController extends Controller
     {
         $binnacle = Binnacle::findOrFail($request->binnacle_id);
         $logo = parseBase64(public_path("img/dotech_fondo.png"));
-        $logo2 = parseBase64(public_path("storage/".$binnacle->sale->company['image']));
+        if(!empty($binnacle->sale['description']))
+        {
+           $logo2 = parseBase64(public_path("storage/".$binnacle->sale->company['image'])); 
+        }else{
+            $logo2 = parseBase64(public_path("storage/compania.png")); 
+        }
+        
+
+
         if(!empty($binnacle->firm)) $firm = parseBase64(public_path("storage/".$binnacle->firm)); else $firm = NULL;
         $pdf = \PDF::loadView('pdf.binnacle',
             [
@@ -77,7 +92,12 @@ class BinnacleController extends Controller
     {
         $binnacle = Binnacle::findOrFail($id);
         $logo = parseBase64(public_path("img/dotech_fondo.png"));
-        $logo2 = parseBase64(public_path("storage/".$binnacle->sale->company['image']));
+        if(!empty($binnacle->sale['description']))
+        {
+           $logo2 = parseBase64(public_path("storage/".$binnacle->sale->company['image'])); 
+        }else{
+            $logo2 = parseBase64(public_path("storage/compania.png")); 
+        }
         if(!empty($binnacle->firm)) $firm = parseBase64(public_path("storage/".$binnacle->firm)); else $firm = NULL;
         $pdf = \PDF::loadView('pdf.binnacle',
             [

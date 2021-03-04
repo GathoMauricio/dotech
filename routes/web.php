@@ -201,7 +201,10 @@ Route::post('store_service_follow','ServiceFollowController@store')->name('store
 Route::get('show_service_image','ServiceImageController@show')->name('show_service_image')->middleware('auth');
 
 #Binnacles
-Route::post('store_binnacle','BinnacleController@store')->name('store_binnacle')->middleware('auth');
+Route::get('index_binnacle','BinnacleController@index')->name('index_binnacle')->middleware('auth');
+Route::get('create_binnacle','BinnacleController@create')->name('create_binnacle')->middleware('auth');
+
+Route::post('store_binnacle/{id?}','BinnacleController@store')->name('store_binnacle')->middleware('auth');
 Route::get('binnacle_show_json/{id?}','BinnacleController@show_json')->name('binnacle_show_json')->middleware('auth');
 Route::post('send_binnacle_pdf','BinnacleController@sendPdf')->name('send_binnacle_pdf')->middleware('auth');
 

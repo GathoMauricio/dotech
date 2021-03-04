@@ -37,6 +37,7 @@
     <div
         style="padding:10px;,width:80%;-webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);-moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);">
         <center><img src="{{ env('APP_URL').'/img/dotech_fondo.png' }}" alt="dotech" style="width:240px;"></center>
+        @if(!empty($binnacle->sale['description']))
         <h3 style="background-color:white;padding:10px;">
             Estimado {{ $binnacle->sale->department['manager'] }}
             <br>
@@ -44,6 +45,7 @@
             <br>
             Departamento: {{ $binnacle->sale->department['name'] }}
         </h3>
+        @endif
         <h4 style="background-color:white;padding:10px;">
             Le invitamos a descargar el archivo adjunto con nuestra bitácora 
             de servicio generada el día {{ formatDate($binnacle->created_at) }}
@@ -54,9 +56,9 @@
                     para servirle
                     en el correo <a href="mailto:cat@dotredes.com">cat@dotredes.com</a> o directamente con su ejecutivo.
                     <br>
-                    {{ $binnacle->sale->author['name'] }} {{ $binnacle->sale->author['middle_name'] }} {{ $binnacle->sale->author['last_name'] }} <br>
-                    Tel: <a href="tel:{{ $binnacle->sale->author['phone'] }}">{{ $binnacle->sale->author['phone'] }}</a> <br>
-                    Email: <a href="tel:{{ $binnacle->sale->author['email'] }}">{{ $binnacle->sale->author['email'] }}</a> <br>
+                    {{ $binnacle->author['name'] }} {{ $binnacle->author['middle_name'] }} {{ $binnacle->author['last_name'] }} <br>
+                    Tel: <a href="tel:{{ $binnacle->author['phone'] }}">{{ $binnacle->author['phone'] }}</a> <br>
+                    Email: <a href="tel:{{ $binnacle->author['email'] }}">{{ $binnacle->author['email'] }}</a> <br>
                 </b>
                 <br><br>
                 <h2 style="color:white;">
