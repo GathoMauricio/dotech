@@ -40,7 +40,7 @@ class DumpMysql extends Command
         \Spatie\DbDumper\Databases\MySql::create()
         ->setDbName(env('DB_DATABASE'))->setUserName(env('DB_USERNAME'))
         ->setPassword(env('DB_PASSWORD'))
-        ->dumpToFile('storage/dump_db/dump_'.date('Y-m-d').'.sql');
+        ->dumpToFile(env('APP_ROUTE','').'storage/dump_db/dump_'.date('Y-m-d').'.sql');
 
         \Log::info("Base de datos creada...".date('Y-m-d'));
 
