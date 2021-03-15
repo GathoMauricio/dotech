@@ -920,25 +920,6 @@ window.deleteCompanyRepository = id => {
         if (result.isConfirmed) {
             const route = $("#txt_destroy_company_repository_route").val();
             window.location = route + '/' + id;
-            /*
-            loading();
-            $.ajax({
-                type: "POST",
-                url: route + '/' + id,
-                data: {
-                    _token: $('meta[name="csrf-token"]').attr("content"),
-                    _method: "DELETE"
-                },
-                success: data => {
-                    console.log(data);
-                    window.close();
-                },
-                error: error => {
-                    window.close();
-                    console.log(error);
-                }
-            });
-            */
         }
     });
 };
@@ -960,6 +941,23 @@ window.setTaskStatus = (id, status) => {
         },
         error: error => {
             console.log(error);
+        }
+    });
+};
+window.setProjectAsFinish = id => {
+    const route = $("#txt_set_project_as_finish").val();
+    Swal.fire({
+        title: "¿Marcar proyecto como finalizado?",
+        text: "Este proyecto desaparecerá de la lista primcipal.",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "green",
+        cancelButtonColor: "#000",
+        confirmButtonText: "Si, finalizar!",
+        cancelButtonText: "Cancelar"
+    }).then(result => {
+        if (result.isConfirmed) {
+            window.location = route + '/' + id;
         }
     });
 };

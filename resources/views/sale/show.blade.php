@@ -425,9 +425,12 @@
         <tr><td colspan="5" class="text-center">Sin registros</td></tr>
         @endif
     </table>
+    <a href="#" onclick="setProjectAsFinish({{ $sale->id }})" class="font-weight-bold link-sys">[Marcar proyecto como finalizado]</a>
+    <br/>
     <input type="hidden" id="txt_get_binnacle" value="{{ route('binnacle_show_json') }}">
     <input type="hidden" id="txt_show_binnacle_image_route" value="{{ route('show_binnacle_image') }}">
     <input type="hidden" id="txt_view_binnacle_images_route" value="{{ route('binnacle_images_index') }}">
+    <input type="hidden" id="txt_set_project_as_finish" value="{{ route('set_project_as_finish')}}">
 </center>
 @include('sale.send_binnacle_pdf_modal')
 @include('withdrawal.add_provider_modal')

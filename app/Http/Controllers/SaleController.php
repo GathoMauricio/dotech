@@ -271,4 +271,11 @@ class SaleController extends Controller
             return redirect()->route('quote_products',$sale->id)->with('message', 'La cotización se creó con éxito ahora puede agregar productos.');
         }else{ return "Error"; }
     }
+    public function setProjectAsFinish($id)
+    {
+        $sale = Sale::findOrFail($id);
+        $sale->status = 'Finalizado';
+        $sale->save();
+        return redirect()->route('index_proyects')->with('message','El proyecto '.$sale->description.' se marcó como finalizado.');
+    }
 }
