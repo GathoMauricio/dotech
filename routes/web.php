@@ -3,6 +3,11 @@ Auth::routes();
 Route::get('/', function () {
     if(Auth::check())
     {
+        if(Auth::user()->rol_user_id == 1)
+        {
+            $dashboard = new \App\Http\Controllers\DashboardController();
+            return $dashboard->index();
+        }
         $whitdrawal = new \App\Http\Controllers\WhitdrawalController();
         return $whitdrawal->index();
     }else{
