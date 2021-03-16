@@ -60,10 +60,44 @@ if (!function_exists('parseBase64')) {
 if (!function_exists('getUrl')) {
     function getUrl()
     {
-        //return 'http://192.168.137.222/dotech/public';
-        //return 'http://dotech.victoriapro.mx/public';
-        //return 'http://dotredes.dyndns.biz:8080/dotech/public';
-        return 'http://dotech.dyndns.biz:16666/dotech/public';
-        //return 'http://f89ed96698a8.ngrok.io/dotech/public';
+        return env('APP_URL');
+    }
+}
+if (!function_exists('sendFcm')) {
+     function sendFcm($fcm_token, $title, $body, $dataArray)
+    {
+        $data = json_encode([
+                "to" => $fcm_token,
+                //"to" => "/topics/all",
+                //"to" => "some_token",
+                "notification" => [
+                    "title" => $title,
+                    "body" => $body,
+                    "icon" => "ic_launcher",
+                    "sound" => "default",
+                    "priority" => "high"
+                ],
+                "data" => $dataArray
+            ]);
+            $url = 'https://fcm.googleapis.com/fcm/send';
+            $server_key = env('FCM_KEY');
+            $headers = array(
+                'Content-Type:application/json',
+                'Authorization:key=' . $server_key
+            );
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_POST, true);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+            $result = curl_exec($ch);
+            if ($result === FALSE) {
+                return die('Oops! FCM Send Error: ' . curl_error($ch));
+            }
+            curl_close($ch);
+            return $result;
     }
 }
