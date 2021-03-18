@@ -213,3 +213,6 @@ Route::get('vehicle_index','VehicleController@index')->name('vehicle_index')->mi
 Route::get('create_vehicle','VehicleController@create')->name('create_vehicle')->middleware('auth');
 Route::post('vehicle_store','VehicleController@store')->name('vehicle_store')->middleware('auth');
 Route::get('vehicle_show/{id}','VehicleController@show')->name('vehicle_show')->middleware('auth');
+Route::get('vehicle_edit/{id}','VehicleController@edit')->name('vehicle_edit')->middleware('auth');
+Route::put('vehicle_update/{id}','VehicleController@update')->name('vehicle_update')->middleware('auth');
+Route::get('vehicle_destroy/{id?}','VehicleController@destroy')->name('vehicle_destroy')->middleware('auth');

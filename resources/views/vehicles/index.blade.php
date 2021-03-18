@@ -25,19 +25,17 @@
             <td>
                 <a href="{{ route('vehicle_show',$vehicle->id) }}" ><span class="icon-eye" title="Ver..." style="cursor:pointer;color:#2E86C1"> Ver</span></a>
                 <br/>
-                <a href="#" ><span class="icon-pencil" title="Editar..." style="cursor:pointer;color:#EB984E"> Editar</span></a>
-                <br/>
-                <a href="#" ><span class="icon-cogs" title="Mantenimientos..." style="cursor:pointer;color:#8E44AD"> Mantenimientos</span></a>
+                <a href="{{ route('vehicle_edit',$vehicle->id) }}" ><span class="icon-pencil" title="Editar..." style="cursor:pointer;color:#EB984E"> Editar</span></a>
                 <br/>
                 @if(Auth::user()->rol_user_id == 1)
-                <a href="#" ><span class="icon-bin" title="Eliminar..." style="cursor:pointer;color:#E74C3C"> Eliminar</span></a>
+                <a href="#" onclick="deleteVehicle({{ $vehicle->id }})"><span class="icon-bin" title="Eliminar..." style="cursor:pointer;color:#E74C3C"> Eliminar</span></a>
                 @endif
             </td>
         </tr>
         @endforeach
     </tbody>
 </table>
-<input type="hidden" id="txt_delete_company_route" value="{{ route('delete_company') }}">
+<input type="hidden" id="txt_delete_vehicle_route" value="{{ route('vehicle_destroy') }}">
 @include('companies.follow_modal')
 @include('quotes.add_quote_by_company_modal')
 @include('companies.add_department_company_modal')

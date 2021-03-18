@@ -961,3 +961,20 @@ window.setProjectAsFinish = id => {
         }
     });
 };
+window.deleteVehicle = id => {
+    const route = $("#txt_delete_vehicle_route").val();
+    Swal.fire({
+        title: "¿Eliminar vehiculo?",
+        text: "El registro se eliminará por completo así como los registros relacionados a este.",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "red",
+        cancelButtonColor: "#000",
+        confirmButtonText: "Si, eliminar!",
+        cancelButtonText: "Cancelar"
+    }).then(result => {
+        if (result.isConfirmed) {
+            window.location = route + '/' + id;
+        }
+    });
+};
