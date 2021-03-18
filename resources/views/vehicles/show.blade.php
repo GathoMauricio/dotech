@@ -1,6 +1,5 @@
 @extends('layouts.app')
 @section('content')
-<a href="{{ route('create_vehicle') }}" class="float-right font-weight-bold link-sys">[ <small class="  icon-plus"></small> Agregar vehiculo ]</a>
 <h4 class="title_page">Detalles de {{ $vehicle->brand }} {{ $vehicle->model }}</h4> 
 <br/>
 <table style="width:100%;">
