@@ -1,0 +1,109 @@
+@extends('layouts.app')
+@section('content')
+<a href="{{ route('create_vehicle') }}" class="float-right font-weight-bold link-sys">[ <small class="  icon-plus"></small> Agregar vehiculo ]</a>
+<h4 class="title_page">Detalles de {{ $vehicle->brand }} {{ $vehicle->model }}</h4> 
+<br/>
+<table style="width:100%;">
+    <tr>
+        <th colspan="5" class="text-center font-weight-bold" style="background-color:#d30035;color:white;">Informació general</th>
+    </tr>
+    <tr>
+        <th width="20%" style="background-color:#D5D8DC;">Tipo</th>
+        <th width="20%" style="background-color:#D5D8DC;">Marca</th>
+        <th width="20%" style="background-color:#D5D8DC;">Modelo</th>
+        <th width="20%" style="background-color:#D5D8DC;">Combustible</th>
+         <th width="20%" style="background-color:#D5D8DC;">Kilometros</th>
+     </tr>
+     <tr>
+        <td width="20%" style="background-color:#D5D8DC;">{{ $vehicle->type['type'] }}</td>
+        <td width="20%" style="background-color:#D5D8DC;">{{ $vehicle->brand }}</td>
+        <td width="20%" style="background-color:#D5D8DC;">{{ $vehicle->model }}</td>
+        <td width="20%" style="background-color:#D5D8DC;">{{ $vehicle->fuel }}</td>
+        <td width="20%" style="background-color:#D5D8DC;">{{ $vehicle->kilometers }}</td>
+    </tr>
+        <tr>
+        <th width="20%" style="background-color:#D5D8DC;">Matrícula</th>
+        <th width="20%" style="background-color:#D5D8DC;">Año</th>
+        <th width="20%" style="background-color:#D5D8DC;">Cilindrada</th>
+        <th width="20%" style="background-color:#D5D8DC;">Potencia</th>
+         <th width="20%" style="background-color:#D5D8DC;">Color</th>
+     </tr>
+     <tr>
+        <td width="20%" style="background-color:#D5D8DC;">{{ $vehicle->enrollment }}</td>
+        <td width="20%" style="background-color:#D5D8DC;">{{ $vehicle->year }}</td>
+        <td width="20%" style="background-color:#D5D8DC;">{{ $vehicle->displacement }}</td>
+        <td width="20%" style="background-color:#D5D8DC;">{{ $vehicle->power }}</td>
+        <td width="20%" style="background-color:#D5D8DC;">{{ $vehicle->color }}</td>
+    </tr> 
+</table>
+<br/>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th colspan="3" class="text-center" style="background-color:#d30035;color:white;">
+                <a href="#" title="Añadir" class="float-right" style="color:white;">[ <span class="icon-upload"></span> ]</a>
+                Fotos
+            </th>
+        </tr>
+        <tr>
+            <th>Imagen</th>
+            <th>Descripción</th>
+            <th>Opciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach($vehicleImages as $vehicleImage)
+        <tr>
+            <td><img src="{{ $vehicleImage->image }}" width="200" height="200"/></td>
+            <td>{{ $vehicleImage->description }}</td>
+            <td></td>
+        </tr>
+        @endforeach
+        @if(count($vehicleImages) <= 0)
+        <tr>
+            <td class="text-center font-weight-bold" colspan="3">
+                No hay regirtros para mostrar
+            </td>
+        </tr>
+        @endif
+    </tbody>
+</table>
+<br/>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th colspan="6" class="text-center" style="background-color:#d30035;color:white;">
+            <a href="#" title="Añadir" class="float-right" style="color:white;">[ <span class="icon-upload"></span> ]</a>
+            Manteniemientos
+            </th>
+        </tr>
+        <tr>
+            <th>Autor</th>
+            <th>Tipo</th>
+            <th>Fecha</th>
+            <th>Monto</th>
+            <th>Descripción</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach($maintenances as $maintenance)
+        <tr>
+            <td>{{ $maintenance->autor['name'] }} {{ $maintenance->autor['middle_name'] }} {{ $maintenance->autor['last_name'] }}</td>
+            <td>{{ $maintenance->type['type'] }}</td>
+            <td>{{ $maintenance->date }}</td>
+            <td>{{ $maintenance->amount }}</td>
+            <td>{{ $maintenance->description }}</td>
+            <td></td>
+        </tr>
+        @endforeach
+        @if(count($maintenances) <= 0)
+        <tr>
+            <td class="text-center font-weight-bold" colspan="6">
+                No hay regirtros para mostrar
+            </td>
+        </tr>
+        @endif
+    </tbody>
+</table>
+@endsection

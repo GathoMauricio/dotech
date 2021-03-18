@@ -2,27 +2,42 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Vehicle;
+use App\VehicleType;
+use App\Maintenance;
+use App\VehicleImage;
 class VehicleController extends Controller
 {
     public function index()
     {
         $vehicles = Vehicle::paginate(15);
-        return view('vehicles.index');
+        return view('vehicles.index',['vehicles' => $vehicles]);
     }
 
     public function create()
     {
-        //
+        $vehicleTypes = VehicleType::orderBy('type')->get();
+        return view('vehicles.create',['vehicleTypes' => $vehicleTypes]);
     }
 
     public function store(Request $request)
     {
-        //
+        $vehicle = Vehicle::create($request->all());
+        if($vehicle)
+        {
+            return redirect()->route('vehicle_index')->with('message', 'El vehículo '.$vehicle->brand." ".$vehicle->model." se ha creado corréctamente.");
+        }
     }
 
     public function show($id)
     {
-        //
+        $vehicle = Vehicle::findOrFail($id);
+        $vehicleImages = VehicleImage::where('vehicle_id',$id)->get();
+        $maintenances = Maintenance::where('vehicle_id',$id)->get();
+        return view('vehicles.show',[
+            'vehicle' => $vehicle,
+            'vehicleImages' => $vehicleImages,
+            'maintenances' => $maintenances
+            ]);
     }
 
     public function edit($id)

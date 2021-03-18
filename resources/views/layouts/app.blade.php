@@ -149,6 +149,16 @@
                     </p>
                 </a>
                 <hr>
+                <a href="{{ route('vehicle_index') }}">
+                    <p style="cursor:pointer;">
+                        <span class="icon-truck">
+                            <span style="display:none;" class="label-item-menu">
+                                Vehiculos
+                            </span>
+                        </span>
+                    </p>
+                </a>
+                <hr>
                 <a href="{{ asset('mobile/dotech_mobile_1-0-3.apk') }}" target="_blank">
                     <p style="cursor:pointer;">
                         <span class="icon-android" style="color:green;">
