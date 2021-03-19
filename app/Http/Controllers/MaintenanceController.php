@@ -39,7 +39,7 @@ class MaintenanceController extends Controller
     {
         $maintenance = Maintenance::findOrFail($id);
         $maintenance->fill($request->all())->save();
-        return redirect()->back()->with('message', 'El mantenimiento se actualizó con éxito.');
+        return redirect()->route('vehicle_show',$maintenance->vehicle['id'])->with('message', 'El mantenimiento se actualizó con éxito.');
     }
 
     public function destroy($id)

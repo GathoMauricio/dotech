@@ -5,7 +5,6 @@
 <form action="{{ route('maintenance_update',$maintenance->id) }}" method="POST">
                 @csrf
                 @method('PUT')
-                <input type="hidden" name="vehicle_id" id="txt_add_maintenance_id">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-6">
