@@ -105,7 +105,12 @@
             <td>{{ explode(' ',$maintenance->date)[0] }}</td>
             <td>${{ $maintenance->amount }}</td>
             <td>{{ $maintenance->description }}</td>
-            <td>           
+            <td>
+                <a href="{{ route('maintenance_edit',$maintenance->id) }}" ><span class="icon-pencil" title="Editar..." style="cursor:pointer;color:#EB984E"> Editar</span></a>
+                <br/>
+                @if(Auth::user()->rol_user_id == 1)
+                <a href="#" onclick="deleteMaintenance({{ $maintenance->id }})"><span class="icon-bin" title="Eliminar..." style="cursor:pointer;color:#E74C3C"> Eliminar</span></a>
+                @endif
             </td>
         </tr>
         @endforeach

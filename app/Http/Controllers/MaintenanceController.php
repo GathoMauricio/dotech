@@ -30,12 +30,16 @@ class MaintenanceController extends Controller
 
     public function edit($id)
     {
-        //
+        $maintenance = Maintenance::findOrFail($id);
+        
+        return view('maintenances.edit',['maintenance' => $maintenance]);
     }
 
     public function update(Request $request, $id)
     {
-        //
+        $maintenance = Maintenance::findOrFail($id);
+        $maintenance->fill($request->all())->save();
+        return redirect()->back()->with('message', 'El mantenimiento se actualizó con éxito.');
     }
 
     public function destroy($id)

@@ -224,3 +224,5 @@ Route::get('vehicle_image_destroy/{id?}','VehicleImageController@destroy')->name
 
 #Maintenances
 Route::post('maintenance_store','MaintenanceController@store')->name('maintenance_store')->middleware('auth');
+Route::get('maintenance_edit/{id}','MaintenanceController@edit')->name('maintenance_edit')->middleware('auth');
+Route::put('maintenance_update/{id}','MaintenanceController@update')->name('maintenance_update')->middleware('auth');
