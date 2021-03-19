@@ -54,6 +54,6 @@ class MaintenanceController extends Controller
             $image->delete();
         }
         $maintenance->delete();
-        return redirect()->route('vehicle_show',$maintenance->vehicle['id'])->with('message', 'El mantenimiento se actualizó con éxito.');
+        return redirect()->route('vehicle_show',$maintenance->vehicle['id'])->with('message', 'El mantenimiento se eliminó con éxito.');
     }
 }
