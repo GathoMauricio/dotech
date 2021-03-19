@@ -26,13 +26,14 @@ class MaintenanceController extends Controller
 
     public function show($id)
     {
-        //
+        $maintenance = Maintenance::findOrFail($id);
+        $images = MaintenanceImage::where('maintenance_id',$id)->get();
+        return view('maintenances.show',['maintenance' => $maintenance, 'images' => $images]);
     }
 
     public function edit($id)
     {
         $maintenance = Maintenance::findOrFail($id);
-        
         return view('maintenances.edit',['maintenance' => $maintenance]);
     }
 

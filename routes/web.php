@@ -223,7 +223,12 @@ Route::post('store_vehicle_image','VehicleImageController@store')->name('store_v
 Route::get('vehicle_image_destroy/{id?}','VehicleImageController@destroy')->name('vehicle_image_destroy')->middleware('auth');
 
 #Maintenances
+Route::get('maintenance_show/{id}','MaintenanceController@show')->name('maintenance_show')->middleware('auth');
 Route::post('maintenance_store','MaintenanceController@store')->name('maintenance_store')->middleware('auth');
 Route::get('maintenance_edit/{id}','MaintenanceController@edit')->name('maintenance_edit')->middleware('auth');
 Route::put('maintenance_update/{id}','MaintenanceController@update')->name('maintenance_update')->middleware('auth');
 Route::get('maintenance_destroy/{id?}','MaintenanceController@destroy')->name('maintenance_destroy')->middleware('auth');
+
+#Maintenance images
+Route::post('store_maintenance_image','MaintenanceImageController@store')->name('store_maintenance_image')->middleware('auth');
+Route::get('delete_maintenance_image/{id?}','MaintenanceImageController@destroy')->name('delete_maintenance_image')->middleware('auth');

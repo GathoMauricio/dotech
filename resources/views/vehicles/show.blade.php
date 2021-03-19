@@ -48,7 +48,7 @@
             <th>Imagen</th>
             <th>Descripción</th>
             @if(Auth::user()->rol_user_id == 1)
-           <th>Opciones</th>
+           <th></th>
            @endif
         </tr>
     </thead>
@@ -106,6 +106,8 @@
             <td>${{ $maintenance->amount }}</td>
             <td>{{ $maintenance->description }}</td>
             <td>
+                <a href="{{ route('maintenance_show',$maintenance->id) }}" ><span class="icon-eye" title="Ver..." style="cursor:pointer;color:#2E86C1"> Ver</span></a>
+                <br/>
                 <a href="{{ route('maintenance_edit',$maintenance->id) }}" ><span class="icon-pencil" title="Editar..." style="cursor:pointer;color:#EB984E"> Editar</span></a>
                 <br/>
                 @if(Auth::user()->rol_user_id == 1)

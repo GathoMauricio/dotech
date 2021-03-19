@@ -18,4 +18,14 @@ class MaintenanceImage extends Model
         'created_at',
         'updated_at'
     ];
+    public function maintenance()
+    {
+        return $this->belongsTo
+        (
+            'App\Maintenance',
+            'maintenance_id',
+            'id'
+        )
+        ->withDefault();
+    }
 }

@@ -1027,3 +1027,24 @@ window.deleteMaintenance = id => {
         }
     });
 };
+window.addMaintenanceImage = id => {
+    $("#txt_add_maintenance_image_id").val(id);
+    $("#add_maintenance_image_modal").modal();
+};
+window.deleteMaintenanceImage = id => {
+    const route = $("#txt_delete_maintenance_image_route").val();
+    Swal.fire({
+        title: "¿Eliminar imagen del mantenimiento?",
+        text: "El registro se eliminará por completo.",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "red",
+        cancelButtonColor: "#000",
+        confirmButtonText: "Si, eliminar!",
+        cancelButtonText: "Cancelar"
+    }).then(result => {
+        if (result.isConfirmed) {
+            window.location = route + '/' + id;
+        }
+    });
+};
