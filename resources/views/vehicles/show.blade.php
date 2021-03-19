@@ -102,7 +102,7 @@
             {{ $maintenance->other }}
             @endif
             </td>
-            <td>{{ $maintenance->date }}</td>
+            <td>{{ explode(' ',$maintenance->date)[0] }}</td>
             <td>${{ $maintenance->amount }}</td>
             <td>{{ $maintenance->description }}</td>
             <td>           
