@@ -40,22 +40,28 @@
     <thead>
         <tr>
             <th colspan="3" class="text-center" style="background-color:#d30035;color:white;">
-                <a href="#" title="Añadir" class="float-right" style="color:white;">[ <span class="icon-upload"></span> ]</a>
+                <a href="#" onclick="addVehicleImage({{ $vehicle->id }})" title="Añadir" class="float-right" style="color:white;">[ <span class="icon-upload"></span> ]</a>
                 Fotos
             </th>
         </tr>
         <tr>
             <th>Imagen</th>
             <th>Descripción</th>
-            <th>Opciones</th>
+            @if(Auth::user()->rol_user_id == 1)
+           <th>Opciones</th>
+           @endif
         </tr>
     </thead>
     <tbody>
         @foreach($vehicleImages as $vehicleImage)
         <tr>
-            <td><img src="{{ $vehicleImage->image }}" width="200" height="200"/></td>
+            <td><a href="{{asset('storage')}}/{{ $vehicleImage->image }}" target="_blank"><img src="{{asset('storage')}}/{{ $vehicleImage->image }}" width="120"/></a></td>
             <td>{{ $vehicleImage->description }}</td>
-            <td></td>
+            @if(Auth::user()->rol_user_id == 1)
+            <td>
+                <a href="#" onclick="deleteVehicleImage({{ $vehicleImage->id }})"><span class="icon-bin" title="Eliminar..." style="cursor:pointer;color:#E74C3C"> Eliminar</span></a>
+            </td>
+            @endif
         </tr>
         @endforeach
         @if(count($vehicleImages) <= 0)
@@ -105,4 +111,6 @@
         @endif
     </tbody>
 </table>
+<input type="hidden" id="txt_delete_vehicle_image_route" value="{{ route('vehicle_image_destroy') }}"/>
+@include('vehicles.add_vehicle_image_modal')
 @endsection

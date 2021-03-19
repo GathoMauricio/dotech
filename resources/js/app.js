@@ -978,3 +978,24 @@ window.deleteVehicle = id => {
         }
     });
 };
+window.addVehicleImage = id => {
+    $("#txt_add_vehicle_image_id").val(id);
+    $("#add_vehicle_image_modal").modal();
+};
+window.deleteVehicleImage = id => {
+    const route = $("#txt_delete_vehicle_image_route").val();
+    Swal.fire({
+        title: "¿Eliminar imagen del vehiculo?",
+        text: "El registro se eliminará por completo.",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "red",
+        cancelButtonColor: "#000",
+        confirmButtonText: "Si, eliminar!",
+        cancelButtonText: "Cancelar"
+    }).then(result => {
+        if (result.isConfirmed) {
+            window.location = route + '/' + id;
+        }
+    });
+};
