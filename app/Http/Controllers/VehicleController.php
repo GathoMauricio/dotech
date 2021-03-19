@@ -4,7 +4,7 @@ use Illuminate\Http\Request;
 use App\Vehicle;
 use App\VehicleType;
 use App\Maintenance;
-
+use App\MaintenanceImage;
 use App\VehicleImage;
 class VehicleController extends Controller
 {
@@ -58,12 +58,26 @@ class VehicleController extends Controller
     public function destroy($id)
     {
         $vehicle = Vehicle::findOrFail($id);
-        $images = VehicleImage::where('vehicle_id', $id);
-        $maintenances = Maintenance::where('vehicle_id',$id);
-        #TODO:delete maintenance images
+        $imagesVehicle = VehicleImage::where('vehicle_id', $id)->get();
+        foreach($imagesVehicle as $image){
+            if(\Storage::get($image->image)){
+                \Storage::disk('local')->delete($image->image);
+            }
+            $image->delete();
+        }
+        $maintenances = Maintenance::where('vehicle_id',$id)->get();
+        foreach($maintenances as $maintenance)
+        {
+            $imagesMaintenance = MaintenanceImage::where('vehicle_id', $maintenance->id);
+            foreach($imagesMaintenance as $image){
+                if(\Storage::get($image->image)){
+                    \Storage::disk('local')->delete($image->image);
+                }
+                $image->delete();
+            }
+            $maintenance->delete();
+        }
         $vehicle->delete();
-        $images->delete();
-        $maintenances->delete();
-        return redirect()->route('vehicle_index')->with('message','El vehículo '.$vehicle->brand." ".$vehicle->model." se eliminó corréctamente.");
+       return redirect()->route('vehicle_index')->with('message','El vehículo '.$vehicle->brand." ".$vehicle->model." se eliminó corréctamente.");
     }
 }

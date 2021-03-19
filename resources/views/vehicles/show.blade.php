@@ -124,6 +124,7 @@
     </tbody>
 </table>
 <input type="hidden" id="txt_delete_vehicle_image_route" value="{{ route('vehicle_image_destroy') }}"/>
+<input type="hidden" id="txt_delete_maitenance_route" value="{{ route('maintenance_destroy') }}"/>
 @include('vehicles.add_vehicle_image_modal')
 @include('maintenances.add_maintenance_modal')
 @endsection

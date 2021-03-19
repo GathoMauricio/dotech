@@ -1010,3 +1010,20 @@ window.checkSectionOther = id => {
         $("#section_other_type").css("display", "none");
     }
 };
+window.deleteMaintenance = id => {
+    const route = $("#txt_delete_maitenance_route").val();
+    Swal.fire({
+        title: "¿Eliminar mantenimiento del vehiculo?",
+        text: "El registro se eliminará por completo.",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "red",
+        cancelButtonColor: "#000",
+        confirmButtonText: "Si, eliminar!",
+        cancelButtonText: "Cancelar"
+    }).then(result => {
+        if (result.isConfirmed) {
+            window.location = route + '/' + id;
+        }
+    });
+};

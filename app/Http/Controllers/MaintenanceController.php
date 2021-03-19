@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Maintenance;
+use App\MaintenanceImage;
 class MaintenanceController extends Controller
 {
     public function index()
@@ -44,6 +45,15 @@ class MaintenanceController extends Controller
 
     public function destroy($id)
     {
-        //
+        $maintenance = Maintenance::findOrFail($id);
+        $images = MaintenanceImage::where('maintenance_id', $id)->get();
+        foreach($images as $image){
+            if(\Storage::get($image->image)){
+                \Storage::disk('local')->delete($image->image);
+            }
+            $image->delete();
+        }
+        $maintenance->delete();
+        return redirect()->route('vehicle_show',$maintenance->vehicle['id'])->with('message', 'El mantenimiento se actualizó con éxito.');
     }
 }
