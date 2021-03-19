@@ -78,7 +78,7 @@
     <thead>
         <tr>
             <th colspan="6" class="text-center" style="background-color:#d30035;color:white;">
-            <a href="#" title="Añadir" class="float-right" style="color:white;">[ <span class="icon-upload"></span> ]</a>
+            <a href="#" onclick="addMaintenanceVehicle({{ $vehicle->id }})" title="Añadir" class="float-right" style="color:white;">[ <span class="icon-upload"></span> ]</a>
             Manteniemientos
             </th>
         </tr>
@@ -94,12 +94,19 @@
     <tbody>
         @foreach($maintenances as $maintenance)
         <tr>
-            <td>{{ $maintenance->autor['name'] }} {{ $maintenance->autor['middle_name'] }} {{ $maintenance->autor['last_name'] }}</td>
-            <td>{{ $maintenance->type['type'] }}</td>
+            <td>{{ $maintenance->author['name'] }} {{ $maintenance->author['middle_name'] }} {{ $maintenance->author['last_name'] }}</td>
+            <td>
+            @if($maintenance->type['id'] != 22)
+            {{ $maintenance->type['type'] }}
+            @else
+            {{ $maintenance->other }}
+            @endif
+            </td>
             <td>{{ $maintenance->date }}</td>
-            <td>{{ $maintenance->amount }}</td>
+            <td>${{ $maintenance->amount }}</td>
             <td>{{ $maintenance->description }}</td>
-            <td></td>
+            <td>           
+            </td>
         </tr>
         @endforeach
         @if(count($maintenances) <= 0)
@@ -113,4 +120,5 @@
 </table>
 <input type="hidden" id="txt_delete_vehicle_image_route" value="{{ route('vehicle_image_destroy') }}"/>
 @include('vehicles.add_vehicle_image_modal')
+@include('maintenances.add_maintenance_modal')
 @endsection

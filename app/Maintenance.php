@@ -19,6 +19,7 @@ class Maintenance extends Model
         'date',
         'amount',
         'description',
+        'other',
         'created_at',
         'updated_at'
     ];

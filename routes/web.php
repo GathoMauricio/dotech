@@ -221,3 +221,6 @@ Route::get('vehicle_destroy/{id?}','VehicleController@destroy')->name('vehicle_d
 #Vehicles Images
 Route::post('store_vehicle_image','VehicleImageController@store')->name('store_vehicle_image')->middleware('auth');
 Route::get('vehicle_image_destroy/{id?}','VehicleImageController@destroy')->name('vehicle_image_destroy')->middleware('auth');
+
+#Maintenances
+Route::post('maintenance_store','MaintenanceController@store')->name('maintenance_store')->middleware('auth');

@@ -999,3 +999,14 @@ window.deleteVehicleImage = id => {
         }
     });
 };
+window.addMaintenanceVehicle = id => {
+    $("#txt_add_maintenance_id").val(id);
+    $("#add_maintenance_modal").modal();
+};
+window.checkSectionOther = id => {
+    if (id == 22) {
+        $("#section_other_type").css("display", "block");
+    } else {
+        $("#section_other_type").css("display", "none");
+    }
+};
