@@ -11,8 +11,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 Route::middleware('auth:api')->get('/get_current_version', function (Request $request) {
     return [
-        'currentVersion' => '1.0.3',
-        'downloadLink' => getUrl().'/mobile/dotech_mobile_1-0-3.apk'
+        'currentVersion' => '1.0.4',
+        'downloadLink' => getUrl().'/mobile/dotech_mobile_1-0-4.apk'
     ];
 });
 
@@ -38,6 +38,7 @@ Route::middleware('auth:api')->get('projects_show/{id}','ApiProjectController@sh
 Route::middleware('auth:api')->get('binnacle_index/{id}','ApiBinnacleController@index')->name('binnacle_index');
 Route::middleware('auth:api')->post('binnacle_create','ApiBinnacleController@store')->name('binnacle_create');
 Route::middleware('auth:api')->get('binnacles_all','ApiBinnacleController@binnaclesAll')->name('binnacles_all');
+Route::middleware('auth:api')->get('get_binnacle_projects','ApiBinnacleController@getBinnacleProjects')->name('get_binnacle_projects');
 
 #Binnacle pdf
 Route::middleware('auth:api')->get('binnacle_show_json/{id?}','ApiBinnacleController@show_json')->name('binnacle_show_json');
@@ -53,3 +54,4 @@ Route::middleware('auth:api')->post('binnacle_firm_store','ApiBinnacleController
 #Users
 Route::middleware('auth:api')->get('active_users','ApiUserController@activeUsers')->name('active_users');
 Route::middleware('auth:api')->put('update_fcm_token','ApiUserController@UpdateFcmToken')->name('update_fcm_token');
+Route::middleware('auth:api')->post('user_dounload_new_version','ApiUserController@userDounloadNewVersion')->name('user_dounload_new_version');

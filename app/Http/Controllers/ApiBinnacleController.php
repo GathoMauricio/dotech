@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Binnacle;
+use App\Sale;
 class ApiBinnacleController extends Controller
 {
     public function index($id)
@@ -33,6 +34,11 @@ class ApiBinnacleController extends Controller
             ];
         }
         return $json;
+    }
+    public function getBinnacleProjects(Request $request)
+    {
+        $projects = Sale::where('status','Proyecto')->orderBy('id','desc')->get();
+        return $projects;
     }
     public function create()
     {

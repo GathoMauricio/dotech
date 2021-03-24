@@ -75,4 +75,9 @@ class ApiUserController extends Controller
         $user->save();
         return $user;
     }
+    public function userDounloadNewVersion(Request $request)
+    {
+        createSysLog("Descargó la versión ".$request->version." de la app móvil.");
+        return "Descargó la versión ".$request->version." de la app móvil.";
+    }
 }
