@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use Hash;
+use Auth;
 class ApiUserController extends Controller
 {
     public function login(Request $request)
@@ -66,5 +67,12 @@ class ApiUserController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function UpdateFcmToken(Request $request)
+    {
+        $user = User::find(Auth::user()->id);
+        $user->fcm_token = $request->fcm_token;
+        $user->save();
+        return $user;
     }
 }

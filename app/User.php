@@ -24,6 +24,7 @@ class User extends Authenticatable
         'email', 
         'password',
         'api_token',
+        'fcm_token',
         'created_at',
         'updated_at'
     ];

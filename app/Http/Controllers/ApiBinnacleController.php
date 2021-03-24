@@ -19,6 +19,21 @@ class ApiBinnacleController extends Controller
         }
         return $json;
     }
+    public function binnaclesAll(Request $request)
+    {
+        $binnacles = Binnacle::orderBy('id','DESC')->get();
+        $json = [];
+        foreach($binnacles as $binnacle)
+        {
+            $json[] = [
+                'id' => $binnacle->id,
+                'author' => $binnacle->author['name'].' '.$binnacle->author['middle_name'].' '.$binnacle->author['last_name'],
+                'description' => $binnacle->description,
+                'date' => onlyDate($binnacle->created_at),
+            ];
+        }
+        return $json;
+    }
     public function create()
     {
         //
