@@ -105,7 +105,7 @@
             <div class="card">
                 <div class="card-header">
                     <h6 class="font-weight-bold">
-                        <a href="mobile/dotech_mobile_1-0-3.apk">App</a>
+                        <a href="mobile/dotech_mobile_1-0-5.apk">App</a>
                     </h6>
                 </div>
                 <div class="card-body item_dashboard">
