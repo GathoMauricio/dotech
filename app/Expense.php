@@ -24,6 +24,7 @@ class Expense extends Model
 
 		static::creating(function ($query) {
 			$query->author_id = Auth::user()->id;
+            $query->status = 'Pendiente';
 		});
 	}
 

@@ -11,8 +11,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 Route::middleware('auth:api')->get('/get_current_version', function (Request $request) {
     return [
-        'currentVersion' => '1.0.4',
-        'downloadLink' => getUrl().'/mobile/dotech_mobile_1-0-4.apk'
+        'currentVersion' => '1.0.5',
+        'downloadLink' => getUrl().'/mobile/dotech_mobile_1-0-5.apk'
     ];
 });
 
@@ -55,3 +55,8 @@ Route::middleware('auth:api')->post('binnacle_firm_store','ApiBinnacleController
 Route::middleware('auth:api')->get('active_users','ApiUserController@activeUsers')->name('active_users');
 Route::middleware('auth:api')->put('update_fcm_token','ApiUserController@UpdateFcmToken')->name('update_fcm_token');
 Route::middleware('auth:api')->post('user_dounload_new_version','ApiUserController@userDounloadNewVersion')->name('user_dounload_new_version');
+
+Route::middleware('auth:api')->get('expense_index','ApiExpenseController@index')->name('expense_index');
+Route::middleware('auth:api')->post('expense_store','ApiExpenseController@store')->name('expense_store');
+Route::middleware('auth:api')->put('update_expense_status','ApiExpenseController@update')->name('update_expense_status');
+Route::middleware('auth:api')->delete('destroy_expense','ApiExpenseController@destroy')->name('destroy_expense');
