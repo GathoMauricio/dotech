@@ -84,6 +84,13 @@ class ApiBinnacleController extends Controller
         $binnacle->save();
         return $binnacle;
     }
+    public function storeFeedback(Request $request)
+    {
+        $binnacle = Binnacle::findOrFail($request->binnacle_id);
+        $binnacle->feedback = $request->feedback;
+        $binnacle->save();
+        return "Las observaciones se agregaron correctamente.";
+    }
     public function show($id)
     {
         //

@@ -15,6 +15,9 @@ class Binnacle extends Model
         'sale_id',
         'author_id',
         'description',
+        'firm',
+        'feedbak',
+        'email',
         'created_at',
         'updated_at'
     ];

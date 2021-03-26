@@ -363,7 +363,7 @@
     </table>
     <table class="table" border="5">
         <tr>
-            <td colspan="5" style="background-color:#d30035;color:white;font-weight:bold;">
+            <td colspan="6" style="background-color:#d30035;color:white;font-weight:bold;">
                 <center>
                     <label>Bitácoras</label>
                     <label style="float:right;padding:5px;"><span
@@ -377,6 +377,7 @@
             <td><b>Autor</b></td>
             <td><b>Descripción</b></td>
             <td><b>Firma</b></td>
+            <td><b>Observaciones</b></td>
             <td><b>Imágenes</b></td>
         </tr>
         @foreach($binnacles as $binnacle)
@@ -392,6 +393,7 @@
                 <center>No disponible</center>
                 @endif
             </td>
+            <td>{{ $binnacle->feedback }}</td>
             <td>
                 <a href="#" onclick="addBinnacleImage({{ $binnacle->id }})">
                     <span class="icon-plus" title="Agregar imagen..." style="cursor:pointer;color:#c52cec">
@@ -422,7 +424,7 @@
         </tr>
         @endforeach
         @if(count($binnacles)<=0)
-        <tr><td colspan="5" class="text-center">Sin registros</td></tr>
+        <tr><td colspan="6" class="text-center">Sin registros</td></tr>
         @endif
     </table>
     <a href="#" onclick="setProjectAsFinish({{ $sale->id }})" class="font-weight-bold link-sys">[Marcar proyecto como finalizado]</a>

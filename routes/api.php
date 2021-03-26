@@ -11,8 +11,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 Route::middleware('auth:api')->get('/get_current_version', function (Request $request) {
     return [
-        'currentVersion' => '1.0.5',
-        'downloadLink' => getUrl().'/mobile/dotech_mobile_1-0-5.apk'
+        'currentVersion' => '1.0.6',
+        'downloadLink' => getUrl().'/mobile/dotech_mobile_1-0-6.apk'
     ];
 });
 
@@ -50,6 +50,9 @@ Route::middleware('auth:api')->post('upload_binnacle_image','ApiBinnacleImageCon
 
 #Binnacle Firm
 Route::middleware('auth:api')->post('binnacle_firm_store','ApiBinnacleController@storeFirm')->name('binnacle_firm_store');
+
+#binnacle Feedback
+Route::middleware('auth:api')->post('binnacle_feedback_store','ApiBinnacleController@storeFeedback')->name('binnacle_feedback_store');
 
 #Users
 Route::middleware('auth:api')->get('active_users','ApiUserController@activeUsers')->name('active_users');
