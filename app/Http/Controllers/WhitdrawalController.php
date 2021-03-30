@@ -35,7 +35,17 @@ class WhitdrawalController extends Controller
     {
         $whitdrawal = Whitdrawal::create($request->all());
         if($whitdrawal){
-            createSysLog("Creo una solicitud de retiro: ".$whitdrawal->description);
+            $msg = "creo una solicitud de retiro: ".$whitdrawal->description;
+            createSysLog($msg);
+            $notificationUsers = User::where('rol_user_id',1)->get();
+            foreach($notificationUsers as $user)
+            {
+                event(new \App\Events\NotificationEvent([
+                    'id' => $user->id,
+                    'msg' => \Auth::user()->name.' '.\Auth::user()->middle_name.' '.$msg,
+                    'route' => route('whitdrawal_index')
+                ]));
+            }
             return redirect()->back()->with('message', 'Solicitud de retiro agreagada');
         }else{
             return "error";
@@ -49,7 +59,17 @@ class WhitdrawalController extends Controller
         \Storage::disk('local')->put($name,  \File::get($file));
         $whitdrawal->document = $name;
         $whitdrawal->save();
-        createSysLog("Subió la factura del retiro: ".$whitdrawal->description);
+        $msg = " subió la factura del retiro: ".$whitdrawal->description;
+        createSysLog($msg);
+        $notificationUsers = User::where('rol_user_id',1)->get();
+        foreach($notificationUsers as $user)
+        {
+            event(new \App\Events\NotificationEvent([
+                'id' => $user->id,
+                'msg' => \Auth::user()->name.' '.\Auth::user()->middle_name.' '.$msg,
+                'route' => route('whitdrawal_index')
+            ]));
+        }
         return redirect()->back()->with('message', 'El documento se almacenó con éxito con el nombre: '.$whitdrawal->document);
     }
     public function aprove(Request $request)
@@ -70,7 +90,13 @@ class WhitdrawalController extends Controller
             $whitdrawal->document = $name;
         }
         $account->save();
-        createSysLog("Aprobó retiro: ".$whitdrawal->description);
+        $msg = "aprobó el retiro: ".$whitdrawal->description;
+        createSysLog($msg);
+        event(new \App\Events\NotificationEvent([
+            'id' => $whitdrawal->author_id,
+            'msg' => \Auth::user()->name.' '.\Auth::user()->middle_name.' '.$msg,
+            'route' => route('show_sale',$whitdrawal->sale_id)
+        ]));
         return redirect()->back()->with('message', 'La solicitud se ha aprovado y la cantidad se ha descontado de la cuenta seleccionada.');
     }
     public function show(Request $request)
@@ -91,7 +117,13 @@ class WhitdrawalController extends Controller
         $whitdrawal = Whitdrawal::findOrFail($id);
         $whitdrawal->status= 'Desaprobado';
         $whitdrawal->delete();
-        createSysLog("Rechazó el retiro: ".$whitdrawal->description);
+        $msg = "desaprobó el retiro: ".$whitdrawal->description;
+        createSysLog($msg);
+        event(new \App\Events\NotificationEvent([
+            'id' => $whitdrawal->author_id,
+            'msg' => \Auth::user()->name.' '.\Auth::user()->middle_name.' '.$msg,
+            'route' => route('show_sale',$whitdrawal->sale_id)
+        ]));
         return redirect()->back()->with('message', 'La solicitud ha sido rechazada.');
     }
     public function destroy($id)

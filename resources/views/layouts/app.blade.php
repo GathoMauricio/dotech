@@ -28,11 +28,15 @@
 </head>
 
 <body>
+    <audio id="message" preload="auto">
+        <source src="{{ asset('sound/pristine.mp3') }}" type="audio/mp3">
+    </audio>
     <div id="app">
         <div class="contenedor_vp" style="width:100%;">
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-md-12 principal-container-vp">
+                        @include('layouts.notification')
                         @if(Session::has('message')) @include('layouts.message') @endif
                         @yield('content')
                     </div>
@@ -260,6 +264,19 @@
     });
     </script>
     @include('companies.show_modal')
+
+    <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+    <script>
+        var pusher = new Pusher('1fdb86840afdb6ef21cc', {
+        cluster: 'mt1'
+        });
+        var channel = pusher.subscribe('user-{{ Auth::user()->id }}-channel');
+            channel.bind('notification', function(data) {
+            $("#text_route_notificacion").attr('href',data.message.route);
+            $("#text_route_notificacion").text(data.message.msg);
+            $("#notification_container").css('display','block');
+        });
+    </script>
 </body>
 
 </html>

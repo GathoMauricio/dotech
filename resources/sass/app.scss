@@ -185,7 +185,8 @@
     opacity: 0.8;
 }
 
-.msg_container {
+.msg_container,
+.notification_container {
     position: fixed;
     right: 0;
     bottom: 0;
@@ -193,7 +194,8 @@
     z-index: 9999;
 }
 
-.msg_content {
+.msg_content,
+.notification_content {
     width: 300px;
     padding: 10px;
     background-color: #28B463;
@@ -201,4 +203,23 @@
     border-radius: 10px;
     font-weight: bold;
     border: 5px solid #58D68D;
+}
+
+.notification_container {
+    display: none;
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    padding: 20px;
+    z-index: 9999;
+}
+
+.notification_content {
+    width: 300px;
+    padding: 10px;
+    background-color: #407af7;
+    color: white;
+    border-radius: 10px;
+    font-weight: bold;
+    border: 5px solid #6c3fe9;
 }
