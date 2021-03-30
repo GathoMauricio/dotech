@@ -275,6 +275,17 @@
             $("#text_route_notificacion").attr('href',data.message.route);
             $("#text_route_notificacion").text(data.message.msg);
             $("#notification_container").css('display','block');
+            document.getElementById('message').play();
+
+            switch(data.message.event) { 
+                case 'task_comment':
+                    console.log("Comentario de tarea");
+                    if($("#index_task_comment_modal").length > 0) {
+                        $("#index_task_comment_modal").modal('hide');
+                        showTaskCommentsModal(data.message.task_id);
+                    }
+                break;
+            }
         });
     </script>
 </body>

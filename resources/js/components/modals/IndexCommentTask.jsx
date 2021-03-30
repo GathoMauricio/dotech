@@ -76,7 +76,6 @@ class IndexCommentTask extends Component{
                                         '</div><br/>'
                                     );
                                 });
-                                console.log("#tbl_count_comments_task_"+this.state.task_id);
                                 $("#tbl_count_comments_task_"+this.state.task_id).text(count);
                                 $("#TaskcommentBox").animate({ scrollTop: $(document).height()*10000 }, 3000);
                             },

@@ -41,6 +41,7 @@ class TaskCommentController extends Controller
         {
             $comments = TaskComment::where('task_id',$request->task_id)->orderBy('created_at','ASC')->get();
             $json=[];
+            
             foreach($comments as $comment)
             {
                 $json[] = [
@@ -49,7 +50,19 @@ class TaskCommentController extends Controller
                     'created_at' => formatDate($comment->created_at),
                 ];
             }
-            createSysLog("comentó la tarea ".$taskComment->task['title']." : ".$taskComment->body);
+            $msg = "comentó la tarea ".$taskComment->task['title']." : ".$taskComment->body;
+            createSysLog($msg);
+            $ids=\App\TaskComment::distinct()->where('task_id',$request->task_id)->where('user_id','!=',$taskComment->user_id)->get('user_id');
+            foreach($ids as $id)
+            {
+                event(new \App\Events\NotificationEvent([
+                    'event' => 'task_comment',
+                    'task_id' => $taskComment->task_id,
+                    'id' => $id->user_id,
+                    'msg' => \Auth::user()->name.' '.\Auth::user()->middle_name.' '.$msg,
+                    'route' => route('task_index')
+                ]));
+            }
             return $json;
         }else{ return "Fail"; }
     }

@@ -322,7 +322,13 @@ class TaskController extends Controller
     public function store(TaskRequest $request)
     {
         $task = Task::create($request->all());
-        createSysLog("creo la tarea " . $task->title . " : " . $task->description);
+        $msg = "creó la tarea " . $task->title . " : " . $task->description;
+        createSysLog($msg);
+        event(new \App\Events\NotificationEvent([
+            'id' => $task->user_id,
+            'msg' => \Auth::user()->name.' '.\Auth::user()->middle_name.' '.$msg,
+            'route' => route('task_index')
+        ]));
         return redirect('task_index')->with('message', 'La tarea ' . $task->title . ' se creó con éxito.');
     }
     public function show($id)
@@ -358,7 +364,13 @@ class TaskController extends Controller
     public function update(TaskRequest $request, $id)
     {
         $task = Task::findOrFail($id);
-        createSysLog("actualizó la tarea " . $task->title . " : " . $task->description . ", por " . $request->title . " : " . $request->description);
+        $msg = "actualizó la tarea " . $task->title . " : " . $task->description . ", por " . $request->title . " : " . $request->description;
+        createSysLog($msg);
+        event(new \App\Events\NotificationEvent([
+            'id' => $task->user_id,
+            'msg' => \Auth::user()->name.' '.\Auth::user()->middle_name.' '.$msg,
+            'route' => route('task_index')
+        ]));
         $task->update($request->except(['_token', '_method']));
         if ($task) {
             return redirect()->back()->with('message', 'La tarea  se actualizó con éxito.');
@@ -371,6 +383,13 @@ class TaskController extends Controller
         $task = Task::findOrFail($request->id);
         $task->archived = 'SI';
         $task->save();
+        $msg = "archivó la tarea ".$task->title . " : " . $task->description;
+        createSysLog($msg);
+        event(new \App\Events\NotificationEvent([
+            'id' => $task->author_id,
+            'msg' => \Auth::user()->name.' '.\Auth::user()->middle_name.' '.$msg,
+            'route' => route('task_index')
+        ]));
     }
     public function destroy($id)
     {
@@ -388,6 +407,13 @@ class TaskController extends Controller
         $task = Task::findOrFail($request->id);
         $task->status = $request->status;
         $task->save();
+        $msg = "actualizó el estatus de la tarea ".$task->title . " : " . $task->description.' a '.$task->status;
+        createSysLog($msg);
+        event(new \App\Events\NotificationEvent([
+            'id' => $task->author_id,
+            'msg' => \Auth::user()->name.' '.\Auth::user()->middle_name.' '.$msg,
+            'route' => route('task_index')
+        ]));
         return "Estatus actualizado.";
     }
 }
