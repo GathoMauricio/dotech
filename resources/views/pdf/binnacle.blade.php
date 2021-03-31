@@ -149,10 +149,10 @@
         @endphp
         @foreach($images as $image)
         <tr>
-            <td width="15%" style="background-color:#D5D8DC;">{{ formatDate($image->created_at) }}</td>
-            <td width="25%" style="background-color:#D5D8DC;">{{ $image->description }}</td>
-            <td width="15%" style="background-color:#D5D8DC;">
-                <img src="{{ parseBAse64(public_path('storage/'.$image->image)) }}" width="80" height="">
+            <td width="20%" style="background-color:#D5D8DC;padding:5px;">{{ formatDate($image->created_at) }}</td>
+            <td width="50%" style="background-color:#D5D8DC;padding:5px;">{{ $image->description }}</td>
+            <td width="30%" style="background-color:#D5D8DC;">
+                <img src="{{ parseBAse64(public_path('storage/'.$image->image)) }}" style="width:100%;">
             </td>
         </tr>
         @endforeach
