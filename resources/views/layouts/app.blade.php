@@ -267,8 +267,9 @@
 
     <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
     <script>
-        var pusher = new Pusher('1fdb86840afdb6ef21cc', {
-        cluster: 'mt1'
+        Pusher.logToConsole = '{{ env('PUSHER_LOG',false) }}';
+        var pusher = new Pusher('{{ env('PUSHER_APP_KEY') }}', {
+        cluster: '{{ env('PUSHER_APP_CLUSTER') }}'
         });
         var channel = pusher.subscribe('user-{{ Auth::user()->id }}-channel');
             channel.bind('notification', function(data) {
