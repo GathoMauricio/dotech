@@ -39,7 +39,19 @@ class CompanyFollowController extends Controller
                 'created_at' => formatDate($companyFollow->created_at)
             ];
         }
-        createSysLog("dió seguimiento a la compañía ".$follow->company['name']." (".$follow->body.") ");
+
+        $msg = "dió seguimiento a la compañía ".$follow->company['name']." (".$follow->body.") ";
+        createSysLog($msg);
+        $notificationUsers = \App\User::where('rol_user_id',1)->get();
+        foreach($notificationUsers as $user)
+        {
+            event(new \App\Events\NotificationEvent([
+                'id' => $user->id,
+                'msg' => \Auth::user()->name.' '.\Auth::user()->middle_name.' '.$msg,
+                'route' => route('company_index')
+            ]));
+        }
+        
         return $json;
     }
     public function show($id)

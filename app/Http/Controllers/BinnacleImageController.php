@@ -37,7 +37,18 @@ class BinnacleImageController extends Controller
             \Storage::disk('local')->put($name,  \File::get($file));
             $binnacle_image->image = $name;
             $binnacle_image->save();
-            createSysLog("Subió una imagen a la bitácora ".$binnacle_image->binnacle['description']);
+            $msg = "Subió una imagen a la bitácora ".$binnacle_image->binnacle['description'];
+            createSysLog($msg);
+            $notificationUsers = \App\User::where('rol_user_id',1)->get();
+            foreach($notificationUsers as $user)
+            {
+                event(new \App\Events\NotificationEvent([
+                    'id' => $user->id,
+                    'msg' => \Auth::user()->name.' '.\Auth::user()->middle_name.' '.$msg,
+                    'route' => route('show_binnacle_image',$binnacle_image->id)
+                ]));
+            }
+
             return redirect()->back()->with('message', 'La imagen '.$binnacle_image->description.' se cargó con exito');
         }else{ "Error durante la carga"; }
     }
@@ -55,6 +66,19 @@ class BinnacleImageController extends Controller
         $image = BinnacleImage::findOrFail($id);
         $image->description = $request->description;
         $image->save();
+        
+        $msg = "Actualizó una imagen de la bitácora ".$image->binnacle['description'];
+        createSysLog($msg);
+        $notificationUsers = \App\User::where('rol_user_id',1)->get();
+        foreach($notificationUsers as $user)
+        {
+            event(new \App\Events\NotificationEvent([
+                'id' => $user->id,
+                'msg' => \Auth::user()->name.' '.\Auth::user()->middle_name.' '.$msg,
+                'route' => route('show_binnacle_image',$image->id)
+            ]));
+        }
+
         return redirect()->back()->with('message', 'La imagen se actualizó con éxito');
     }
     public function destroy($id)
@@ -63,6 +87,19 @@ class BinnacleImageController extends Controller
         if(\Storage::get($image->image)){
             \Storage::disk('local')->delete($image->image);
         }
+
+        $msg = "Eliminó una imagen de la bitácora ".$image->binnacle['description'];
+        createSysLog($msg);
+        $notificationUsers = \App\User::where('rol_user_id',1)->get();
+        foreach($notificationUsers as $user)
+        {
+            event(new \App\Events\NotificationEvent([
+                'id' => $user->id,
+                'msg' => \Auth::user()->name.' '.\Auth::user()->middle_name.' '.$msg,
+                'route' => route('index_binnacle')
+            ]));
+        }
+
         $image->delete();
         return redirect()->back()->with('message', 'La imagen se eliminó con éxito');
     }

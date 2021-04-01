@@ -15,7 +15,7 @@ class CompanyDepartmentController extends Controller
         if($department)
         {
             return redirect()->back()
-            ->with('message', 'El departamento en '.$department->company['name'].' se agregó con éxisto.');
+            ->with('message', 'El departamento en '.$department->company['name'].' se agregó con éxito.');
         }
     }
 }

@@ -25,6 +25,19 @@ class SalePaymentController extends Controller
             'document' => $name,
             'amount' => $request->amount
         ]);
+
+        $msg = "agregó un pago al proyecto ".$sale->description.": ".$salePayment->description;
+        createSysLog($msg);
+        $notificationUsers = \App\User::where('rol_user_id',1)->get();
+        foreach($notificationUsers as $user)
+        {
+            event(new \App\Events\NotificationEvent([
+                'id' => $user->id,
+                'msg' => \Auth::user()->name.' '.\Auth::user()->middle_name.' '.$msg,
+                'route' => route('show_sale',$sale->id)
+            ]));
+        }
+
         return redirect()->back()->with('message', 'El pago se agregó correctamente con el comprobante: '.$salePayment->document);
     }
     public function show($id)

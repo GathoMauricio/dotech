@@ -25,6 +25,19 @@ class VehicleController extends Controller
         $vehicle = Vehicle::create($request->all());
         if($vehicle)
         {
+            
+            $msg = "agregó el vehículo ".$vehicle->brand." ".$vehicle->model;
+            createSysLog($msg);
+            $notificationUsers = \App\User::where('rol_user_id',1)->get();
+            foreach($notificationUsers as $user)
+            {
+                event(new \App\Events\NotificationEvent([
+                    'id' => $user->id,
+                    'msg' => \Auth::user()->name.' '.\Auth::user()->middle_name.' '.$msg,
+                    'route' => route('vehicle_index')
+                ]));
+            }
+            
             return redirect()->route('vehicle_index')->with('message', 'El vehículo '.$vehicle->brand." ".$vehicle->model." se ha creado corréctamente.");
         }
     }
@@ -52,6 +65,19 @@ class VehicleController extends Controller
     {
         $vehicle = Vehicle::findOrFail($id);
         $vehicle->fill($request->all())->save();
+
+        $msg = "actualizó el vehículo ".$vehicle->brand." ".$vehicle->model;
+        createSysLog($msg);
+        $notificationUsers = \App\User::where('rol_user_id',1)->get();
+        foreach($notificationUsers as $user)
+        {
+            event(new \App\Events\NotificationEvent([
+                'id' => $user->id,
+                'msg' => \Auth::user()->name.' '.\Auth::user()->middle_name.' '.$msg,
+                'route' => route('vehicle_show',$vehicle->id)
+            ]));
+        }
+
         return redirect()->route('vehicle_index')->with('message','El vehículo '.$vehicle->brand." ".$vehicle->model." se actualizó corréctamente.");
     }
 
@@ -77,6 +103,19 @@ class VehicleController extends Controller
             }
             $maintenance->delete();
         }
+
+        $msg = "eliminó el vehículo ".$vehicle->brand." ".$vehicle->model;
+        createSysLog($msg);
+        $notificationUsers = \App\User::where('rol_user_id',1)->get();
+        foreach($notificationUsers as $user)
+        {
+            event(new \App\Events\NotificationEvent([
+                'id' => $user->id,
+                'msg' => \Auth::user()->name.' '.\Auth::user()->middle_name.' '.$msg,
+                'route' => route('vehicle_index')
+            ]));
+        }
+
         $vehicle->delete();
        return redirect()->route('vehicle_index')->with('message','El vehículo '.$vehicle->brand." ".$vehicle->model." se eliminó corréctamente.");
     }

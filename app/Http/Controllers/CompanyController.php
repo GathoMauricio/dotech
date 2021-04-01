@@ -66,6 +66,19 @@ class CompanyController extends Controller
     public function store(Request $request)
     {
         $company = Company::create($request->all());
+
+        $msg = "Agregó la compañía  ".$company->name;
+        createSysLog($msg);
+        $notificationUsers = \App\User::where('rol_user_id',1)->get();
+        foreach($notificationUsers as $user)
+        {
+            event(new \App\Events\NotificationEvent([
+                'id' => $user->id,
+                'msg' => \Auth::user()->name.' '.\Auth::user()->middle_name.' '.$msg,
+                'route' => route('company_index')
+            ]));
+        }
+
         $department = CompanyDepartment::create([
             'company_id' => $company->id,
             'name' => 'General',
@@ -127,6 +140,19 @@ class CompanyController extends Controller
         $company->address = $request->address;
         $company->description = $request->description;
         $company->iguala = $request->iguala;
+
+        $msg = "Actualizó la compañía  ".$company->name;
+        createSysLog($msg);
+        $notificationUsers = \App\User::where('rol_user_id',1)->get();
+        foreach($notificationUsers as $user)
+        {
+            event(new \App\Events\NotificationEvent([
+                'id' => $user->id,
+                'msg' => \Auth::user()->name.' '.\Auth::user()->middle_name.' '.$msg,
+                'route' => route('company_index')
+            ]));
+        }
+
         if(!empty($request->image))
         {
             if($company->image != 'compania.png')

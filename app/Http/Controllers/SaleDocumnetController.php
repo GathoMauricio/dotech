@@ -25,7 +25,20 @@ class SaleDocumnetController extends Controller
             'document' => $name,
             'inner_identifier' => $request->inner_identifier
         ]);
-        return redirect()->back()->with('message', 'El documento se agregó correctamente con el nombre: '.$saleDocument->document);
+
+        $msg = "agregó el documento ".$saleDocument->description." al proyecto ".$sale->description;
+        createSysLog($msg);
+        $notificationUsers = \App\User::where('rol_user_id',1)->get();
+        foreach($notificationUsers as $user)
+        {
+            event(new \App\Events\NotificationEvent([
+                'id' => $user->id,
+                'msg' => \Auth::user()->name.' '.\Auth::user()->middle_name.' '.$msg,
+                'route' => route('show_sale',$sale->id)
+            ]));
+        }
+
+        return redirect()->back()->with('message', 'El documento '.$saleDocument->description.' se agregó correctamente');
     }
     public function show($id)
     {

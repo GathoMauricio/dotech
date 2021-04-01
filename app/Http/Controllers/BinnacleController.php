@@ -28,7 +28,17 @@ class BinnacleController extends Controller
             $message = 'Ha creado la bitácora: '.
             $binnacle->description.' sin proyecto asociado';
         }
-        
+        $msg = $message;
+        createSysLog($msg);
+        $notificationUsers = \App\User::where('rol_user_id',1)->get();
+        foreach($notificationUsers as $user)
+        {
+            event(new \App\Events\NotificationEvent([
+                'id' => $user->id,
+                'msg' => \Auth::user()->name.' '.\Auth::user()->middle_name.' '.$msg,
+                'route' => route('index_binnacle')
+            ]));
+        }
         \Mail::send('email.notification', ['binnacle' => $binnacle, 'msg' => $message], function ($mail){
             $mail->from('dotechapp@dotredes.com',env('APP_NAME'));
             $mail->to(['rortuno@dotredes.com']);

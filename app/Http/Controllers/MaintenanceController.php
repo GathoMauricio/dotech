@@ -18,6 +18,19 @@ class MaintenanceController extends Controller
     public function store(Request $request)
     {
         $maintenance = Maintenance::create($request->all());
+        
+        $msg = "agregó un mantenimiento de ".$maintenance->type['type']." para el vehículo ".$maintenance->vehicle['brand'].' '.$maintenance->vehicle['model'];
+        createSysLog($msg);
+        $notificationUsers = \App\User::where('rol_user_id',1)->get();
+        foreach($notificationUsers as $user)
+        {
+            event(new \App\Events\NotificationEvent([
+                'id' => $user->id,
+                'msg' => \Auth::user()->name.' '.\Auth::user()->middle_name.' '.$msg,
+                'route' => route('vehicle_show',$maintenance->vehicle['id'])
+            ]));
+        }
+
         if($maintenance)
         {
             return redirect()->back()->with('message', 'El mantenimiento para '.$maintenance->vehicle['brand'].' se creó con éxito.');
@@ -41,6 +54,17 @@ class MaintenanceController extends Controller
     {
         $maintenance = Maintenance::findOrFail($id);
         $maintenance->fill($request->all())->save();
+        $msg = "actualizó el mantenimiento de ".$maintenance->type['type']." para el vehículo ".$maintenance->vehicle['brand'].' '.$maintenance->vehicle['model'];
+        createSysLog($msg);
+        $notificationUsers = \App\User::where('rol_user_id',1)->get();
+        foreach($notificationUsers as $user)
+        {
+            event(new \App\Events\NotificationEvent([
+                'id' => $user->id,
+                'msg' => \Auth::user()->name.' '.\Auth::user()->middle_name.' '.$msg,
+                'route' => route('vehicle_show',$maintenance->vehicle['id'])
+            ]));
+        }
         return redirect()->route('vehicle_show',$maintenance->vehicle['id'])->with('message', 'El mantenimiento se actualizó con éxito.');
     }
 
@@ -54,6 +78,20 @@ class MaintenanceController extends Controller
             }
             $image->delete();
         }
+
+
+        $msg = "elimino un mantenimiento de ".$maintenance->type['type']." para el vehículo ".$maintenance->vehicle['brand'].' '.$maintenance->vehicle['model'];
+        createSysLog($msg);
+        $notificationUsers = \App\User::where('rol_user_id',1)->get();
+        foreach($notificationUsers as $user)
+        {
+            event(new \App\Events\NotificationEvent([
+                'id' => $user->id,
+                'msg' => \Auth::user()->name.' '.\Auth::user()->middle_name.' '.$msg,
+                'route' => route('vehicle_show',$maintenance->vehicle['id'])
+            ]));
+        }
+
         $maintenance->delete();
         return redirect()->route('vehicle_show',$maintenance->vehicle['id'])->with('message', 'El mantenimiento se eliminó con éxito.');
     }

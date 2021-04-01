@@ -35,7 +35,7 @@
             <td>
                 <a href="{{ route('edit_provider',$whitdrawal->id) }}"><span class="icon-pencil" title="Editar" style="cursor:pointer;color:#F39C12"> Editar</span></a>
                 <br>
-                <a href="#" onclick="deleteWithdrawal({{ $whitdrawal->id }});"><span class="icon-bin" title="Eliminar" style="cursor:pointer;color:#C0392B"> Eliminar</span></a>
+                <a href="#" onclick="deleteProvider({{ $whitdrawal->id }});"><span class="icon-bin" title="Eliminar" style="cursor:pointer;color:#C0392B"> Eliminar</span></a>
                 <br>
             </td>
         </tr>
@@ -103,5 +103,5 @@
 </script>
 
 @include('withdrawal.add_provider_modal')
-<input type="hidden" id="txt_delete_whitdrawal_route" value="{{ route('delete_whitdrawal') }}">
+<input type="hidden" id="txt_delete_provider_route" value="{{ route('delete_provider') }}">
 @endsection

@@ -42,7 +42,7 @@ class UserController extends Controller
             return redirect()->route('index_user')->with('message', 'El usuario se guardó y su imagen se almacenó con éxito.');
         }
         $user->save();
-        #TOTO : Make email template whit instructions about login 
+        #TODO : Make email template whit instructions about login 
         return redirect()->route('index_user')->with('message', 'Usuario creado');
     }
     public function show($id)

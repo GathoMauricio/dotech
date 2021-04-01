@@ -19,6 +19,19 @@ class SaleFollowController extends Controller
     {
         $saleFollow = SaleFollow::create($request->all());
         if($saleFollow){
+
+            $msg = "agregó un seguimiento al proyecto ".$saleFollow->sale['description'].": ".$saleFollow->body;
+            createSysLog($msg);
+            $notificationUsers = \App\User::where('rol_user_id',1)->get();
+            foreach($notificationUsers as $user)
+            {
+                event(new \App\Events\NotificationEvent([
+                    'id' => $user->id,
+                    'msg' => \Auth::user()->name.' '.\Auth::user()->middle_name.' '.$msg,
+                    'route' => route('sale_follows',$saleFollow->sale['id'])
+                ]));
+            }
+
             return redirect()->back()->with('message', 'Seguimiento agregado');
         }
     }

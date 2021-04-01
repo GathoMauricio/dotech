@@ -3,7 +3,7 @@
 <h4 class="title_page">Edición de retiro</h4>
 @include('config.menu')
 <br><br>
-<form action="{{ route('update_whitdrawal',$whitdrawal->id) }}" method="POST">
+<form action="{{ route('update_provider',$whitdrawal->id) }}" method="POST">
     @csrf
     @method('PUT')
     <div class="container">

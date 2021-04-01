@@ -21,6 +21,19 @@ class CompanyRepositoryController extends Controller
         $repository = CompanyRepository::create($request->all());
         if($repository)
         {
+            
+            $msg = "Agregó información al repositorio de la compañía  ".$repository->company['name'].': '.$repository->title;
+            createSysLog($msg);
+            $notificationUsers = \App\User::where('rol_user_id',1)->get();
+            foreach($notificationUsers as $user)
+            {
+                event(new \App\Events\NotificationEvent([
+                    'id' => $user->id,
+                    'msg' => \Auth::user()->name.' '.\Auth::user()->middle_name.' '.$msg,
+                    'route' => route('repository_company',$repository->company['id'])
+                ]));
+            }
+            
             return redirect()->route('repository_company',$request->company_id)->with('message', 'Repositorio creado.');
         }
     }
@@ -39,6 +52,19 @@ class CompanyRepositoryController extends Controller
         $repository->title = $request->title;
         $repository->body = $request->body;
         $repository->save();
+
+        $msg = "Actualizó información al repositorio de la compañía  ".$repository->company['name'].': '.$repository->title;
+            createSysLog($msg);
+            $notificationUsers = \App\User::where('rol_user_id',1)->get();
+            foreach($notificationUsers as $user)
+            {
+                event(new \App\Events\NotificationEvent([
+                    'id' => $user->id,
+                    'msg' => \Auth::user()->name.' '.\Auth::user()->middle_name.' '.$msg,
+                    'route' => route('repository_company',$repository->company['id'])
+                ]));
+            }
+
         return redirect()->route('repository_company',$repository->company_id)->with('message', 'Repositorio actualizado.');
     }
     public function destroy($id)

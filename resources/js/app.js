@@ -700,10 +700,7 @@ window.addProviderModal = () => {
     $("#add_sale_whitdrawal_modal").modal('hide');
     $("#add_provider_modal").modal();
 };
-window.editNameModal = () => {
-    $("#edit_name_modal").modal();
-};
-window.deleteWithdrawal = id => {
+window.deleteProvider = id => {
     Swal.fire({
         title: "Alto",
         text: "El registro será eliminada por completo.",
@@ -715,11 +712,17 @@ window.deleteWithdrawal = id => {
         cancelButtonText: "Cancelar"
     }).then(result => {
         if (result.isConfirmed) {
-            let route = $("#txt_delete_whitdrawal_route").val();
+            let route = $("#txt_delete_provider_route").val();
             window.location = route + '/' + id;
         }
     });
 };
+
+
+window.editNameModal = () => {
+    $("#edit_name_modal").modal();
+};
+
 window.deleteCompany = id => {
     Swal.fire({
         title: "Alto",
