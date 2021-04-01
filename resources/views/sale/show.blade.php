@@ -427,7 +427,11 @@
         <tr><td colspan="6" class="text-center">Sin registros</td></tr>
         @endif
     </table>
+    @if($sale->status == 'Finalizado')
+    <h3 class="font-weight-bold" style="color:green">[Proyecto finalizado]</h3>
+    @else
     <a href="#" onclick="setProjectAsFinish({{ $sale->id }})" class="font-weight-bold link-sys">[Marcar proyecto como finalizado]</a>
+    @endif
     <br/>
     <input type="hidden" id="txt_get_binnacle" value="{{ route('binnacle_show_json') }}">
     <input type="hidden" id="txt_show_binnacle_image_route" value="{{ route('show_binnacle_image') }}">

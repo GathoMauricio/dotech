@@ -34,6 +34,20 @@ class ProductSaleController extends Controller
         $sale->estimated = $newEstimated;
         $sale->iva = ($newEstimated * 16) / 100;
         $sale->save();
+        $msg_user_id=0;
+        $msg = 'ha agregado el producto: '.$newProduct->description.' a la cotización: '.$sale->description;
+        $msg_route=route('quote_products',$sale->id);
+        $notificationUsers = \App\User::where('rol_user_id',1)->get();
+        createSysLog($msg);
+        foreach($notificationUsers as $user)
+        {
+            $msg_user_id=$user->id;
+            event(new \App\Events\NotificationEvent([
+                'id' => $msg_user_id,
+                'msg' => \Auth::user()->name.' '.\Auth::user()->middle_name.' '.$msg,
+                'route' => $msg_route
+            ]));
+        }
         return redirect()->back()->with('message', 'Producto agregado');
     }
     public function show($id)
@@ -58,12 +72,46 @@ class ProductSaleController extends Controller
         $product->unity_price_sell = $request->unity_price_sell;
         $product->total_sell = ($request->quantity * $request->unity_price_sell);
         $product->save();
+
+        $msg_user_id=0;
+        $msg = 'ha actualizado el producto: '.$product->description.' de la cotización: '.$product->sale['description'];
+        $msg_route=route('quote_products',$product->sale['id']);
+        $notificationUsers = \App\User::where('rol_user_id',1)->get();
+        createSysLog($msg);
+        foreach($notificationUsers as $user)
+        {
+            $msg_user_id=$user->id;
+            event(new \App\Events\NotificationEvent([
+                'id' => $msg_user_id,
+                'msg' => \Auth::user()->name.' '.\Auth::user()->middle_name.' '.$msg,
+                'route' => $msg_route
+            ]));
+        }
+
         return redirect()->route('quote_products',$request->sale_id)->with('message', 'Producto actualizado');
     }
     public function destroy($id)
     {
         
         $product = ProductSale::findOrFail($id);
+
+
+        $msg_user_id=0;
+        $msg = 'ha eliminado el producto: '.$product->description.' de la cotización: '.$product->sale['description'];
+        $msg_route=route('quote_products',$product->sale['id']);
+        $notificationUsers = \App\User::where('rol_user_id',1)->get();
+        createSysLog($msg);
+        foreach($notificationUsers as $user)
+        {
+            $msg_user_id=$user->id;
+            event(new \App\Events\NotificationEvent([
+                'id' => $msg_user_id,
+                'msg' => \Auth::user()->name.' '.\Auth::user()->middle_name.' '.$msg,
+                'route' => $msg_route
+            ]));
+        }
+
+
         $lastId = $product->sale_id;
         $product->delete();
 

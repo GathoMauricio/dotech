@@ -48,6 +48,7 @@ class SaleController extends Controller
     public function store(SaleRequest $request)
     {
         $sale = Sale::create($request->all());
+
         return redirect('show_sale/' . $sale->id)->with('message', 'Registro creado.');
     }
     public function quotes($id)
@@ -131,6 +132,7 @@ class SaleController extends Controller
         $sale = Sale::findOrFail($id);
         $companies = Company::orderBy('name')->get();
         $departments = CompanyDepartment::where('company_id',$sale->company_id)->orderBy('name')->get();
+        
         return view('sale.edit',[
             'sale' => $sale,
             'companies' => $companies,
@@ -141,6 +143,23 @@ class SaleController extends Controller
     {
         $sale = Sale::findOrFail($id);
         $sale->update($request->all());
+
+
+        $msg_user_id=0;
+        $msg = 'actualizó la informacion el proyecto: '.$sale->description.' de '.$sale->company->name;
+        $msg_route=route('show_sale',$sale->id);
+        $notificationUsers = \App\User::where('rol_user_id',1)->get();
+        createSysLog($msg);
+        foreach($notificationUsers as $user)
+        {
+            $msg_user_id=$user->id;
+            event(new \App\Events\NotificationEvent([
+                'id' => $msg_user_id,
+                'msg' => \Auth::user()->name.' '.\Auth::user()->middle_name.' '.$msg,
+                'route' => $msg_route
+            ]));
+        }
+
         return redirect('show_sale/' . $sale->id)->with('message', 'Información actualizada.');
     }
     public function updateQuote(Request $request)
@@ -154,6 +173,22 @@ class SaleController extends Controller
         $sale->credit = $request->credit;
         $sale->currency = $request->currency;
         $sale->save();
+
+        $msg_user_id=0;
+        $msg = 'actualizó la informacion la cotización: '.$sale->description.' de '.$sale->company->name;
+        $msg_route=route('show_sale',$sale->id);
+        $notificationUsers = \App\User::where('rol_user_id',1)->get();
+        createSysLog($msg);
+        foreach($notificationUsers as $user)
+        {
+            $msg_user_id=$user->id;
+            event(new \App\Events\NotificationEvent([
+                'id' => $msg_user_id,
+                'msg' => \Auth::user()->name.' '.\Auth::user()->middle_name.' '.$msg,
+                'route' => $msg_route
+            ]));
+        }
+
         return redirect()->back()->with('message', 'Información actualizada.');
     }
     public function quoteProducts($id)
@@ -172,7 +207,25 @@ class SaleController extends Controller
     }
     public function destroy($id)
     {
-        Sale::findOrFail($id)->delete();
+        $sale = Sale::findOrFail($id);
+
+
+        $msg_user_id=0;
+        $msg = 'eliminó el proyecto: '.$sale->description.' de '.$sale->company->name;
+        $msg_route=route('index_proyects');
+        $notificationUsers = \App\User::where('rol_user_id',1)->get();
+        createSysLog($msg);
+        foreach($notificationUsers as $user)
+        {
+            $msg_user_id=$user->id;
+            event(new \App\Events\NotificationEvent([
+                'id' => $msg_user_id,
+                'msg' => \Auth::user()->name.' '.\Auth::user()->middle_name.' '.$msg,
+                'route' => $msg_route
+            ]));
+        }
+
+        $sale->delete();
         ProductSale::where('sale_id',$id)->delete();
         Whitdrawal::where('sale_id',$id)->delete();
         SalePayment::where('sale_id',$id)->delete();
@@ -185,6 +238,22 @@ class SaleController extends Controller
         $sale = Sale::findOrFail($request->sale_id);
         $sale->status = $request->status;
         $sale->save();
+
+        $msg_user_id=0;
+        $msg = 'actualizó el estatus de la cotización: '.$sale->description.' de '.$sale->company->name." a ".$sale->status;
+        $msg_route=route('show_sale',$sale->id);
+        $notificationUsers = \App\User::where('rol_user_id',1)->get();
+        createSysLog($msg);
+        foreach($notificationUsers as $user)
+        {
+            $msg_user_id=$user->id;
+            event(new \App\Events\NotificationEvent([
+                'id' => $msg_user_id,
+                'msg' => \Auth::user()->name.' '.\Auth::user()->middle_name.' '.$msg,
+                'route' => $msg_route
+            ]));
+        }
+
         return redirect()->back()->with('message', 'Información actualizada.');
     }
     public function changeCommision(Request $request)
@@ -192,6 +261,23 @@ class SaleController extends Controller
         $sale = Sale::findOrFail($request->sale_id);
         $sale->commision_percent = $request->commision_percent;
         $sale->save();
+
+
+        $msg_user_id=0;
+        $msg = 'cambió la comisión del proyecto: '.$sale->description.' de '.$sale->company->name." a ".$sale->commision_percent.'%';
+        $msg_route=route('show_sale',$sale->id);
+        $notificationUsers = \App\User::where('rol_user_id',1)->get();
+        createSysLog($msg);
+        foreach($notificationUsers as $user)
+        {
+            $msg_user_id=$user->id;
+            event(new \App\Events\NotificationEvent([
+                'id' => $msg_user_id,
+                'msg' => \Auth::user()->name.' '.\Auth::user()->middle_name.' '.$msg,
+                'route' => $msg_route
+            ]));
+        }
+
         return $sale;
     }
     public function loadPDF($id)
@@ -255,6 +341,22 @@ class SaleController extends Controller
             $mail->to($emails);
             $mail->attachData($pdf->output(), 'Cotizacion_'.$sale->id.'.pdf');
         });
+
+        $msg_user_id=0;
+        $msg = 'envió la cotización: '.$sale->description.' de '.$sale->company->name;
+        $msg_route=route('quote_products',$sale->id);
+        $notificationUsers = \App\User::where('rol_user_id',1)->get();
+        createSysLog($msg);
+        foreach($notificationUsers as $user)
+        {
+            $msg_user_id=$user->id;
+            event(new \App\Events\NotificationEvent([
+                'id' => $msg_user_id,
+                'msg' => \Auth::user()->name.' '.\Auth::user()->middle_name.' '.$msg,
+                'route' => $msg_route
+            ]));
+        }
+        
         return redirect()->back()->with('message', 'Se envió la cotización '.$sale->description.' a '.$sale->company->name.' con éxito.');
     }
     public function storeSaleByCompany(Request $request)
@@ -262,6 +364,20 @@ class SaleController extends Controller
         $sale = Sale::create($request->all());
         if($sale)
         {
+            $msg_user_id=0;
+            $msg = 'creo la cotización: '.$sale->description.' para: '.$sale->company->name;
+            $msg_route=route('quote_products',$sale->id);
+            $notificationUsers = \App\User::where('rol_user_id',1)->get();
+            createSysLog($msg);
+            foreach($notificationUsers as $user)
+            {
+                $msg_user_id=$user->id;
+                event(new \App\Events\NotificationEvent([
+                    'id' => $msg_user_id,
+                    'msg' => \Auth::user()->name.' '.\Auth::user()->middle_name.' '.$msg,
+                    'route' => $msg_route
+                ]));
+            }
             return redirect()->route('quote_products',$sale->id)->with('message', 'La cotización se creó con éxito ahora puede agregar productos.');
         }else{ return "Error"; }
     }
@@ -270,6 +386,20 @@ class SaleController extends Controller
         $sale = Sale::create($request->all());
         if($sale)
         {
+            $msg_user_id=0;
+            $msg = 'creo la cotización: '.$sale->description.' para: '.$sale->company->name;
+            $msg_route=route('quote_products',$sale->id);
+            $notificationUsers = \App\User::where('rol_user_id',1)->get();
+            createSysLog($msg);
+            foreach($notificationUsers as $user)
+            {
+                $msg_user_id=$user->id;
+                event(new \App\Events\NotificationEvent([
+                    'id' => $msg_user_id,
+                    'msg' => \Auth::user()->name.' '.\Auth::user()->middle_name.' '.$msg,
+                    'route' => $msg_route
+                ]));
+            }
             return redirect()->route('quote_products',$sale->id)->with('message', 'La cotización se creó con éxito ahora puede agregar productos.');
         }else{ return "Error"; }
     }
@@ -278,6 +408,20 @@ class SaleController extends Controller
         $sale = Sale::findOrFail($id);
         $sale->status = 'Finalizado';
         $sale->save();
+        $msg_user_id=0;
+        $msg = 'ha marcado el proyecto: '.$sale->description.' de '.$sale->company->name.' como finalizado.';
+        $msg_route=route('show_sale',$sale->id);
+        $notificationUsers = \App\User::where('rol_user_id',1)->get();
+        createSysLog($msg);
+        foreach($notificationUsers as $user)
+        {
+            $msg_user_id=$user->id;
+            event(new \App\Events\NotificationEvent([
+                'id' => $msg_user_id,
+                'msg' => \Auth::user()->name.' '.\Auth::user()->middle_name.' '.$msg,
+                'route' => $msg_route
+            ]));
+        }
         return redirect()->route('index_proyects')->with('message','El proyecto '.$sale->description.' se marcó como finalizado.');
     }
 }
