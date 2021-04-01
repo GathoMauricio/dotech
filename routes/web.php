@@ -232,8 +232,3 @@ Route::get('maintenance_destroy/{id?}','MaintenanceController@destroy')->name('m
 #Maintenance images
 Route::post('store_maintenance_image','MaintenanceImageController@store')->name('store_maintenance_image')->middleware('auth');
 Route::get('delete_maintenance_image/{id?}','MaintenanceImageController@destroy')->name('delete_maintenance_image')->middleware('auth');
-
-Route::get('pusher',function(){
-    event(new App\Events\NotificationEvent(['route:link'=>'http',['user'=>'5656']]));
-    return "My Pusher test";
-});

@@ -23,6 +23,8 @@ class NotificationEvent implements ShouldBroadcast
   
     public function broadcastOn()
     {
+        $user = \App\User::find($this->message['id']);
+        sendFcm($user->fcm_token, "Notificación", $this->message['msg'],null);
         return ['user-'.$this->message['id'].'-channel'];
     }
   
