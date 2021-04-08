@@ -232,3 +232,6 @@ Route::get('maintenance_destroy/{id?}','MaintenanceController@destroy')->name('m
 #Maintenance images
 Route::post('store_maintenance_image','MaintenanceImageController@store')->name('store_maintenance_image')->middleware('auth');
 Route::get('delete_maintenance_image/{id?}','MaintenanceImageController@destroy')->name('delete_maintenance_image')->middleware('auth');
+
+#Vehicle histories
+Route::get('vehicle_history_show/{id}','VehicleHistoryController@show')->name('vehicle_history_show')->middleware('auth');

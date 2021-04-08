@@ -6,6 +6,7 @@ use App\VehicleType;
 use App\Maintenance;
 use App\MaintenanceImage;
 use App\VehicleImage;
+use App\VehicleHistory;
 class VehicleController extends Controller
 {
     public function index()
@@ -47,10 +48,12 @@ class VehicleController extends Controller
         $vehicle = Vehicle::findOrFail($id);
         $vehicleImages = VehicleImage::where('vehicle_id',$id)->get();
         $maintenances = Maintenance::where('vehicle_id',$id)->get();
+        $vehicleHistories = VehicleHistory::where('vehicle_id',$id)->get();
         return view('vehicles.show',[
             'vehicle' => $vehicle,
             'vehicleImages' => $vehicleImages,
-            'maintenances' => $maintenances
+            'maintenances' => $maintenances,
+            'vehicleHistories' => $vehicleHistories
             ]);
     }
 

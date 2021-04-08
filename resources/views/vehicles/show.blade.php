@@ -125,6 +125,63 @@
         @endif
     </tbody>
 </table>
+<br/>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th colspan="6" class="text-center" style="background-color:#d30035;color:white;">
+            <!--
+            <a href="#" onclick="addMaintenanceVehicle({{ $vehicle->id }})" title="Añadir" class="float-right" style="color:white;">[ <span class="icon-upload"></span> ]</a>
+            -->
+            Salidas
+            </th>
+        </tr>
+        <tr>
+            <th>Fecha</th>
+            <th>Autor</th>
+            <th>Kilometraje</th>
+            <th>Descripción</th>
+            <th>Observaciones</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach($vehicleHistories as $vehicleHistory)
+        <tr>
+            <td>{{ formatDate($vehicleHistory->date) }}</td>
+            <td>{{ $vehicleHistory->author['name'] }} {{ $vehicleHistory->author['middle_name'] }} {{ $vehicleHistory->author['last_name'] }}</td>
+            <td>{{ $vehicleHistory->kilometers }}</td>
+            <td>{{ $vehicleHistory->description }}</td>
+            <td>
+            @if(!empty($vehicleHistory->observation))
+            {{ $vehicleHistory->observation }}
+            @else
+            Sin comentarios
+            @endif
+            </td>
+            <td>
+                <a href="{{ route('vehicle_history_show',$vehicleHistory->id) }}" ><span class="icon-eye" title="Ver..." style="cursor:pointer;color:#2E86C1"> Ver</span></a>
+                <br/>
+                <!--
+                <a href="{{ route('maintenance_edit',$vehicleHistory->id) }}" ><span class="icon-pencil" title="Editar..." style="cursor:pointer;color:#EB984E"> Editar</span></a>
+                <br/>
+                
+                @if(Auth::user()->rol_user_id == 1)
+                <a href="#" onclick="deleteMaintenance({{ $vehicleHistory->id }})"><span class="icon-bin" title="Eliminar..." style="cursor:pointer;color:#E74C3C"> Eliminar</span></a>
+                @endif
+                -->
+            </td>
+        </tr>
+        @endforeach
+        @if(count($maintenances) <= 0)
+        <tr>
+            <td class="text-center font-weight-bold" colspan="6">
+                No hay regirtros para mostrar
+            </td>
+        </tr>
+        @endif
+    </tbody>
+</table>
 <input type="hidden" id="txt_delete_vehicle_image_route" value="{{ route('vehicle_image_destroy') }}"/>
 <input type="hidden" id="txt_delete_maitenance_route" value="{{ route('maintenance_destroy') }}"/>
 @include('vehicles.add_vehicle_image_modal')
