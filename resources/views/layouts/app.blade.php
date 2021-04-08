@@ -163,7 +163,7 @@
                     </p>
                 </a>
                 <hr>
-                <a href="{{ asset('mobile/dotech_mobile_1-0-6.apk') }}" target="_blank">
+                <a href="{{ asset('mobile/dotech_mobile_1-0-7.apk') }}" target="_blank">
                     <p style="cursor:pointer;">
                         <span class="icon-android" style="color:green;">
                             <span style="display:none;" class="label-item-menu">

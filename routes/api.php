@@ -11,8 +11,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 Route::middleware('auth:api')->get('/get_current_version', function (Request $request) {
     return [
-        'currentVersion' => '1.0.6',
-        'downloadLink' => getUrl().'/mobile/dotech_mobile_1-0-6.apk'
+        'currentVersion' => '1.0.7',
+        'downloadLink' => getUrl().'/mobile/dotech_mobile_1-0-7.apk'
     ];
 });
 
@@ -63,3 +63,14 @@ Route::middleware('auth:api')->get('expense_index','ApiExpenseController@index')
 Route::middleware('auth:api')->post('expense_store','ApiExpenseController@store')->name('expense_store');
 Route::middleware('auth:api')->put('update_expense_status','ApiExpenseController@update')->name('update_expense_status');
 Route::middleware('auth:api')->delete('destroy_expense','ApiExpenseController@destroy')->name('destroy_expense');
+
+#Vehicles
+Route::middleware('auth:api')->get('vehicle_index','ApiVehicleController@index')->name('vehicle_index');
+
+#Vehicle Histories
+Route::middleware('auth:api')->get('vehicle_history_index','ApiVehicleHistoryController@index')->name('vehicle_history_index');
+Route::middleware('auth:api')->post('vehicle_history_store','ApiVehicleHistoryController@store')->name('vehicle_history_store');
+
+
+Route::middleware('auth:api')->get('vehicle_history_image_index/{id}','ApiVehicleHistoryImageController@index')->name('vehicle_history_image_index');
+Route::middleware('auth:api')->post('upload_vehicle_history_image','ApiVehicleHistoryImageController@store')->name('upload_vehicle_history_image');
