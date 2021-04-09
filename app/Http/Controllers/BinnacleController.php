@@ -104,6 +104,7 @@ class BinnacleController extends Controller
     public function destroy($id)
     {
         $binnacle = Binnacle::findOrFail($id);
+        createSysLog('eliminó la bitácora '.$binnacle->description);
         $binnacle->delete();
         return redirect()->back()->with('message', 'La bitácora se eliminó con éxito. ');
     }
