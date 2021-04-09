@@ -11,8 +11,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 Route::middleware('auth:api')->get('/get_current_version', function (Request $request) {
     return [
-        'currentVersion' => '1.0.7',
-        'downloadLink' => getUrl().'/mobile/dotech_mobile_1-0-7.apk'
+        'currentVersion' => '1.0.8',
+        'downloadLink' => getUrl().'/mobile/dotech_mobile_1-0-8.apk'
     ];
 });
 
@@ -78,6 +78,12 @@ Route::middleware('auth:api')->post('upload_vehicle_history_image','ApiVehicleHi
 #Receptions
 Route::middleware('auth:api')->get('reception_index','ApiReceptionController@index')->name('reception_index');
 Route::middleware('auth:api')->post('reception_store','ApiReceptionController@store')->name('reception_store');
+Route::middleware('auth:api')->get('reception_show/{id}','ApiReceptionController@show')->name('reception_show');
+Route::middleware('auth:api')->put('reception_update/{id}','ApiReceptionController@update')->name('reception_update');
+
+#Reception images
+Route::middleware('auth:api')->get('reception_image_index','ApiReceptionImageController@index')->name('reception_image_index');
+Route::middleware('auth:api')->post('upload_reception_image','ApiReceptionImageController@store')->name('upload_reception_image');
 
 #Companies
 Route::middleware('auth:api')->get('company_index','ApiCompanyController@index')->name('company_index');

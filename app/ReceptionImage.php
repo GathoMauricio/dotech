@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ReceptionImage extends Model
 {
-    protected $table = 'projects';
+    protected $table = 'reception_images';
 	protected $primaryKey = 'id';
 	public $timestamps = true;
 

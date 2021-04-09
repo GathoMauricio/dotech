@@ -19,6 +19,7 @@ class ApiReceptionController extends Controller
         foreach($receptions as $reception)
         {
             $json[] = [
+                'id' => $reception->id,
                 'company' => $reception->company['name'],
                 'author' => $reception->author['name'].' '.$reception->author['middle_name'].' '.$reception->author['last_name'],
                 'responsable' => $reception->responsable,
@@ -61,6 +62,12 @@ class ApiReceptionController extends Controller
     public function show($id)
     {
         $reception = Reception::findOrFail($id);
+        if($reception->company_id > 0)
+        {
+            $reception->company_id = $reception->company['name'];
+        }else{
+            $reception->company_id = 'No definida';
+        }
         return $reception;
     }
 
@@ -74,6 +81,11 @@ class ApiReceptionController extends Controller
         $reception = Reception::findOrFail($id);
         $reception->fill($request->all())->save();
         createSysLog("actualizó la recepción de equipo: " . $reception->description);
+        return [
+            'error' => 0,
+            'reception_id' => $reception->id,
+            'msg' => "La recepción del equipo se actualizo correctamente."
+        ];
     }
 
     public function destroy($id)
