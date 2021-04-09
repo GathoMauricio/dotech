@@ -194,6 +194,7 @@ Route::get('show_service_image','ServiceImageController@show')->name('show_servi
 #Binnacles
 Route::get('index_binnacle','BinnacleController@index')->name('index_binnacle')->middleware('auth');
 Route::get('create_binnacle','BinnacleController@create')->name('create_binnacle')->middleware('auth');
+Route::get('delete_binnacle/{id?}','BinnacleController@destroy')->name('delete_binnacle')->middleware('auth');
 
 Route::post('store_binnacle/{id?}','BinnacleController@store')->name('store_binnacle')->middleware('auth');
 Route::get('binnacle_show_json/{id?}','BinnacleController@show_json')->name('binnacle_show_json')->middleware('auth');

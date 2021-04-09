@@ -54,6 +54,14 @@
                     </span>
                 </a>
                 <br>
+                @if(Auth::user()->rol_user_id == 1)
+                <a href="#" onclick="deleteBinnacle({{ $binnacle->id }});">
+                    <span class="icon-bin" title="Eliminar..." style="cursor:pointer;color:red">
+                        Eliminar
+                    </span>
+                </a>
+                <br>
+                @endif
             </td>
         </tr>
     @endforeach
@@ -64,5 +72,6 @@
 <input type="hidden" id="txt_get_binnacle" value="{{ route('binnacle_show_json') }}">
 <input type="hidden" id="txt_show_binnacle_image_route" value="{{ route('show_binnacle_image') }}">
 <input type="hidden" id="txt_view_binnacle_images_route" value="{{ route('binnacle_images_index') }}">
+<input type="hidden" id="txt_delete_binnacle_route" value="{{ route('delete_binnacle') }}"/>
 @endif
 @endsection

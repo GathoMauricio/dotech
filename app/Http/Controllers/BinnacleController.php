@@ -103,7 +103,9 @@ class BinnacleController extends Controller
     }
     public function destroy($id)
     {
-        //
+        $binnacle = Binnacle::findOrFail($id);
+        $binnacle->delete();
+        return redirect()->back()->with('message', 'La bitácora se eliminó con éxito. ');
     }
     public function makePdf($id)
     {

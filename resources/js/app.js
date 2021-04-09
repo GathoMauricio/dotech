@@ -1051,3 +1051,20 @@ window.deleteMaintenanceImage = id => {
         }
     });
 };
+window.deleteBinnacle = id => {
+    const route = $("#txt_delete_binnacle_route").val();
+    Swal.fire({
+        title: "¿Eliminar registro?",
+        text: "El registro se eliminará por completo.",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "red",
+        cancelButtonColor: "#000",
+        confirmButtonText: "Si, eliminar!",
+        cancelButtonText: "Cancelar"
+    }).then(result => {
+        if (result.isConfirmed) {
+            window.location = route + '/' + id;
+        }
+    });
+};

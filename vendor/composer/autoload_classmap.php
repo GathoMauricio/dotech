@@ -63,6 +63,7 @@ return array(
     'App\\Http\\Controllers\\TaskController' => $baseDir . '/app/Http/Controllers/TaskController.php',
     'App\\Http\\Controllers\\UserController' => $baseDir . '/app/Http/Controllers/UserController.php',
     'App\\Http\\Controllers\\VehicleController' => $baseDir . '/app/Http/Controllers/VehicleController.php',
+    'App\\Http\\Controllers\\VehicleHistoryController' => $baseDir . '/app/Http/Controllers/VehicleHistoryController.php',
     'App\\Http\\Controllers\\VehicleImageController' => $baseDir . '/app/Http/Controllers/VehicleImageController.php',
     'App\\Http\\Controllers\\WhitdrawalAccountController' => $baseDir . '/app/Http/Controllers/WhitdrawalAccountController.php',
     'App\\Http\\Controllers\\WhitdrawalController' => $baseDir . '/app/Http/Controllers/WhitdrawalController.php',

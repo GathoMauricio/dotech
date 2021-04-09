@@ -71,6 +71,14 @@ Route::middleware('auth:api')->get('vehicle_index','ApiVehicleController@index')
 Route::middleware('auth:api')->get('vehicle_history_index','ApiVehicleHistoryController@index')->name('vehicle_history_index');
 Route::middleware('auth:api')->post('vehicle_history_store','ApiVehicleHistoryController@store')->name('vehicle_history_store');
 
-
+#Vehicle history images
 Route::middleware('auth:api')->get('vehicle_history_image_index/{id}','ApiVehicleHistoryImageController@index')->name('vehicle_history_image_index');
 Route::middleware('auth:api')->post('upload_vehicle_history_image','ApiVehicleHistoryImageController@store')->name('upload_vehicle_history_image');
+
+#Receptions
+Route::middleware('auth:api')->get('reception_index','ApiReceptionController@index')->name('reception_index');
+Route::middleware('auth:api')->post('reception_store','ApiReceptionController@store')->name('reception_store');
+
+#Companies
+Route::middleware('auth:api')->get('company_index','ApiCompanyController@index')->name('company_index');
+Route::middleware('auth:api')->get('company_show/{id}','ApiCompanyController@show')->name('company_show');
