@@ -159,7 +159,7 @@
         <tr>
             <td width="80%"style="background-color:#D5D8DC;">
                 <center>
-                    <img src="{{ parseBAse64(public_path('storage/'.$image->image)) }}" style="width:100%;">
+                    <img src="{{ parseBAse64(public_path('storage/'.$image->image)) }}" style="width:100%;height:400px">
                 </center>
             </td>
         </tr>
