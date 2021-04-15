@@ -199,6 +199,9 @@ Route::get('delete_binnacle/{id?}','BinnacleController@destroy')->name('delete_b
 Route::post('store_binnacle/{id?}','BinnacleController@store')->name('store_binnacle')->middleware('auth');
 Route::get('binnacle_show_json/{id?}','BinnacleController@show_json')->name('binnacle_show_json')->middleware('auth');
 Route::post('send_binnacle_pdf','BinnacleController@sendPdf')->name('send_binnacle_pdf')->middleware('auth');
+Route::post('send_all_binnacle_pdf','BinnacleController@sendAllPdf')->name('send_all_binnacle_pdf')->middleware('auth');
+
+Route::get('binnacles_by_project/{id}','BinnacleController@indexByProject')->name('binnacles_by_project')->middleware('auth');
 
 #Binnacle PDF
 Route::get('binnacle_pdf/{id}','BinnacleController@makePdf')->name('binnacle_pdf')->middleware('auth');
@@ -236,3 +239,9 @@ Route::get('delete_maintenance_image/{id?}','MaintenanceImageController@destroy'
 
 #Vehicle histories
 Route::get('vehicle_history_show/{id}','VehicleHistoryController@show')->name('vehicle_history_show')->middleware('auth');
+
+#Vehicle verifications
+Route::post('store_vehicle_verification','VehicleVerificationController@store')->name('store_vehicle_verification')->middleware('auth');
+
+#Vehicle documents
+Route::post('store_vehicle_document','VehicleDocumentController@store')->name('store_vehicle_document')->middleware('auth');

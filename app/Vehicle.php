@@ -22,6 +22,7 @@ class Vehicle extends Model
         'displacement',
         'power',
         'color',
+        'visibility',
         'created_at',
         'updated_at',
     ];

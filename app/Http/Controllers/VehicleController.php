@@ -7,11 +7,18 @@ use App\Maintenance;
 use App\MaintenanceImage;
 use App\VehicleImage;
 use App\VehicleHistory;
+use App\VehicleVerification;
+use App\VehicleDocument;
 class VehicleController extends Controller
 {
     public function index()
     {
-        $vehicles = Vehicle::paginate(15);
+        if(\Auth::user()->rol_user_id == 1)
+        {
+            $vehicles = Vehicle::paginate(15);
+        }else{
+            $vehicles = Vehicle::where('visibility','publica')->paginate(15);
+        }
         return view('vehicles.index',['vehicles' => $vehicles]);
     }
 
@@ -49,11 +56,15 @@ class VehicleController extends Controller
         $vehicleImages = VehicleImage::where('vehicle_id',$id)->get();
         $maintenances = Maintenance::where('vehicle_id',$id)->get();
         $vehicleHistories = VehicleHistory::where('vehicle_id',$id)->get();
+        $verifications = VehicleVerification::where('vehicle_id',$id)->get();
+        $documents = VehicleDocument::where('vehicle_id',$id)->get();
         return view('vehicles.show',[
             'vehicle' => $vehicle,
             'vehicleImages' => $vehicleImages,
             'maintenances' => $maintenances,
-            'vehicleHistories' => $vehicleHistories
+            'vehicleHistories' => $vehicleHistories,
+            'verifications' => $verifications,
+            'documents' => $documents
             ]);
     }
 

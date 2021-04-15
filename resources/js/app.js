@@ -1068,3 +1068,40 @@ window.deleteBinnacle = id => {
         }
     });
 };
+
+window.sendBinnacleAll = sale_id => {
+    const route = $("#txt_get_project_data").val();
+    $.ajax({
+        type: 'GET',
+        url: route,
+        data: {
+            id: sale_id
+        },
+        success: data => {
+            console.log(data);
+            $("#txt_project_id_send_pdf_all").val(data.id);
+            $("#txt_email_project_pdf_all").val(data.email);
+            $("#send_all_binnacle_pdf_modal").modal();
+        },
+        error: error => console.log(error)
+    });
+};
+
+window.showVehicleTab = tab => {
+    $("#fotos_vehicles_container_tab").css('display', 'none');
+    $("#mantenimientos_vehicles_container_tab").css('display', 'none');
+    $("#salidas_vehicles_container_tab").css('display', 'none');
+    $("#verificaciones_vehicles_container_tab").css('display', 'none');
+    $("#documentacion_vehicles_container_tab").css('display', 'none');
+    $("#" + tab + "_vehicles_container_tab").css('display', 'block');
+};
+
+window.addVehicleVerification = vehicle_id => {
+    $("#txt_add_vehicle_verification_id").val(vehicle_id);
+    $("#add_vehicle_verification_modal").modal();
+};
+
+window.addVehicleDocument = vehicle_id => {
+    $("#txt_add_vehicle_document_id").val(vehicle_id);
+    $("#add_vehicle_document_modal").modal();
+};

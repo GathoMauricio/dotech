@@ -49,9 +49,10 @@
                 </td>
             </tr>
         </table>
+        
 </header>
 
-<main><br/><br/><br>
+<main><br/><br/><br/><br/>
 @if(!empty($binnacle->sale['description']))
 <table style="width:100%;">
     <tr>
@@ -114,6 +115,12 @@
 <table style="width:100%;">
     <tbody>
         <tr>
+            <th width="100%" colspan="3" style="background-color:#D5D8DC;">Autor</th>
+        </tr>
+        <tr>
+            <td colspan="3" style="text-align:center">{{ $binnacle->author['name'] }} {{ $binnacle->author['middle_name'] }} {{ $binnacle->author['last_name'] }}</td>
+        </tr>
+        <tr>
             <th width="15%" style="background-color:#D5D8DC;">Fecha</th>
             <th width="25%" style="background-color:#D5D8DC;">Descripción</th>
             <th width="15%" style="background-color:#D5D8DC;">Firma</th>
@@ -134,12 +141,10 @@
 <table style="width:100%;">
     <thead>
         <tr>
-            <th width="100%" colspan="3" style="background-color:#D5D8DC;">Imagenes</th>
+            <th width="100%"><br/></th>
         </tr>
         <tr>
-            <th width="15%" style="background-color:#D5D8DC;">Fecha</th>
-            <th width="25%" style="background-color:#D5D8DC;">Descripción</th>
-            <th width="15%" style="background-color:#D5D8DC;">Imagen</th>
+            <th width="100%" style="background-color:#D5D8DC;">Imagenes</th>
         </tr>
     </thead>
 
@@ -149,10 +154,20 @@
         @endphp
         @foreach($images as $image)
         <tr>
-            <td width="20%" style="background-color:#D5D8DC;padding:5px;">{{ formatDate($image->created_at) }}</td>
-            <td width="50%" style="background-color:#D5D8DC;padding:5px;">{{ $image->description }}</td>
-            <td width="30%" style="background-color:#D5D8DC;">
-                <img src="{{ parseBAse64(public_path('storage/'.$image->image)) }}" style="width:100%;">
+            <th width="100%"><br/></th>
+        </tr>
+        <tr>
+            <td width="80%"style="background-color:#D5D8DC;">
+                <center>
+                    <img src="{{ parseBAse64(public_path('storage/'.$image->image)) }}" style="width:100%;">
+                </center>
+            </td>
+        </tr>
+        <tr>
+            <td width="80%"style="background-color:#D5D8DC;padding:5px;">
+                <b>Descripción: </b>{{ $image->description }}
+                <br/><br/>
+                <span>{{ formatDate($image->created_at) }}</span>
             </td>
         </tr>
         @endforeach

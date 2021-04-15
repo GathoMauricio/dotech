@@ -117,6 +117,8 @@ class SaleController extends Controller
     {
         $sale = Sale::findOrFail($request->id);
         return [
+            'id' => $sale->id,
+            'email' => $sale->department['email'],
             'company' => $sale->company['name'],
             'description' => $sale->description,
             'observation' => $sale->observation,

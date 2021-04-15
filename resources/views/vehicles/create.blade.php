@@ -9,6 +9,19 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="origin" class="font-weight-bold color-primary-sys">
+                        Visibilidad
+                    </label>
+                    <select name="visibility" class="form-control" required>
+                        <option value="publica" selected>Pública</option>
+                        <option value="privada">Privada</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="origin" class="font-weight-bold color-primary-sys">
                         Marca
                     </label>
                     <input type="text" name="brand" class="form-control" required/>

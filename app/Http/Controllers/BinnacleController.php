@@ -10,6 +10,12 @@ class BinnacleController extends Controller
         $binnacles = Binnacle::orderBy('id','DESC')->paginate(15);
         return view('binnacles.index',compact('binnacles'));
     }
+    public function indexByProject($id)
+    {
+        $sale = Sale::findOrFail($id);
+        $binnacles = Binnacle::where('sale_id',$id)->get();
+        return view('binnacles.index_by_project',['binnacles' => $binnacles, 'sale' => $sale]);
+    }
     public function create()
     {
         $sales = Sale::where('status','Proyecto')->get();
@@ -67,6 +73,7 @@ class BinnacleController extends Controller
     public function sendPdf(Request $request)
     {
         $binnacle = Binnacle::findOrFail($request->binnacle_id);
+
         $logo = parseBase64(public_path("img/dotech_fondo.png"));
         if(!empty($binnacle->sale['description']))
         {
@@ -74,9 +81,6 @@ class BinnacleController extends Controller
         }else{
             $logo2 = parseBase64(public_path("storage/compania.png")); 
         }
-        
-
-
         if(!empty($binnacle->firm)) $firm = parseBase64(public_path("storage/".$binnacle->firm)); else $firm = NULL;
         $pdf = \PDF::loadView('pdf.binnacle',
             [
@@ -92,6 +96,48 @@ class BinnacleController extends Controller
             $mail->attachData($pdf->output(), 'Bitacora '.$binnacle->created_at.'.pdf');
         });
         return redirect()->back()->with('message', 'La bitácora se envió con éxito. ');
+    }
+    public function sendAllPdf(Request $request)
+    {
+        set_time_limit(50000);
+        $proyect = Sale::findOrFail($request->project_id);
+        $binnacles = Binnacle::where('sale_id',$request->project_id)->get();
+        $pdf = [];
+        foreach($binnacles as $binnacle)
+        {
+            $logo = parseBase64(public_path("img/dotech_fondo.png"));
+            if(!empty($binnacle->sale['description']))
+            {
+            $logo2 = parseBase64(public_path("storage/".$binnacle->sale->company['image'])); 
+            }else{
+                $logo2 = parseBase64(public_path("storage/compania.png")); 
+            }
+            if(!empty($binnacle->firm)) $firm = parseBase64(public_path("storage/".$binnacle->firm)); else $firm = NULL;
+            
+            $pdf[] = \PDF::loadView('pdf.binnacle',
+                [
+                    'logo' => $logo,
+                    'logo2' => $logo2,
+                    'firm' => $firm,
+                    'binnacle' => $binnacle
+                ]
+            )->output();
+
+        }
+        //$files = glob($pdf);
+        //$zip = \Madzipper::make('storage/zipped/test.zip')->add($files)->close();
+        //return dd($files);
+        
+        \Mail::send('email.binnacle_all', ['proyect' => $proyect], function ($mail) use ($proyect,$pdf, $request) {
+            $mail->from('dotechapp@dotredes.com',env('APP_NAME'));
+            $mail->to($request->email);
+            foreach($pdf as $p){
+                $mail->attachData($p->output(), 'Bitacoras_proyecto_'.$proyect->description.'.pdf');
+            }
+        });
+        
+        //return redirect()->back()->with('message', 'La bitácora se envió con éxito. ');
+        //return dd($pdf);
     }
     public function edit($id)
     {

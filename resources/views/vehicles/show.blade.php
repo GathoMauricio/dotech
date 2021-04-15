@@ -36,54 +36,80 @@
     </tr> 
 </table>
 <br/>
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th colspan="3" class="text-center" style="background-color:#d30035;color:white;">
-                <a href="#" onclick="addVehicleImage({{ $vehicle->id }})" title="Añadir" class="float-right" style="color:white;">[ <span class="icon-upload"></span> ]</a>
-                Fotos
-            </th>
-        </tr>
-        <tr>
-            <th>Imagen</th>
-            <th>Descripción</th>
-            @if(Auth::user()->rol_user_id == 1)
-           <th></th>
-           @endif
-        </tr>
-    </thead>
-    <tbody>
-        @foreach($vehicleImages as $vehicleImage)
-        <tr>
-            <td><a href="{{asset('storage')}}/{{ $vehicleImage->image }}" target="_blank"><img src="{{asset('storage')}}/{{ $vehicleImage->image }}" width="120"/></a></td>
-            <td>{{ $vehicleImage->description }}</td>
-            @if(Auth::user()->rol_user_id == 1)
-            <td>
-                <a href="#" onclick="deleteVehicleImage({{ $vehicleImage->id }})"><span class="icon-bin" title="Eliminar..." style="cursor:pointer;color:#E74C3C"> Eliminar</span></a>
-            </td>
-            @endif
-        </tr>
-        @endforeach
-        @if(count($vehicleImages) <= 0)
-        <tr>
-            <td class="text-center font-weight-bold" colspan="3">
-                No hay regirtros para mostrar
-            </td>
-        </tr>
+<table style="width:100%;">
+    <tr>
+        <td onclick="showVehicleTab('fotos');" class="text-center font-weight-bold" style="background-color:#d30035;color:white;cursor:pointer;">
+            Fotos
+        </td>
+        <td onclick="showVehicleTab('mantenimientos');" class="text-center font-weight-bold" style="background-color:#d30035;color:white;cursor:pointer;">
+            Mantenimientos
+        </td>
+        <td onclick="showVehicleTab('salidas');" class="text-center font-weight-bold" style="background-color:#d30035;color:white;cursor:pointer;">
+            Salidas
+        </td>
+        <td onclick="showVehicleTab('verificaciones');" class="text-center font-weight-bold" style="background-color:#d30035;color:white;cursor:pointer;">
+            Verificaciones
+        </td>
+        @if(Auth::user()->rol_user_id == 1)
+        <td onclick="showVehicleTab('documentacion');" class="text-center font-weight-bold" style="background-color:#d30035;color:white;cursor:pointer;">
+            Documentación
+        </td>
         @endif
-    </tbody>
+    </tr>
 </table>
 <br/>
+<div id="fotos_vehicles_container_tab">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th colspan="3" class="text-center" style="background-color:#d30035;color:white;">
+                    <a href="#" onclick="addVehicleImage({{ $vehicle->id }})" title="Añadir" class="float-right" style="color:white;">[ <span class="icon-upload"></span> ]</a>
+                    Fotos
+                </th>
+            </tr>
+            <tr>
+                <th>Imagen</th>
+                <th>Descripción</th>
+                @if(Auth::user()->rol_user_id == 1)
+                <th></th>
+                @endif
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($vehicleImages as $vehicleImage)
+            <tr>
+                <td><a href="{{asset('storage')}}/{{ $vehicleImage->image }}" target="_blank"><img src="{{asset('storage')}}/{{ $vehicleImage->image }}" width="120"/></a></td>
+                <td>{{ $vehicleImage->description }}</td>
+                @if(Auth::user()->rol_user_id == 1)
+                <td>
+                    <a href="#" onclick="deleteVehicleImage({{ $vehicleImage->id }})"><span class="icon-bin" title="Eliminar..." style="cursor:pointer;color:#E74C3C"> Eliminar</span></a>
+                </td>
+                @endif
+            </tr>
+            @endforeach
+            @if(count($vehicleImages) <= 0)
+            <tr>
+                <td class="text-center font-weight-bold" colspan="3">
+                    No hay regirtros para mostrar
+                </td>
+            </tr>
+            @endif
+        </tbody>
+    </table>
+    <br/>
+</div>
+<div id="mantenimientos_vehicles_container_tab" style="display:none;">
 <table class="table table-striped">
     <thead>
         <tr>
-            <th colspan="6" class="text-center" style="background-color:#d30035;color:white;">
+            <th colspan="7" class="text-center" style="background-color:#d30035;color:white;">
             <a href="#" onclick="addMaintenanceVehicle({{ $vehicle->id }})" title="Añadir" class="float-right" style="color:white;">[ <span class="icon-upload"></span> ]</a>
             Manteniemientos
             </th>
         </tr>
         <tr>
             <th>Autor</th>
+            <th>Kilometraje</th>
             <th>Tipo</th>
             <th>Fecha</th>
             <th>Monto</th>
@@ -95,6 +121,7 @@
         @foreach($maintenances as $maintenance)
         <tr>
             <td>{{ $maintenance->author['name'] }} {{ $maintenance->author['middle_name'] }} {{ $maintenance->author['last_name'] }}</td>
+            <td>{{ $maintenance->kilometers }}</td>
             <td>
             @if($maintenance->type['id'] != 22)
             {{ $maintenance->type['type'] }}
@@ -118,7 +145,7 @@
         @endforeach
         @if(count($maintenances) <= 0)
         <tr>
-            <td class="text-center font-weight-bold" colspan="6">
+            <td class="text-center font-weight-bold" colspan="7">
                 No hay regirtros para mostrar
             </td>
         </tr>
@@ -126,6 +153,8 @@
     </tbody>
 </table>
 <br/>
+</div>
+<div id="salidas_vehicles_container_tab" style="display:none;">
 <table class="table table-striped">
     <thead>
         <tr>
@@ -182,8 +211,78 @@
         @endif
     </tbody>
 </table>
+<br />
+</div>
+<div id="verificaciones_vehicles_container_tab" style="display:none;">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th colspan="4" class="text-center" style="background-color:#d30035;color:white;">
+                    <a href="#" onclick="addVehicleVerification({{ $vehicle->id }})" title="Añadir" class="float-right" style="color:white;">[ <span class="icon-upload"></span> ]</a>
+                    Verificaciones
+                </th>
+            </tr>
+            <tr>
+                <th>Fecha</th>
+                <th>Kilometraje</th>
+                <th>Tipo</th>
+                <th>Foto</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($verifications as $verification)
+            <tr>
+                <td>{{ $verification->date }}</td>
+                <td>{{ $verification->kilometers }}</td>
+                <td>{{ $verification->type  }}</td>
+                <td class="text-center"><a href="{{ asset('storage') }}/{{ $verification->image}}" target="_blank"><img src="{{ asset('storage') }}/{{ $verification->image}}" width="200" /></a></td>
+            </tr>
+            @endforeach
+            @if (count($verifications) <= 0)
+                <tr>
+                <td colspan="4" class="text-center font-weight-bold">No hay registros para mostrar</td>
+                </tr>
+            @endif
+        </tbody>
+    </table>
+<br />
+</div>
+<div id="documentacion_vehicles_container_tab" style="display:none;">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th colspan="3" class="text-center" style="background-color:#d30035;color:white;">
+                    <a href="#" onclick="addVehicleDocument({{ $vehicle->id }})" title="Añadir" class="float-right" style="color:white;">[ <span class="icon-upload"></span> ]</a>
+                    Documentación
+                </th>
+            </tr>
+            <tr>
+                <th>Fecha</th>
+                <th>Descripción</th>
+                <th>Documento</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($documents as $document)
+            <tr>
+                <td>{{ formatDate($document->created_at) }}</td>
+                <td>{{ $document->description }}</td>
+                <td><a href="{{ asset('storage') }}/{{ $document->file }}" target="_blank">Ver documento</a></td>
+            </tr>
+            @endforeach
+            @if (count($documents) <= 0)
+                <tr>
+                <td colspan="3" class="text-center font-weight-bold">No hay registros para mostrar</td>
+                </tr>
+            @endif
+        </tbody>
+    </table>
+<br />
+</div>
 <input type="hidden" id="txt_delete_vehicle_image_route" value="{{ route('vehicle_image_destroy') }}"/>
 <input type="hidden" id="txt_delete_maitenance_route" value="{{ route('maintenance_destroy') }}"/>
 @include('vehicles.add_vehicle_image_modal')
 @include('maintenances.add_maintenance_modal')
+@include('vehicles.add_vehicle_verification_modal');
+@include('vehicles.add_vehicle_document_modal');
 @endsection

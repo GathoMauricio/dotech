@@ -369,6 +369,10 @@
                     <label style="float:right;padding:5px;"><span
                             onclick="addBinnacle({{ $sale->id }});" class="icon-plus"
                             style="cursor:pointer;color:white;" title="Agregar bitácora..."></span></label>
+                    <!--
+                    <br/>
+                    <a href="#" onclick="sendBinnacleAll({{ $sale->id }})" style="color:white;"><span class="icon-envelop"></span> Enviar todas las bitácoras</a>
+                    -->
                 </center>
             </td>
         </tr>
@@ -434,11 +438,13 @@
     @endif
     <br/>
     <input type="hidden" id="txt_get_binnacle" value="{{ route('binnacle_show_json') }}">
+    <input type="hidden" id="txt_get_project_data" value="{{ route('show_quote_ajax') }}">
     <input type="hidden" id="txt_show_binnacle_image_route" value="{{ route('show_binnacle_image') }}">
     <input type="hidden" id="txt_view_binnacle_images_route" value="{{ route('binnacle_images_index') }}">
     <input type="hidden" id="txt_set_project_as_finish" value="{{ route('set_project_as_finish')}}">
 </center>
 @include('sale.send_binnacle_pdf_modal')
+@include('sale.send_all_binnacle_pdf_modal')
 @include('withdrawal.add_provider_modal')
 @include('withdrawal.aprove_withdrawal_modal')
 @include('sale.add_binnacle_modal')

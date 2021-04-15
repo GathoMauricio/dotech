@@ -10,6 +10,24 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="origin" class="font-weight-bold color-primary-sys">
+                        Visibilidad
+                    </label>
+                    <select name="visibility" class="form-control" required>
+                        @if($vehicle->visibility == 'publica')
+                        <option value="publica" selected>Pública</option>
+                        <option value="privada">Privada</option>
+                        @else
+                        <option value="publica">Pública</option>
+                        <option value="privada" selected>Privada</option>
+                        @endif
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="origin" class="font-weight-bold color-primary-sys">
                         Marca
                     </label>
                     <input type="text" value="{{ $vehicle->brand }}" name="brand" class="form-control" required/>
