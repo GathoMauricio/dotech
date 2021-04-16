@@ -3,15 +3,16 @@
 <a href="{{ route('create_binnacle') }}" class="float-right">[<span class="icon-plus">Crear bitácora<span>]</a>
 <h4 class="title_page ">Bitácoras</h4>
 <br/>
-<span class="float-right">{{ $binnacles->links() }}</span>
+
 @if(count($binnacles) <= 0)
 @include('layouts.no_records')
 @else
 <table class="table table-bordered" id="index_table">
     <thead>
         <tr>
+            <th width="10%">Cliente</th>
             <th width="15%">Proyecto</th>
-            <th width="15%">Autor</th>
+            <th width="10%">Autor</th>
             <th width="25%">Descriptción</th>
             <th width="15%">Fecha</th>
             <th width="15%"></th>
@@ -20,8 +21,15 @@
     <tbody>
     @foreach ($binnacles as $binnacle)
         <tr>
+            <td width="10%">
+            @if(empty($binnacle->sale->company['name']))
+            No disponible
+            @else
+            {{ $binnacle->sale->company['name'] }}
+            @endif
+            </td>
             @if(!empty($binnacle->sale['description']))
-            <td width="15%"><a href="{{ route('show_sale',$binnacle->sale['id']) }}" target="_blank">{{ $binnacle->sale['description'] }}</a></td>
+            <td width="10%"><a href="{{ route('show_sale',$binnacle->sale['id']) }}" target="_blank">{{ $binnacle->sale['description'] }}</a></td>
             @else
             <td width="15%" class="text-center font-weight-bold">No asignado</td>
             @endif
@@ -67,6 +75,66 @@
     @endforeach
     </tbody>
 </table>
+
+<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+<script>
+    jQuery(document).ready(function(){
+        $("#index_table").dataTable({
+                deferRender: true,
+                bJQueryUI: true,
+                bScrollInfinite: true,
+                bScrollCollapse: true,
+                bPaginate: true,
+                bFilter: true,
+                bSort: true,
+                aaSorting: [[1, "asc"]],
+                pageLength: 10,
+                bDestroy: true,
+                aoColumnDefs: [
+                    {
+                        bSortable: false,
+                        aTargets: [5]
+                    },
+                ],
+                oLanguage: {
+                    sLengthMenu: "_MENU_ ",
+                    sInfo:
+                        "<b>Se muestran de _START_ a _END_ elementos de _TOTAL_ registros en total</b>",
+                    sInfoEmpty: "No hay registros para mostrar",
+                    sSearch: "",
+                    oPaginate: {
+                        sFirst: "Primer página",
+                        sLast: "Última página",
+                        sPrevious: "<b>Anterior</b>",
+                        sNext: "<b>Siguiente</b>"
+                    }
+                }
+            });
+            setTableStyle()
+    });
+    function setTableStyle() {
+        setTimeout(function() {
+            $("select[name='DataTables_Table_0_length']").prop(
+                "class",
+                "custom-select"
+            );
+            $(".dataTables_length").prepend("<b>Mostrar</b> ");
+            $("select[name='table_asistencias_length']").prop(
+                "class",
+                "custom-select"
+            );
+            $("select[name='DataTables_Table_0_length']").prop(
+                "class",
+                "form-control"
+            );
+            $(".dataTables_length").append(" <b>elementos por página</b>");
+    
+            $("input[type='search']").prop("class", "form-control");
+            $("input[type='search']").prop("placeholder", "Ingrese un filtro...");
+        }, 300);
+    }
+</script>
+
 @include('sale.send_binnacle_pdf_modal')
 @include('sale.add_binnacle_image_modal')
 <input type="hidden" id="txt_get_binnacle" value="{{ route('binnacle_show_json') }}">
