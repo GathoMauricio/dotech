@@ -245,3 +245,14 @@ Route::post('store_vehicle_verification','VehicleVerificationController@store')-
 
 #Vehicle documents
 Route::post('store_vehicle_document','VehicleDocumentController@store')->name('store_vehicle_document')->middleware('auth');
+
+#Stock products
+Route::get('stock_product_index','StockProductController@index')->name('stock_product_index')->middleware('auth');
+Route::get('stock_product_create','StockProductController@create')->name('stock_product_create')->middleware('auth');
+Route::post('stock_product_store','StockProductController@store')->name('stock_product_store')->middleware('auth');
+Route::get('stock_product_edit/{id}','StockProductController@edit')->name('stock_product_edit')->middleware('auth');
+Route::put('stock_product_update/{id}','StockProductController@update')->name('stock_product_update')->middleware('auth');
+Route::get('stock_product_delete/{id?}','StockProductController@destroy')->name('stock_product_delete')->middleware('auth');
+
+#Stock product category
+Route::post('store_category_product','StockProductCategoryController@store')->name('store_category_product')->middleware('auth');

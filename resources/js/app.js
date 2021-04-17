@@ -1105,3 +1105,26 @@ window.addVehicleDocument = vehicle_id => {
     $("#txt_add_vehicle_document_id").val(vehicle_id);
     $("#add_vehicle_document_modal").modal();
 };
+
+window.deleteStockProduct = product_id => {
+    console.log("eliminar producto");
+    const route = $("#txt_delete_binnacle_route").val();
+    Swal.fire({
+        title: "¿Eliminar registro?",
+        text: "El registro se eliminará por completo.",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "red",
+        cancelButtonColor: "#000",
+        confirmButtonText: "Si, eliminar!",
+        cancelButtonText: "Cancelar"
+    }).then(result => {
+        if (result.isConfirmed) {
+            window.location = route + '/' + product_id;
+        }
+    });
+}
+
+window.addStockProductCategory = () => {
+    $("#stock_category_products_create_modal").modal();
+};
