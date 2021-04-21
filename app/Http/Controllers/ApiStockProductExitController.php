@@ -1,0 +1,64 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\StockProductExit;
+use App\StockProduct;
+
+class ApiStockProductExitController extends Controller
+{
+    public function index()
+    {
+        //
+    }
+
+    public function create()
+    {
+        //
+    }
+
+    public function store(Request $request)
+    {
+        $product = StockProduct::find($request->stock_product_id);
+        if($request->quantity <= $product->quantity)
+        {
+            $exit = StockProductExit::create($request->all());
+            if($exit)
+            {
+                $product->quantity = $product->quantity - $exit->quantity;
+                $product->save();
+                return [
+                    'error' => 0,
+                    'msg' => "El registro se creó correctamente.",
+                    'new_quantity' => $product->quantity
+                ];
+            }
+        }else{
+            return [
+                'error' => 1,
+                'msg' => "La cantidad solicitada excede la cantidad existente."
+            ];
+        }
+    }
+
+    public function show($id)
+    {
+        //
+    }
+
+    public function edit($id)
+    {
+        //
+    }
+
+     public function update(Request $request, $id)
+    {
+        //
+    }
+
+    public function destroy($id)
+    {
+        //
+    }
+}

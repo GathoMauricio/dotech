@@ -88,3 +88,9 @@ Route::middleware('auth:api')->post('upload_reception_image','ApiReceptionImageC
 #Companies
 Route::middleware('auth:api')->get('company_index','ApiCompanyController@index')->name('company_index');
 Route::middleware('auth:api')->get('company_show/{id}','ApiCompanyController@show')->name('company_show');
+
+#Stock product
+Route::middleware('auth:api')->get('stock_product_index','ApiStockProductController@index')->name('stock_product_index');
+
+#Exit Stock Product
+Route::middleware('auth:api')->post('exit_stock_product_store','ApiStockProductExitController@store')->name('exit_stock_product_store');
