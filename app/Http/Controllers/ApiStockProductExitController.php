@@ -28,6 +28,7 @@ class ApiStockProductExitController extends Controller
             {
                 $product->quantity = $product->quantity - $exit->quantity;
                 $product->save();
+                createSysLog("le dió salida al producto: ".$product->product.", Cant: ".$exit->quantity." para ".$exit->description);
                 return [
                     'error' => 0,
                     'msg' => "El registro se creó correctamente.",
