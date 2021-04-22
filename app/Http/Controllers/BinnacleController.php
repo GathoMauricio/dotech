@@ -7,7 +7,7 @@ class BinnacleController extends Controller
 {
     public function index()
     {
-        $binnacles = Binnacle::orderBy('id','DESC')->get();
+        $binnacles = Binnacle::orderBy('created_at','DESC')->get();
         return view('binnacles.index',compact('binnacles'));
     }
     public function indexByProject($id)

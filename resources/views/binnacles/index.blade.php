@@ -35,7 +35,8 @@
             @endif
             <td width="15%">{{ $binnacle->author['name'] }} {{ $binnacle->author['middle_name'] }} {{ $binnacle->author['last_name'] }}</td>
             <td width="25%">{{ $binnacle->description }}</td>
-            <td width="15%">{{ formatDate($binnacle->created_at) }}</td>
+            <!--<td width="15%">{{ formatDate($binnacle->created_at) }}</td>-->
+            <td width="15%">{{ explode(' ',$binnacle->created_at)[0] }}</td>
             <td width="15%">
                 <a href="#" onclick="addBinnacleImage({{ $binnacle->id }})">
                     <span class="icon-plus" title="Agregar imagen..." style="cursor:pointer;color:#c52cec">
@@ -87,7 +88,7 @@
                 bPaginate: true,
                 bFilter: true,
                 bSort: true,
-                aaSorting: [[1, "asc"]],
+                aaSorting: [[4, "desc"]],
                 pageLength: 10,
                 bDestroy: true,
                 aoColumnDefs: [
