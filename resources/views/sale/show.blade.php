@@ -90,6 +90,30 @@
         </tr>
     </table>
 
+<table style="width:100%;">
+    <tr>
+        <td onclick="showCotizadoTab('cotizado');" class="text-center font-weight-bold" style="background-color:#d30035;color:white;cursor:pointer;">
+            Cotizado
+        </td>
+        <td onclick="showCotizadoTab('productos');" class="text-center font-weight-bold" style="background-color:#d30035;color:white;cursor:pointer;">
+            Productos
+        </td>
+        <td onclick="showCotizadoTab('pagos');" class="text-center font-weight-bold" style="background-color:#d30035;color:white;cursor:pointer;">
+            Pagos
+        </td>
+        <td onclick="showCotizadoTab('archivos');" class="text-center font-weight-bold" style="background-color:#d30035;color:white;cursor:pointer;">
+            Archivos
+        </td>
+        <td onclick="showCotizadoTab('retiros');" class="text-center font-weight-bold" style="background-color:#d30035;color:white;cursor:pointer;">
+            Retiros
+        </td>
+        <td onclick="showCotizadoTab('bitacoras');" class="text-center font-weight-bold" style="background-color:#d30035;color:white;cursor:pointer;">
+            Bitacoras
+        </td>
+    </tr>
+</table>
+<br/>
+<div id="cotizado_container_tab">
     <table class="table" border="5">
         <tr>
             <td colspan="4" style="background-color:#d30035;color:white;font-weight:bold;">
@@ -163,7 +187,8 @@
             <td colspan="4" style="word-wrap:break-word;"><b>Observaciones/Material:</b> {{ $sale->observation }}</td>
         </tr>
     </table>
-
+</div>
+<div id="productos_container_tab" style="display:none;">
     <table class="table" border="5">
         <thead>
             <tr>
@@ -234,7 +259,8 @@
             </tr>
         </tbody>
     </table>
-
+</div>
+<div id="pagos_container_tab" style="display:none;">
     <table class="table" border="5">
         <tr>
             <td colspan="4" style="background-color:#d30035;color:white;font-weight:bold;">
@@ -267,7 +293,8 @@
         <tr><td colspan="4" class="text-center">Sin registros</td></tr>
         @endif
     </table>
-
+</div>
+<div id="archivos_container_tab" style="display:none;">
     <table class="table" border="5">
         <tr>
             <td colspan="3" style="background-color:#d30035;color:white;font-weight:bold;">
@@ -295,7 +322,8 @@
         <tr><td colspan="3" class="text-center">Sin registros</td></tr>
         @endif
     </table>
-
+</div>
+<div id="retiros_container_tab" style="display:none;">
     <table class="table" border="5">
         <tr>
             <td colspan="9" style="background-color:#d30035;color:white;font-weight:bold;">
@@ -361,6 +389,8 @@
         <tr><td colspan="9" class="text-center">Sin registros</td></tr>
         @endif
     </table>
+</div>
+<div id="bitacoras_container_tab" style="display:none;">
     <table class="table" border="5">
         <tr>
             <td colspan="6" style="background-color:#d30035;color:white;font-weight:bold;">
@@ -431,6 +461,7 @@
         <tr><td colspan="6" class="text-center">Sin registros</td></tr>
         @endif
     </table>
+</div>
     @if($sale->status == 'Finalizado')
     <h3 class="font-weight-bold" style="color:green">[Proyecto finalizado]</h3>
     @else

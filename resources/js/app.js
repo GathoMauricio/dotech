@@ -1128,3 +1128,13 @@ window.deleteStockProduct = product_id => {
 window.addStockProductCategory = () => {
     $("#stock_category_products_create_modal").modal();
 };
+
+window.showCotizadoTab = tab => {
+    $("#cotizado_container_tab").css('display', 'none');
+    $("#productos_container_tab").css('display', 'none');
+    $("#pagos_container_tab").css('display', 'none');
+    $("#archivos_container_tab").css('display', 'none');
+    $("#retiros_container_tab").css('display', 'none');
+    $("#bitacoras_container_tab").css('display', 'none');
+    $("#" + tab + "_container_tab").css('display', 'block');
+};
