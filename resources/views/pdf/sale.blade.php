@@ -41,10 +41,14 @@
                 </td>
                 <td width="40%" style="color:black;">
                     <p>
-                    <h1 style="color:#d30035;font-weight:bold;text-align:center;">Cotización</h1>
+                    <h1 style="color:#d30035;font-weight:bold;text-align:center;padding:10px;">Cotización</h1>
                     </p>
-                    <small>Bahía de las Palmas #33, Verónica Anzúres,</small>
-                    <small>11300 Ciudad de México, D.F.</small>
+                    <small>Laguna San Cristóbal 99, Anáhuac I Secc.,</small>
+                    <br/>
+                    <small>Anáhuac I Secc, Miguel Hidalgo, 11320 </small>
+                    <br/>
+                    <small>Ciudad de México, CDMX</small>
+                    <br/>
                     <small>Tel: 55460615</small>
                 </td>
                 <td width="30%" style="text-align: right">
@@ -112,15 +116,8 @@
             {{ date("Y-m-d",strtotime(onlyDate($sale->created_at)."+ ".$sale->delivery_days." days")) }}
         </td>
     </tr>
-    <tr>
-        <td width="100%">
-            <span style="color:#d30035;font-weight:bold;">
-                Descripción: 
-            </span>
-            {{ $sale->description }}
-        </td>
-    </tr>
 </table>
+<br/>
 <div style="padding:10px;background-color:#d30035;">
     <table style="width:100%;">
         <tbody>
@@ -181,6 +178,17 @@
         </tbody>
     </table>
 </div>
+<br/><br/>
+<table style="width: 100%;">
+    <tr>
+        <td width="100%" colspan="2">
+            <span style="color:#d30035;font-weight:bold;">
+                Descripción: 
+            </span>
+            {{ $sale->description }} - {{ $sale->observation }}
+        </td>
+    </tr>
+</table>
 </main>
 
 <footer>
