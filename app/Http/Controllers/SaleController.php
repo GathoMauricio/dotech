@@ -91,8 +91,8 @@ class SaleController extends Controller
             $totalRetiros += floatval($whitdrawal->quantity);
         }
 
-        $costoProyecto = number_format($sale->estimated + ($sale->estimated * 0.16),2);
-        $utilidad = number_format($costoProyecto - $totalRetiros,2);
+        $costoProyecto = $sale->estimated + ($sale->estimated * 0.16);
+        $utilidad = $costoProyecto - $totalRetiros;
         $comision = number_format((($utilidad / 1.16) * $sale->commision_percent) / 100 ,2);
 
 
