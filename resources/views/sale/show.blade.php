@@ -164,7 +164,7 @@
             </td>
         </tr>
         <tr>
-            <td>${{ $totalRetiros }}</td>
+            <td>${{ number_format($totalRetiros,2) }}</td>
             <td>${{ $costoProyecto }}</td>
             <td>${{ $utilidad }}</td>
             <td>${{ $comision }}</td>
