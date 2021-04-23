@@ -256,3 +256,7 @@ Route::get('stock_product_delete/{id?}','StockProductController@destroy')->name(
 
 #Stock product category
 Route::post('store_category_product','StockProductCategoryController@store')->name('store_category_product')->middleware('auth');
+
+#Stock product exit
+Route::get('stock_product_exit_index/{id}','StockProductExitController@index')->name('stock_product_exit_index')->middleware('auth');
+Route::get('delete_stock_product_exit_route/{id?}','StockProductExitController@destroy')->name('delete_stock_product_exit_route')->middleware('auth');

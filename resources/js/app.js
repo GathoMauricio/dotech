@@ -1138,3 +1138,22 @@ window.showCotizadoTab = tab => {
     $("#bitacoras_container_tab").css('display', 'none');
     $("#" + tab + "_container_tab").css('display', 'block');
 };
+
+window.deleteStockProductExit = id => {
+    console.log("eliminar producto");
+    const route = $("#txt_delete_stock_product_exit_route").val();
+    Swal.fire({
+        title: "¿Eliminar registro?",
+        text: "El registro se eliminará por completo.",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "red",
+        cancelButtonColor: "#000",
+        confirmButtonText: "Si, eliminar!",
+        cancelButtonText: "Cancelar"
+    }).then(result => {
+        if (result.isConfirmed) {
+            window.location = route + '/' + id;
+        }
+    });
+};

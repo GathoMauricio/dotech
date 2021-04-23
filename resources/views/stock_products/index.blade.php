@@ -32,6 +32,12 @@
             <td>{{ $product->description }}</td>
             <td>{{ $product->quantity }}</td>
             <td>
+                <a href="{{ route('stock_product_exit_index',$product->id) }}">
+                    <span class="icon-share" title="Salidas..." style="cursor:pointer;color:blue">
+                        Salidas
+                    </span>
+                </a>
+                <br>
                 @if(Auth::user()->rol_user_id == 1)
                 <a href="{{ route('stock_product_edit',$product->id) }}">
                     <span class="icon-pencil" title="Editar..." style="cursor:pointer;color:orange">
