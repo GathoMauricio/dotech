@@ -21,7 +21,7 @@
             <td>{{ $sale->id }}</td>
             <td>{{ $sale->company['name'] }}</td>
             <td>{{ $sale->description }}</td>
-            <td>${{ $sale->estimated }}</td>
+            <td>${{ number_format($sale->estimated + ($sale->estimated * 0.16),2) }}</td>
             <td>{{ onlyDate($sale->created_at) }}</td>
             <td>
                 <!--

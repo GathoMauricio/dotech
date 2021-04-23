@@ -169,47 +169,7 @@
             <td>${{ $utilidad }}</td>
             <td>${{ $comision }}</td>
         </tr>
-        <!--
-        <tr>
-            
-            <td>
-                <b>Comisión
-                    <input type="hidden" id="txt_change_commision_route" value="{{ route('change_commision') }}">
-                    @if(Auth::user()->rol_user_id == 1)
-                    <select onchange="changeCommision(this.value,{{ $sale->id }});" style="width:50%;">
-                        @if($sale->commision_percent == '0')
-                        <option value="0" selected>0%</option>
-                        <option value="8">8%</option>
-                        <option value="13">13%</option>
-                        @endif
-                        @if($sale->commision_percent == '8')
-                        <option value="0">0%</option>
-                        <option value="8" selected>8%</option>
-                        <option value="13">13%</option>
-                        @endif
-                        @if($sale->commision_percent == '13')
-                        <option value="0">0%</option>
-                        <option value="8">8%</option>
-                        <option value="13" selected>13%</option>
-                        @endif
-                    </select>
-                    @endif
-                </b>
-            </td>
-            <td>
-                <b>Venta + IVA</b>
-                <span title="Utilidad bruta generada según el total de compras hasta el momento..."
-                    class="icon-info"></span>
-            </td>
-            <td><b>Utilidad <label>-</label> Comisión</b></td>
-        </tr>
         
-        <tr>
-            <td>${{ $commision }}</td>
-            <td>${{ $sale->estimated}} + ${{ $sale->iva}} = ${{ $sale->estimated + $sale->iva }}</td>
-            <td>${{$sale->utility}} - ${{ $commision }} = ${{ $sale->utility - $commision }}</td>
-        </tr>
-        -->
         <tr>
             <td colspan="4" style="word-wrap:break-word;"><b>Observaciones:</b> {{ $sale->observation }}</td>
         </tr>

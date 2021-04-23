@@ -91,9 +91,9 @@ class SaleController extends Controller
             $totalRetiros += floatval($whitdrawal->quantity);
         }
 
-        $costoProyecto = $sale->estimated + ($sale->estimated * 0.16);
-        $utilidad = $costoProyecto - $totalRetiros;
-        $comision = number_format((($utilidad / 1.16) * $sale->commision_percent) / 100 ,2);
+        $costoProyecto = number_format($sale->estimated + ($sale->estimated * 0.16),2);
+        $utilidad = number_format($sale->estimated + ($sale->estimated * 0.16) - $totalRetiros,2);
+        $comision = number_format((($sale->estimated + ($sale->estimated * 0.16) - $totalRetiros / 1.16) * $sale->commision_percent) / 100 ,2);
 
 
         $sale->utility = $utilidad;
@@ -106,10 +106,10 @@ class SaleController extends Controller
                 $totalSell += $whitdrawal->quantity;
             }
         }
-        $grossProfit = floatval($sale->estimated) - floatval($totalSell);
-        $grossNoIvaProfit = ($grossProfit - ($grossProfit * 0.16));
-        $commision = ($sale->utility * $sale->commision_percent) / 100;
-        $grossNoIvaProfitNoCommision = $grossNoIvaProfit -$commision;
+        $grossProfit = 0;
+        $grossNoIvaProfit = 0;
+        $commision = 0;
+        $grossNoIvaProfitNoCommision = 0;
         return view('sale.show',[
             'sale' => $sale,
             'products' => $products,
