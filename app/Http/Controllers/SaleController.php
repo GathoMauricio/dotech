@@ -83,9 +83,17 @@ class SaleController extends Controller
         $payments = SalePayment::where('sale_id',$id)->get();
         $documnets = SaleDocument::where('sale_id',$id)->get();
         $binnacles = Binnacle::where('sale_id',$id)->get();
-        
-        $totalRetiros = 0;
 
+        $estimado = 0;
+        foreach($products as $product)
+        {
+            $estimado = $product->unity_price_sell * $product->quantity;
+        }
+        $sale->estimated = $estimado;
+        $sale->iva = ($estimado + ($estimado * 0.16)) - $estimado;
+        $sale->save();
+
+        $totalRetiros = 0;
         foreach($whitdrawals as $whitdrawal)
         {
             $totalRetiros += floatval($whitdrawal->quantity);
@@ -96,6 +104,7 @@ class SaleController extends Controller
         $comision = number_format((($sale->estimated + ($sale->estimated * 0.16) - $totalRetiros / 1.16) * $sale->commision_percent) / 100 ,2);
 
 
+        
         $sale->utility = $utilidad;
         $sale->save();
         $totalSell = 0;
