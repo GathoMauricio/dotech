@@ -103,13 +103,21 @@
             <span style="color:#d30035;font-weight:bold;">
                 Fecha: 
             </span>
-            {{ onlyDate($sale->company['created_at']) }}
+            {{ onlyDate($sale->created_at) }}
         </td>
         <td width="50%">
             <span style="color:#d30035;font-weight:bold;">
                 Vencimiento: 
             </span>
-            {{ date("Y-m-d",strtotime(onlyDate($sale->company['created_at'])."+ ".$sale->delivery_days." days")) }}
+            {{ date("Y-m-d",strtotime(onlyDate($sale->created_at)."+ ".$sale->delivery_days." days")) }}
+        </td>
+    </tr>
+    <tr>
+        <td width="100%">
+            <span style="color:#d30035;font-weight:bold;">
+                Descripción: 
+            </span>
+            {{ $sale->description }}
         </td>
     </tr>
 </table>
