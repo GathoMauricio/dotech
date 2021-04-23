@@ -51,11 +51,7 @@
                                             $departments = \App\CompanyDepartment::where('company_id',$company_id)->get(); 
                                         @endphp
                                         @foreach($departments as $department)
-                                        @if($sale->department_id == $department->id)
-                                        <option value="{{ $department->id }}" selected>{{ $department->name }}</option>
-                                        @else
-                                        <option value="{{ $department->id }}">{{ $department->name }}</option>
-                                        @endif
+                                        <option value="{{ $department->id }}">{{ $department->name }} - {{ $department->email }}</option>
                                         @endforeach
                                     </select>
                                     @if($errors->has('department_id'))

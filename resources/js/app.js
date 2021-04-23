@@ -428,6 +428,8 @@ window.loadDepartmentsByCompany = company_id => {
                     value.id +
                     '">' +
                     value.name +
+                    ' - ' +
+                    value.email +
                     "</option>";
             });
             $("#cbo_departments_by_company").html(html);

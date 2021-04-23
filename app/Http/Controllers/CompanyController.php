@@ -115,7 +115,7 @@ class CompanyController extends Controller
         $department_items = '';
         foreach($departments as $department)
         {
-            $department_items .= '<option value="'.$department->id.'">'.$department->name.'</option>';
+            $department_items .= '<option value="'.$department->id.'">'.$department->name.' - '.$department->email.'</option>';
         }
         return [
             'company' => $company,
