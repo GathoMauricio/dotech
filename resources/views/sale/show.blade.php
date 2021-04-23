@@ -335,56 +335,62 @@
                 </center>
             </td>
         </tr>
-        <tr>
-            <td><b>Fecha</b></td>
-            <td><b>Proveedor</b></td>
-            <td><b>Descripción</b></td>
-            <td><b>Cuenta</b></td>
-            <td><b>Departamento</b></td>
-            <td><b>Tipo de retiro</b></td>
-            <td><b>Cantidad</b></td>
-            <td><b>Estatus</b></td>
-            <td><b>Documento</b></td>
-        </tr>
-        @foreach($whitdrawals as $whitdrawal)
-        <tr>
-            <td>{{ onlyDate($whitdrawal->created_at) }}</td>
-            <td>{{ $whitdrawal->provider['name'] }}</td>
-            <td>{{ $whitdrawal->description }}</td>
-            @if(!empty( $whitdrawal->account['name']))
-            <td>{{ $whitdrawal->account['name'] }}</td>
-            @else
-            <td class="text-center"><img src="{{ asset('img/loading.gif') }}" width="60"></td>
-            @endif
-            @if(!empty( $whitdrawal->department['name']))
-            <td>{{ $whitdrawal->department['name'] }}</td>
-            @else
-            <td class="text-center"><img src="{{ asset('img/loading.gif') }}" width="60"></td>
-            @endif
-            @if(!empty( $whitdrawal->type))
-            <td>{{ $whitdrawal->type }}</td>
-            @else
-            <td class="text-center"><img src="{{ asset('img/loading.gif') }}" width="60"></td>
-            @endif
-            <td>${{ $whitdrawal->quantity }}</td>
-            <td>
-                {{ $whitdrawal->status }}
-                @if(Auth::user()->rol_user_id == 1 && $whitdrawal->status == 'Pendiente')
-                <br/>
-                <a href="#" onclick="aproveWithdrawalModal({{ $whitdrawal->id }});"><span class="icon-checkmark"></span> Aprobar</a>
+    </table>
+    <table class="table" border="5" id="index_table_retiros">
+        <thead>
+            <tr>
+                <th><b>Fecha</b></th>
+                <th><b>Proveedor</b></th>
+                <th><b>Descripción</b></th>
+                <th><b>Cuenta</b></th>
+                <th><b>Departamento</b></th>
+                <th><b>Tipo de retiro</b></th>
+                <th><b>Cantidad</b></th>
+                <th><b>Estatus</b></th>
+                <th><b>Documento</b></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($whitdrawals as $whitdrawal)
+            <tr>
+                <td>{{ onlyDate($whitdrawal->created_at) }}</td>
+                <td>{{ $whitdrawal->provider['name'] }}</td>
+                <td>{{ $whitdrawal->description }}</td>
+                @if(!empty( $whitdrawal->account['name']))
+                <td>{{ $whitdrawal->account['name'] }}</td>
+                @else
+                <td class="text-center"><img src="{{ asset('img/loading.gif') }}" width="60"></td>
                 @endif
-            </td>
-            @if($whitdrawal->invoive == 'SI')
-            @if(!empty($whitdrawal->document))
-                <td class="text-center"><a href="{{ env('APP_URL').'/storage/'.$whitdrawal->document }}" target="_BLANK"><span class="icon-eye"></span></a></td>
-                @else 
-                <td class="text-center"><a href="#" onclick="addWhitdralDocumentModal({{ $whitdrawal->id }});"><span class="icon-upload"></span></a></td>
+                @if(!empty( $whitdrawal->department['name']))
+                <td>{{ $whitdrawal->department['name'] }}</td>
+                @else
+                <td class="text-center"><img src="{{ asset('img/loading.gif') }}" width="60"></td>
                 @endif
-            @else
-            <td class="text-center">N/A</td>
-            @endif
-        </tr>
-        @endforeach
+                @if(!empty( $whitdrawal->type))
+                <td>{{ $whitdrawal->type }}</td>
+                @else
+                <td class="text-center"><img src="{{ asset('img/loading.gif') }}" width="60"></td>
+                @endif
+                <td>${{ $whitdrawal->quantity }}</td>
+                <td>
+                    {{ $whitdrawal->status }}
+                    @if(Auth::user()->rol_user_id == 1 && $whitdrawal->status == 'Pendiente')
+                    <br/>
+                    <a href="#" onclick="aproveWithdrawalModal({{ $whitdrawal->id }});"><span class="icon-checkmark"></span> Aprobar</a>
+                    @endif
+                </td>
+                @if($whitdrawal->invoive == 'SI')
+                @if(!empty($whitdrawal->document))
+                    <td class="text-center"><a href="{{ env('APP_URL').'/storage/'.$whitdrawal->document }}" target="_BLANK"><span class="icon-eye"></span></a></td>
+                    @else 
+                    <td class="text-center"><a href="#" onclick="addWhitdralDocumentModal({{ $whitdrawal->id }});"><span class="icon-upload"></span></a></td>
+                    @endif
+                @else
+                <td class="text-center">N/A</td>
+                @endif
+            </tr>
+            @endforeach
+        </tbody>
         @if(count($whitdrawals)<=0)
         <tr><td colspan="9" class="text-center">Sin registros</td></tr>
         @endif
@@ -474,6 +480,64 @@
     <input type="hidden" id="txt_view_binnacle_images_route" value="{{ route('binnacle_images_index') }}">
     <input type="hidden" id="txt_set_project_as_finish" value="{{ route('set_project_as_finish')}}">
 </center>
+<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+<script>
+    jQuery(document).ready(function(){
+        $("#index_table_retiros").dataTable({
+                deferRender: true,
+                bJQueryUI: true,
+                bScrollInfinite: true,
+                bScrollCollapse: true,
+                bPaginate: true,
+                bFilter: true,
+                bSort: true,
+                aaSorting: [],
+                pageLength: 10,
+                bDestroy: true,
+                aoColumnDefs: [
+                    {
+                        bSortable: false,
+                        aTargets: [0,8]
+                    },
+                ],
+                oLanguage: {
+                    sLengthMenu: "_MENU_ ",
+                    sInfo:
+                        "<b>Se muestran de _START_ a _END_ elementos de _TOTAL_ registros en total</b>",
+                    sInfoEmpty: "No hay registros para mostrar",
+                    sSearch: "",
+                    oPaginate: {
+                        sFirst: "Primer página",
+                        sLast: "Última página",
+                        sPrevious: "<b>Anterior</b>",
+                        sNext: "<b>Siguiente</b>"
+                    }
+                }
+            });
+            setTableStyle()
+    });
+    function setTableStyle() {
+        setTimeout(function() {
+            $("select[name='DataTables_Table_0_length']").prop(
+                "class",
+                "custom-select"
+            );
+            $(".dataTables_length").prepend("<b>Mostrar</b> ");
+            $("select[name='table_asistencias_length']").prop(
+                "class",
+                "custom-select"
+            );
+            $("select[name='DataTables_Table_0_length']").prop(
+                "class",
+                "form-control"
+            );
+            $(".dataTables_length").append(" <b>elementos por página</b>");
+    
+            $("input[type='search']").prop("class", "form-control");
+            $("input[type='search']").prop("placeholder", "Ingrese un filtro...");
+        }, 300);
+    }
+</script>
 @include('sale.send_binnacle_pdf_modal')
 @include('sale.send_all_binnacle_pdf_modal')
 @include('withdrawal.add_provider_modal')
