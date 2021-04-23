@@ -19,7 +19,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="amount" class="font-weight-bold color-primary-sys">Monto</label>
-                                <input type="number" name="amount" class="form-control" required />
+                                <input type="number"  name="amount" step="0.01" class="form-control" required />
                             </div>
                         </div>
                     </div>
