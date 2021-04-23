@@ -127,24 +127,49 @@
         </tr>
         <tr>
             <td>
-                <b>Compra</b>
-                <span title="Cantidad que se pretende invertir en este proyecto..." class="icon-info"></span>
+                <b>Retiros</b>
+                <span title="Inversión hasta el momento..." class="icon-info"></span>
             </td>
             <td>
-                <b>Venta</b>
-                <span title="Cantidad en la que se le ofreció al cliente..." class="icon-info"></span>
+                <b>Costo del proyecto</b>
+                <span title="Costo total del proyecto..." class="icon-info"></span>
             </td>
-            <td colspan="2">
-                <b>Utilidad proyectada</b>
-                <span title="Utilidad esperada en este proyecto..." class="icon-info"></span>
+            <td>
+                <b>Utilidad</b>
+                <span title="Utilidad generada hasta el momento..." class="icon-info"></span>
+            </td>
+            <td>
+                <b>Comisión</b>
+                <span title="Comisión para el vendedor hasta el momento..." class="icon-info"></span>
+                    <input type="hidden" id="txt_change_commision_route" value="{{ route('change_commision') }}">
+                    @if(Auth::user()->rol_user_id == 1)
+                    <select onchange="changeCommision(this.value,{{ $sale->id }});" style="width:50%;">
+                        @if($sale->commision_percent == '0')
+                        <option value="0" selected>0%</option>
+                        <option value="8">8%</option>
+                        <option value="13">13%</option>
+                        @endif
+                        @if($sale->commision_percent == '8')
+                        <option value="0">0%</option>
+                        <option value="8" selected>8%</option>
+                        <option value="13">13%</option>
+                        @endif
+                        @if($sale->commision_percent == '13')
+                        <option value="0">0%</option>
+                        <option value="8">8%</option>
+                        <option value="13" selected>13%</option>
+                        @endif
+                    </select>
+                    @endif
             </td>
         </tr>
         <tr>
-            <td>${{ $sale->investment }}</td>
-            <td>${{ $sale->estimated}}</td>
-            <td colspan="2">${{ $sale->utility }}</td>
-            </td>
+            <td>${{ $totalRetiros }}</td>
+            <td>${{ $costoProyecto }}</td>
+            <td>${{ $utilidad }}</td>
+            <td>${{ $comision }}</td>
         </tr>
+        <!--
         <tr>
             
             <td>
@@ -178,13 +203,15 @@
             </td>
             <td><b>Utilidad <label>-</label> Comisión</b></td>
         </tr>
+        
         <tr>
             <td>${{ $commision }}</td>
             <td>${{ $sale->estimated}} + ${{ $sale->iva}} = ${{ $sale->estimated + $sale->iva }}</td>
             <td>${{$sale->utility}} - ${{ $commision }} = ${{ $sale->utility - $commision }}</td>
         </tr>
+        -->
         <tr>
-            <td colspan="4" style="word-wrap:break-word;"><b>Observaciones/Material:</b> {{ $sale->observation }}</td>
+            <td colspan="4" style="word-wrap:break-word;"><b>Observaciones:</b> {{ $sale->observation }}</td>
         </tr>
     </table>
 </div>
