@@ -113,7 +113,7 @@
             <span style="color:#d30035;font-weight:bold;">
                 Vencimiento: 
             </span>
-            {{ date("Y-m-d",strtotime(onlyDate($sale->created_at)."+ ".$sale->delivery_days." days")) }}
+            {{ date("Y-m-d",strtotime(onlyDate($sale->created_at)." + 5 days")) }}
         </td>
     </tr>
 </table>

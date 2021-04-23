@@ -44,10 +44,10 @@
         </tr>
         @endforeach
         <tr>
-            <td colspan="7" class="text-right">Total: ${{$total}}</td>
+            <td colspan="7" class="text-right">Subtotal: ${{$total}}</td>
         </tr>
         <tr>
-            <td colspan="7" class="text-right">Total + IVA: ${{$totalIva}}</td>
+            <td colspan="7" class="text-right">Total: ${{$totalIva}}</td>
         </tr>
     </tbody>
 </table>
