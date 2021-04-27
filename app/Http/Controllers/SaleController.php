@@ -87,12 +87,11 @@ class SaleController extends Controller
         $estimado = 0;
         foreach($products as $product)
         {
-            $estimado = $product->unity_price_sell * $product->quantity;
+            $estimado += $product->unity_price_sell * $product->quantity;
         }
         $sale->estimated = $estimado;
         $sale->iva = ($estimado + ($estimado * 0.16)) - $estimado;
         $sale->save();
-
         $totalRetiros = 0;
         foreach($whitdrawals as $whitdrawal)
         {
@@ -100,6 +99,7 @@ class SaleController extends Controller
         }
 
         $costoProyecto = number_format($sale->estimated + ($sale->estimated * 0.16),2);
+        
         $utilidad = number_format($sale->estimated + ($sale->estimated * 0.16) - $totalRetiros,2);
         $comision = number_format((($sale->estimated + ($sale->estimated * 0.16) - $totalRetiros / 1.16) * $sale->commision_percent) / 100 ,2);
 
