@@ -260,3 +260,11 @@ Route::post('store_category_product','StockProductCategoryController@store')->na
 #Stock product exit
 Route::get('stock_product_exit_index/{id}','StockProductExitController@index')->name('stock_product_exit_index')->middleware('auth');
 Route::get('delete_stock_product_exit_route/{id?}','StockProductExitController@destroy')->name('delete_stock_product_exit_route')->middleware('auth');
+
+
+
+Route::get('test',function(){
+    $img = Image::make(asset('img/perfil.png'))->resize(300, 200);
+
+    return $img->response('jpg');
+})->name('test');

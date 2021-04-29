@@ -168,7 +168,7 @@ return [
         /*
          * Package Service Providers...
          */
-
+        Intervention\Image\ImageServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -230,6 +230,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         'Madzipper' => Madnest\Madzipper\Madzipper::class,
+        'Image' => Intervention\Image\Facades\Image::class,
     ],
 
 ];
