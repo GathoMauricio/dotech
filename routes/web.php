@@ -261,10 +261,57 @@ Route::post('store_category_product','StockProductCategoryController@store')->na
 Route::get('stock_product_exit_index/{id}','StockProductExitController@index')->name('stock_product_exit_index')->middleware('auth');
 Route::get('delete_stock_product_exit_route/{id?}','StockProductExitController@destroy')->name('delete_stock_product_exit_route')->middleware('auth');
 
-
+Route::get('info',function(){  phpinfo();  })->name('info');
 
 Route::get('test',function(){
-    $img = Image::make(asset('img/perfil.png'))->resize(300, 200);
+    set_time_limit(50000);
+    $jpg = 0;
+    $jpeg = 0;
+    $png = 0;
 
-    return $img->response('jpg');
+    $path = public_path('storage');
+    $dir = opendir($path);
+    while ($elemento = readdir($dir)){
+        if( $elemento != "." && $elemento != ".."){
+            if( is_dir($path.$elemento) ){
+                // Muestro la carpeta
+                echo "<p><strong>CARPETA: ". $elemento ."</strong></p>";
+            } else {
+
+                $info = new SplFileInfo($elemento);
+                //echo "<br />".$info->getExtension();
+                
+                switch(strtolower($info->getExtension()))
+                {
+                    case 'jpg': 
+                        $jpg ++;
+                        $img = Image::make(public_path('storage/'.$elemento));
+                        $img = $img->widen(intdiv($img->width() , 4));
+                        $img->save('storage/'.$elemento, 60);
+                        break;
+                    case 'jpeg': 
+                        $jpeg ++;
+                        $img = Image::make(public_path('storage/'.$elemento));
+                        $img = $img->widen(intdiv($img->width() , 4));
+                        $img->save('storage/'.$elemento, 60);
+                        break;
+                    case 'png': 
+                        $png ++;
+                        $img = Image::make(public_path('storage/'.$elemento));
+                        $img = $img->widen(intdiv($img->width() , 4));
+                        $img->save('storage/'.$elemento, 60);
+                         break;
+                }
+            }
+        }
+    }
+    echo "jpg: ".$jpg.'<br/>';
+    echo "jpeg: ".$jpeg.'<br/>';
+    echo "png: ".$png.'<br/>';
+    /*
+    $img = Image::make(public_path('storage/copia.jpg'));
+    $img = $img->widen(intdiv($img->width() , 4));
+    $img->save('storage/copia-thumbnail1.jpg', 60);
+    return $img->response('png');
+    */
 })->name('test');
