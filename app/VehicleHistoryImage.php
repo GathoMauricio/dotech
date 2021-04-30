@@ -18,6 +18,14 @@ class VehicleHistoryImage extends Model
         'created_at',
         'updated_at'
     ];
+    protected static function boot()
+	{
+		parent::boot();
+
+		static::creating(function ($query) {
+			$query->author_id = \Auth::user()->id;
+		});
+	}   
     public function history()
     {
         return $this->belongsTo
