@@ -34,12 +34,10 @@ class BinnacleImageController extends Controller
         {
             $file = $request->file('image');
             $name =  "Binnacle[".$binnacle_image->id."_".$binnacle_image->binnacle_id."]_".\Str::random(8)."_".$file->getClientOriginalName();
-            
             $img = \Image::make($file);
             $img = $img->widen(intdiv($img->width() , 4));
             $img->save('storage/'.$name, 60);
             //\Storage::disk('local')->put($name,  \File::get($file));
-
             $binnacle_image->image = $name;
             $binnacle_image->save();
             $msg = "Subió una imagen a la bitácora ".$binnacle_image->binnacle['description'];
