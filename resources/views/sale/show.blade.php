@@ -179,7 +179,7 @@
     <table class="table" border="5">
         <thead>
             <tr>
-                <td colspan="6" style="background-color:#d30035;color:white;font-weight:bold;">
+                <td colspan="7" style="background-color:#d30035;color:white;font-weight:bold;">
                 <!--
                     <label style="float:right;padding:5px;">
                         <span class="icon-plus"
@@ -197,7 +197,7 @@
                 <th>P/U</th>
                 <th>Descuento</th>
                 <th>Venta</th>
-                <!--<th></th>-->
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -223,17 +223,18 @@
                 <td>${{ $product->unity_price_sell }}</td>
                 <td>{{ $product->discount }}%</td>
                 <td>${{ $product->total_sell }}</td>
-                <!--
                 <td>
-                    <span onclick="editProductModal({{ $product->id }})" class="icon-pencil" style="cursor:pointer;color:#F39C12;"></span>
+                    <a href="{{ route('quote_products',$sale->id) }}"><span class="icon-pencil" style="cursor:pointer;color:#F39C12;"></span> </a>
+                    
+                    <!--
                     <br>
                     <span onclick="deleteProductModal({{ $product->id }})" class="icon-bin" style="cursor:pointer;color:#E74C3C ;"></span>
+                    -->
                 </td>
-                -->
             </tr>
             @endforeach
             @if(count($products)<=0)
-            <tr><td colspan="6" class="text-center">Sin registros</td></tr>
+            <tr><td colspan="7" class="text-center">Sin registros</td></tr>
             @endif
             <tr>
                 <td colspan="6" class="text-right">Subtotal: ${{ $totalProduct }}</td>
