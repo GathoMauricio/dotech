@@ -35,7 +35,7 @@
             <td>{{ $product->description }}</td>
             <td>${{ $product->unity_price_sell }}</td>
             <td>{{ $product->discount }}%</td>
-            <td>${{ $product->total_sell }}</td>
+            <td>${{ $product->total_sell - ($product->total_sell * $product->discount / 100) }}</td>
             <td>
                 <span onclick="editProductModal({{ $product->id }})" class="icon-pencil" style="cursor:pointer;color:#F39C12;"></span>
                 <br>

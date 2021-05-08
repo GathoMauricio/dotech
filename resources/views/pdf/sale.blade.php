@@ -140,7 +140,7 @@
                 <td style="padding:3px;"><small>{{ $saleProduct->description }}</small></td>
                 <td style="text-align:center">${{ number_format($saleProduct->unity_price_sell,2) }}</td>
                 <td style="text-align:center">{{ $saleProduct->discount }}%</td>
-                <td style="text-align:center">${{ number_format(($saleProduct->unity_price_sell * $saleProduct->quantity),2) }}</td>
+                <td style="text-align:center">${{ number_format((   ($saleProduct->unity_price_sell * $saleProduct->quantity) - ($saleProduct->unity_price_sell * $saleProduct->quantity) * $saleProduct->discount / 100  ),2) }}</td>
             </tr>
             @endforeach
             <tr>

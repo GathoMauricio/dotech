@@ -265,53 +265,39 @@ Route::get('info',function(){  phpinfo();  })->name('info');
 
 Route::get('test',function(){
     set_time_limit(50000);
-    $jpg = 0;
-    $jpeg = 0;
-    $png = 0;
+    
+    
+    $conexion = mysqli_connect("127.0.0.1", "root", "", "old");
+    $consulta = "SELECT * FROM producto_venta ";
+    $datos = mysqli_query($conexion,$consulta);
+    $contador = 0;
+    while($fila = mysqli_fetch_array($datos))
+    {
+        $contador++;
+        $precio = $fila['precio_lista_producto'];
+        $cantidad = $fila['cantidad_producto_venta'];
+        $descuento = $fila['descuento_producto_venta'];
+        $descripcion = utf8_encode($fila['descripcion_producto']);
+        $total = $precio * $cantidad;
 
-    $path = public_path('storage');
-    $dir = opendir($path);
-    while ($elemento = readdir($dir)){
-        if( $elemento != "." && $elemento != ".."){
-            if( is_dir($path.$elemento) ){
-                // Muestro la carpeta
-                echo "<p><strong>CARPETA: ". $elemento ."</strong></p>";
-            } else {
+        echo "Contador :".$contador .'<br/>';
+        echo "Precio :$".$precio .'<br/>';
+        echo "Cantidad :".$cantidad .'<br/>';
+        echo "Descuento :".$descuento .'%<br/>';
+        echo "Descripcion :".$descripcion .'<br/>';
+        echo "Total :$".$total .'<br/>';
 
-                $info = new SplFileInfo($elemento);
-                //echo "<br />".$info->getExtension();
-                
-                switch(strtolower($info->getExtension()))
-                {
-                    case 'jpg': 
-                        $jpg ++;
-                        $img = Image::make(public_path('storage/'.$elemento));
-                        $img = $img->widen(intdiv($img->width() , 4));
-                        $img->save('storage/'.$elemento, 60);
-                        break;
-                    case 'jpeg': 
-                        $jpeg ++;
-                        $img = Image::make(public_path('storage/'.$elemento));
-                        $img = $img->widen(intdiv($img->width() , 4));
-                        $img->save('storage/'.$elemento, 60);
-                        break;
-                    case 'png': 
-                        $png ++;
-                        $img = Image::make(public_path('storage/'.$elemento));
-                        $img = $img->widen(intdiv($img->width() , 4));
-                        $img->save('storage/'.$elemento, 60);
-                         break;
-                }
-            }
+        $producto = \App\ProductSale::find($fila['id_producto_venta']);
+        if($producto)
+        {
+            $producto->unity_price_sell = $precio;
+            $producto->quantity = $cantidad;
+            $producto->discount = $descuento;
+            $producto->total_sell = $total;
+            $producto->save();
+            echo "En laravel es: ".$producto->description."<br/><br/>";
         }
+        
     }
-    echo "jpg: ".$jpg.'<br/>';
-    echo "jpeg: ".$jpeg.'<br/>';
-    echo "png: ".$png.'<br/>';
-    /*
-    $img = Image::make(public_path('storage/copia.jpg'));
-    $img = $img->widen(intdiv($img->width() , 4));
-    $img->save('storage/copia-thumbnail1.jpg', 60);
-    return $img->response('png');
-    */
+
 })->name('test');
