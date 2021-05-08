@@ -263,6 +263,7 @@ Route::get('delete_stock_product_exit_route/{id?}','StockProductExitController@d
 
 Route::get('info',function(){  phpinfo();  })->name('info');
 
+/*
 Route::get('test',function(){
     set_time_limit(50000);
     
@@ -301,3 +302,5 @@ Route::get('test',function(){
     }
 
 })->name('test');
+
+*/
