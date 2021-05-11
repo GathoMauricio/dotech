@@ -222,7 +222,7 @@
                 <td>{{ $product->description }}</td>
                 <td>${{ $product->unity_price_sell }}</td>
                 <td>{{ $product->discount }}%</td>
-                <td>${{ $product->total_sell }}</td>
+                <td>${{ $product->unity_price_sell *  $product->quantity }}</td>
                 <td>
                     <a href="{{ route('quote_products',$sale->id) }}"><span class="icon-pencil" style="cursor:pointer;color:#F39C12;"></span> </a>
                     
@@ -237,13 +237,13 @@
             <tr><td colspan="7" class="text-center">Sin registros</td></tr>
             @endif
             <tr>
-                <td colspan="6" class="text-right">Subtotal: ${{ $totalProduct }}</td>
+                <td colspan="7" class="text-right">Subtotal: ${{ $totalProduct }}</td>
             </tr>
             <tr>
-                <td colspan="6" class="text-right">IVA: ${{ $totalProductIva }}</td>
+                <td colspan="7" class="text-right">IVA: ${{ $totalProductIva }}</td>
             </tr>
             <tr>
-                <td colspan="6" class="text-right">Total: ${{ $totalProduct+$totalProductIva }}</td>
+                <td colspan="7" class="text-right">Total: ${{ $totalProduct+$totalProductIva }}</td>
             </tr>
         </tbody>
     </table>
