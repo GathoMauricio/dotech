@@ -14,6 +14,7 @@
             <th>Producto</th>
             <th>Descripción</th>
             <th>Cantidad</th>
+            <th>Con regreso</th>
             <th></th>
         </tr>
     </thead>
@@ -31,6 +32,7 @@
             <td>{{ $product->product }}</td>
             <td>{{ $product->description }}</td>
             <td>{{ $product->quantity }}</td>
+            <td>{{ $product->return }}</td>
             <td>
                 <a href="{{ route('stock_product_exit_index',$product->id) }}">
                     <span class="icon-share" title="Salidas..." style="cursor:pointer;color:blue">

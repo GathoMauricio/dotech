@@ -15,6 +15,7 @@ class StockProduct extends Model
         'product',
         'description',
         'quantity',
+        'return',
         'image',
         'created_at',
         'updated_at'
