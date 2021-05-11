@@ -79,7 +79,7 @@
                 aoColumnDefs: [
                     {
                         bSortable: false,
-                        aTargets: [0,5]
+                        aTargets: [0,6]
                     },
                 ],
                 oLanguage: {
