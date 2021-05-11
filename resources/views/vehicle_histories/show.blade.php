@@ -36,6 +36,7 @@
         </tr>
         <tr>
             <th>Fecha</th>
+            <th>Autor</th>
             <th>Imagen</th>
             <th>Descripción</th>
             <!--
@@ -49,6 +50,7 @@
         @foreach($images as $image)
         <tr>
             <th>{{ formatDate($image->created_at) }}</th>
+            <th>{{ $image->author['name'].' '.$image->author['middle_name'].' '.$image->author['last_name'] }}</th>
             <td><a href="{{asset('storage')}}/{{ $image->image }}" target="_blank"><img src="{{asset('storage')}}/{{ $image->image }}" width="120"/></a></td>
             <td>{{ $image->description }}</td>
             <!--
