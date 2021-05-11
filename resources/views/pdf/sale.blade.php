@@ -15,7 +15,7 @@
             left: 0.5cm;
             right: 0.5cm;
             height: 0.5cm;
-            padding:-30px;
+            padding:-80px;
         }
 
         footer {
@@ -36,7 +36,7 @@
 <header>
     <table style="width:100%;">
             <tr>
-                <td width="30%" >
+                <td width="30%" style="padding-top:50px;">
                     <img src="{{ $logo }}" width="50%" height="">
                 </td>
                 <td width="40%" style="color:black;">
@@ -51,7 +51,7 @@
                     <br/>
                     <small>Tel: 55460615</small>
                 </td>
-                <td width="30%" style="text-align: right">
+                <td width="30%" style="text-align: right;padding-top:50px;">
                     <img src="{{ $logo2 }}" width="50%" height="">
                 </td>
             </tr>
