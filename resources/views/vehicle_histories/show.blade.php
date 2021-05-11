@@ -27,7 +27,7 @@
 <table class="table table-striped">
     <thead>
         <tr>
-            <th colspan="3" class="text-center" style="background-color:#d30035;color:white;">
+            <th colspan="4" class="text-center" style="background-color:#d30035;color:white;">
                 <!--
                 <a href="#" onclick="" title="Añadir" class="float-right" style="color:white;">[ <span class="icon-upload"></span> ]</a>
                 -->
@@ -64,7 +64,7 @@
         @endforeach
         @if(count($images) <= 0)
         <tr>
-            <td class="text-center font-weight-bold" colspan="3">
+            <td class="text-center font-weight-bold" colspan="4">
                 No hay regirtros para mostrar
             </td>
         </tr>
