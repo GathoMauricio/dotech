@@ -12,6 +12,7 @@ class VehicleHistoryImage extends Model
 
     protected $fillable = [
         'id',
+        'author_id',
         'vehicle_history_id',
         'image',
         'description',
@@ -32,6 +33,16 @@ class VehicleHistoryImage extends Model
         (
             'App\vehicle_history_id',
             'vehicle_id',
+            'id'
+        )
+        ->withDefault();
+    }
+    public function author()
+    {
+        return $this->belongsTo
+        (
+            'App\User',
+            'author_id',
             'id'
         )
         ->withDefault();
