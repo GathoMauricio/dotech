@@ -9,9 +9,9 @@ class ApiVehicleHistoryController extends Controller
     {
         if(\Auth::user()->rol_user_id == 1)
         {
-            $histories = VehicleHistory::where('vehicle_id', $request->vehicle_id)->get();
+            $histories = VehicleHistory::where('vehicle_id', $request->vehicle_id)->orderBy('id', 'DESC')->get();
         }else{
-            $histories = VehicleHistory::where('vehicle_id', $request->vehicle_id)->where('author_id',\Auth::user()->id)->get();
+            $histories = VehicleHistory::where('vehicle_id', $request->vehicle_id)->where('author_id',\Auth::user()->id)->orderBy('id', 'DESC')->get();
         }
         $json = [];
         foreach($histories as $history){

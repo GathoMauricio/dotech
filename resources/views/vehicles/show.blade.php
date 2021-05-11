@@ -177,7 +177,7 @@
     <tbody>
         @foreach($vehicleHistories as $vehicleHistory)
         <tr>
-            <td>{{ formatDate($vehicleHistory->date) }}</td>
+            <td>{{ formatDate($vehicleHistory->created_at) }}</td>
             <td>{{ $vehicleHistory->author['name'] }} {{ $vehicleHistory->author['middle_name'] }} {{ $vehicleHistory->author['last_name'] }}</td>
             <td>{{ $vehicleHistory->kilometers }}</td>
             <td>{{ $vehicleHistory->description }}</td>

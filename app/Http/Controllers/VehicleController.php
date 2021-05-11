@@ -55,7 +55,7 @@ class VehicleController extends Controller
         $vehicle = Vehicle::findOrFail($id);
         $vehicleImages = VehicleImage::where('vehicle_id',$id)->get();
         $maintenances = Maintenance::where('vehicle_id',$id)->get();
-        $vehicleHistories = VehicleHistory::where('vehicle_id',$id)->get();
+        $vehicleHistories = VehicleHistory::where('vehicle_id',$id)->orderBy('id', 'DESC')->get();
         $verifications = VehicleVerification::where('vehicle_id',$id)->get();
         $documents = VehicleDocument::where('vehicle_id',$id)->get();
         return view('vehicles.show',[
