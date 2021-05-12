@@ -34,7 +34,7 @@
             <td>{{ $user->phone }}</td>
             <td>{{ $user->location['name'] }}</td>
             <td>
-                <a href="{{ route('edit_user', $user->id) }}"><span class="icon-pencil" title="Editar" style="cursor:pointer;color:#F39C12"> Editar</span></a>
+                <a href="{{ route('edit_user', $user->id) }}"><span class="icon-eye" title="Ver/Editar" style="cursor:pointer;color:#F39C12"> Ver/Editar</span></a>
                 <br>
                 <a href="#" onclick="deleteUser({{ $user->id }});"><span class="icon-bin" title="Eliminar" style="cursor:pointer;color:#C0392B"> Eliminar</span></a>
                 <br>
@@ -96,7 +96,7 @@
                 "form-control"
             );
             $(".dataTables_length").append(" <b>elementos por página</b>");
-    
+
             $("input[type='search']").prop("class", "form-control");
             $("input[type='search']").prop("placeholder", "Ingrese un filtro...");
         }, 300);
