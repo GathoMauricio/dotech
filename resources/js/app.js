@@ -1183,3 +1183,15 @@ window.deleteStatusExit = id => {
         }
     });
 };
+
+window.isQuoteReject = value => {
+    if(value == 'Rechazada')
+    {
+        $("#div_quote_reject_follow").css('display','block');
+        $("#txt_quote_reject_follow").prop('required',true);
+    }else{
+        $("#div_quote_reject_follow").css('display','none');
+        $("#txt_quote_reject_follow").val('');
+        $("#txt_quote_reject_follow").removeAttr('required');
+    }
+};

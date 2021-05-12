@@ -12,9 +12,9 @@
 <h5 class="text-center">{{ $sale->company['name'] }}</h5>
 <!--
 <span class="float-right title_page">
-    Autor: 
-    {{ $sale->author['name'] }} 
-    {{ $sale->author['middle_name'] }} 
+    Autor:
+    {{ $sale->author['name'] }}
+    {{ $sale->author['middle_name'] }}
     {{ $sale->author['last_name'] }}
 </span>
 -->
@@ -169,7 +169,7 @@
             <td>${{ $utilidad }}</td>
             <td>${{ $comision }}</td>
         </tr>
-        
+
         <tr>
             <td colspan="4" style="word-wrap:break-word;"><b>Observaciones:</b> {{ $sale->observation }}</td>
         </tr>
@@ -225,7 +225,7 @@
                 <td>${{ $product->unity_price_sell *  $product->quantity }}</td>
                 <td>
                     <a href="{{ route('quote_products',$sale->id) }}"><span class="icon-pencil" style="cursor:pointer;color:#F39C12;"></span> </a>
-                    
+
                     <!--
                     <br>
                     <span onclick="deleteProductModal({{ $product->id }})" class="icon-bin" style="cursor:pointer;color:#E74C3C ;"></span>
@@ -272,7 +272,7 @@
             <td>{{ $payment->amount }}</td>
             @if(!empty($payment->document))
             <td class="text-center"><a href="{{ env('APP_URL').'/storage/'.$payment->document }}" target="_BLANK"><span class="icon-eye"></span></a></td>
-            @else 
+            @else
             <td class="text-center"><a href="#"><span class="icon-upload"></span></a></td>
             @endif
         </tr>
@@ -370,7 +370,7 @@
                 @if($whitdrawal->invoive == 'SI')
                 @if(!empty($whitdrawal->document))
                     <td class="text-center"><a href="{{ env('APP_URL').'/storage/'.$whitdrawal->document }}" target="_BLANK"><span class="icon-eye"></span></a></td>
-                    @else 
+                    @else
                     <td class="text-center"><a href="#" onclick="addWhitdralDocumentModal({{ $whitdrawal->id }});"><span class="icon-upload"></span></a></td>
                     @endif
                 @else
@@ -416,7 +416,7 @@
             <td>
                 @if(!empty($binnacle->firm))
                 <img src="{{ asset('storage') }}/{{ $binnacle->firm }}" width="80" height="80">
-                
+
                 @else
                 <center>No disponible</center>
                 @endif
@@ -456,11 +456,15 @@
         @endif
     </table>
 </div>
+@if($sale->status != 'Rechazada')
     @if($sale->status == 'Finalizado')
     <h3 class="font-weight-bold" style="color:green">[Proyecto finalizado]</h3>
     @else
-    <a href="#" onclick="setProjectAsFinish({{ $sale->id }})" class="font-weight-bold link-sys">[Marcar proyecto como finalizado]</a>
+        @if(Auth::user()->rol_user_id == 1)
+            <a href="#" onclick="setProjectAsFinish({{ $sale->id }})" class="font-weight-bold link-sys">[Marcar proyecto como finalizado]</a>
+        @endif
     @endif
+@endif
     <br/>
     <input type="hidden" id="txt_get_binnacle" value="{{ route('binnacle_show_json') }}">
     <input type="hidden" id="txt_get_project_data" value="{{ route('show_quote_ajax') }}">
@@ -520,7 +524,7 @@
                 "form-control"
             );
             $(".dataTables_length").append(" <b>elementos por página</b>");
-    
+
             $("input[type='search']").prop("class", "form-control");
             $("input[type='search']").prop("placeholder", "Ingrese un filtro...");
         }, 300);

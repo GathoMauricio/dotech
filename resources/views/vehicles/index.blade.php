@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
 <a href="{{ route('create_vehicle') }}" class="float-right font-weight-bold link-sys">[ <small class="  icon-plus"></small> Agregar vehiculo ]</a>
-<h4 class="title_page">Vehículos</h4> 
+<h4 class="title_page">Vehículos</h4>
 @if(count($vehicles) <= 0)
 @include('layouts.no_records')
 @else
@@ -21,7 +21,7 @@
         @foreach($vehicles as $vehicle)
         <tr>
             <td>{{ $vehicle->type['type'] }}</td>
-            <td>{{ $vehicle->brand }}</td>
+            <td>{{ $vehicle->brand }}<br>{{ $vehicle->year }}<br>{{ $vehicle->color }}</td>
             <td>{{ $vehicle->model }}</td>
             <td>{{ $vehicle->enrollment }}</td>
             <td>

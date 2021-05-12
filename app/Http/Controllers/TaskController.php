@@ -45,7 +45,7 @@ class TaskController extends Controller
     }
     public function indexAjax()
     {
-        if (Auth::user()->rol_user_id == 1 || Auth::user()->rol_user_id == 2) {
+        if(Auth::user()->rol_user_id == 1) {
             $tasks = Task::where('archived', 'NO')->get();
         } else {
             $tasks = Task::where('archived', 'NO')->where(function ($query) {

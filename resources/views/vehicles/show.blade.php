@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-<h4 class="title_page">Detalles de {{ $vehicle->brand }} {{ $vehicle->model }}</h4> 
+<h4 class="title_page">Detalles de {{ $vehicle->brand }} {{ $vehicle->model }}</h4>
 <br/>
 <table style="width:100%;">
     <tr>
@@ -33,7 +33,7 @@
         <td width="20%" style="background-color:#D5D8DC;">{{ $vehicle->displacement }}</td>
         <td width="20%" style="background-color:#D5D8DC;">{{ $vehicle->power }}</td>
         <td width="20%" style="background-color:#D5D8DC;">{{ $vehicle->color }}</td>
-    </tr> 
+    </tr>
 </table>
 <br/>
 <table style="width:100%;">
@@ -50,7 +50,7 @@
         <td onclick="showVehicleTab('verificaciones');" class="text-center font-weight-bold" style="background-color:#d30035;color:white;cursor:pointer;">
             Verificaciones
         </td>
-        @if(Auth::user()->rol_user_id == 1)
+        @if(Auth::user()->rol_user_id == 1 || Auth::user()->rol_user_id == 2)
         <td onclick="showVehicleTab('documentacion');" class="text-center font-weight-bold" style="background-color:#d30035;color:white;cursor:pointer;">
             Documentación
         </td>
@@ -194,7 +194,7 @@
                 <!--
                 <a href="{{ route('maintenance_edit',$vehicleHistory->id) }}" ><span class="icon-pencil" title="Editar..." style="cursor:pointer;color:#EB984E"> Editar</span></a>
                 <br/>
-                
+
                 @if(Auth::user()->rol_user_id == 1)
                 <a href="#" onclick="deleteMaintenance({{ $vehicleHistory->id }})"><span class="icon-bin" title="Eliminar..." style="cursor:pointer;color:#E74C3C"> Eliminar</span></a>
                 @endif

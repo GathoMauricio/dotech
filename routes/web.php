@@ -60,6 +60,7 @@ Route::get('quotes/{id}','SaleController@quotes')->name('quotes')->middleware('a
 Route::get('projects/{id}','SaleController@projects')->name('projects')->middleware('auth');
 Route::get('finalized/{id}','SaleController@finalized')->name('finalized')->middleware('auth');
 Route::get('rejects/{id}','SaleController@rejects')->name('rejects')->middleware('auth');
+Route::get('all_rejects','SaleController@allRejects')->name('all_rejects')->middleware('auth');
 Route::get('index_quotes','SaleController@indexQuotes')->name('index_quotes')->middleware('auth');
 Route::get('index_proyects','SaleController@indexProyects')->name('index_proyects')->middleware('auth');
 

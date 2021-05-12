@@ -25,7 +25,7 @@ class SaleController extends Controller
         if(Auth::user()->rol_user_id == 1)
         {
             $sales = Sale::where('status','Pendiente')->get();
-        }else{ 
+        }else{
             $sales = Sale::where('status','Pendiente')->where('author_id',Auth::user()->id)->get();
         }
         return view('quotes.index',['sales' => $sales]);
@@ -72,8 +72,13 @@ class SaleController extends Controller
     public function rejects($id)
     {
         $company = Company::findOrFail($id);
-        $sales = Sale::where('company_id', $id)->where('status','Rechazada')->get();
+        $sales = Sale::orderBy('id','DESC')->where('company_id', $id)->where('status','Rechazada')->get();
         return view('sale.rejects',['company' => $company, 'sales' => $sales]);
+    }
+    public function allRejects()
+    {
+        $sales = Sale::orderBy('id','DESC')->where('status','Rechazada')->get();
+        return view('sale.rejects',['company' => 'General', 'sales' => $sales]);
     }
     public function show($id)
     {
@@ -99,12 +104,12 @@ class SaleController extends Controller
         }
 
         $costoProyecto = number_format($sale->estimated + ($sale->estimated * 0.16),2);
-        
+
         $utilidad = number_format($sale->estimated + ($sale->estimated * 0.16) - $totalRetiros,2);
         $comision = number_format((($sale->estimated + ($sale->estimated * 0.16) - $totalRetiros / 1.16) * $sale->commision_percent) / 100 ,2);
 
 
-        
+
         $sale->utility = $utilidad;
         $sale->save();
         $totalSell = 0;
@@ -160,7 +165,7 @@ class SaleController extends Controller
         $sale = Sale::findOrFail($id);
         $companies = Company::orderBy('name')->get();
         $departments = CompanyDepartment::where('company_id',$sale->company_id)->orderBy('name')->get();
-        
+
         return view('sale.edit',[
             'sale' => $sale,
             'companies' => $companies,
@@ -226,8 +231,8 @@ class SaleController extends Controller
         $total=0;
         foreach($products as $product){ $total += $product->total_sell; }
         $totalIva = $total + (($total * 16) / 100);
-        return view('quotes.products',[ 
-            'sale'=> $sale, 
+        return view('quotes.products',[
+            'sale'=> $sale,
             'products' => $products,
             'total' => $total,
             'totalIva' => $totalIva
@@ -263,6 +268,14 @@ class SaleController extends Controller
     }
     public function updateStatus(Request $request)
     {
+        if($request->follow)
+        {
+            $follow = SaleFollow::create([
+                'sale_id' => $request->sale_id,
+                'body' => $request->follow
+            ]);
+        }
+
         $sale = Sale::findOrFail($request->sale_id);
         $sale->status = $request->status;
         $sale->save();
@@ -384,7 +397,7 @@ class SaleController extends Controller
                 'route' => $msg_route
             ]));
         }
-        
+
         return redirect()->back()->with('message', 'Se envió la cotización '.$sale->description.' a '.$sale->company->name.' con éxito.');
     }
     public function storeSaleByCompany(Request $request)

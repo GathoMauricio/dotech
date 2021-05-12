@@ -22,11 +22,18 @@
                                 <label for="currency" class="font-weight-bold color-primary-sys">
                                     Seleccione el nuevo estatus de la cotización
                                 </label>
-                                <select name="status" class="form-control">
+                                <select name="status" onchange="isQuoteReject(this.value)" class="form-control">
                                     <option value="Proyecto">Proyecto</option>
                                     <option value="Rechazada">Rechazada</option>
-                                    <option value="Finalizado">Finalizado</option>
                                 </select>
+                            </div>
+                        </div>
+                        <div class="col-md-12" style="display:none;" id="div_quote_reject_follow">
+                            <div class="form-group">
+                                <label for="follow" class="font-weight-bold color-primary-sys">
+                                    Agregue una descripción*
+                                </label>
+                                <textarea name="follow" id="txt_quote_reject_follow" class="form-control"></textarea>
                             </div>
                         </div>
                     </div>

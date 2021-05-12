@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @section('content')
 <h4 class="title_page ">Cotizaciones</h4>
+<a href="{{ route('all_rejects') }}" class="float-right">Cotizaciones rechazadas</a>
 <a href="#" onclick="addQuoteModal();"><span class="icon-plus"></span> Agregar cotización</a>
 @if(count($sales) <= 0)
 @include('layouts.no_records')
@@ -95,7 +96,7 @@
                 "form-control"
             );
             $(".dataTables_length").append(" <b>elementos por página</b>");
-    
+
             $("input[type='search']").prop("class", "form-control");
             $("input[type='search']").prop("placeholder", "Ingrese un filtro...");
         }, 300);
