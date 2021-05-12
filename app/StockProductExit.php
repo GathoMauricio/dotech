@@ -15,6 +15,7 @@ class StockProductExit extends Model
         'stock_product_id',
         'quantity',
         'description',
+        'status',
         'created_at',
         'updated_at'
     ];
@@ -23,8 +24,13 @@ class StockProductExit extends Model
 		parent::boot();
 		static::creating(function ($query) {
             $query->author_id = \Auth::user()->id;
+            $product = StockProduct::find($query->stock_product_id);
+            if($product->return == 'SI')
+                $query->status = 'USANDO';
+            else
+                $query->status = 'N/A';
 		});
-    } 
+    }
     public function author()
     {
         return $this->belongsTo

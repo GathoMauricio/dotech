@@ -12,7 +12,7 @@ Route::get('/', function () {
         return $whitdrawal->index();
     }else{
         return view('auth.login');
-    }    
+    }
 })->name('/');
 
 #Sale Whitdraw temporaly
@@ -82,7 +82,7 @@ Route::get('sale_follows/{id}','SaleFollowController@index')->name('sale_follows
 Route::post('store_sale_follow','SaleFollowController@store')->name('store_sale_follow')->middleware('auth');
 Route::get('delete_sale_follow/{id?}','SaleFollowController@destroy')->name('delete_sale_follow')->middleware('auth');
 
-#Sale Document 
+#Sale Document
 Route::post('store_sale_document','SaleDocumnetController@store')->name('store_sale_document')->middleware('auth');
 
 #Sale Payment
@@ -261,13 +261,18 @@ Route::post('store_category_product','StockProductCategoryController@store')->na
 Route::get('stock_product_exit_index/{id}','StockProductExitController@index')->name('stock_product_exit_index')->middleware('auth');
 Route::get('delete_stock_product_exit_route/{id?}','StockProductExitController@destroy')->name('delete_stock_product_exit_route')->middleware('auth');
 
+#Product exits
+Route::get('product_exits','StockProductExitController@indexExits')->name('product_exits')->middleware('auth');
+Route::put('update_stock_product_exit_status','StockProductExitController@update')->name('update_stock_product_exit_status')->middleware('auth');
+Route::get('delete_stock_product_exit/{id?}','StockProductExitController@destroy')->name('delete_stock_product_exit')->middleware('auth');
+
 Route::get('info',function(){  phpinfo();  })->name('info');
 
 /*
 Route::get('test',function(){
     set_time_limit(50000);
-    
-    
+
+
     $conexion = mysqli_connect("127.0.0.1", "root", "", "old");
     $consulta = "SELECT * FROM producto_venta ";
     $datos = mysqli_query($conexion,$consulta);
@@ -298,7 +303,7 @@ Route::get('test',function(){
             $producto->save();
             echo "En laravel es: ".$producto->description."<br/><br/>";
         }
-        
+
     }
 
 })->name('test');

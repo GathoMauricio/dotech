@@ -2,7 +2,10 @@
 @section('content')
 <br><br>
 <a href="{{ route('stock_product_create') }}" class="float-right font-weight-bold link-sys">[ <small class="  icon-plus"></small> Agregar producto ]</a>
+
+<a href="{{ route('product_exits') }}" class="float-right font-weight-bold link-sys">[ <small class="  icon-share"></small> Ver últimas salidas ]</a>
 <h4 class="title_page">Almacén</h4>
+
 @if(count($products) <= 0)
 @include('layouts.no_records')
 @else

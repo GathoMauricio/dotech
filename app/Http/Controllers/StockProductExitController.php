@@ -15,6 +15,12 @@ class StockProductExitController extends Controller
         return view('stock_product_exit.index',['product' => $product, 'exits' => $exits]);
     }
 
+    public function indexExits()
+    {
+        $exits = StockProductExit::orderBy('id','DESC')->get();
+        return view('product_exits.index',['exits' => $exits]);
+    }
+
     public function create()
     {
         //
@@ -35,9 +41,18 @@ class StockProductExitController extends Controller
         //
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $exit = StockProductExit::findOrFail($request->id);
+        $exit->fill($request->all())->update();
+        if($request->status == 'DEVUELTO')
+        {
+            $product = StockProduct::find($exit->stock_product_id);
+            $product->quantity = $product->quantity + $exit->quantity;
+            $product->save();
+
+        }
+        return redirect()->back()->with('message','Registro actualizado.');
     }
 
     public function destroy($id)
