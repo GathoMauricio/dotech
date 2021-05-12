@@ -8,8 +8,37 @@ class SaleFollowController extends Controller
     public function index($id)
     {
         $sale = Sale::findOrFail($id);
-        $follows = SaleFollow::where('sale_id',$id)->orderBy('created_at','DESC')->paginate(15);
+        $follows = SaleFollow::where('sale_id',$id)->orderBy('created_at','DESC')->paginate();
         return view('sale.follows',[ 'sale' => $sale, 'follows' => $follows ]);
+    }
+    public function indexAjax(Request $request)
+    {
+        $follows = SaleFollow::where('sale_id',$request->id)->orderBy('created_at','ASC')->get();
+        $json = [];
+        foreach($follows as $follow)
+        {
+            $json[] = [
+                'author' => $follow->author['name'].' '.$follow->author['middle_name'].' '.$follow->author['last_name'],
+                'body' => $follow->body,
+                'created_at'=> formatDate($follow->created_at)
+            ];
+        }
+        return $json;
+    }
+    public function storeAjax(Request $request)
+    {
+        $follow = SaleFollow::create($request->all());
+        $follows = SaleFollow::where('sale_id',$request->sale_id)->orderBy('created_at','ASC')->get();
+        $json = [];
+        foreach($follows as $follow)
+        {
+            $json[] = [
+                'author' => $follow->author['name'].' '.$follow->author['middle_name'].' '.$follow->author['last_name'],
+                'body' => $follow->body,
+                'created_at'=> formatDate($follow->created_at)
+            ];
+        }
+        return $json;
     }
     public function create()
     {

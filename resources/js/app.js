@@ -64,6 +64,42 @@ jQuery(() => {
             msg('Error: ', 'Las contraseñas no coinciden');
         }
     });
+    $("#form_store_sale_follow").on('submit',e => {
+        e.preventDefault();
+        $.ajax({
+            type: 'POST',
+            url: $("#form_store_sale_follow").prop('action'),
+            data: $("#form_store_sale_follow").serialize(),
+            success: data => {
+                $("#form_store_sale_follow")[0].reset();
+                $("#SaleFollowBox").html("");
+                let counter = 0;
+                $.each(data, function(index, value) {
+                    counter++;
+                    $("#SaleFollowBox").append(
+                        '<div class="comment-item">' +
+                        '<label class="color-primary-sys font-weight-bold">' +
+                        value.author +
+                        "</label>" +
+                        "<br/>" +
+                        value.body +
+                        "<br/>" +
+                        '<span class="font-weight-bold float-right">' +
+                        value.created_at +
+                        "</span>" +
+                        "<br/>" +
+                        "</div><br/>"
+                    );
+                });
+                setTimeout(() => {
+                    $("#SaleFollowBox").animate({ scrollTop: $(document).height() * 10000 },
+                        500
+                    );
+                }, 500);
+            },
+            error: err => console.log(err)
+        });
+    });
 
 });
 /*++ End JqueryReady ++*/
@@ -1194,4 +1230,52 @@ window.isQuoteReject = value => {
         $("#txt_quote_reject_follow").val('');
         $("#txt_quote_reject_follow").removeAttr('required');
     }
+};
+
+window.saleFollowModal = sale_id => {
+    $("#txt_follow_sale_id").val(sale_id);
+    const index_route = $("#txt_index_sale_follow").val();
+    $.ajax({
+        type: "GET",
+        url: index_route,
+        data: {
+            id: sale_id
+        },
+        success: data => {
+            $("#SaleFollowBox").html("");
+            let counter = 0;
+            $.each(data, function(index, value) {
+                counter++;
+                $("#SaleFollowBox").append(
+                    '<div class="comment-item">' +
+                    '<label class="color-primary-sys font-weight-bold">' +
+                    value.author +
+                    "</label>" +
+                    "<br/>" +
+                    value.body +
+                    "<br/>" +
+                    '<span class="font-weight-bold float-right">' +
+                    value.created_at +
+                    "</span>" +
+                    "<br/>" +
+                    "</div><br/>"
+                );
+            });
+            setTimeout(() => {
+                $("#SaleFollowBox").animate({ scrollTop: $(document).height() * 10000 },
+                    500
+                );
+            }, 500);
+            if (counter <= 0) {
+                $("#SaleFollowBox").html(
+                    '<center><span style="background-color:#F7DC6F;padding:5px;border-radius:3px;" class="text-center font-weight-bold">' +
+                    "Aún no se han agregado seguimientos" +
+                    "</span></center>"
+                );
+            }
+            $("#sale_follow_modal").modal();
+        },
+        error: error => console.log(error)
+    });
+
 };

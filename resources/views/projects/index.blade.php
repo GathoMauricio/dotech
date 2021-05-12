@@ -29,7 +29,7 @@
                 <br>
                 <a href="#" onclick="changeStatusModal({{ $sale->id }});"><span class="icon-checkmark" title="Cambiar estatus" style="cursor:pointer;color:#2ECC71"> Estatus</span></a>
                 <br>
-                
+
                 <a href="#" onclick="editQuote({{ $sale->id }});"><span class="icon-pencil" title="Editar" style="cursor:pointer;color:#F39C12"> Editar</span></a>
                 <br>
                 -->
@@ -39,7 +39,7 @@
                 <br>
                 <a href="#" onclick="editProject({{ $sale->id }});"><span class="icon-pencil" title="Editar" style="cursor:pointer;color:#F39C12"> Editar</span></a>
                 <br>
-                <a href="{{ route('sale_follows',$sale->id) }}"><span class="icon-bubble" title="Seguimientos" style="cursor:pointer;color:#2980B9"> Seguimientos</span></a>
+                <a href="#" onclick="saleFollowModal({{ $sale->id }});"><span class="icon-bubble" title="Seguimientos" style="cursor:pointer;color:#2980B9"> Seguimientos</span></a>
                 @if(Auth::user()->rol_user_id == 1)
                 <br>
                 <a href="#" onclick="deleteSale({{ $sale->id }})"><span class="icon-bin" title="Eliminar" style="cursor:pointer;color:#C0392B"> Eliminar</span></a>
@@ -49,6 +49,7 @@
         @endforeach
     </tbody>
 </table>
+@include('sale.sale_follow_modal')
 <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
 <script>
     jQuery(document).ready(function(){
@@ -101,7 +102,7 @@
                 "form-control"
             );
             $(".dataTables_length").append(" <b>elementos por página</b>");
-    
+
             $("input[type='search']").prop("class", "form-control");
             $("input[type='search']").prop("placeholder", "Ingrese un filtro...");
         }, 300);

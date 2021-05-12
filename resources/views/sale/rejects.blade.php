@@ -25,12 +25,16 @@
             <td>{{ $sale->description }}</td>
             <td>${{ number_format($sale->estimated + ($sale->estimated * 0.16),2) }}</td>
             <td>{{ formatDate($sale->created_at) }}</td>
-            <td><a href="{{ route('show_sale',$sale->id) }}">Ver detalles</a></td>
+            <td>
+                <a href="{{ route('show_sale',$sale->id) }}">Ver detalles</a>
+                <br>
+                <a onclick="saleFollowModal({{ $sale->id }});" href="#" style="cursor:pointer;color:#2980B9">Seguimientos</a>
+            </td>
         </tr>
         @endforeach
     </tbody>
 </table>
-
+@include('sale.sale_follow_modal')
 @endif
 
 @endsection

@@ -80,7 +80,7 @@
             </td>
             <td style="padding:5px;">
                 <center>
-                    <a href="{{ route('sale_follows',$sale->id) }}" target="_BLANK">
+                    <a href="#" onclick="saleFollowModal({{ $sale->id }});">
                         <span class="icon-bubble2" style="cursor:pointer;">
                             Seguimientos
                         </span>
@@ -530,6 +530,7 @@
         }, 300);
     }
 </script>
+@include('sale.sale_follow_modal')
 @include('sale.send_binnacle_pdf_modal')
 @include('sale.send_all_binnacle_pdf_modal')
 @include('withdrawal.add_provider_modal')
