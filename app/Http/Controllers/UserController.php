@@ -7,6 +7,7 @@ use App\User;
 use App\StatusUser;
 use App\RolUser;
 use App\LocationUser;
+use App\UserDocument;
 use Auth;
 use Storage;
 class UserController extends Controller
@@ -42,7 +43,7 @@ class UserController extends Controller
             return redirect()->route('index_user')->with('message', 'El usuario se guardó y su imagen se almacenó con éxito.');
         }
         $user->save();
-        #TODO : Make email template whit instructions about login 
+        #TODO : Make email template whit instructions about login
         return redirect()->route('index_user')->with('message', 'Usuario creado');
     }
     public function show($id)
@@ -74,7 +75,14 @@ class UserController extends Controller
         $statuses = StatusUser::all();
         $rols = RolUser::all();
         $locations = LocationUser::orderBy('name')->get();
-        return view('users.edit',[ 'user' => $user,'statuses' => $statuses, 'rols' => $rols, 'locations' => $locations]);
+        $documents = UserDocument::where('user_id',$id)->get();
+        return view('users.edit',[
+            'user' => $user,
+            'statuses' => $statuses,
+            'rols' => $rols,
+            'locations' => $locations,
+            'documents' => $documents
+        ]);
     }
     public function update(Request $request, $id)
     {
@@ -127,7 +135,7 @@ class UserController extends Controller
                 $user->image = $name;
                 $user->save();
                 return redirect()->back()->with('message', 'La foto se actualizo con éxito.');
-            }else{ 
+            }else{
                 return redirect()->back()->with('message', 'Fallo al eliminar la imagen anterior.');
             }
         }else{

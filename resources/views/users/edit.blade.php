@@ -189,4 +189,48 @@
         <button type="submit" class="btn btn-primary">Actualizar</button>
     </div>
 </form>
+<hr>
+<table class="table" border="5">
+    <tr>
+        <td colspan="9" style="background-color:#d30035;color:white;font-weight:bold;">
+            <center>
+                <label>Documentación</label>
+                <label style="float:right;padding:5px;"><span
+                        onclick="addUserDocument({{ $user->id }});" class="icon-plus"
+                        style="cursor:pointer;color:white;" title="Agregar documento..."></span></label>
+            </center>
+        </td>
+    </tr>
+</table>
+<table class="table" border="5">
+    <thead>
+    <tr>
+        <th>Fecha</th>
+        <th>Descripción</th>
+        <th>Documento</th>
+        @if(Auth::user()->rol_user_id == 1)
+        <th> </th>
+        @endif
+    </tr>
+    </thead>
+    <tbody>
+    @foreach($documents as $document)
+        <tr>
+            <td>{{ formatDate($document->created_at) }}</td>
+            <td>{{ $document->description }}</td>
+            <td><a href="{{ asset('storage') }}/{{ $document->document }}" target="_blank">{{ $document->document }}</a></td>
+            @if(Auth::user()->rol_user_id == 1)
+            <td>
+                <a href="#" onclick="deleteUserDocument({{ $document->id }});"><span class="icon-bin" title="Eliminar" style="cursor:pointer;color:#C0392B"> Eliminar</span></a>
+            </td>
+            @endif
+        </tr>
+    @endforeach
+    @if(count($documents)<=0)
+        <tr><td colspan="4" class="text-center">Sin registros</td></tr>
+    @endif
+    </tbody>
+</table>
+<input type="hidden" id="txt_delete_user_document_route" value="{{ route('delete_user_document') }}">
+    @include('users.add_user_document_modal')
 @endsection

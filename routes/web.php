@@ -172,6 +172,9 @@ Route::get('delete_user/{id?}','UserController@destroy')->name('delete_user')->m
 Route::put('update_my_password','UserController@updateMyPassword')->name('update_my_password')->middleware('auth');
 Route::put('update_password_admin','UserController@updatePasswordAdmin')->name('update_password_admin')->middleware('auth');
 
+#User Documents
+Route::post('store_user_document','UserDocumentController@store')->name('store_user_document')->middleware('auth');
+Route::get('delete_user_document/{id?}','UserDocumentController@destroy')->name('delete_user_document')->middleware('auth');
 #providers
 Route::get('provider_index','WhitdrawalProviderController@index')->name('provider_index')->middleware('auth');
 Route::get('edit_provider/{id}','WhitdrawalProviderController@edit')->name('edit_provider')->middleware('auth');

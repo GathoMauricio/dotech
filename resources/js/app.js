@@ -1202,7 +1202,6 @@ window.changeStatusExitModal = exit_id => {
 };
 
 window.deleteStatusExit = id => {
-    console.log("eliminar producto");
     const route = $("#txt_delete_status_exit_route").val();
     Swal.fire({
         title: "¿Eliminar registro?",
@@ -1277,5 +1276,27 @@ window.saleFollowModal = sale_id => {
         },
         error: error => console.log(error)
     });
+};
 
+window.addUserDocument = user_id =>{
+    $("#txt_add_user_document_modal_sale_id").val(user_id);
+  $("#add_user_document_modal").modal();
+};
+
+window.deleteUserDocument = id => {
+    const route = $("#txt_delete_user_document_route").val();
+    Swal.fire({
+        title: "¿Eliminar registro?",
+        text: "El registro se eliminará por completo.",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "red",
+        cancelButtonColor: "#000",
+        confirmButtonText: "Si, eliminar!",
+        cancelButtonText: "Cancelar"
+    }).then(result => {
+        if (result.isConfirmed) {
+            window.location = route + '/' + id;
+        }
+    });
 };
