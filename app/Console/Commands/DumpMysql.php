@@ -49,7 +49,7 @@ class DumpMysql extends Command
         $disk->put("DB_dotech.sql",\File::get(storage_path('dump_db/dump_'.date('Y-m-d').'.sql')));
 
         \App\BinnacleImage::where('image',null)->delete();
-        
+
         \Log::info("Base de datos almacenada...");
 
         //$files = glob('public/storage/*');
