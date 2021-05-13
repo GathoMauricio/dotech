@@ -274,7 +274,14 @@ Route::get('product_exits','StockProductExitController@indexExits')->name('produ
 Route::put('update_stock_product_exit_status','StockProductExitController@update')->name('update_stock_product_exit_status')->middleware('auth');
 Route::get('delete_stock_product_exit/{id?}','StockProductExitController@destroy')->name('delete_stock_product_exit')->middleware('auth');
 
-Route::get('info',function(){  phpinfo();  })->name('info');
+#Candidates
+Route::get('candidates','CandidateController@index')->name('candidates')->middleware('auth');
+Route::get('candidates_create','CandidateController@create')->name('candidates_create')->middleware('auth');
+Route::get('candidates_edit/{id}','CandidateController@edit')->name('candidates_edit')->middleware('auth');
+Route::post('candidates_store','CandidateController@store')->name('candidates_store')->middleware('auth');
+Route::put('candidates_update/{id}','CandidateController@update')->name('candidates_update')->middleware('auth');
+Route::get('candidates_destroy/{id?}','CandidateController@destroy')->name('candidates_destroy')->middleware('auth');
+//Route::get('info',function(){  phpinfo();  })->name('info');
 
 /*
 Route::get('test',function(){

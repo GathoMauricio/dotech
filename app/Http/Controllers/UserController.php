@@ -18,7 +18,7 @@ class UserController extends Controller
     }
     public function index()
     {
-        $users = User::all();
+        $users = User::where('rol_user_id','!=',4)->get();
         return view('users.index',[ 'users' => $users ]);
     }
     public function create()
@@ -76,7 +76,7 @@ class UserController extends Controller
         $rols = RolUser::all();
         $locations = LocationUser::orderBy('name')->get();
         $documents = UserDocument::where('user_id',$id)->get();
-        return view('users.edit',[
+        return view('candidates.edit',[
             'user' => $user,
             'statuses' => $statuses,
             'rols' => $rols,

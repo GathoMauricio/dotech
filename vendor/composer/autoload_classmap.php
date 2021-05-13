@@ -8,6 +8,7 @@ $baseDir = dirname($vendorDir);
 return array(
     'App\\Binnacle' => $baseDir . '/app/Binnacle.php',
     'App\\BinnacleImage' => $baseDir . '/app/BinnacleImage.php',
+    'App\\Candidate' => $baseDir . '/app/Candidate.php',
     'App\\Company' => $baseDir . '/app/Company.php',
     'App\\CompanyDepartment' => $baseDir . '/app/CompanyDepartment.php',
     'App\\CompanyFollow' => $baseDir . '/app/CompanyFollow.php',
@@ -70,6 +71,7 @@ return array(
     'App\\Http\\Controllers\\TaskCommentController' => $baseDir . '/app/Http/Controllers/TaskCommentController.php',
     'App\\Http\\Controllers\\TaskController' => $baseDir . '/app/Http/Controllers/TaskController.php',
     'App\\Http\\Controllers\\UserController' => $baseDir . '/app/Http/Controllers/UserController.php',
+    'App\\Http\\Controllers\\UserDocumentController' => $baseDir . '/app/Http/Controllers/UserDocumentController.php',
     'App\\Http\\Controllers\\VehicleController' => $baseDir . '/app/Http/Controllers/VehicleController.php',
     'App\\Http\\Controllers\\VehicleDocumentController' => $baseDir . '/app/Http/Controllers/VehicleDocumentController.php',
     'App\\Http\\Controllers\\VehicleHistoryController' => $baseDir . '/app/Http/Controllers/VehicleHistoryController.php',
@@ -124,6 +126,7 @@ return array(
     'App\\Task' => $baseDir . '/app/Task.php',
     'App\\TaskComment' => $baseDir . '/app/TaskComment.php',
     'App\\User' => $baseDir . '/app/User.php',
+    'App\\UserDocument' => $baseDir . '/app/UserDocument.php',
     'App\\Vehicle' => $baseDir . '/app/Vehicle.php',
     'App\\VehicleDocument' => $baseDir . '/app/VehicleDocument.php',
     'App\\VehicleHistory' => $baseDir . '/app/VehicleHistory.php',

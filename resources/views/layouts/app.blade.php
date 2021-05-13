@@ -60,7 +60,7 @@
                         @endif
                         <span style="display:none;" class="label-item-menu">
                             <br>
-                            {{ Auth::user()->name }} {{ Auth::user()->middle_name }} {{ Auth::user()->last_name }} 
+                            {{ Auth::user()->name }} {{ Auth::user()->middle_name }} {{ Auth::user()->last_name }}
                             <br>
                             {{ Auth::user()->rol['name'] }}
                             <input type="hidden" id="txt_user_id" value="{{ Auth::user()->id }}" />
@@ -157,7 +157,7 @@
                     <p style="cursor:pointer;">
                         <span class="icon-truck">
                             <span style="display:none;" class="label-item-menu">
-                                Vehiculos
+                                Vehículos
                             </span>
                         </span>
                     </p>
@@ -173,6 +173,18 @@
                     </p>
                 </a>
                 <hr>
+                @if(Auth::user()->rol_user_id == 1 || Auth::user()->rol_user_id == 2)
+                <a href="{{ route('candidates') }}">
+                    <p style="cursor:pointer;">
+                        <span class="icon-users">
+                            <span style="display:none;" class="label-item-menu">
+                                Aspirantes
+                            </span>
+                        </span>
+                    </p>
+                </a>
+                <hr>
+                @endif
                 <a href="{{ asset('mobile/dotech_mobile_1-1-0.apk') }}" target="_blank">
                     <p style="cursor:pointer;">
                         <span class="icon-android" style="color:green;">
@@ -206,14 +218,14 @@
             overflow: hidden;
             overflow-y:scroll;
         }
-        
+
         .menu_vp {
             position: fixed;
             top: 0;
             left: 0;
             height: 100vh;
             background-color: #d5d8dc;
-            
+
         }
 
         .content_menu_vp {
@@ -222,7 +234,7 @@
             text-align: center;
         }
 
-        
+
 
         .label-item-menu {
             font-weight: bold;
@@ -270,7 +282,7 @@
             $(".content_menu_vp p").css('text-align','center');
             $(".label-item-menu").css('display', 'none');
             $(".content_menu_vp p span").css('font-size','22px');
-        });       
+        });
     });
     </script>
     @include('companies.show_modal')
@@ -288,7 +300,7 @@
             $("#notification_container").css('display','block');
             document.getElementById('message').play();
 
-            switch(data.message.event) { 
+            switch(data.message.event) {
                 case 'task_comment':
                     console.log("Comentario de tarea");
                     if($("#index_task_comment_modal").length > 0) {

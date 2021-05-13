@@ -684,6 +684,7 @@ class ComposerStaticInitc76430cec0ac4972d1901c144bf246d6
     public static $classMap = array (
         'App\\Binnacle' => __DIR__ . '/../..' . '/app/Binnacle.php',
         'App\\BinnacleImage' => __DIR__ . '/../..' . '/app/BinnacleImage.php',
+        'App\\Candidate' => __DIR__ . '/../..' . '/app/Candidate.php',
         'App\\Company' => __DIR__ . '/../..' . '/app/Company.php',
         'App\\CompanyDepartment' => __DIR__ . '/../..' . '/app/CompanyDepartment.php',
         'App\\CompanyFollow' => __DIR__ . '/../..' . '/app/CompanyFollow.php',
@@ -746,6 +747,7 @@ class ComposerStaticInitc76430cec0ac4972d1901c144bf246d6
         'App\\Http\\Controllers\\TaskCommentController' => __DIR__ . '/../..' . '/app/Http/Controllers/TaskCommentController.php',
         'App\\Http\\Controllers\\TaskController' => __DIR__ . '/../..' . '/app/Http/Controllers/TaskController.php',
         'App\\Http\\Controllers\\UserController' => __DIR__ . '/../..' . '/app/Http/Controllers/UserController.php',
+        'App\\Http\\Controllers\\UserDocumentController' => __DIR__ . '/../..' . '/app/Http/Controllers/UserDocumentController.php',
         'App\\Http\\Controllers\\VehicleController' => __DIR__ . '/../..' . '/app/Http/Controllers/VehicleController.php',
         'App\\Http\\Controllers\\VehicleDocumentController' => __DIR__ . '/../..' . '/app/Http/Controllers/VehicleDocumentController.php',
         'App\\Http\\Controllers\\VehicleHistoryController' => __DIR__ . '/../..' . '/app/Http/Controllers/VehicleHistoryController.php',
@@ -800,6 +802,7 @@ class ComposerStaticInitc76430cec0ac4972d1901c144bf246d6
         'App\\Task' => __DIR__ . '/../..' . '/app/Task.php',
         'App\\TaskComment' => __DIR__ . '/../..' . '/app/TaskComment.php',
         'App\\User' => __DIR__ . '/../..' . '/app/User.php',
+        'App\\UserDocument' => __DIR__ . '/../..' . '/app/UserDocument.php',
         'App\\Vehicle' => __DIR__ . '/../..' . '/app/Vehicle.php',
         'App\\VehicleDocument' => __DIR__ . '/../..' . '/app/VehicleDocument.php',
         'App\\VehicleHistory' => __DIR__ . '/../..' . '/app/VehicleHistory.php',
