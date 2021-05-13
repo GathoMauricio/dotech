@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\BinnacleImage;
 use Illuminate\Console\Command;
 
 class DumpMysql extends Command
@@ -46,12 +47,14 @@ class DumpMysql extends Command
 
         $disk = \Storage::disk('gcs');
         $disk->put("DB_dotech.sql",\File::get(storage_path('dump_db/dump_'.date('Y-m-d').'.sql')));
+
+        \App\BinnacleImage::where('image',null)->delete();
         
         \Log::info("Base de datos almacenada...");
-        
+
         //$files = glob('public/storage/*');
         //\Madzipper::make('storage/zipped/storage.zip')->add($files)->close();
-        
+
         //\Log::info("Archivos comprimidos...");
         #TODO:Allowed memory size of 1073741824 bytes exhausted (tried to allocate 1376474824 bytes)
         /*
