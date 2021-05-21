@@ -171,6 +171,7 @@ Route::put('update_user/{id}','UserController@update')->name('update_user')->mid
 Route::get('delete_user/{id?}','UserController@destroy')->name('delete_user')->middleware('auth');
 Route::put('update_my_password','UserController@updateMyPassword')->name('update_my_password')->middleware('auth');
 Route::put('update_password_admin','UserController@updatePasswordAdmin')->name('update_password_admin')->middleware('auth');
+Route::get('update_evaluation_test','UserController@updateEvaluationTest')->name('update_evaluation_test')->middleware('auth');
 
 #User Documents
 Route::post('store_user_document','UserDocumentController@store')->name('store_user_document')->middleware('auth');

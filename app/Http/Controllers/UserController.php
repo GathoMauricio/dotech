@@ -174,4 +174,11 @@ class UserController extends Controller
         createSysLog("actualizó la contraseña de ".$user->name." ".$user->middle_name." ".$user->last_name);
         return redirect()->back()->with('message', 'La contraseña se actualizo con exito.');
     }
+    public function updateEvaluationTest(Request $request)
+    {
+        $user = User::findOrFail($request->id);
+        $user->evaluation = number_format($request->evaluation,2);
+        $user->save();
+        return $user;
+    }
 }

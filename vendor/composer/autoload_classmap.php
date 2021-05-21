@@ -44,6 +44,7 @@ return array(
     'App\\Http\\Controllers\\Auth\\VerificationController' => $baseDir . '/app/Http/Controllers/Auth/VerificationController.php',
     'App\\Http\\Controllers\\BinnacleController' => $baseDir . '/app/Http/Controllers/BinnacleController.php',
     'App\\Http\\Controllers\\BinnacleImageController' => $baseDir . '/app/Http/Controllers/BinnacleImageController.php',
+    'App\\Http\\Controllers\\CandidateController' => $baseDir . '/app/Http/Controllers/CandidateController.php',
     'App\\Http\\Controllers\\CompanyController' => $baseDir . '/app/Http/Controllers/CompanyController.php',
     'App\\Http\\Controllers\\CompanyDepartmentController' => $baseDir . '/app/Http/Controllers/CompanyDepartmentController.php',
     'App\\Http\\Controllers\\CompanyFollowController' => $baseDir . '/app/Http/Controllers/CompanyFollowController.php',

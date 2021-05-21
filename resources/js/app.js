@@ -64,7 +64,7 @@ jQuery(() => {
             msg('Error: ', 'Las contraseñas no coinciden');
         }
     });
-    $("#form_store_sale_follow").on('submit',e => {
+    $("#form_store_sale_follow").on('submit', e => {
         e.preventDefault();
         $.ajax({
             type: 'POST',
@@ -1220,12 +1220,11 @@ window.deleteStatusExit = id => {
 };
 
 window.isQuoteReject = value => {
-    if(value == 'Rechazada')
-    {
-        $("#div_quote_reject_follow").css('display','block');
-        $("#txt_quote_reject_follow").prop('required',true);
-    }else{
-        $("#div_quote_reject_follow").css('display','none');
+    if (value == 'Rechazada') {
+        $("#div_quote_reject_follow").css('display', 'block');
+        $("#txt_quote_reject_follow").prop('required', true);
+    } else {
+        $("#div_quote_reject_follow").css('display', 'none');
         $("#txt_quote_reject_follow").val('');
         $("#txt_quote_reject_follow").removeAttr('required');
     }
@@ -1278,9 +1277,9 @@ window.saleFollowModal = sale_id => {
     });
 };
 
-window.addUserDocument = user_id =>{
+window.addUserDocument = user_id => {
     $("#txt_add_user_document_modal_sale_id").val(user_id);
-  $("#add_user_document_modal").modal();
+    $("#add_user_document_modal").modal();
 };
 
 window.deleteUserDocument = id => {

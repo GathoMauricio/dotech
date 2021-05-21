@@ -720,6 +720,7 @@ class ComposerStaticInitc76430cec0ac4972d1901c144bf246d6
         'App\\Http\\Controllers\\Auth\\VerificationController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/VerificationController.php',
         'App\\Http\\Controllers\\BinnacleController' => __DIR__ . '/../..' . '/app/Http/Controllers/BinnacleController.php',
         'App\\Http\\Controllers\\BinnacleImageController' => __DIR__ . '/../..' . '/app/Http/Controllers/BinnacleImageController.php',
+        'App\\Http\\Controllers\\CandidateController' => __DIR__ . '/../..' . '/app/Http/Controllers/CandidateController.php',
         'App\\Http\\Controllers\\CompanyController' => __DIR__ . '/../..' . '/app/Http/Controllers/CompanyController.php',
         'App\\Http\\Controllers\\CompanyDepartmentController' => __DIR__ . '/../..' . '/app/Http/Controllers/CompanyDepartmentController.php',
         'App\\Http\\Controllers\\CompanyFollowController' => __DIR__ . '/../..' . '/app/Http/Controllers/CompanyFollowController.php',

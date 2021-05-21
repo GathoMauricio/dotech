@@ -14,6 +14,7 @@
                 <th width="20%">Email</th>
                 <th width="20%">Teléfono</th>
                 <th width="10%">Localidad</th>
+                <th width="10%">Evaluación</th>
                 <th width="20%"></th>
             </tr>
             </thead>
@@ -31,8 +32,15 @@
                     <td>{{ $user->email }}</td>
                     <td>{{ $user->phone }}</td>
                     <td>{{ $user->location['name'] }}</td>
+                    @if(empty($user->evaluation))
+                    <td id="td_evaluation_{{ $user->id }}">No realizada</td>
+                    @else
+                    <td id="td_evaluation_{{ $user->id }}">{{ $user->evaluation }}</td>
+                    @endif
                     <td>
                         <a href="{{ route('candidates_edit', $user->id) }}"><span class="icon-eye" title="Ver/Editar" style="cursor:pointer;color:#F39C12"> Ver/Editar</span></a>
+                        <br>
+                        <a href="#" onclick="mostrarTest({{ $user->id }})"><span class="icon-file-text" title="Test de evaluación" style="cursor:pointer;color:blue"> Test</span></a>
                         <br>
                         <a href="#" onclick="deleteCandidate({{ $user->id }});"><span class="icon-bin" title="Eliminar" style="cursor:pointer;color:#C0392B"> Eliminar</span></a>
                         <br>
@@ -41,7 +49,7 @@
             @endforeach
             </tbody>
         </table>
-
+        @include('candidates.test')
         <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
         <script>
             jQuery(document).ready(function(){
@@ -59,7 +67,7 @@
                     aoColumnDefs: [
                         {
                             bSortable: false,
-                            aTargets: [0,5]
+                            aTargets: [0,6]
                         },
                     ],
                     oLanguage: {
