@@ -185,7 +185,7 @@
                 </a>
                 <hr>
                 @endif
-                <a href="{{ asset('mobile/dotech_mobile_1-1-0.apk') }}" target="_blank">
+                <a href="{{ asset('mobile/dotech_mobile_1-1-1.apk') }}" target="_blank">
                     <p style="cursor:pointer;">
                         <span class="icon-android" style="color:green;">
                             <span style="display:none;" class="label-item-menu">

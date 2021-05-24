@@ -110,7 +110,7 @@
                 </div>
                 <div class="card-body item_dashboard">
                     <h1 class="font-weight-bold color-primary-sys text-center">
-                        <a href="mobile/dotech_mobile_1-1-0.apk" style="color:white;">1-1-0</a>
+                        <a href="mobile/dotech_mobile_1-1-1.apk" style="color:white;">1-1-1</a>
                     </h1>
                 </div>
             </div>

@@ -33,7 +33,18 @@ class ApiStockProductController extends Controller
 
     public function store(Request $request)
     {
-        //
+        $product = StockProduct::create($request->all());
+        if ($product) {
+            //storeImage
+            if (!empty($request->image)) {
+                $file = $request->file('image');
+                $name =  "StockProduct_[" . $product->id . "]_" . \Str::random(8) . "_" . $file->getClientOriginalName();
+                \Storage::disk('local')->put($name,  \File::get($file));
+                $product->image = $name;
+                $product->save();
+            }
+            return $product;
+        }
     }
 
     public function show($id)
