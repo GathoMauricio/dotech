@@ -106,9 +106,9 @@ class SaleController extends Controller
         $costoProyecto = number_format($sale->estimated + ($sale->estimated * 0.16),2);
 
         $utilidad = number_format($sale->estimated + ($sale->estimated * 0.16) - $totalRetiros,2);
-        $comision = number_format((($sale->estimated + ($sale->estimated * 0.16) - $totalRetiros / 1.16) * $sale->commision_percent) / 100 ,2);
-
-
+        
+        $comision = (($sale->estimated + ($sale->estimated * 0.16) - $totalRetiros / 1.16) * $sale->commision_percent) / 100 ;
+        $comision =  number_format($comision - ($comision * 0.16),2);
 
         $sale->utility = $utilidad;
         $sale->save();
