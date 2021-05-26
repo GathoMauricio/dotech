@@ -53,11 +53,11 @@ class VehicleController extends Controller
     public function show($id)
     {
         $vehicle = Vehicle::findOrFail($id);
-        $vehicleImages = VehicleImage::where('vehicle_id',$id)->get();
-        $maintenances = Maintenance::where('vehicle_id',$id)->get();
+        $vehicleImages = VehicleImage::where('vehicle_id',$id)->orderBy('created_at','DESC')->get();
+        $maintenances = Maintenance::where('vehicle_id',$id)->orderBy('date','DESC')->get();
         $vehicleHistories = VehicleHistory::where('vehicle_id',$id)->orderBy('id', 'DESC')->get();
-        $verifications = VehicleVerification::where('vehicle_id',$id)->get();
-        $documents = VehicleDocument::where('vehicle_id',$id)->get();
+        $verifications = VehicleVerification::where('vehicle_id',$id)->orderBy('date','DESC')->get();
+        $documents = VehicleDocument::where('vehicle_id',$id)->orderBy('created_at','DESC')->get();
         return view('vehicles.show',[
             'vehicle' => $vehicle,
             'vehicleImages' => $vehicleImages,

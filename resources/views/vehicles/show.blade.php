@@ -130,7 +130,7 @@
             @endif
             </td>
             <td>{{ explode(' ',$maintenance->date)[0] }}</td>
-            <td>${{ $maintenance->amount }}</td>
+            <td>${{ number_format($maintenance->amount,2) }}</td>
             <td>{{ $maintenance->description }}</td>
             <td>
                 <a href="{{ route('maintenance_show',$maintenance->id) }}" ><span class="icon-eye" title="Ver..." style="cursor:pointer;color:#2E86C1"> Ver</span></a>
