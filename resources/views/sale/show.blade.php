@@ -220,9 +220,9 @@
                     @endif
                 </td>
                 <td>{{ $product->description }}</td>
-                <td>${{ $product->unity_price_sell }}</td>
+                <td>${{  number_format($product->unity_price_sell,2) }}</td>
                 <td>{{ $product->discount }}%</td>
-                <td>${{ $product->unity_price_sell *  $product->quantity }}</td>
+                <td>${{  number_format($product->unity_price_sell *  $product->quantity,2) }}</td>
                 <td>
                     <a href="{{ route('quote_products',$sale->id) }}"><span class="icon-pencil" style="cursor:pointer;color:#F39C12;"></span> </a>
 
@@ -237,13 +237,13 @@
             <tr><td colspan="7" class="text-center">Sin registros</td></tr>
             @endif
             <tr>
-                <td colspan="7" class="text-right">Subtotal: ${{ $totalProduct }}</td>
+                <td colspan="7" class="text-right">Subtotal: ${{  number_format($totalProduct,2) }}</td>
             </tr>
             <tr>
-                <td colspan="7" class="text-right">IVA: ${{ $totalProductIva }}</td>
+                <td colspan="7" class="text-right">IVA: ${{  number_format($totalProductIva,2) }}</td>
             </tr>
             <tr>
-                <td colspan="7" class="text-right">Total: ${{ $totalProduct+$totalProductIva }}</td>
+                <td colspan="7" class="text-right">Total: ${{  number_format($totalProduct+$totalProductIva,2) }}</td>
             </tr>
         </tbody>
     </table>
@@ -269,7 +269,7 @@
         <tr>
             <td>{{ formatDate($payment->created_at) }}</td>
             <td>{{ $payment->description }}</td>
-            <td>{{ $payment->amount }}</td>
+            <td>${{  number_format($payment->amount,2) }}</td>
             @if(!empty($payment->document))
             <td class="text-center"><a href="{{ env('APP_URL').'/storage/'.$payment->document }}" target="_BLANK"><span class="icon-eye"></span></a></td>
             @else
@@ -359,7 +359,7 @@
                 @else
                 <td class="text-center"><img src="{{ asset('img/loading.gif') }}" width="60"></td>
                 @endif
-                <td>${{ $whitdrawal->quantity }}</td>
+                <td>${{  number_format($whitdrawal->quantity,2) }}</td>
                 <td>
                     {{ $whitdrawal->status }}
                     @if(Auth::user()->rol_user_id == 1 && $whitdrawal->status == 'Pendiente')

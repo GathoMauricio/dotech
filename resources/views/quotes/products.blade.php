@@ -33,9 +33,9 @@
                 @endif
             </td>
             <td>{{ $product->description }}</td>
-            <td>${{ $product->unity_price_sell }}</td>
+            <td>${{ number_format($product->unity_price_sell,2) }}</td>
             <td>{{ $product->discount }}%</td>
-            <td>${{ $product->total_sell - ($product->total_sell * $product->discount / 100) }}</td>
+            <td>${{ number_format($product->total_sell - ($product->total_sell * $product->discount / 100),2) }}</td>
             <td>
                 <span onclick="editProductModal({{ $product->id }})" class="icon-pencil" style="cursor:pointer;color:#F39C12;"></span>
                 <br>
@@ -44,10 +44,10 @@
         </tr>
         @endforeach
         <tr>
-            <td colspan="7" class="text-right">Subtotal: ${{$total}}</td>
+            <td colspan="7" class="text-right">Subtotal: ${{ number_format($total,2) }}</td>
         </tr>
         <tr>
-            <td colspan="7" class="text-right">Total: ${{$totalIva}}</td>
+            <td colspan="7" class="text-right">Total: ${{ number_format($totalIva,2) }}</td>
         </tr>
     </tbody>
 </table>
