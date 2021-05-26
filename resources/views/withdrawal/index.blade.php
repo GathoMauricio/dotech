@@ -17,6 +17,13 @@
 <table class="table table-bordered" id="index_table">
     <thead>
         <tr>
+            <td colspan="9" width="100%">
+                <input id="txt_search_whitdrawal" class="form-control" placeholder="Buscar..." />
+                <input type="hidden" id="txt_search_whitdrawal_route_ajax" value="{{ route('search_whitdrawal_ajax') }}">
+                <input type="hidden" id="txt_show_whitdrawal_route_ajax" value="{{ route('show_whitdrawal_ajax') }}">
+            </td>
+        </tr>
+        <tr>
             <th width="10%">Id</t)h>
             <th width="10%">Proveedor</th>
             <th width="10%">Proyecto</th>
@@ -88,6 +95,7 @@
 <input type="hidden" id="txt_disaprove_whitdrawal_route" value="{{ route('disaprove_whitdrawal') }}">
 <input type="hidden" id="txt_delete_whitdrawal_route" value="{{ route('delete_whitdrawal') }}">
 <input type="hidden" id="txt_show_whitdrawal_route" value="{{ route('show_whitdrawal') }}">
+@include('withdrawal.show_modal')
 @include('withdrawal.aprove_withdrawal_modal')
 @include('sale.add_whitdrawal_document_modal')
 @endsection

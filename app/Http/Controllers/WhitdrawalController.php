@@ -104,6 +104,37 @@ class WhitdrawalController extends Controller
         $whitdrawal = Whitdrawal::findOrFail($request->id);
         return $whitdrawal;
     }
+    public function showWhitdrawalAjax(Request $request)
+    {
+        $whitdrawal = Whitdrawal::findOrFail($request->id);
+        if(!empty($whitdrawal->author['name']))
+        {
+            $author = $whitdrawal->author['name'].' '.$whitdrawal->author['middle_name'].' '.$whitdrawal->author['last_name'];
+        }else{
+            $author = "No definido";
+        }
+        if($whitdrawal->status != 'Aprobado')
+        {
+            $button1 = '<a href="#" onclick="aproveWithdrawalModal('.$whitdrawal->id.');"><span class="icon-point-up" title="Aprovar" style="cursor:pointer;color:#74DF00"> Aprobar</span></a>';
+            $button2 = '<a href="#" onclick="disaproveWithdrawal('.$whitdrawal->id.');"><span class="icon-point-down" title="Desaprobar" style="cursor:pointer;color:#FFBF00"> Rechazar</span></a>';
+        }else{
+            $button1 = "";
+            $button2 = "";
+        }
+        return [
+            'id' => $whitdrawal->id,
+            'provider' => $whitdrawal->provider['name'],
+            'project' =>  $whitdrawal->sale['id'] .' - '. $whitdrawal->sale['description'],
+            'description' => $whitdrawal->description,
+            'author' => $author,
+            'quantity' => $whitdrawal->quantity,
+            'invoive' => $whitdrawal->invoive,
+            'date' => onlyDate($whitdrawal->created_at),
+            'status' => $whitdrawal->status,
+            'button1' => $button1,
+            'button2' => $button2
+        ];
+    }
     public function edit($id)
     {
         //
@@ -132,5 +163,17 @@ class WhitdrawalController extends Controller
         $whitdrawal->delete();
         createSysLog("Eliminó retiro: ".$whitdrawal->description);
         return redirect()->back()->with('message', 'La solicitud ha sido eliminada por completo.');
+    }
+    public function searchWhitdrawalAjax(Request $request)
+    {
+        $whitdrawals = Whitdrawal::where('description','LIKE','%'.$request->q.'%')->limit(10)->get();
+        $json = [];
+        foreach($whitdrawals as $whitdrawal){
+            $json [] = [
+                'label' => $whitdrawal->sale['description'].' - '.$whitdrawal->description .' - '.$whitdrawal->status,
+                'value' => $whitdrawal->id
+            ];
+        }
+        return $json;
     }
 }

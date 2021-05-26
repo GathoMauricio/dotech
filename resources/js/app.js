@@ -28,6 +28,54 @@ const projectControl = new ProjectControl();
 
 /*++ Start JqueryReady ++*/
 jQuery(() => {
+    /*++ AutocompleteTables ++*/
+    $("#txt_search_whitdrawal").autocomplete({
+        source: (request, response) => {
+            const route = $("#txt_search_whitdrawal_route_ajax").val();
+
+            $.ajax({
+                url: route,
+                dataType: 'json',
+                data: { q: request.term },
+                success: data => {
+                    //console.log(data);
+                    response(data);
+                },
+                error: err => console.log(err)
+            });
+        },
+        minLength: 1,
+        select: (event, ui) => {
+            //console.log(JSON.stringify(ui));
+            const route = $("#txt_show_whitdrawal_route_ajax").val();
+            $.ajax({
+                type: 'GET',
+                url: route,
+                data: {
+                    id: ui.item.value
+                },
+                success: data => {
+                    //console.log(data);
+                    $("#span_whitdrawal_id_show_modal").text(data.id);
+                    $("#span_whitdrawal_provider_show_modal").text(data.provider);
+                    $("#span_whitdrawal_project_show_modal").text(data.project);
+                    $("#span_whitdrawal_description_show_modal").text(data.description);
+                    $("#span_whitdrawal_author_show_modal").text(data.author);
+                    $("#span_whitdrawal_quantity_show_modal").text(data.quantity);
+                    $("#span_whitdrawal_invoive_show_modal").text(data.invoive);
+                    $("#span_whitdrawal_date_show_modal").text(data.date);
+                    $("#span_whitdrawal_status_show_modal").text(data.status);
+
+                    $("#button1_whitdrawal_show_modal").html(data.button1);
+                    $("#button2_whitdrawal_show_modal").html(data.button2);
+                },
+                error: err => console.log(err)
+            });
+            $("#show_withdrawal_modal").modal();
+            $("#txt_search_whitdrawal").val('');
+            //window.location = $("#txt_search_account_route").val() + '/' + ui.item.value;
+        }
+    });
     /*++ StartLoadTables ++*/
     setTimeout(calculateCurrencies, 1000);
     table.loadTaskTable();
