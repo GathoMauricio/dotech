@@ -20,9 +20,12 @@
             <td>{{ $repository->title }}</td>
             <td>{{ $repository->body }}</td>
             <td>
+                
+                @if(Auth::user()->rol_user_id == 1 || Auth::user()->rol_user_id == 2)
                 <a href="{{ route('edit_company_repository',$repository->id) }}" style="cursor:pointer;color:orange"><span title="Editar..." class="icon icon-pencil"></span> Editar</a>
-                @if(Auth::user()->rol_user_id == 1)
                 <br/>
+                @endif
+                @if(Auth::user()->rol_user_id == 1)
                 <a href="#" onclick="deleteCompanyRepository({{ $repository->id }})" style="cursor:pointer;color:red"><span title="Eliminar..." class="icon icon-bin"></span> Eliminar</a>
                 @endif
             </td>
