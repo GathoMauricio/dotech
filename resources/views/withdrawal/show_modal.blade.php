@@ -30,7 +30,7 @@
                         <label class="font-weight-bold color-primary-sys">Cantidad: </label>
                         <span id="span_whitdrawal_quantity_show_modal"></span>
                         <br/>
-                        <label class="font-weight-bold color-primary-sys">Factusa: </label>
+                        <label class="font-weight-bold color-primary-sys">Factura: </label>
                         <span id="span_whitdrawal_invoive_show_modal"></span>
                         <br/>
                         <label class="font-weight-bold color-primary-sys">Fecha: </label>

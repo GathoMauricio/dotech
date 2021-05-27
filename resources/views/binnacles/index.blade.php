@@ -7,8 +7,16 @@
 @if(count($binnacles) <= 0)
 @include('layouts.no_records')
 @else
-<table class="table table-bordered" id="index_table">
+{{ $binnacles->links() }}
+<table class="table table-bordered">
     <thead>
+        <tr>
+            <td colspan="6" width="100%">
+                <input id="txt_search_binnacle" class="form-control" placeholder="Buscar..." />
+                <input type="hidden" id="txt_search_binnnacle_route_ajax" value="{{ route('search_binnacle_ajax') }}">
+                <input type="hidden" id="txt_show_binnacle_route_ajax" value="{{ route('show_binnacle_ajax') }}">
+            </td>
+        </tr>
         <tr>
             <th width="10%">Cliente</th>
             <th width="15%">Proyecto</th>
@@ -76,7 +84,7 @@
     @endforeach
     </tbody>
 </table>
-
+<!--
 <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
 <script>
     jQuery(document).ready(function(){
@@ -135,7 +143,8 @@
         }, 300);
     }
 </script>
-
+-->
+@include('binnacles.show_modal')
 @include('sale.send_binnacle_pdf_modal')
 @include('sale.add_binnacle_image_modal')
 <input type="hidden" id="txt_get_binnacle" value="{{ route('binnacle_show_json') }}">

@@ -28,7 +28,59 @@ const projectControl = new ProjectControl();
 
 /*++ Start JqueryReady ++*/
 jQuery(() => {
-    /*++ AutocompleteTables ++*/
+    /*++ AutocompleteBinnacles ++*/
+    $("#txt_search_binnacle").autocomplete({
+        source: (request, response) => {
+            const route = $("#txt_search_binnnacle_route_ajax").val();
+
+            $.ajax({
+                url: route,
+                dataType: 'json',
+                data: { q: request.term },
+                success: data => {
+                    //console.log(data);
+                    response(data);
+                },
+                error: err => console.log(err)
+            });
+        },
+        minLength: 1,
+        select: (event, ui) => {
+            console.log(JSON.stringify(ui));
+            const route = $("#txt_show_binnacle_route_ajax").val();
+            $.ajax({
+                type: 'GET',
+                url: route,
+                data: {
+                    id: ui.item.value
+                },
+                success: data => {
+                    console.log(data);
+
+
+                    $("#span_binnacle_id_show_modal").text(data.binnacle.id);
+                    $("#span_binnacle_company_show_modal").text(data.company.name);
+                    $("#span_binnacle_project_show_modal").text(data.sale.description);
+                    $("#span_binnacle_author_show_modal").text(data.author.name + ' ' + data.author.middle_name + ' ' + data.author.last_name);
+                    $("#span_binnacle_description_show_modal").text(data.binnacle.description);
+                    $("#span_binnacle_date_show_modal").text(data.binnacle.created_at + ' Hrs');
+
+                    $("#button1_binnacle_show_modal").html(data.button1);
+                    $("#button2_binnacle_show_modal").html(data.button2);
+                    $("#button3_binnacle_show_modal").html(data.button3);
+                    $("#button4_binnacle_show_modal").html(data.button4);
+
+
+                    $("#show_binnacle_modal").modal();
+                    $("#txt_search_binnacle").val('');
+                },
+                error: err => console.log(err)
+            });
+
+            //window.location = $("#txt_search_account_route").val() + '/' + ui.item.value;
+        }
+    });
+    /*++ AutocompleteWhitdrawals ++*/
     $("#txt_search_whitdrawal").autocomplete({
         source: (request, response) => {
             const route = $("#txt_search_whitdrawal_route_ajax").val();

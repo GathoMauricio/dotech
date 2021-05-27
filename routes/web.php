@@ -205,13 +205,13 @@ Route::get('show_service_image','ServiceImageController@show')->name('show_servi
 Route::get('index_binnacle','BinnacleController@index')->name('index_binnacle')->middleware('auth');
 Route::get('create_binnacle','BinnacleController@create')->name('create_binnacle')->middleware('auth');
 Route::get('delete_binnacle/{id?}','BinnacleController@destroy')->name('delete_binnacle')->middleware('auth');
-
 Route::post('store_binnacle/{id?}','BinnacleController@store')->name('store_binnacle')->middleware('auth');
 Route::get('binnacle_show_json/{id?}','BinnacleController@show_json')->name('binnacle_show_json')->middleware('auth');
 Route::post('send_binnacle_pdf','BinnacleController@sendPdf')->name('send_binnacle_pdf')->middleware('auth');
 Route::post('send_all_binnacle_pdf','BinnacleController@sendAllPdf')->name('send_all_binnacle_pdf')->middleware('auth');
-
 Route::get('binnacles_by_project/{id}','BinnacleController@indexByProject')->name('binnacles_by_project')->middleware('auth');
+Route::get('search_binnacle_ajax','BinnacleController@searchBinnacleAjax')->name('search_binnacle_ajax')->middleware('auth');
+Route::get('show_binnacle_ajax','BinnacleController@showBinnacleAjax')->name('show_binnacle_ajax')->middleware('auth');
 
 #Binnacle PDF
 Route::get('binnacle_pdf/{id}','BinnacleController@makePdf')->name('binnacle_pdf')->middleware('auth');

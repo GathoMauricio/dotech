@@ -7,7 +7,7 @@ class BinnacleController extends Controller
 {
     public function index()
     {
-        $binnacles = Binnacle::orderBy('created_at','DESC')->get();
+        $binnacles = Binnacle::orderBy('created_at','DESC')->paginate(15);
         return view('binnacles.index',compact('binnacles'));
     }
     public function indexByProject($id)
@@ -60,6 +60,43 @@ class BinnacleController extends Controller
     public function show($id)
     {
         //
+    }
+    public function showBinnacleAjax(Request $request)
+    {
+        $binnacle = Binnacle::findOrFail($request->id);
+
+        $button1 ='<a href="#" onclick="addBinnacleImage('.$binnacle->id.')">
+                        <span class="icon-plus" title="Agregar imagen..." style="cursor:pointer;color:#c52cec">
+                            Nuevo
+                        </span>
+                    </a>';
+        $button2 ='<a href="#" onclick="viewBinnacleImages('.$binnacle->id.','.count(\App\BinnacleImage::where('binnacle_id',$binnacle->id)->get()).')">
+                        <span class="icon-image" title="ver imágenes..." style="cursor:pointer;color:#2c49ec">
+                        '.count(\App\BinnacleImage::where('binnacle_id',$binnacle->id)->get()).'
+                            Imágenes
+                        </span>
+                    </a>';
+        $button3 ='<a href="'.route('binnacle_pdf',$binnacle->id).'" target="_blank">
+                    <span class="icon-file-pdf" title="Ver pdf..." style="cursor:pointer;color:#ec422c">
+                        PDF
+                    </span>
+                </a>';
+        $button4 ='<a href="#" onclick="sendBinnacle('.$binnacle->id.');">
+                    <span class="icon-envelop" title="Enviar pdf..." style="cursor:pointer;color:#b3d420">
+                        Enviar
+                    </span>
+                </a>';
+        return [
+            'binnacle' => $binnacle,
+            'author' => $binnacle->author,
+            'sale' => $binnacle->sale,
+            'company' => $binnacle->sale->company,
+            'department' => $binnacle->sale->department,
+            'button1' => $button1,
+            'button2' => $button2,
+            'button3' => $button3,
+            'button4' => $button4,
+        ];
     }
     public function show_json($id){
         $binnacle = Binnacle::findOrFail($id);
@@ -174,5 +211,17 @@ class BinnacleController extends Controller
             ]
         );
         return $pdf->stream('Bitacora_'.$binnacle->id.'.pdf');
+    }
+    public function searchBinnacleAjax(Request $request)
+    {
+        $binnacles = Binnacle::where('description','LIKE','%'.$request->q.'%')->limit(10)->get();
+        $json = [];
+        foreach($binnacles as $binnacle){
+            $json [] = [
+                'label' => $binnacle->sale['description'].' - '.$binnacle->description.' - '.onlyDate($binnacle->created_at),
+                'value' => $binnacle->id
+            ];
+        }
+        return $json;
     }
 }
