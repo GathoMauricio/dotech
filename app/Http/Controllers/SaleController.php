@@ -32,7 +32,7 @@ class SaleController extends Controller
     }
     public function indexProyects()
     {
-        $sales = Sale::where('status','Proyecto')->get();
+        $sales = Sale::where('status','Proyecto')->paginate(15);
         return view('projects.index',['sales' => $sales]);
     }
     public function create()
@@ -62,6 +62,27 @@ class SaleController extends Controller
         $company = Company::findOrFail($id);
         $sales = Sale::where('company_id', $id)->where('status','Proyecto')->get();
         return view('sale.projects',['company' => $company, 'sales' => $sales]);
+    }
+    public function showProjectAjax(Request $request)
+    {
+        $sale = Sale::findOrFail($request->id);
+        $button1 = '<a target="_blank" href="'.route('binnacles_by_project',$sale->id).'"><span class="icon-book" title="Proyecto" style="cursor:pointer;color:#8E44AD"> Bitácoras</span></a>';
+        $button2 = '<a target="_blank" href="'.route('show_sale',$sale->id).'"><span class="icon-eye" title="Proyecto" style="cursor:pointer;color:#3498DB"> Proyecto</span></a>';
+        $button3 = '<a href="#" onclick="editProject('.$sale->id.');"><span class="icon-pencil" title="Editar" style="cursor:pointer;color:#F39C12"> Editar</span></a>';
+        $button4 = '<a href="#" onclick="saleFollowModal('.$sale->id.');"><span class="icon-bubble" title="Seguimientos" style="cursor:pointer;color:#2980B9"> Seguimientos</span></a>';
+        return [
+            'id' => $sale->id,
+            'company' => $sale->company['name'],
+            'author' => $sale->author['name'].' '.$sale->author['middle_name'].' '.$sale->author['last_name'],
+            'description' => $sale->description,
+            'price' => number_format($sale->estimated + ($sale->estimated * 0.16),2),
+            'date' => onlyDate($sale->created_at),
+
+            'button1' => $button1,
+            'button2' => $button2,
+            'button3' => $button3,
+            'button4' => $button4,
+        ];
     }
     public function finalized($id)
     {
@@ -464,5 +485,18 @@ class SaleController extends Controller
             ]));
         }
         return redirect()->route('index_proyects')->with('message','El proyecto '.$sale->description.' se marcó como finalizado.');
+    }
+
+    public function searchProjectAjax(Request $request)
+    {
+        $sales = Sale::where('description','LIKE','%'.$request->q.'%')->where('status','Proyecto')->limit(10)->get();
+        $json = [];
+        foreach($sales as $sale){
+            $json [] = [
+                'label' => $sale->company['name'].' - '.$sale->id.' - '.$sale->description,
+                'value' => $sale->id
+            ];
+        }
+        return $json;
     }
 }

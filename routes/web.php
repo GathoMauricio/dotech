@@ -93,6 +93,10 @@ Route::post('store_sale_document','SaleDocumnetController@store')->name('store_s
 #Sale Payment
 Route::post('store_sale_payment','SalePaymentController@store')->name('store_sale_payment')->middleware('auth');
 
+#Sale Projects
+Route::get('search_project_ajax','SaleController@searchProjectAjax')->name('search_project_ajax')->middleware('auth');
+Route::get('show_project_ajax','SaleController@showProjectAjax')->name('show_project_ajax')->middleware('auth');
+
 #Products
 Route::post('store_product','ProductSaleController@store')->name('store_product')->middleware('auth');
 Route::get('show_product_ajax','ProductSaleController@showAjax')->name('show_product_ajax')->middleware('auth');
@@ -150,7 +154,7 @@ Route::get('index_task_comment_ajax','TaskCommentController@indexAjax')->name('i
 Route::post('store_task_comment_ajax','TaskCommentController@storeAjax')->name('store_task_comment_ajax');
 #Projects
 Route::post('store_project_ajax','ProjectController@storeAjax')->name('store_project_ajax')->middleware('auth');;
-Route::get('show_project_ajax','ProjectController@showAjax')->name('show_project_ajax')->middleware('auth');
+//Route::get('show_project_ajax','ProjectController@showAjax')->name('show_project_ajax')->middleware('auth');
 Route::put('update_project_ajax','ProjectController@updateAjax')->name('update_project_ajax')->middleware('auth');
 
 #Logs

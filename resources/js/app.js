@@ -28,6 +28,59 @@ const projectControl = new ProjectControl();
 
 /*++ Start JqueryReady ++*/
 jQuery(() => {
+    /*++ AutocompleteProjects ++*/
+    $("#txt_search_project").autocomplete({
+        source: (request, response) => {
+            const route = $("#txt_search_project_route_ajax").val();
+
+            $.ajax({
+                url: route,
+                dataType: 'json',
+                data: { q: request.term },
+                success: data => {
+                    console.log(data);
+                    response(data);
+                },
+                error: err => console.log(err)
+            });
+        },
+        minLength: 1,
+        select: (event, ui) => {
+            console.log(JSON.stringify(ui));
+            const route = $("#txt_show_project_route_ajax").val();
+            $.ajax({
+                type: 'GET',
+                url: route,
+                data: {
+                    id: ui.item.value
+                },
+                success: data => {
+                    console.log(data);
+
+
+                    $("#span_project_id_show_modal").text(data.id + ' - ' + data.description);
+                    $("#span_project_company_show_modal").text(data.company);
+                    $("#span_project_author_show_modal").text(data.author);
+                    $("#span_project_description_show_modal").text(data.description);
+                    $("#span_project_price_show_modal").text(data.price);
+                    $("#span_project_date_show_modal").text(data.date);
+
+                    $("#button1_project_show_modal").html(data.button1);
+                    $("#button2_project_show_modal").html(data.button2);
+                    $("#button3_project_show_modal").html(data.button3);
+                    $("#button4_project_show_modal").html(data.button4);
+
+
+
+                    $("#show_project_modal").modal();
+                    $("#txt_search_project").val('');
+                },
+                error: err => console.log(err)
+            });
+
+            //window.location = $("#txt_search_account_route").val() + '/' + ui.item.value;
+        }
+    });
     /*++ AutocompleteBinnacles ++*/
     $("#txt_search_binnacle").autocomplete({
         source: (request, response) => {
@@ -120,11 +173,13 @@ jQuery(() => {
 
                     $("#button1_whitdrawal_show_modal").html(data.button1);
                     $("#button2_whitdrawal_show_modal").html(data.button2);
+
+                    $("#show_withdrawal_modal").modal();
+                    $("#txt_search_whitdrawal").val('');
                 },
                 error: err => console.log(err)
             });
-            $("#show_withdrawal_modal").modal();
-            $("#txt_search_whitdrawal").val('');
+
             //window.location = $("#txt_search_account_route").val() + '/' + ui.item.value;
         }
     });

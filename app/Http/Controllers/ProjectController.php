@@ -84,4 +84,16 @@ class ProjectController extends Controller
     {
         //
     }
+    public function searchProjectAjax(Request $request)
+    {
+        $sales = Project::where('description','LIKE','%'.$request->q.'%')->get();
+        $json = [];
+        foreach($sales as $sale){
+            $json [] = [
+                'label' => $sale->id.' - '.$sale->description,
+                'value' => $sale->id
+            ];
+        }
+        return $json;
+    }
 }
