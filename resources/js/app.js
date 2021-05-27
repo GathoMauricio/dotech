@@ -28,6 +28,60 @@ const projectControl = new ProjectControl();
 
 /*++ Start JqueryReady ++*/
 jQuery(() => {
+    /*++ AutocompleteQuotes ++*/
+    $("#txt_search_quote").autocomplete({
+        source: (request, response) => {
+            const route = $("#txt_search_quote_route_ajax").val();
+
+            $.ajax({
+                url: route,
+                dataType: 'json',
+                data: { q: request.term },
+                success: data => {
+                    console.log(data);
+                    response(data);
+                },
+                error: err => console.log(err)
+            });
+        },
+        minLength: 1,
+        select: (event, ui) => {
+            console.log(JSON.stringify(ui));
+            const route = $("#txt_show_quote_route_ajax").val();
+            $.ajax({
+                type: 'GET',
+                url: route,
+                data: {
+                    id: ui.item.value
+                },
+                success: data => {
+                    console.log(data);
+
+
+                    $("#span_quote_id_show_modal").text(data.id + ' - ' + data.description);
+                    $("#span_quote_company_show_modal").text(data.company);
+                    $("#span_quote_author_show_modal").text(data.author);
+                    $("#span_quote_description_show_modal").text(data.description);
+                    $("#span_quote_price_show_modal").text(data.price);
+                    $("#span_quote_date_show_modal").text(data.date);
+
+                    $("#button1_quote_show_modal").html(data.button1);
+                    $("#button2_quote_show_modal").html(data.button2);
+                    $("#button3_quote_show_modal").html(data.button3);
+                    $("#button4_quote_show_modal").html(data.button4);
+                    $("#button5_quote_show_modal").html(data.button5);
+
+
+
+                    $("#show_quote_modal").modal();
+                    $("#txt_search_quote").val('');
+                },
+                error: err => console.log(err)
+            });
+
+            //window.location = $("#txt_search_account_route").val() + '/' + ui.item.value;
+        }
+    });
     /*++ AutocompleteProjects ++*/
     $("#txt_search_project").autocomplete({
         source: (request, response) => {

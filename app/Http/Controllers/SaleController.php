@@ -24,9 +24,9 @@ class SaleController extends Controller
     {
         if(Auth::user()->rol_user_id == 1)
         {
-            $sales = Sale::where('status','Pendiente')->get();
+            $sales = Sale::where('status','Pendiente')->paginate(15);
         }else{
-            $sales = Sale::where('status','Pendiente')->where('author_id',Auth::user()->id)->get();
+            $sales = Sale::where('status','Pendiente')->where('author_id',Auth::user()->id)->paginate(15);
         }
         return view('quotes.index',['sales' => $sales]);
     }
@@ -82,6 +82,29 @@ class SaleController extends Controller
             'button2' => $button2,
             'button3' => $button3,
             'button4' => $button4,
+        ];
+    }
+    public function showQuoteAjax(Request $request)
+    {
+        $sale = Sale::findOrFail($request->id);
+        $button1 = '<a href="#" onclick="sendQuoteModal('.$sale->id.',\''.$sale->department['email'].'\');"><span class="icon-envelop" title="Enviar" style="cursor:pointer;color:#D7DF01"> Enviar</span></a>';
+        $button2 = '<a href="'.route('quote_products',$sale->id).'" target="_blank"><span class="icon-eye" title="Productos" style="cursor:pointer;color:#3498DB"> Productos</span></a>';
+        $button3 = '<a href="#" onclick="changeStatusModal('.$sale->id.');"><span class="icon-checkmark" title="Cambiar estatus" style="cursor:pointer;color:#2ECC71"> Estatus</span></a>';
+        $button4 = '<a href="#" onclick="editQuote('.$sale->id.');"><span class="icon-pencil" title="Editar" style="cursor:pointer;color:#F39C12"> Editar</span></a>';
+        $button5 = '<a onclick="saleFollowModal('.$sale->id.');" href="#"><span class="icon-bubble" title="Seguimientos" style="cursor:pointer;color:#2980B9"> Seguimientos</span></a>';
+        return [
+            'id' => $sale->id,
+            'company' => $sale->company['name'],
+            'author' => $sale->author['name'].' '.$sale->author['middle_name'].' '.$sale->author['last_name'],
+            'description' => $sale->description,
+            'price' => number_format($sale->estimated + ($sale->estimated * 0.16),2),
+            'date' => onlyDate($sale->created_at),
+
+            'button1' => $button1,
+            'button2' => $button2,
+            'button3' => $button3,
+            'button4' => $button4,
+            'button5' => $button5,
         ];
     }
     public function finalized($id)
@@ -490,6 +513,19 @@ class SaleController extends Controller
     public function searchProjectAjax(Request $request)
     {
         $sales = Sale::where('description','LIKE','%'.$request->q.'%')->where('status','Proyecto')->limit(10)->get();
+        $json = [];
+        foreach($sales as $sale){
+            $json [] = [
+                'label' => $sale->company['name'].' - '.$sale->id.' - '.$sale->description,
+                'value' => $sale->id
+            ];
+        }
+        return $json;
+    }
+    public function searchQuoteAjax(Request $request)
+    {
+        //return $request;
+        $sales = Sale::where('description','LIKE','%'.$request->q.'%')->where('status','Pendiente')->limit(10)->get();
         $json = [];
         foreach($sales as $sale){
             $json [] = [
