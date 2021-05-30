@@ -38,6 +38,11 @@
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-md-12 principal-container-vp">
+                    @if(Route::currentRouteName() != '/')
+                    <p>
+                        <span onclick="window.history.go(-1)" class="icon-arrow-left font-weight-bold" style="cursor: pointer;font-size: 18px;"></span>
+                    </p>
+                    @endif
                         @include('layouts.notification')
                         @if(Session::has('message')) @include('layouts.message') @endif
                         @yield('content')
