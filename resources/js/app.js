@@ -1125,7 +1125,7 @@ window.sendBinnacle = binnacle_id => {
 };
 window.deleteBinnacleImage = id => {
     Swal.fire({
-        title: "¿Eliminar tarea?",
+        title: "¿Eliminar imagen?",
         text: "Esta acción eliminará todo el registro y el cambio no se podrá deshacer.",
         icon: "warning",
         showCancelButton: true,
@@ -1522,6 +1522,77 @@ window.deleteCandidate = id => {
         if (result.isConfirmed) {
             let route = $("#txt_delete_candidate_route").val();
             window.location = route + '/' + id;
+        }
+    });
+};
+window.addStockProductImage = id => {
+    $("#txt_add_stock_product_image_id").val(id);
+    $("#add_stock_product_image_modal").modal();
+};
+window.viewStockProductImages = (binnacle_id, count) => {
+    if (count > 0) {
+        const route = $("#txt_view_stock_product_images_route").val();
+        let viewer = new PhotoViewer();
+        viewer.disableEmailLink();
+        //viewer.disablePhotoLink();
+        viewer.enableLoop();
+        viewer.enableAutoPlay();
+        viewer.setFontSize(16);
+        const show_binnacle_image = $("#txt_show_binnacle_image_route").val();
+        viewer.permalink = () => {
+            window.open(show_binnacle_image + '/' + $("#PhotoViewerByline").text());
+        };
+        //viewer.setOnClickEvent(viewer.permalink);
+        $.ajax({
+            type: 'GET',
+            url: route + '/' + binnacle_id,
+            data: {},
+            success: data => {
+                console.log(data);
+                $.each(data, (index, item) => {
+                    viewer.add(item.url, item.description, item.date, '' + item.id);
+                });
+                viewer.show(0);
+            },
+            error: error => console.log(error)
+        });
+
+    } else {
+        msg("Aviso: ", "No hay imagenes para mostrar");
+    }
+
+};
+window.deleteStockProductImage = id => {
+    Swal.fire({
+        title: "¿Eliminar imagen?",
+        text: "Esta acción eliminará el registro y el cambio no se podrá deshacer.",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#d33",
+        cancelButtonColor: "#000",
+        confirmButtonText: "Si, eliminar!",
+        cancelButtonText: "Cancelar"
+    }).then(result => {
+        if (result.isConfirmed) {
+            const route = $("#txt_destroy_stock_product_image").val();
+            loading();
+            $.ajax({
+                type: "POST",
+                url: route + '/' + id,
+                data: {
+                    _token: $('meta[name="csrf-token"]').attr("content"),
+                    _method: "DELETE"
+                },
+                success: data => {
+                    console.log(data);
+                    //window.close();
+                    window.location.reload();
+                },
+                error: error => {
+                    window.close();
+                    console.log(error);
+                }
+            });
         }
     });
 };

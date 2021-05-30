@@ -12,7 +12,9 @@
 <table class="table table-striped" id="index_table">
     <thead>
         <tr>
+            <!--
             <th>Imagen</th>
+            -->
             <th>Categoría</th>
             <th>Producto</th>
             <th>Descripción</th>
@@ -24,6 +26,7 @@
     <tbody>
         @foreach($products as $product)
         <tr>
+            <!--
             <td>
             @if($product->image == 'product_stock.png')
             <img src="{{ asset('img') }}/{{ $product->image }}" width="100" />
@@ -31,24 +34,34 @@
             <img src="{{ asset('storage') }}/{{ $product->image }}" width="100" />
             @endif
             </td>
+            -->
             <td>{{ $product->category['name'] }}</td>
             <td>{{ $product->product }}</td>
             <td>{{ $product->description }}</td>
             <td>{{ $product->quantity }}</td>
             <td>{{ $product->return }}</td>
             <td>
+                <!--
+                <a href="#" onclick="viewStockProductImages({{ $product->id }},{{ count(App\StockProductImage::where('stock_product_id',$product->id)->get()) }})">
+                    <span class="icon-image" title="ver imágenes..." style="cursor:pointer;color:#2c49ec">
+                        {{ count(App\StockProductImage::where('stock_product_id',$product->id)->get()) }}
+                        Imágenes
+                    </span>
+                </a>
+                <br>
+                -->
                 <a href="{{ route('stock_product_exit_index',$product->id) }}">
                     <span class="icon-share" title="Salidas..." style="cursor:pointer;color:blue">
                         Salidas
                     </span>
                 </a>
                 <br>
-                @if(Auth::user()->rol_user_id == 1)
                 <a href="{{ route('stock_product_edit',$product->id) }}">
-                    <span class="icon-pencil" title="Editar..." style="cursor:pointer;color:orange">
-                        Editar
+                    <span class="icon-pencil" title="Editar..." style="cursor:pointer;color:green">
+                        Ver/Editar
                     </span>
                 </a>
+                @if(Auth::user()->rol_user_id == 1)
                 <br>
                 <a onclick="deleteStockProduct({{ $product->id }})" href="#">
                     <span class="icon-bin" title="Eliminar..." style="cursor:pointer;color:red">
@@ -82,7 +95,7 @@
                 aoColumnDefs: [
                     {
                         bSortable: false,
-                        aTargets: [0,6]
+                        aTargets: [0,5]
                     },
                 ],
                 oLanguage: {
@@ -125,6 +138,7 @@
 </script>
 
 <input type="hidden" id="txt_delete_binnacle_route" value="{{ route('stock_product_delete') }}">
+<input type="hidden" id="txt_view_stock_product_images_route" value="">
 @endif
 
 @endsection

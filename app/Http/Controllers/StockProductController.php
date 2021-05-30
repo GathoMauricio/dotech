@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\StockProduct;
 use App\StockProductCategory;
+use App\StockProductImage;
 
 class StockProductController extends Controller
 {
@@ -46,7 +47,8 @@ class StockProductController extends Controller
     {
         $product = StockProduct::findOrFail($id);
         $categories = StockProductCategory::orderBy('name')->get();
-        return view('stock_products.edit', ['product' => $product, 'categories' => $categories]);
+        $images = StockProductImage::where('stock_product_id',$id)->get();
+        return view('stock_products.edit', ['product' => $product, 'categories' => $categories , 'images' => $images]);
     }
 
     public function update(Request $request, $id)

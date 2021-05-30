@@ -48,12 +48,14 @@
                     </select>
                 </div>
             </div>
+            <!--
             <div class="col-md-4">
                 <div class="form-group">
                     <label class="font-weight-bold color-primary-sys">Imagen</label>
                     <input name="image" type="file" class="form-control" accept="image/x-png,image/jpg,image/jpeg">
                 </div>
             </div>
+            -->
         </div>
         <div class="row">
             <div class="col-md-12">

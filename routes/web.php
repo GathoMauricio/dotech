@@ -279,6 +279,11 @@ Route::post('store_category_product','StockProductCategoryController@store')->na
 Route::get('stock_product_exit_index/{id}','StockProductExitController@index')->name('stock_product_exit_index')->middleware('auth');
 Route::get('delete_stock_product_exit_route/{id?}','StockProductExitController@destroy')->name('delete_stock_product_exit_route')->middleware('auth');
 
+#stock product images
+Route::post('store_stock_product_image','StockProductImageController@store')->name('store_stock_product_image')->middleware('auth');
+Route::delete('delete_stock_product_image/{id?}','StockProductImageController@destroy')->name('delete_stock_product_image')->middleware('auth');
+
+
 #Product exits
 Route::get('product_exits','StockProductExitController@indexExits')->name('product_exits')->middleware('auth');
 Route::put('update_stock_product_exit_status','StockProductExitController@update')->name('update_stock_product_exit_status')->middleware('auth');
