@@ -93,8 +93,12 @@ Route::middleware('auth:api')->get('company_show/{id}','ApiCompanyController@sho
 Route::middleware('auth:api')->get('stock_product_index','ApiStockProductController@index')->name('stock_product_index');
 Route::middleware('auth:api')->post('store_stock_product','ApiStockProductController@store')->name('store_stock_product');
 
+#Stock product images
+Route::middleware('auth:api')->get('stock_product_image_index/{id}','ApiStockProductImageController@index')->name('stock_product_image_index');
+
 #Exit Stock Product
 Route::middleware('auth:api')->post('exit_stock_product_store','ApiStockProductExitController@store')->name('exit_stock_product_store');
+Route::middleware('auth:api')->get('get_active_projects','ApiStockProductExitController@getActiveProjects')->name('get_active_projects');
 
 #Stock product category
 Route::middleware('auth:api')->get('get_product_categories','ApiStockProductCategoryController@index')->name('get_product_categories');

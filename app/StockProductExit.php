@@ -12,6 +12,7 @@ class StockProductExit extends Model
     protected $fillable = [
         'id',
         'author_id',
+        'sale_id',
         'stock_product_id',
         'quantity',
         'description',
@@ -37,6 +38,16 @@ class StockProductExit extends Model
         (
             'App\User',
             'author_id',
+            'id'
+        )
+        ->withDefault();
+    }
+    public function sale()
+    {
+        return $this->belongsTo
+        (
+            'App\Sale',
+            'sale_id',
             'id'
         )
         ->withDefault();

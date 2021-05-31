@@ -69,6 +69,7 @@ return array(
     'App\\Http\\Controllers\\StockProductCategoryController' => $baseDir . '/app/Http/Controllers/StockProductCategoryController.php',
     'App\\Http\\Controllers\\StockProductController' => $baseDir . '/app/Http/Controllers/StockProductController.php',
     'App\\Http\\Controllers\\StockProductExitController' => $baseDir . '/app/Http/Controllers/StockProductExitController.php',
+    'App\\Http\\Controllers\\StockProductImageController' => $baseDir . '/app/Http/Controllers/StockProductImageController.php',
     'App\\Http\\Controllers\\SysLogsController' => $baseDir . '/app/Http/Controllers/SysLogsController.php',
     'App\\Http\\Controllers\\TaskCommentController' => $baseDir . '/app/Http/Controllers/TaskCommentController.php',
     'App\\Http\\Controllers\\TaskController' => $baseDir . '/app/Http/Controllers/TaskController.php',

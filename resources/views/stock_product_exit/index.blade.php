@@ -12,6 +12,7 @@
     <thead>
         <tr>
             <th>Autor</th>
+            <th>Proyecto</th>
             <th>Cantidad</th>
             <th>Descripción</th>
             <th></th>
@@ -21,6 +22,7 @@
         @foreach ($exits as $exit)
         <tr>
             <td>{{ $exit->author['name'] }} {{ $exit->author['middle_name'] }} {{ $exit->author['last_name'] }}</td>
+            <td>{{ $exit->sale['description'] }}</td>
             <td>{{ $exit->quantity }}</td>
             <td>{{ $exit->description }}</td>
             <td>

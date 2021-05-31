@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\StockProductExit;
 use App\StockProduct;
+use App\Sale;
 
 class ApiStockProductExitController extends Controller
 {
@@ -61,5 +62,12 @@ class ApiStockProductExitController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getActiveProjects(Request $request)
+    {
+        $projects = Sale::where('status','Proyecto')->orderBy('description')->get();
+        //return json_encode($projects);
+        return $projects;
     }
 }

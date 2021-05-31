@@ -745,6 +745,7 @@ class ComposerStaticInitc76430cec0ac4972d1901c144bf246d6
         'App\\Http\\Controllers\\StockProductCategoryController' => __DIR__ . '/../..' . '/app/Http/Controllers/StockProductCategoryController.php',
         'App\\Http\\Controllers\\StockProductController' => __DIR__ . '/../..' . '/app/Http/Controllers/StockProductController.php',
         'App\\Http\\Controllers\\StockProductExitController' => __DIR__ . '/../..' . '/app/Http/Controllers/StockProductExitController.php',
+        'App\\Http\\Controllers\\StockProductImageController' => __DIR__ . '/../..' . '/app/Http/Controllers/StockProductImageController.php',
         'App\\Http\\Controllers\\SysLogsController' => __DIR__ . '/../..' . '/app/Http/Controllers/SysLogsController.php',
         'App\\Http\\Controllers\\TaskCommentController' => __DIR__ . '/../..' . '/app/Http/Controllers/TaskCommentController.php',
         'App\\Http\\Controllers\\TaskController' => __DIR__ . '/../..' . '/app/Http/Controllers/TaskController.php',
