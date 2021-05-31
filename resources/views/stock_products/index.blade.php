@@ -12,9 +12,7 @@
 <table class="table table-striped" id="index_table">
     <thead>
         <tr>
-            <!--
             <th>Imagen</th>
-            -->
             <th>Categoría</th>
             <th>Producto</th>
             <th>Descripción</th>
@@ -25,16 +23,23 @@
     </thead>
     <tbody>
         @foreach($products as $product)
+
+        @php
+            $image = \App\StockProductImage::where('stock_product_id',$product->id)->orderBy('created_at', 'desc')->first();
+            if($image)
+            {
+                $image = $image->image;
+            }else{
+                $image = "product_stock.png";
+            }
+        @endphp
+
         <tr>
-            <!--
+            
             <td>
-            @if($product->image == 'product_stock.png')
-            <img src="{{ asset('img') }}/{{ $product->image }}" width="100" />
-            @else
-            <img src="{{ asset('storage') }}/{{ $product->image }}" width="100" />
-            @endif
+            <a href="{{ asset('storage') }}/{{ $image }}" target="_blank"><img src="{{ asset('storage') }}/{{ $image }}" width="100" /></a>
             </td>
-            -->
+            
             <td>{{ $product->category['name'] }}</td>
             <td>{{ $product->product }}</td>
             <td>{{ $product->description }}</td>
@@ -95,7 +100,7 @@
                 aoColumnDefs: [
                     {
                         bSortable: false,
-                        aTargets: [0,5]
+                        aTargets: [0,6]
                     },
                 ],
                 oLanguage: {
