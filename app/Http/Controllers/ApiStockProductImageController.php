@@ -46,7 +46,23 @@ class ApiStockProductImageController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $image = StockProductImage::create([
+            'stock_product_id' => $request->stock_product_id,
+            'description' => $request->description,
+        ]);
+        if($image)
+        {
+            $file = $request->file('image');
+            $name =  "Stock_Product_api[".$image->id."_".$image->binnacle_id."]_".\Str::random(8)."_".$file->getClientOriginalName();
+            $img = \Image::make($file);
+            $img = $img->widen(intdiv($img->width() , 4));
+            $img->save('storage/'.$name, 60);
+            //\Storage::disk('local')->put($name,  \File::get($file));
+            $image->image = $name;
+            $image->save();
+            return "Imagen almacenada";
+        }else{ "Error durante la carga"; } 
+        
     }
 
     /**
@@ -93,4 +109,6 @@ class ApiStockProductImageController extends Controller
     {
         //
     }
+
+
 }

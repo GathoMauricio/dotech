@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\StockProduct;
-use App\StockProductCategory;
+use App\StockProductImage;
 
 class ApiStockProductController extends Controller
 {
@@ -14,13 +14,20 @@ class ApiStockProductController extends Controller
         $json = [];
         foreach( $products as $product)
         {
+            $image = StockProductImage::where('stock_product_id',$product->id)->orderBy('created_at', 'desc')->first();
+            if($image)
+            {
+                $image = $image->image;
+            }else{
+                $image = "product_stock.png";
+            }
             $json[] = [
                 'id' => $product->id,
                 'category' => $product->category['name'],
                 'product' => $product->product,
                 'description' => $product->description,
                 'quantity' => $product->quantity,
-                'image' => getUrl().'/storage/'.$product->image,
+                'image' => getUrl().'/storage/'.$image,
             ];
         }
         return $json;

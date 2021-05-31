@@ -11,8 +11,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 Route::middleware('auth:api')->get('/get_current_version', function (Request $request) {
     return [
-        'currentVersion' => '1.1.1',
-        'downloadLink' => getUrl().'/mobile/dotech_mobile_1-1-1.apk'
+        'currentVersion' => '1.1.2',
+        'downloadLink' => getUrl().'/mobile/dotech_mobile_1-1-2.apk'
     ];
 });
 
@@ -95,6 +95,7 @@ Route::middleware('auth:api')->post('store_stock_product','ApiStockProductContro
 
 #Stock product images
 Route::middleware('auth:api')->get('stock_product_image_index/{id}','ApiStockProductImageController@index')->name('stock_product_image_index');
+Route::middleware('auth:api')->post('upload_stock_product_image','ApiStockProductImageController@store')->name('upload_stock_product_image');
 
 #Exit Stock Product
 Route::middleware('auth:api')->post('exit_stock_product_store','ApiStockProductExitController@store')->name('exit_stock_product_store');
