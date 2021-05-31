@@ -26,7 +26,7 @@
     <tbody>
         @foreach($products as $product)
         <tr>
-            
+            <!--
             <td>
             @if($product->image == 'product_stock.png')
             <img src="{{ asset('img') }}/{{ $product->image }}" width="100" />
@@ -34,7 +34,7 @@
             <img src="{{ asset('storage') }}/{{ $product->image }}" width="100" />
             @endif
             </td>
-            
+            -->
             <td>{{ $product->category['name'] }}</td>
             <td>{{ $product->product }}</td>
             <td>{{ $product->description }}</td>
