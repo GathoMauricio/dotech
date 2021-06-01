@@ -194,7 +194,9 @@
                     <label style="float:right;padding:5px;"><span
                             onclick="addUserDocument({{ $user->id }});" class="icon-plus"
                             style="cursor:pointer;color:white;" title="Agregar documento..."></span></label>
+                        <a href="#" onclick="openUserTest({{ $user->id }});" style="color:white;"><h5><span class="icon-file-text"></span> Abrir Test de conocimiento</h5></a>
                 </center>
+
             </td>
         </tr>
     </table>
@@ -228,5 +230,7 @@
         </tbody>
     </table>
     <input type="hidden" id="txt_delete_user_document_route" value="{{ route('delete_user_document') }}">
+    <input type="hidden" id="txt_check_user_test_route" value="{{ route('check_user_test') }}" />
+    <input type="hidden" id="txt_generate_user_test_route" value="{{ route('generate_user_test') }}" />
     @include('users.add_user_document_modal')
 @endsection

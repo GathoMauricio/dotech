@@ -158,7 +158,7 @@
     <div class="col-md-12">
         <div class="form-group">
             <label class="font-weight-bold" style="color:#7D3C98;font-size:18px">
-                16.	Describe un problema de spool32 y una posible solución.
+                Describe un problema de spool32 y una posible solución.
             </label>
             <textarea id="txt_test_diagnostic_16" class="form-control" placeholder="Respuesta..." rows="3"></textarea>
         </div>

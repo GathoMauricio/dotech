@@ -1596,3 +1596,25 @@ window.deleteStockProductImage = id => {
         }
     });
 };
+
+window.openUserTest = user_id => {
+    const route = $("#txt_check_user_test_route").val();
+    $.ajax({
+        type: "GET",
+        url: route + '/' + user_id,
+        data: {},
+        success: data => {
+            if (data.error <= 0) {
+                const route = $("#txt_generate_user_test_route").val();
+                msg("Abriendo test...");
+                window.open(route + '/' + user_id);
+            } else {
+                msg("No se encontró un test para mostrar.");
+            }
+        },
+        error: error => {
+            window.close();
+            console.log(error);
+        }
+    });
+};
