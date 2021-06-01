@@ -296,46 +296,6 @@ Route::get('candidates_edit/{id}','CandidateController@edit')->name('candidates_
 Route::post('candidates_store','CandidateController@store')->name('candidates_store')->middleware('auth');
 Route::put('candidates_update/{id}','CandidateController@update')->name('candidates_update')->middleware('auth');
 Route::get('candidates_destroy/{id?}','CandidateController@destroy')->name('candidates_destroy')->middleware('auth');
-//Route::get('info',function(){  phpinfo();  })->name('info');
 
-/*
-Route::get('test',function(){
-    set_time_limit(50000);
-
-
-    $conexion = mysqli_connect("127.0.0.1", "root", "", "old");
-    $consulta = "SELECT * FROM producto_venta ";
-    $datos = mysqli_query($conexion,$consulta);
-    $contador = 0;
-    while($fila = mysqli_fetch_array($datos))
-    {
-        $contador++;
-        $precio = $fila['precio_lista_producto'];
-        $cantidad = $fila['cantidad_producto_venta'];
-        $descuento = $fila['descuento_producto_venta'];
-        $descripcion = utf8_encode($fila['descripcion_producto']);
-        $total = $precio * $cantidad;
-
-        echo "Contador :".$contador .'<br/>';
-        echo "Precio :$".$precio .'<br/>';
-        echo "Cantidad :".$cantidad .'<br/>';
-        echo "Descuento :".$descuento .'%<br/>';
-        echo "Descripcion :".$descripcion .'<br/>';
-        echo "Total :$".$total .'<br/>';
-
-        $producto = \App\ProductSale::find($fila['id_producto_venta']);
-        if($producto)
-        {
-            $producto->unity_price_sell = $precio;
-            $producto->quantity = $cantidad;
-            $producto->discount = $descuento;
-            $producto->total_sell = $total;
-            $producto->save();
-            echo "En laravel es: ".$producto->description."<br/><br/>";
-        }
-
-    }
-
-})->name('test');
-
-*/
+#UserTest 
+Route::post('store_user_test','UserTestController@store')->name('store_user_test')->middleware('auth');

@@ -3,17 +3,34 @@
         <p class="text-right p-3">
             <span class="icon-cross" onclick="closeTest();"></span>
         </p>
-        <h4 class="text-center">Test de evaluación para soporte técnico</h4>
-        <h5>
-        A continuación se te presentan una serie de preguntas con tres posibles respuestas, selecciona la que creas que es la correcta. 
-        Al terminar selecciona la opción "Terminar evaluación".
+        <img src="{{ asset('img') }}/dotech_fondo.png" width="140" height="" class="float-left">
+        <br><br>
+        <h2 class="text-center font-weight-bold color-primary-sys">Test de evaluación para soporte técnico</h2>
+        <br>
+        <p class="text-center font-weight-bold">(Sección 1: Opción múltiple)</p>
+        <br>
+        <h6 class="text-justify font-weight-bold">
+        En esta sección se te presentan una serie de preguntas con posibles respuestas, selecciona la que creas que es la correcta.
+        <!--
         <br/><br/>
         (Importante: Si terminas la evaluación sin contestar alguna pregunta esta se tomará como errorea, así mismo si cierras el test no se almacenará tu resultado y deberás comenzar el test de nuevo.)
-        </h5>
+        -->
+        </h6>
+        <br>
         <div id="test"></div>
-        <center>
-            <button onclick="evaluar();" class="btn btn-primary float-center">Terminar evaluación</button>
-        </center>
+        @include('candidates.test_diagnostic')
+        @include('candidates.test_network')
+        
+        <br/><br/>
+        Importante:
+        <br/>
+        Si dejas sin contestar alguna pregunta esta se tomará como errorea, 
+        así mismo si cierras el test no se almacenará tu resultado y deberás comenzar el test de nuevo.
+        <br/>
+        Si ya has concluido por favor avisa a tu entrevistador(a) para continuar con el proceso.
+        <br><br>
+        <button onclick="evaluar();" class="btn btn-primary float-right">Continuar con la evaluación</button>
+        <br><br>
         <p id="resultado"></p>
     </div>
 </div>
@@ -399,9 +416,9 @@ user_test_id = show_user_test_id;
     for (letraRespuesta in preguntaActual.respuestas) {
       respuestas.push(
         `<div class="row ">
-              <div class="col-md-12 text-center bg-light">
+              <div class="col-md-12 text-left font-weight-bold">
               <input type="radio" name="${numeroDePregunta}" value="${letraRespuesta}" />
-              ${letraRespuesta} ) ${preguntaActual.respuestas[letraRespuesta]}
+              ${letraRespuesta} ) <i id="respuesta_${numeroDePregunta}_${letraRespuesta}">${preguntaActual.respuestas[letraRespuesta]}</i>
               </div>
               
           </div>`
@@ -411,8 +428,8 @@ user_test_id = show_user_test_id;
     preguntasYrespuestas.push(
       `<div class="row item-test">
       <div class="col-md-12">
-      <div class="cuestion text-center">
-      <label class="font-weight-bold " style="color:black;">
+      <div >
+      <label class="font-weight-bold " style="color:#7D3C98;font-size:18px">
       ${preguntaActual.pregunta}
       </label>
       </div>
@@ -429,37 +446,72 @@ user_test_id = show_user_test_id;
 }
 
 evaluar = () => {
-
     if(confirm('¿Evaluar test?\nAl terminar el test ya no se podrá realizar nungún canbio'))
     {
         const respuestas = contenedor.querySelectorAll(".respuestas");
         let respuestasCorrectas = 0;
-
+        let respuestasFinal = [];
         preguntas.forEach((preguntaActual, numeroDePregunta) => {
-        const todasLasRespuestas = respuestas[numeroDePregunta];
-        const checkboxRespuestas = `input[name='${numeroDePregunta}']:checked`;
-        const respuestaElegida = (
-        todasLasRespuestas.querySelector(checkboxRespuestas) || {}
-        ).value;
+            const todasLasRespuestas = respuestas[numeroDePregunta];
+            const checkboxRespuestas = `input[name='${numeroDePregunta}']:checked`;
+            const respuestaElegida = (todasLasRespuestas.querySelector(checkboxRespuestas) || {}).value;
 
-        if (respuestaElegida === preguntaActual.respuestaCorrecta) {
-        respuestasCorrectas++;
+            if (respuestaElegida === preguntaActual.respuestaCorrecta) {
+              respuestasCorrectas++;
+              respuestas[numeroDePregunta].style.color = "green";
+              respuestasFinal.push({
+                'num_pregunta' : numeroDePregunta+1,
+                'pregunta' : preguntaActual.pregunta,
+                'respuesta' : $("#respuesta_"+numeroDePregunta+"_"+respuestaElegida).text()+'@=>Correcta'
+              });
+            } else {
+              respuestas[numeroDePregunta].style.color = "red";
 
-        respuestas[numeroDePregunta].style.color = "green";
-        } else {
-        respuestas[numeroDePregunta].style.color = "red";
-        }
-    });
+              //$("#respuesta_"+numeroDePregunta+"_"+respuestaElegida).text();
+
+              respuestasFinal.push({
+                'num_pregunta' : numeroDePregunta+1,
+                'pregunta' : preguntaActual.pregunta,
+                'respuesta' : $("#respuesta_"+numeroDePregunta+"_"+respuestaElegida).text()+'@=>Incorrecta'
+              });
+            }
+        });
         let calif = (respuestasCorrectas * 10 ) / preguntas.length;
         
+        let respuestasDiagnostic = [];
+
+        for(let i = 1 ; i <= 19 ; i++) {
+          respuestasDiagnostic.push({
+            'num_pregunta' : i,
+            'respuesta' : $("#txt_test_diagnostic_"+i).val()
+          });
+        }
+
+        let respuestasNetwork = [];
+
+        for(let i = 1 ; i <= 18 ; i++) {
+          respuestasNetwork.push({
+            'num_pregunta' : i,
+            'respuesta' : $("#txt_test_network_"+i).val()
+          });
+        }
+
         $.ajax({
-            type: "GET",
-            url: "{{ route('update_evaluation_test') }}",
-            data: { id:user_test_id, evaluation: calif },
+            type: "POST",
+            url: "{{ route('store_user_test') }}",
+            data: { 
+              _token: $('meta[name="csrf-token"]').attr("content"),
+              user_id:user_test_id, 
+              evaluation: calif,
+              resp_one: respuestasFinal,
+              resp_two: respuestasDiagnostic,
+              resp_three: respuestasNetwork,
+              },
             success: data => {
-                $("#td_evaluation_"+data.id).text(data.evaluation);
-                alert("Tu calificación ha sido de "+data.evaluation);
-                $(".test-content").css('display', 'none');
+              //console.log(data);
+              $("#td_evaluation_"+data.id).text(data.evaluation);
+              $(".test-content").css('display', 'none');
+              alert("La información se guardo con éxito y puede consultarla dentro de los detalles del aspirante.");
             },
             error: err => console.log(err)
         });

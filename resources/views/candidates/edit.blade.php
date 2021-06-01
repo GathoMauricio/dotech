@@ -1,8 +1,5 @@
 @extends('layouts.app')
 @section('content')
-    <p class="text-right">
-        <a href="{{ route('candidates') }}"><span class="icon-cross"></span></a>
-    </p>
     <h4 class="title_page">Editar candidato</h4>
     <center>
         @if($user->image == 'perfil.png')
