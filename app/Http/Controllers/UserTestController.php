@@ -58,7 +58,7 @@ class UserTestController extends Controller
             'user_id' => $request->user_id,
         ]);
         for($i = 1; $i <= 18; $i++){
-            $sectionThree['question_'.$i] = $request->resp_two[$i - 1]['respuesta'];
+            $sectionThree['question_'.$i] = $request->resp_three[$i - 1]['respuesta'];
         }
         $sectionThree->save();
 

@@ -113,7 +113,7 @@
 </div>
 @endfor
 
-<p style="text-align:center;font-weight:bold;">(Sección 2: Redes)</p>
+<p style="text-align:center;font-weight:bold;">(Sección 3: Redes)</p>
 @for($i = 1; $i <= 18; $i++)
 <div class="row" style="padding-top:40px;">
     <div class="col-md-12">
