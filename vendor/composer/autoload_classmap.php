@@ -120,6 +120,7 @@ return array(
     'App\\SalePayment' => $baseDir . '/app/SalePayment.php',
     'App\\ScrapingList' => $baseDir . '/app/ScrapingList.php',
     'App\\SectionOneUserTest' => $baseDir . '/app/SectionOneUserTest.php',
+    'App\\SectionThreeUserTest' => $baseDir . '/app/SectionThreeUserTest.php',
     'App\\SectionTwoUserTest' => $baseDir . '/app/SectionTwoUserTest.php',
     'App\\Service' => $baseDir . '/app/Service.php',
     'App\\ServiceFollow' => $baseDir . '/app/ServiceFollow.php',

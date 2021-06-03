@@ -54,25 +54,31 @@
 <main style="padding-top:20px;"><br/><br/><br><br/>
 <table style="width:100%;">
     <tr>
-        <td width="100%" colspan="2">
+        <td width="50%">
             <span style="color:#d30035;font-weight:bold;">
                 Nombre: 
             </span>
             {{ $oneTest->user['name'] }} {{ $oneTest->user['middle_name'] }} {{ $oneTest->user['last_name'] }}
         </td>
-    </tr>
-    <tr>
         <td width="50%">
             <span style="color:#d30035;font-weight:bold;">
                 Fecha: 
             </span>
             {{ onlyDate($oneTest->created_at) }}
         </td>
+    </tr>
+    <tr>
         <td width="50%">
             <span style="color:#d30035;font-weight:bold;">
                 Calificacion:
             </span>
             {{ $oneTest->evaluation }}
+        </td>
+        <td width="50%">
+            <span style="color:#d30035;font-weight:bold;">
+                Tiempo:
+            </span>
+            {{ $oneTest->time }}
         </td>
     </tr>
 </table>

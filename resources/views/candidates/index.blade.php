@@ -14,7 +14,6 @@
                 <th width="20%">Email</th>
                 <th width="20%">Teléfono</th>
                 <th width="10%">Localidad</th>
-                <th width="10%">Evaluación</th>
                 <th width="20%"></th>
             </tr>
             </thead>
@@ -32,11 +31,6 @@
                     <td>{{ $user->email }}</td>
                     <td>{{ $user->phone }}</td>
                     <td>{{ $user->location['name'] }}</td>
-                    @if(empty($user->evaluation))
-                    <td id="td_evaluation_{{ $user->id }}">No realizada</td>
-                    @else
-                    <td id="td_evaluation_{{ $user->id }}">{{ $user->evaluation }}</td>
-                    @endif
                     <td>
                         <a href="{{ route('candidates_edit', $user->id) }}"><span class="icon-eye" title="Ver/Editar" style="cursor:pointer;color:#F39C12"> Ver/Editar</span></a>
                         <br>
@@ -67,7 +61,7 @@
                     aoColumnDefs: [
                         {
                             bSortable: false,
-                            aTargets: [0,6]
+                            aTargets: [0,5]
                         },
                     ],
                     oLanguage: {

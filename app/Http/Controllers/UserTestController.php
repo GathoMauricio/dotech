@@ -39,7 +39,8 @@ class UserTestController extends Controller
     {
         $sectionOne = SectionOneUserTest::create([
             'user_id' => $request->user_id,
-            'evaluation' => number_format($request->evaluation,1)
+            'evaluation' => number_format($request->evaluation,1),
+            'time' => $request->time
         ]);
         for($i = 1; $i <= 30; $i++){
             $sectionOne['question_'.$i] = $request->resp_one[$i - 1]['respuesta'];

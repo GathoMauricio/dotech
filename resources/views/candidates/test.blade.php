@@ -5,7 +5,12 @@
         </p>
         <img src="{{ asset('img') }}/dotech_fondo.png" width="140" height="" class="float-left">
         <br><br>
-        <h2 class="text-center font-weight-bold color-primary-sys">Test de evaluación para soporte técnico</h2>
+        <h2 class="text-center font-weight-bold color-primary-sys">
+          Test de evaluación para soporte técnico
+        </h2>
+        <h6 class="text-center font-weight-bold color-primary-sys">
+          Han transcurrido <span id="span_mins">00</span> minutos con <span id="span_seconds">00</span> segundos
+        </h6>
         <br>
         <p class="text-center font-weight-bold">(Sección 1: Opción múltiple)</p>
         <br>
@@ -66,6 +71,10 @@
 const contenedor = document.getElementById("test");
 const resultadoTest = document.getElementById("resultado");
 let user_test_id = 0;
+let milliseconds = 0;
+let seconds = 0;
+let mins = 0;
+let boolStart = false;
 const preguntas = [
   {
     pregunta: "01.- Una hoja de cálculo es:",
@@ -405,8 +414,70 @@ const preguntas = [
   },
 
 ];
+stopTime = () => {
+  boolStart = false;
+};
+startTime = () => {
+    boolStart = true;
+    seconds= seconds + 1;
+    if (seconds < 10) {
+        $("#span_seconds").text("0" + seconds);
+    } else {
+        $("#span_seconds").text(seconds);
+    }
+    if (mins < 10) {
+        $("#span_mins").text("0" + mins);
+    } else {
+        $("#span_mins").text(mins);
+    }
+
+    if(seconds >= 59)
+    {
+      seconds = 0;
+      mins = mins+1;
+    }
+   
+    setTimeout(() => {
+       /*
+        milliseconds++;
+        if (milliseconds >= 1000) {
+            seconds++;
+            milliseconds = 0;
+            if (seconds >= 60) {
+                seconds = 0;
+                mins++;
+            }
+        }
+        if (milliseconds < 10) {
+            $("#span_milliseconds").text("00" + milliseconds);
+        } else {
+            if (milliseconds < 100) {
+                $("#span_milliseconds").text("0" + milliseconds);
+            } else {
+                $("#span_milliseconds").text(milliseconds);
+            }
+        }
+        if (seconds < 10) {
+            $("#span_seconds").text("0" + seconds);
+        } else {
+            $("#span_seconds").text(seconds);
+        }
+        if (mins < 99) {
+            $("#span_mins").text("0" + mins);
+        } else {
+            $("#span_mins").text(mins);
+        }
+        */
+        if (boolStart) {
+            startTime();
+        }
+    }, 1000);
+};
 
 function mostrarTest(show_user_test_id) {
+
+startTime();
+
 user_test_id = show_user_test_id;
   const preguntasYrespuestas = [];
 
@@ -448,6 +519,7 @@ user_test_id = show_user_test_id;
 evaluar = () => {
     if(confirm('¿Evaluar test?\nAl terminar el test ya no se podrá realizar nungún canbio'))
     {
+        stopTime();
         const respuestas = contenedor.querySelectorAll(".respuestas");
         let respuestasCorrectas = 0;
         let respuestasFinal = [];
@@ -503,9 +575,10 @@ evaluar = () => {
               _token: $('meta[name="csrf-token"]').attr("content"),
               user_id:user_test_id, 
               evaluation: calif,
+              time: $("#span_mins").text()+':'+$("#span_seconds").text(),
               resp_one: respuestasFinal,
               resp_two: respuestasDiagnostic,
-              resp_three: respuestasNetwork,
+              resp_three: respuestasNetwork
               },
             success: data => {
               //console.log(data);

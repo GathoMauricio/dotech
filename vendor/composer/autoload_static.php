@@ -796,6 +796,7 @@ class ComposerStaticInitc76430cec0ac4972d1901c144bf246d6
         'App\\SalePayment' => __DIR__ . '/../..' . '/app/SalePayment.php',
         'App\\ScrapingList' => __DIR__ . '/../..' . '/app/ScrapingList.php',
         'App\\SectionOneUserTest' => __DIR__ . '/../..' . '/app/SectionOneUserTest.php',
+        'App\\SectionThreeUserTest' => __DIR__ . '/../..' . '/app/SectionThreeUserTest.php',
         'App\\SectionTwoUserTest' => __DIR__ . '/../..' . '/app/SectionTwoUserTest.php',
         'App\\Service' => __DIR__ . '/../..' . '/app/Service.php',
         'App\\ServiceFollow' => __DIR__ . '/../..' . '/app/ServiceFollow.php',
