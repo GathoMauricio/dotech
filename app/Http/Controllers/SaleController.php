@@ -513,10 +513,17 @@ class SaleController extends Controller
     public function searchProjectAjax(Request $request)
     {
         $sales = Sale::where('description','LIKE','%'.$request->q.'%')->where('status','Proyecto')->limit(10)->get();
+        $sales = Sale::select('companies.name','sales.id','sales.description')
+                ->join('companies', 'sales.company_id', '=', 'companies.id')
+                ->where(function($q) use ($request){
+                    $q->where('companies.name','LIKE','%'.$request->q.'%')->orWhere('sales.description','LIKE','%'.$request->q.'%');
+                })
+                ->limit(10)
+                ->get();
         $json = [];
         foreach($sales as $sale){
             $json [] = [
-                'label' => $sale->company['name'].' - '.$sale->id.' - '.$sale->description,
+                'label' => $sale->name.' - '.$sale->id.' - '.$sale->description,
                 'value' => $sale->id
             ];
         }
@@ -525,11 +532,20 @@ class SaleController extends Controller
     public function searchQuoteAjax(Request $request)
     {
         //return $request;
-        $sales = Sale::where('description','LIKE','%'.$request->q.'%')->where('status','Pendiente')->limit(10)->get();
+        //$sales = Sale::where('description','LIKE','%'.$request->q.'%')->where('status','Pendiente')->limit(10)->get();
+
+        $sales = Sale::select('companies.name','sales.id','sales.description')
+                ->join('companies', 'sales.company_id', '=', 'companies.id')
+                ->where(function($q) use ($request){
+                    $q->where('companies.name','LIKE','%'.$request->q.'%')->orWhere('sales.description','LIKE','%'.$request->q.'%');
+                })
+                ->limit(10)
+                ->get();
+
         $json = [];
         foreach($sales as $sale){
             $json [] = [
-                'label' => $sale->company['name'].' - '.$sale->id.' - '.$sale->description,
+                'label' => $sale->name.' - '.$sale->id.' - '.$sale->description,
                 'value' => $sale->id
             ];
         }
