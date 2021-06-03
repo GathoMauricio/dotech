@@ -24,9 +24,9 @@ class SaleController extends Controller
     {
         if(Auth::user()->rol_user_id == 1)
         {
-            $sales = Sale::where('status','Pendiente')->paginate(15);
+            $sales = Sale::where('status','Pendiente')->orderBy('id','desc')->paginate(15);
         }else{
-            $sales = Sale::where('status','Pendiente')->where('author_id',Auth::user()->id)->paginate(15);
+            $sales = Sale::where('status','Pendiente')->where('author_id',Auth::user()->id)->orderBy('id','desc')->paginate(15);
         }
         return view('quotes.index',['sales' => $sales]);
     }
