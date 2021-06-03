@@ -32,7 +32,7 @@ class SaleController extends Controller
     }
     public function indexProyects()
     {
-        $sales = Sale::where('status','Proyecto')->paginate(15);
+        $sales = Sale::where('status','Proyecto')->orderBy('id','desc')->paginate(15);
         return view('projects.index',['sales' => $sales]);
     }
     public function create()
