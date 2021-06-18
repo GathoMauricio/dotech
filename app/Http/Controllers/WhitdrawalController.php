@@ -166,12 +166,74 @@ class WhitdrawalController extends Controller
     }
     public function searchWhitdrawalAjax(Request $request)
     {
-        $whitdrawals = Whitdrawal::where('description','LIKE','%'.$request->q.'%')->limit(10)->get();
+        $whitdrawals = Whitdrawal::where('status','Pendiente')->where('description','LIKE','%'.$request->q.'%')->limit(10)->get();
         $json = [];
         foreach($whitdrawals as $whitdrawal){
             $json [] = [
                 'label' => $whitdrawal->sale['description'].' - '.$whitdrawal->description .' - '.$whitdrawal->status,
                 'value' => $whitdrawal->id
+            ];
+        }
+        return $json;
+    }
+    public function searchWhitdrawalAjax2(Request $request)
+    {
+        $whitdrawals = Whitdrawal::where('status','Pendiente')->where('description','LIKE','%'.$request->q.'%')->limit(10)->get();
+        $json = [];
+        foreach($whitdrawals as $whitdrawal){
+
+            if(\Auth::user()->rol_user_id == 1)
+            {
+                $links = '
+                <a href="#" onclick="aproveWithdrawalModal('.$whitdrawal->id .');"><span class="icon-point-up" title="Aprovar" style="cursor:pointer;color:#74DF00"> Aprobar</span></a>
+                <br>
+                <a href="#" onclick="disaproveWithdrawal('.$whitdrawal->id .');"><span class="icon-point-down" title="Desaprobar" style="cursor:pointer;color:#FFBF00"> Rechazar</span></a>
+                <br>
+                <a href="#" onclick="deleteWithdrawal('.$whitdrawal->id .');"><span class="icon-bin" title="Eliminar" style="cursor:pointer;color:#DF0101"> Eliminar</span></a>
+                <br>
+                ';
+                if($whitdrawal->invoive == 'SI')
+                {
+                    if(!empty($whitdrawal->document))
+                    {
+                        $links .= '<a href="'.env('APP_URL').'/storage/'.$whitdrawal->document.'" target="_BLANK"><span class="icon-eye"></span> Ver</a>';
+                    }else{
+                        $links .= '<a href="#" onclick="addWhitdralDocumentModal('.$whitdrawal->id .');"><span class="icon-upload"></span> Cargar</a>';
+                    }
+                }else{
+                    $links .= 'N/A';
+                }
+            }else{
+
+                if($whitdrawal->invoive == 'SI')
+                {
+                    
+                    if(!empty($whitdrawal->document))
+                    {
+                        $links .= '<a href="'.env('APP_URL').'/storage/'.$whitdrawal->document.'" target="_BLANK"><span class="icon-eye"></span> Ver</a>';
+                    }else{
+                        $links .= '<a href="#" onclick="addWhitdralDocumentModal('.$whitdrawal->id .');"><span class="icon-upload"></span> Cargar</a>';
+                    }
+                    
+                }else{
+                    $links .= 'N/A';
+                }
+
+            }
+
+            $json [] = [
+                'id' => $whitdrawal->id,
+                'provider' => $whitdrawal->provider['name'],
+                'company' => $whitdrawal->sale->company['name'],
+                'sale_id' => $whitdrawal->sale['id'],
+                'sale_description' => $whitdrawal->sale['description'],
+                'description' => $whitdrawal->description,
+                'author' => $whitdrawal->author['name'].' '.$whitdrawal->author['middle_name'].' '.$whitdrawal->author['last_name'],
+                'quantity' => $whitdrawal->quantity,
+                'invoive' => $whitdrawal->invoive,
+                'date' => onlyDate($whitdrawal->created_at),
+                //'a_invoive' => $a_invoive,
+                'links' => $links
             ];
         }
         return $json;

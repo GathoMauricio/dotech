@@ -26,8 +26,42 @@ import ProjectControl from "./control/ProjectControl";
 const projectControl = new ProjectControl();
 /*++ End ControlFunctions ++*/
 
+//tbl_whitdrawal_to_search
+
+window.searchWhitdrawals = value => {
+    const route = $("#txt_search_whitdrawal_route_ajax2").val();
+    console.log("Value: " + route);
+    $.ajax({
+        type: "GET",
+        url: route,
+        data: { q: value },
+        success: data => {
+            console.log(data);
+            $("#tbl_whitdrawal_to_search").html('');
+            $.each(data, (index, item) => {
+                $("#tbl_whitdrawal_to_search").append(`
+                <tr>
+                <td>${ item.id }</td>
+                <td>${ item.provider }</td>
+                <td>${ item.company }</td>
+                <td>${ item.sale_id } - ${ item.sale_description}</td>
+                <td>${ item.description }</td>
+                <td>${ item.author }</td>
+                <td>$${ item.quantity }</td>
+                <td>${ item.invoive }</td>
+                <td>${ item.date }</td>
+                <td>${ item.links }</td>
+                </tr>
+                `);
+            });
+        },
+        error: err => console.log(err)
+    });
+};
+
 /*++ Start JqueryReady ++*/
 jQuery(() => {
+
     /*++ AutocompleteQuotes ++*/
     $("#txt_search_quote").autocomplete({
         source: (request, response) => {

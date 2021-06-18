@@ -118,6 +118,7 @@ Route::get('disaprove_whitdrawal/{id?}','WhitdrawalController@disaproveWithdrawa
 Route::get('delete_whitdrawal/{id?}','WhitdrawalController@destroy')->name('delete_whitdrawal')->middleware('auth');
 Route::get('show_whitdrawal','WhitdrawalController@show')->name('show_whitdrawal')->middleware('auth');
 Route::get('search_whitdrawal_ajax','WhitdrawalController@searchWhitdrawalAjax')->name('search_whitdrawal_ajax')->middleware('auth');
+Route::get('search_whitdrawal_ajax2','WhitdrawalController@searchWhitdrawalAjax2')->name('search_whitdrawal_ajax2')->middleware('auth');
 Route::get('show_whitdrawal_ajax','WhitdrawalController@showWhitdrawalAjax')->name('show_whitdrawal_ajax')->middleware('auth');
 
 #whitdrawal provider

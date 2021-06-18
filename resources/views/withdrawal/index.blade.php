@@ -17,15 +17,21 @@
 <table class="table table-bordered" id="index_table">
     <thead>
         <tr>
-            <td colspan="9" width="100%">
+            <td colspan="10" width="100%">
+
+                <!--
                 <input id="txt_search_whitdrawal" class="form-control" placeholder="Buscar..." />
                 <input type="hidden" id="txt_search_whitdrawal_route_ajax" value="{{ route('search_whitdrawal_ajax') }}">
                 <input type="hidden" id="txt_show_whitdrawal_route_ajax" value="{{ route('show_whitdrawal_ajax') }}">
+                -->
+                <input onkeyup="searchWhitdrawals(this.value)" id="txt_search_whitdrawal2" class="form-control" placeholder="Buscar..." />
+                <input type="hidden" id="txt_search_whitdrawal_route_ajax2" value="{{ route('search_whitdrawal_ajax2') }}">
             </td>
         </tr>
         <tr>
             <th width="10%">Id</t)h>
             <th width="10%">Proveedor</th>
+            <th width="10%">Compañía</th>
             <th width="10%">Proyecto</th>
             <th width="10%">Descripcion</th>
             <th width="10%">Empelado</th>
@@ -35,16 +41,21 @@
             <th width="20%"></th>
         </tr>
     </thead>
-    <tbody>
+    <tbody id="tbl_whitdrawal_to_search">
         @foreach($whitdrawals as $whitdrawal)
         <tr>
             <td>{{ $whitdrawal->id }}</td>
             <td>{{ $whitdrawal->provider['name'] }}</td>
+            <td>{{ $whitdrawal->sale->company['name'] }}</td>
+            <td>{{ $whitdrawal->sale['id'] }} - {{ $whitdrawal->sale['description'] }}</td>
+            <!--
             <td><a href="{{ route('show_sale',$whitdrawal->sale_id) }}" target="_blank">
                 {{ $whitdrawal->sale['id'] }} 
                 - 
                 {{ $whitdrawal->sale['description'] }}
-            </a></td>
+            </a>
+            </td>
+            -->
             <td>{{ $whitdrawal->description }}</td>
             <td>
                 @if(!empty($whitdrawal->author['name']))
