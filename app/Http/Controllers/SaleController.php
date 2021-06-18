@@ -35,6 +35,11 @@ class SaleController extends Controller
         $sales = Sale::where('status','Proyecto')->orderBy('id','desc')->paginate(15);
         return view('projects.index',['sales' => $sales]);
     }
+    public function indexProyectsFinished()
+    {
+        $sales = Sale::where('status','Finalizado')->orderBy('id','desc')->paginate(15);
+        return view('projects.finished',['sales' => $sales]);
+    }
     public function create()
     {
         //
@@ -512,7 +517,6 @@ class SaleController extends Controller
 
     public function searchProjectAjax(Request $request)
     {
-        $sales = Sale::where('description','LIKE','%'.$request->q.'%')->where('status','Proyecto')->limit(10)->get();
         $sales = Sale::select('companies.name','sales.id','sales.description')
                 ->join('companies', 'sales.company_id', '=', 'companies.id')
                 ->where(function($q) use ($request){

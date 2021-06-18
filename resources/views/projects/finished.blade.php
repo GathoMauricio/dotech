@@ -1,9 +1,6 @@
 @extends('layouts.app')
 @section('content')
-<h4 class="title_page ">Proyectos</h4>
-<p class="float-right">
-    <a href="{{ route('index_proyects_finished') }}">[Proyectos finalizados]</a>
-</p>
+<h4 class="title_page ">Proyectos finalizados</h4>
 @if(count($sales) <= 0)
 @include('layouts.no_records')
 @else
