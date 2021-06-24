@@ -178,25 +178,61 @@ class WhitdrawalController extends Controller
     }
     public function searchWhitdrawalAjax2(Request $request)
     {
-        $whitdrawals = Whitdrawal::where('status','Pendiente')->where('description','LIKE','%'.$request->q.'%')->limit(10)->get();
+        $whitdrawals = Whitdrawal::
+        select(
+            'whitdrawals.id as ID',
+            'sales.id AS ID_VENTA',
+            'whitdrawal_providers.name AS PROVEDOR',
+            'companies.name as NOMBRE_COMPANIA',
+            'sales.description AS PROYECTO',
+            'whitdrawals.description AS DESCRIPCION',
+            'users.name AS NOMBRE_AUTOR',
+            'users.middle_name AS PATERNO_AUTOR',
+            'users.last_name AS MATERNO_AUTOR',
+            'whitdrawals.quantity AS CANTIDAD',
+            'whitdrawals.invoive AS FACTURA',
+            'whitdrawals.created_at AS FECHA',
+            'whitdrawals.document AS DOCUMENTO'
+            )
+        ->join('sales', 'sales.id', '=', 'whitdrawals.sale_id')
+        ->join('whitdrawal_providers','whitdrawal_providers.id','whitdrawals.whitdrawal_provider_id')
+        ->join('companies','companies.id','=','sales.company_id')
+        ->join('users','users.id','=','whitdrawals.author_id')
+
+        ->where('whitdrawals.status','Pendiente')
+        ->where(function($q) use ($request){
+            $q->where('companies.name','LIKE','%'.$request->q.'%')
+            ->orWhere('whitdrawal_providers.name','LIKE','%'.$request->q.'%')
+            ->orWhere('sales.description','LIKE','%'.$request->q.'%')
+            ->orWhere('whitdrawals.description','LIKE','%'.$request->q.'%')
+            ->orWhere('users.name','LIKE','%'.$request->q.'%')
+            ->orWhere('users.middle_name','LIKE','%'.$request->q.'%')
+            ->orWhere('users.last_name','LIKE','%'.$request->q.'%')
+            ->orWhere('whitdrawals.quantity','LIKE','%'.$request->q.'%')
+            ->orWhere('whitdrawals.created_at','LIKE','%'.$request->q.'%')
+            ;
+        })
+        ->orderBy('whitdrawals.id','DESC')
+        ->get();
+
         $json = [];
         foreach($whitdrawals as $whitdrawal){
 
             if(\Auth::user()->rol_user_id == 1)
             {
                 $links = '
-                <a href="#" onclick="aproveWithdrawalModal('.$whitdrawal->id .');"><span class="icon-point-up" title="Aprovar" style="cursor:pointer;color:#74DF00"> Aprobar</span></a>
+                <a href="#" onclick="aproveWithdrawalModal('.$whitdrawal->ID .');"><span class="icon-point-up" title="Aprovar" style="cursor:pointer;color:#74DF00"> Aprobar</span></a>
                 <br>
-                <a href="#" onclick="disaproveWithdrawal('.$whitdrawal->id .');"><span class="icon-point-down" title="Desaprobar" style="cursor:pointer;color:#FFBF00"> Rechazar</span></a>
+                <a href="#" onclick="disaproveWithdrawal('.$whitdrawal->ID .');"><span class="icon-point-down" title="Desaprobar" style="cursor:pointer;color:#FFBF00"> Rechazar</span></a>
                 <br>
-                <a href="#" onclick="deleteWithdrawal('.$whitdrawal->id .');"><span class="icon-bin" title="Eliminar" style="cursor:pointer;color:#DF0101"> Eliminar</span></a>
+                <a href="#" onclick="deleteWithdrawal('.$whitdrawal->ID .');"><span class="icon-bin" title="Eliminar" style="cursor:pointer;color:#DF0101"> Eliminar</span></a>
                 <br>
                 ';
-                if($whitdrawal->invoive == 'SI')
+                if($whitdrawal->FACTURA == 'SI')
                 {
-                    if(!empty($whitdrawal->document))
+                    if(!empty($whitdrawal->DOCUMENTO))
                     {
-                        $links .= '<a href="'.env('APP_URL').'/storage/'.$whitdrawal->document.'" target="_BLANK"><span class="icon-eye"></span> Ver</a>';
+                        $links .= '<a href="'.env('APP_URL').'/storage/'.$whitdrawal->DOCUMENTO.'" target="_BLANK"><span class="icon-eye"></span> Ver</a>';
                     }else{
                         $links .= '<a href="#" onclick="addWhitdralDocumentModal('.$whitdrawal->id .');"><span class="icon-upload"></span> Cargar</a>';
                     }
@@ -205,14 +241,14 @@ class WhitdrawalController extends Controller
                 }
             }else{
 
-                if($whitdrawal->invoive == 'SI')
+                if($whitdrawal->FACTURA == 'SI')
                 {
                     
-                    if(!empty($whitdrawal->document))
+                    if(!empty($whitdrawal->DOCUMENTO))
                     {
-                        $links .= '<a href="'.env('APP_URL').'/storage/'.$whitdrawal->document.'" target="_BLANK"><span class="icon-eye"></span> Ver</a>';
+                        $links .= '<a href="'.env('APP_URL').'/storage/'.$whitdrawal->DOCUMENTO.'" target="_BLANK"><span class="icon-eye"></span> Ver</a>';
                     }else{
-                        $links .= '<a href="#" onclick="addWhitdralDocumentModal('.$whitdrawal->id .');"><span class="icon-upload"></span> Cargar</a>';
+                        $links .= '<a href="#" onclick="addWhitdralDocumentModal('.$whitdrawal->ID .');"><span class="icon-upload"></span> Cargar</a>';
                     }
                     
                 }else{
@@ -222,16 +258,16 @@ class WhitdrawalController extends Controller
             }
 
             $json [] = [
-                'id' => $whitdrawal->id,
-                'provider' => $whitdrawal->provider['name'],
-                'company' => $whitdrawal->sale->company['name'],
-                'sale_id' => $whitdrawal->sale['id'],
-                'sale_description' => $whitdrawal->sale['description'],
-                'description' => $whitdrawal->description,
-                'author' => $whitdrawal->author['name'].' '.$whitdrawal->author['middle_name'].' '.$whitdrawal->author['last_name'],
-                'quantity' => $whitdrawal->quantity,
-                'invoive' => $whitdrawal->invoive,
-                'date' => onlyDate($whitdrawal->created_at),
+                'id' => $whitdrawal->ID,
+                'provider' => $whitdrawal->PROVEDOR,
+                'company' => $whitdrawal->NOMBRE_COMPANIA,
+                'sale_id' => $whitdrawal->ID_VENTA,
+                'sale_description' => $whitdrawal->PROYECTO,
+                'description' => $whitdrawal->DESCRIPCION,
+                'author' => $whitdrawal->NOMBRE_AUTOR.' '.$whitdrawal->PATERNO_AUTOR.' '.$whitdrawal->MATERNO_AUTOR,
+                'quantity' => $whitdrawal->CANTIDAD,
+                'invoive' => $whitdrawal->FACTURA,
+                'date' => onlyDate($whitdrawal->FECHA),
                 //'a_invoive' => $a_invoive,
                 'links' => $links
             ];
