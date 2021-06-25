@@ -11,9 +11,14 @@
     <thead>
         <tr>
             <td colspan="6" width="100%">
+                <!--
                 <input id="txt_search_quote" class="form-control" placeholder="Buscar..." />
                 <input type="hidden" id="txt_search_quote_route_ajax" value="{{ route('search_quote_ajax') }}">
                 <input type="hidden" id="txt_show_quote_route_ajax" value="{{ route('show_quote_modal_ajax') }}">
+                -->
+                <input onkeyup="searchQuotes(this.value)" id="txt_search_quote2" class="form-control" placeholder="Buscar..." />
+                <input type="hidden" id="txt_search_quote_route_ajax2" value="{{ route('search_quote_ajax2') }}">
+                <span id="span_result"></span>
             </td>
         </tr>
         <tr>
@@ -25,7 +30,7 @@
             <th width="15%"></th>
         </tr>
     </thead>
-    <tbody>
+    <tbody id="tbl_quotes_to_search">
         @foreach($sales as $sale)
         <tr>
             <td>{{ $sale->id }}</td>

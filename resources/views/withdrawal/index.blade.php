@@ -26,6 +26,7 @@
                 -->
                 <input onkeyup="searchWhitdrawals(this.value)" id="txt_search_whitdrawal2" class="form-control" placeholder="Buscar..." />
                 <input type="hidden" id="txt_search_whitdrawal_route_ajax2" value="{{ route('search_whitdrawal_ajax2') }}">
+                <span id="span_result"></span>
             </td>
         </tr>
         <tr>

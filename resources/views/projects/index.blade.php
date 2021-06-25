@@ -13,9 +13,15 @@
         <tr>
             <tr>
                 <td colspan="6" width="100%">
+                    
+                    <!--
                     <input id="txt_search_project" class="form-control" placeholder="Buscar..." />
                     <input type="hidden" id="txt_search_project_route_ajax" value="{{ route('search_project_ajax') }}">
                     <input type="hidden" id="txt_show_project_route_ajax" value="{{ route('show_project_ajax') }}">
+                    -->
+                    <input onkeyup="searchProjects(this.value)" id="txt_search_project2" class="form-control" placeholder="Buscar..." />
+                    <input type="hidden" id="txt_search_project_route_ajax2" value="{{ route('search_project_ajax2') }}">
+                    <span id="span_result"></span>
                 </td>
             </tr>
             <th width="15%">Folio</th>
@@ -26,7 +32,7 @@
             <th width="15%"></th>
         </tr>
     </thead>
-    <tbody>
+    <tbody id="tbl_projects_to_search">
         @foreach($sales as $sale)
         <tr>
             <td>{{ $sale->id }}</td>
@@ -35,22 +41,17 @@
             <td>${{ number_format($sale->estimated + ($sale->estimated * 0.16),2) }}</td>
             <td>{{ onlyDate($sale->created_at) }}</td>
             <td>
-                <!--
-                <a href="{{ route('quote_products',$sale->id) }}"><span class="icon-eye" title="Productos" style="cursor:pointer;color:#3498DB"> Productos</span></a>
-                <br>
-                <a href="#" onclick="changeStatusModal({{ $sale->id }});"><span class="icon-checkmark" title="Cambiar estatus" style="cursor:pointer;color:#2ECC71"> Estatus</span></a>
-                <br>
-
-                <a href="#" onclick="editQuote({{ $sale->id }});"><span class="icon-pencil" title="Editar" style="cursor:pointer;color:#F39C12"> Editar</span></a>
-                <br>
-                -->
                 <a href="{{ route('binnacles_by_project',$sale->id) }}"><span class="icon-book" title="Proyecto" style="cursor:pointer;color:#8E44AD"> Bitácoras</span></a>
                 <br>
+
                 <a href="{{ route('show_sale',$sale->id) }}"><span class="icon-eye" title="Proyecto" style="cursor:pointer;color:#3498DB"> Proyecto</span></a>
                 <br>
+
                 <a href="#" onclick="editProject({{ $sale->id }});"><span class="icon-pencil" title="Editar" style="cursor:pointer;color:#F39C12"> Editar</span></a>
                 <br>
+
                 <a href="#" onclick="saleFollowModal({{ $sale->id }});"><span class="icon-bubble" title="Seguimientos" style="cursor:pointer;color:#2980B9"> Seguimientos</span></a>
+                
                 @if(Auth::user()->rol_user_id == 1)
                 <br>
                 <a href="#" onclick="deleteSale({{ $sale->id }})"><span class="icon-bin" title="Eliminar" style="cursor:pointer;color:#C0392B"> Eliminar</span></a>
