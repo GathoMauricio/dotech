@@ -145,7 +145,7 @@ window.searchWhitdrawals = value => {
                 $("#tbl_whitdrawal_to_search").append(`
                 <tr>
                 <td>${ item.id }</td>
-                <td>${ item.provider }</td>
+                <!--<td>${ item.provider }</td>-->
                 <td>${ item.company }</td>
                 <td>${ item.sale_id } - ${ item.sale_description}</td>
                 <td>${ item.description }</td>
@@ -153,6 +153,8 @@ window.searchWhitdrawals = value => {
                 <td>$${ item.quantity }</td>
                 <td>${ item.invoive }</td>
                 <td>${ item.date }</td>
+                <td>${ item.folio }</td>
+                <td>${ item.paid }</td>
                 <td>${ item.links }</td>
                 </tr>
                 `);

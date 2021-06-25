@@ -31,7 +31,7 @@
         </tr>
         <tr>
             <th width="10%">Id</t)h>
-            <th width="10%">Proveedor</th>
+            <!--<th width="10%">Proveedor</th>-->
             <th width="10%">Compañía</th>
             <th width="10%">Proyecto</th>
             <th width="10%">Descripcion</th>
@@ -52,7 +52,7 @@
         <tr>
         @endif
             <td>{{ $whitdrawal->id }}</td>
-            <td>{{ $whitdrawal->provider['name'] }}</td>
+            <!--<td>{{ $whitdrawal->provider['name'] }}</td>-->
             <td>{{ $whitdrawal->sale->company['name'] }}</td>
             <td>{{ $whitdrawal->sale['id'] }} - {{ $whitdrawal->sale['description'] }}</td>
             <!--

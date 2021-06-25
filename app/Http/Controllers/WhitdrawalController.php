@@ -192,7 +192,9 @@ class WhitdrawalController extends Controller
             'whitdrawals.quantity AS CANTIDAD',
             'whitdrawals.invoive AS FACTURA',
             'whitdrawals.created_at AS FECHA',
-            'whitdrawals.document AS DOCUMENTO'
+            'whitdrawals.document AS DOCUMENTO',
+            'whitdrawals.folio AS FOLIO',
+            'whitdrawals.paid AS PAGADO'
             )
         ->join('sales', 'sales.id', '=', 'whitdrawals.sale_id')
         ->join('whitdrawal_providers','whitdrawal_providers.id','whitdrawals.whitdrawal_provider_id')
@@ -209,6 +211,7 @@ class WhitdrawalController extends Controller
             ->orWhere('users.middle_name','LIKE','%'.$request->q.'%')
             ->orWhere('users.last_name','LIKE','%'.$request->q.'%')
             ->orWhere('whitdrawals.quantity','LIKE','%'.$request->q.'%')
+            ->orWhere('whitdrawals.folio','LIKE','%'.$request->q.'%')
             ->orWhere('whitdrawals.created_at','LIKE','%'.$request->q.'%')
             ;
         })
@@ -267,6 +270,8 @@ class WhitdrawalController extends Controller
                 'author' => $whitdrawal->NOMBRE_AUTOR.' '.$whitdrawal->PATERNO_AUTOR.' '.$whitdrawal->MATERNO_AUTOR,
                 'quantity' => $whitdrawal->CANTIDAD,
                 'invoive' => $whitdrawal->FACTURA,
+                'folio' => $whitdrawal->FOLIO,
+                'paid' => $whitdrawal->PAGADO,
                 'date' => onlyDate($whitdrawal->FECHA),
                 //'a_invoive' => $a_invoive,
                 'links' => $links
