@@ -3,7 +3,7 @@ Auth::routes();
 Route::get('/', function () {
     if(Auth::check())
     {
-        if(Auth::user()->rol_user_id == 1)
+        if(Auth::user()->rol_user_id == 1 || Auth::user()->rol_user_id == 2)
         {
             $dashboard = new \App\Http\Controllers\DashboardController();
             return $dashboard->index();
@@ -126,6 +126,7 @@ Route::get('show_whitdrawal_ajax','WhitdrawalController@showWhitdrawalAjax')->na
 Route::get('updateWhitdrawalFolio','WhitdrawalController@updateWhitdrawalFolio')->name('updateWhitdrawalFolio')->middleware('auth');
 Route::get('update_whitdrawal_folio','WhitdrawalController@updateWhitdrawalFolio')->name('update_whitdrawal_folio')->middleware('auth');
 Route::get('update_whitdrawal_paid','WhitdrawalController@updateWhitdrawalPaid')->name('update_whitdrawal_paid')->middleware('auth');
+Route::get('show_whitdrawal_by_project/{id}','WhitdrawalController@showByProject')->name('show_whitdrawal_by_project')->middleware('auth');
 
 #whitdrawal provider
 Route::post('store_whitdrawal_provider','WhitdrawalProviderController@store')->name('store_whitdrawal_provider')->middleware('auth');

@@ -104,6 +104,16 @@ class WhitdrawalController extends Controller
         $whitdrawal = Whitdrawal::findOrFail($request->id);
         return $whitdrawal;
     }
+    public function showByProject($id)
+    {
+        $whitdrawals = Whitdrawal::where('sale_id',$id)->get();
+        $sale = \App\Sale::findOrFail($id);
+        return view('withdrawal.show',[
+            'company' => $sale->company['name'],
+            'project' => $sale->description,
+            'whitdrawals' => $whitdrawals
+        ]);
+    }
     public function showWhitdrawalAjax(Request $request)
     {
         $whitdrawal = Whitdrawal::findOrFail($request->id);

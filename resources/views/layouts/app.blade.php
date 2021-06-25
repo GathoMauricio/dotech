@@ -17,6 +17,7 @@
     <script src="{{ asset('datepicker/jquery.datetimepicker.full.min.js') }}" defer></script>
     <link rel="stylesheet" type="text/css" href="{{ asset('datepicker/jquery.datetimepicker.min.css') }}"/>
     <script src="//unpkg.com/vanilla-masker@1.1.1/lib/vanilla-masker.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
     <script src="{{ asset('js/jquery-ui.min.js') }}" defer></script>
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">

@@ -7,16 +7,35 @@ class DashboardController extends Controller
     {
         $withdrawals = count(\App\Whitdrawal::where('status','Pendiente')->get());
         $tasks = count(\App\Task::where('archived','NO')->get());
-        $quotes = count(\App\Sale::where('status','Pendiente')->get());
-        $projects = count(\App\Sale::where('status','Proyecto')->get());
+        $quotes = \App\Sale::where('status','Pendiente')->get();
+        $projects = \App\Sale::where('status','Proyecto')->get();
         $binnacles = count(\App\Binnacle::all());
         $companies = count(\App\Company::all());
 
+        $costoTotal = 0;
+        $inversionTotal = 0;
+        $utilidadTotal = 0;
+        foreach($projects as $venta) {
+            $costoTotal += $venta->estimated + ($venta->estimated * 0.16);
+
+            $retiros = \App\Whitdrawal::where('sale_id',$venta->id)->where('status','Aprobado')->get();
+            foreach($retiros as $retiro)
+            {
+                $inversionTotal += $retiro->quantity;
+            }
+        }
+        $utilidadTotal = $costoTotal - $inversionTotal;
+
+
         return view('dashboard.index',[
+            'costoTotal' => $costoTotal,
+            'inversionTotal' => $inversionTotal,
+            'utilidadTotal' => $utilidadTotal,
+
             'withdrawals' => $withdrawals,
             'tasks' => $tasks,
-            'quotes' => $quotes,
-            'projects' => $projects,
+            'quotes' => count($quotes),
+            'projects' => count($projects),
             'binnacles' => $binnacles,
             'companies' => $companies
         ]);
