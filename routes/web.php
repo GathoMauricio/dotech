@@ -123,6 +123,9 @@ Route::get('show_whitdrawal','WhitdrawalController@show')->name('show_whitdrawal
 Route::get('search_whitdrawal_ajax','WhitdrawalController@searchWhitdrawalAjax')->name('search_whitdrawal_ajax')->middleware('auth');
 Route::get('search_whitdrawal_ajax2','WhitdrawalController@searchWhitdrawalAjax2')->name('search_whitdrawal_ajax2')->middleware('auth');
 Route::get('show_whitdrawal_ajax','WhitdrawalController@showWhitdrawalAjax')->name('show_whitdrawal_ajax')->middleware('auth');
+Route::get('updateWhitdrawalFolio','WhitdrawalController@updateWhitdrawalFolio')->name('updateWhitdrawalFolio')->middleware('auth');
+Route::get('update_whitdrawal_folio','WhitdrawalController@updateWhitdrawalFolio')->name('update_whitdrawal_folio')->middleware('auth');
+Route::get('update_whitdrawal_paid','WhitdrawalController@updateWhitdrawalPaid')->name('update_whitdrawal_paid')->middleware('auth');
 
 #whitdrawal provider
 Route::post('store_whitdrawal_provider','WhitdrawalProviderController@store')->name('store_whitdrawal_provider')->middleware('auth');

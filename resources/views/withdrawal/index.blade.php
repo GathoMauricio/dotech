@@ -17,7 +17,7 @@
 <table class="table table-bordered" id="index_table">
     <thead>
         <tr>
-            <td colspan="10" width="100%">
+            <td colspan="12" width="100%">
 
                 <!--
                 <input id="txt_search_whitdrawal" class="form-control" placeholder="Buscar..." />
@@ -39,12 +39,18 @@
             <th width="10%">Cantidad</th>
             <th width="10%">Factura</th>
             <th width="10%">Fecha</th>
+            <th width="10%">Folio Factura</th>
+            <th width="10%">Pagado</th>
             <th width="20%"></th>
         </tr>
     </thead>
     <tbody id="tbl_whitdrawal_to_search">
         @foreach($whitdrawals as $whitdrawal)
+        @if($whitdrawal->paid == 'SI')
+        <tr class="bg-info">
+        @else
         <tr>
+        @endif
             <td>{{ $whitdrawal->id }}</td>
             <td>{{ $whitdrawal->provider['name'] }}</td>
             <td>{{ $whitdrawal->sale->company['name'] }}</td>
@@ -70,6 +76,8 @@
             <td>${{ $whitdrawal->quantity }}</td>
             <td>{{ $whitdrawal->invoive }}</td>
             <td>{{ onlyDate($whitdrawal->created_at) }}</td>
+            <td>{{ $whitdrawal->folio }}</td>
+            <td>{{ $whitdrawal->paid }}</td>
             @if(Auth::user()->rol_user_id == 1)
             <td>
                 <a href="#" onclick="aproveWithdrawalModal({{ $whitdrawal->id }});"><span class="icon-point-up" title="Aprovar" style="cursor:pointer;color:#74DF00"> Aprobar</span></a>

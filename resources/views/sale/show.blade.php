@@ -335,6 +335,8 @@
                 <th><b>Tipo de retiro</b></th>
                 <th><b>Cantidad</b></th>
                 <th><b>Estatus</b></th>
+                <th><b>Folio</b></th>
+                <th><b>Pagado</b></th>
                 <th><b>Documento</b></th>
             </tr>
         </thead>
@@ -367,6 +369,25 @@
                     <a href="#" onclick="aproveWithdrawalModal({{ $whitdrawal->id }});"><span class="icon-checkmark"></span> Aprobar</a>
                     @endif
                 </td>
+
+                <td width="40%;">
+                <input type="text" onkeyUp="updateWhitdrawalFolio({{ $whitdrawal->id }},this.value);" value="{{ $whitdrawal->folio }}" class="form-control"/>
+                <input type="hidden" id="txt_update_whidrawal_folio" value="{{ route('update_whitdrawal_folio') }}">
+                </td>
+
+                <td width="40%;">
+                <select onchange="updateWhitdrawalPaid({{ $whitdrawal->id }},this.value);" class="form-control">
+                    @if($whitdrawal->paid == 'SI')
+                        <option value="SI" selected>SI</option>
+                        <option value="NO">NO</option>
+                    @else
+                        <option value="SI">SI</option>
+                        <option value="NO" selected>NO</option>
+                    @endif
+                </select>
+                <input type="hidden" id="txt_update_whidrawal_paid" value="{{ route('update_whitdrawal_paid') }}">
+                </td>
+
                 @if($whitdrawal->invoive == 'SI')
                 @if(!empty($whitdrawal->document))
                     <td class="text-center"><a href="{{ env('APP_URL').'/storage/'.$whitdrawal->document }}" target="_BLANK"><span class="icon-eye"></span></a></td>

@@ -46,6 +46,24 @@
                                 </select>
                             </div>
                         </div>
+                        
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="folio" class="font-weight-bold color-primary-sys">Fólio</label>
+                                <input type="text" name="folio" class="form-control"/>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="paid" class="font-weight-bold color-primary-sys">Pagado</label>
+                                <select name="paid" class="custom-select">
+                                    <option value="NO">NO</option>
+                                    <option value="SI">SI</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">

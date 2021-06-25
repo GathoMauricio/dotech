@@ -274,4 +274,19 @@ class WhitdrawalController extends Controller
         }
         return $json;
     }
+
+    public function updateWhitdrawalFolio(Request $request)
+    {
+        $whitdrawal = Whitdrawal::findOrFail($request->id);
+        $whitdrawal->folio = $request->folio;
+        $whitdrawal->save();
+        return $whitdrawal;
+    }
+    public function updateWhitdrawalPaid(Request $request)
+    {
+        $whitdrawal = Whitdrawal::findOrFail($request->id);
+        $whitdrawal->paid = $request->paid;
+        $whitdrawal->save();
+        return $whitdrawal;
+    }
 }

@@ -12,6 +12,7 @@ class Whitdrawal extends Model
         'id',
         'sale_id',
         'author_id',
+        'folio',
         'whitdrawal_provider_id',
         'whitdrawal_account_id',
         'whitdrawal_department_id',
@@ -21,6 +22,7 @@ class Whitdrawal extends Model
         'quantity',
         'invoive',
         'document',
+        'paid',
         'created_at',
         'updated_at'
     ];

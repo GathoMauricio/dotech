@@ -25,7 +25,38 @@ const table = new TableLoads();
 import ProjectControl from "./control/ProjectControl";
 const projectControl = new ProjectControl();
 /*++ End ControlFunctions ++*/
-
+window.updateWhitdrawalFolio = (id, folio) => {
+    console.log(id + ' ' + folio);
+    const route = $("#txt_update_whidrawal_folio").val();
+    $.ajax({
+        type: "GET",
+        url: route,
+        data: {
+            id: id,
+            folio: folio
+        },
+        success: data => {
+            console.log(data);
+        },
+        error: err => console.log(err)
+    });
+};
+window.updateWhitdrawalPaid = (id, paid) => {
+    console.log(id + ' ' + paid);
+    const route = $("#txt_update_whidrawal_paid").val();
+    $.ajax({
+        type: "GET",
+        url: route,
+        data: {
+            id: id,
+            paid: paid
+        },
+        success: data => {
+            console.log(data);
+        },
+        error: err => console.log(err)
+    });
+};
 window.searchQuotes = value => {
     const route = $("#txt_search_quote_route_ajax2").val();
     console.log("Value: " + route);
