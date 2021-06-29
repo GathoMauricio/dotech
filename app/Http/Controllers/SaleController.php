@@ -583,6 +583,56 @@ class SaleController extends Controller
         }
         return $json;
     }
+    public function searchProjectFAjax(Request $request)
+    {
+        $sales = Sale::select(
+            'sales.id AS ID',
+            'companies.name AS COMPANIA',
+            'sales.description AS DESCRIPCION',
+            'sales.estimated AS MONTO',
+            'sales.created_at AS FECHA'
+            )
+            ->join('companies', 'sales.company_id', '=', 'companies.id')
+            ->where('sales.status','Finalizado')
+            ->where(function($q) use ($request){
+                $q->where('sales.id','LIKE','%'.$request->q.'%')
+                ->orWhere('companies.name','LIKE','%'.$request->q.'%')
+                ->orWhere('sales.description','LIKE','%'.$request->q.'%')
+                ->orWhere('sales.estimated','LIKE','%'.$request->q.'%')
+                ->orWhere('sales.created_at','LIKE','%'.$request->q.'%')
+                ;
+            })
+            ->orderBy('sales.id','DESC')
+            ->get();
+                
+        $json = [];
+        foreach($sales as $sale){
+            $links = '
+            <a href="'.route('binnacles_by_project',$sale->ID).'"><span class="icon-book" title="Proyecto" style="cursor:pointer;color:#8E44AD"> Bitácoras</span></a>
+            <br>
+            <a href="'.route('show_sale',$sale->ID).'"><span class="icon-eye" title="Proyecto" style="cursor:pointer;color:#3498DB"> Proyecto</span></a>
+            <br>
+            <a href="#" onclick="editProject('.$sale->ID.');"><span class="icon-pencil" title="Editar" style="cursor:pointer;color:#F39C12"> Editar</span></a>
+            <br>
+            <a href="#" onclick="saleFollowModal('.$sale->ID.');"><span class="icon-bubble" title="Seguimientos" style="cursor:pointer;color:#2980B9"> Seguimientos</span></a>
+            ';
+            if(\Auth::user()->rol_user_id == 1){
+                $links .= '
+                <br>
+                <a href="#" onclick="deleteSale('.$sale->ID.')"><span class="icon-bin" title="Eliminar" style="cursor:pointer;color:#C0392B"> Eliminar</span></a>
+                ';
+            }
+            $json[] = [
+                'id' => $sale->ID,
+                'company' => $sale->COMPANIA,
+                'description' => $sale->DESCRIPCION,
+                'amount' => number_format($sale->MONTO + ($sale->MONTO * 0.16),2),
+                'date' => onlyDate($sale->FECHA),
+                'links' => $links
+            ];
+        }
+        return $json;
+    }
     public function searchQuoteAjax(Request $request)
     {
         //return $request;

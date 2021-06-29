@@ -129,6 +129,42 @@ window.searchProjects = value => {
 
 };
 
+window.searchProjectsF = value => {
+    const route = $("#txt_search_project_f_route_ajax").val();
+    console.log("Value: " + route);
+    $.ajax({
+        type: "GET",
+        url: route,
+        data: { q: value },
+        success: data => {
+            console.log(data);
+            $("#tbl_projects_to_search").html('');
+            let count = 0;
+            $.each(data, (index, item) => {
+                count++;
+                $("#tbl_projects_to_search").append(`
+                <tr>
+                <td>${ item.id }</td>
+                <td>${ item.company }</td>
+                <td>${ item.description }</td>
+                <td>$${ item.amount }</td>
+                <td>${ item.date }</td>
+                <td>${ item.links }</td>
+                </tr>
+                `);
+            });
+
+            if (value.length > 0) {
+                $("#span_result").text('Se muestran ' + count + ' resultados para "' + value + '" ...');
+            } else {
+                $("#span_result").text('');
+            }
+        },
+        error: err => console.log(err)
+    });
+
+};
+
 window.searchWhitdrawals = value => {
     const route = $("#txt_search_whitdrawal_route_ajax2").val();
     console.log("Value: " + route);

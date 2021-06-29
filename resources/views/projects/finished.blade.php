@@ -10,9 +10,14 @@
         <tr>
             <tr>
                 <td colspan="6" width="100%">
+                    <!--
                     <input id="txt_search_project" class="form-control" placeholder="Buscar..." />
                     <input type="hidden" id="txt_search_project_route_ajax" value="{{ route('search_project_ajax') }}">
                     <input type="hidden" id="txt_show_project_route_ajax" value="{{ route('show_project_ajax') }}">
+                    -->
+                    <input onkeyup="searchProjectsF(this.value);" id="txt_search_project_f" class="form-control" placeholder="Buscar..." />
+                    <input type="hidden" id="txt_search_project_f_route_ajax" value="{{ route('search_project_f_ajax') }}">
+                    <span id="span_result"></span>
                 </td>
             </tr>
             <th width="15%">Folio</th>
@@ -23,7 +28,7 @@
             <th width="15%"></th>
         </tr>
     </thead>
-    <tbody>
+    <tbody id="tbl_projects_to_search">
         @foreach($sales as $sale)
         <tr>
             <td>{{ $sale->id }}</td>

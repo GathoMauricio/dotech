@@ -97,6 +97,7 @@ Route::post('store_sale_payment','SalePaymentController@store')->name('store_sal
 #Sale Projects
 Route::get('search_project_ajax','SaleController@searchProjectAjax')->name('search_project_ajax')->middleware('auth');
 Route::get('search_project_ajax2','SaleController@searchProjectAjax2')->name('search_project_ajax2')->middleware('auth');
+Route::get('search_project_f_ajax','SaleController@searchProjectFAjax')->name('search_project_f_ajax')->middleware('auth');
 Route::get('show_project_ajax','SaleController@showProjectAjax')->name('show_project_ajax')->middleware('auth');
 
 #Sale Quotes
