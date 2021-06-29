@@ -113,7 +113,8 @@
             <span style="color:#d30035;font-weight:bold;">
                 Vencimiento: 
             </span>
-            {{ date("Y-m-d",strtotime(onlyDate($sale->created_at)." + 5 days")) }}
+            {{ onlyDate(date("Y-m-d",strtotime(explode(' ',$sale->created_at)[0]." + 5 days"))) }}
+
         </td>
     </tr>
 </table>

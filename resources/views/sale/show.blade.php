@@ -22,6 +22,12 @@
     <table class="table" border="1">
         <tr>
             <td style="padding:5px;">
+                <b>Fecha</b>
+            </td>
+            <td style="padding:5px;">{{ onlyDate($sale->created_at) }}</td>
+        </tr>
+        <tr>
+            <td style="padding:5px;">
                 <b>Encargado</b>
             </td>
             <td style="padding:5px;">{{ $sale->department['manager'] }}</td>

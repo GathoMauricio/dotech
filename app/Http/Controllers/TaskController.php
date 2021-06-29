@@ -194,7 +194,7 @@ class TaskController extends Controller
                 'project' => empty($task->project_id) ? "<b>Sin proyecto</b>" : '<a href="#" onclick="showProjectModal(' . $task->project_id . ')" class="project_task_' . $task->project_id . '">' . $task->project['name'] . '</a>',
                 'title' => '<a href="#" onclick="showTaskModal(' . $task->id . ')">' . $task->title . '</a>',
                 'user' => '<a href="#" onclick="showUserModal(' . $task->user_id . ')">' . $task->user['name'] . ' ' . $task->user['middle_name'] . ' ' . $task->user['last_name'] . '</a>',
-                'deadline' => $task->deadline,
+                'deadline' => onlyDate($task->deadline),
                 'comments' => '<a href="#" onclick="showTaskCommentsModal(' . $task->id . ')"><span id="tbl_count_comments_task_' . $task->id . '">' . count(TaskComment::where('task_id', $task->id)->get()) . '</span> <span class="icon icon-bubble" style="color:#3498DB;"></span></a>',
                 'status' => '<center>
                 <select onchange="setTaskStatus('.$task->id.',this.value);" class="form-control">
@@ -298,7 +298,7 @@ class TaskController extends Controller
                 'project' => empty($task->project_id) ? "<b>Sin proyecto</b>" : '<a href="#" onclick="showProjectModal(' . $task->project_id . ')" class="project_task_' . $task->project_id . '">' . $task->project['name'] . '</a>',
                 'title' => '<a href="#" onclick="showTaskModal(' . $task->id . ')">' . $task->title . '</a>',
                 'user' => '<a href="#" onclick="showUserModal(' . $task->user_id . ')">' . $task->user['name'] . ' ' . $task->user['middle_name'] . ' ' . $task->user['last_name'] . '</a>',
-                'deadline' => $task->deadline,
+                'deadline' => onlyDate($task->deadline),
                 'comments' => '<a href="#" onclick="showTaskCommentsModal(' . $task->id . ')"><span id="tbl_count_comments_task_' . $task->id . '">' . count(TaskComment::where('task_id', $task->id)->get()) . '</span> <span class="icon icon-bubble" style="color:#3498DB;"></span></a>',
                 'status' => '<label style="color:' . $statusColor . '" class="font-weight-bold">' . $task->status . '</label>',
                 'options' => $btnDelete
@@ -340,7 +340,7 @@ class TaskController extends Controller
         $task = Task::findOrFail($request->id);
         return [
             'priority' => $task->priority,
-            'deadline' => $task->deadline,
+            'deadline' => onlyDate($task->deadline),
             'context' => $task->context,
             'visibility' => $task->visibility,
             'title' => $task->title,

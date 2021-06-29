@@ -23,11 +23,32 @@ if (!function_exists('formatDate')) {
         date_format(new \DateTime($date),'g:i A');
     }
 }
+/*
 if (!function_exists('onlyDate')) {
     function onlyDate($date)
     {
         $d = explode(' ',$date);
         return $d[0];
+    }
+}
+*/
+if (!function_exists('onlyDate')) {
+    function onlyDate($date)
+    {
+        $d = explode(' ',$date);
+        //return $d[0];
+        $mesesN = array(
+            1 => "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio",
+            "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
+        );
+        return 
+        //$diassemanaN[date_format(new \DateTime($date), 'N')] .
+        ' '.date_format(new \DateTime($d[0]), 'd'). 
+        ' de '.
+        $mesesN[date_format(new \DateTime($d[0]), 'n')].
+        ' del '.
+        date_format(new \DateTime($d[0]), 'Y');
+
     }
 }
 if (! function_exists('createSysLog')) {
