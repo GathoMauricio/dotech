@@ -32,7 +32,7 @@
         <tr>
             <th width="10%">Id</t)h>
             <!--<th width="10%">Proveedor</th>-->
-            <th width="10%">Compañía</th>
+            <!--<th width="10%">Compañía</th>-->
             <th width="10%">Proyecto</th>
             <th width="10%">Descripcion</th>
             <th width="10%">Empelado</th>
@@ -47,14 +47,14 @@
     <tbody id="tbl_whitdrawal_to_search">
         @foreach($whitdrawals as $whitdrawal)
         @if($whitdrawal->paid == 'SI')
-        <tr class="bg-info">
+        <tr class="bg-info" id="tr_whitdrawal_{{ $whitdrawal->id }}">
         @else
-        <tr>
+        <tr id="tr_whitdrawal_{{ $whitdrawal->id }}">
         @endif
             <td>{{ $whitdrawal->id }}</td>
             <!--<td>{{ $whitdrawal->provider['name'] }}</td>-->
-            <td>{{ $whitdrawal->sale->company['name'] }}</td>
-            <td>{{ $whitdrawal->sale['id'] }} - {{ $whitdrawal->sale['description'] }}</td>
+            <!--<td>{{ $whitdrawal->sale->company['name'] }}</td>-->
+            <td>{{ $whitdrawal->sale['id'] }} {{ $whitdrawal->sale->company['name'] }} - {{ $whitdrawal->sale['description'] }}</td>
             <!--
             <td><a href="{{ route('show_sale',$whitdrawal->sale_id) }}" target="_blank">
                 {{ $whitdrawal->sale['id'] }} 
@@ -76,8 +76,22 @@
             <td>${{ $whitdrawal->quantity }}</td>
             <td>{{ $whitdrawal->invoive }}</td>
             <td>{{ onlyDate($whitdrawal->created_at) }}</td>
-            <td>{{ $whitdrawal->folio }}</td>
-            <td>{{ $whitdrawal->paid }}</td>
+            <td width="40%;">
+                <input type="text" onkeyUp="updateWhitdrawalFolio({{ $whitdrawal->id }},this.value);" value="{{ $whitdrawal->folio }}"/>
+                <input type="hidden" id="txt_update_whidrawal_folio" value="{{ route('update_whitdrawal_folio') }}">
+            </td>
+            <td width="40%;">
+            <select onchange="updateWhitdrawalPaid({{ $whitdrawal->id }},this.value);" >
+                @if($whitdrawal->paid == 'SI')
+                    <option value="SI" selected>SI</option>
+                    <option value="NO">NO</option>
+                @else
+                    <option value="SI">SI</option>
+                    <option value="NO" selected>NO</option>
+                @endif
+            </select>
+            <input type="hidden" id="txt_update_whidrawal_paid" value="{{ route('update_whitdrawal_paid') }}">
+            </td>
             @if(Auth::user()->rol_user_id == 1)
             <td>
                 <a href="#" onclick="aproveWithdrawalModal({{ $whitdrawal->id }});"><span class="icon-point-up" title="Aprovar" style="cursor:pointer;color:#74DF00"> Aprobar</span></a>

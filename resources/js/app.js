@@ -53,6 +53,13 @@ window.updateWhitdrawalPaid = (id, paid) => {
         },
         success: data => {
             console.log(data);
+            //tr_whitdrawal_
+            let tr = $("#tr_whitdrawal_" + data.id);
+            if (data.paid == 'SI') {
+                tr.addClass('bg-info');
+            } else {
+                tr.removeClass('bg-info');
+            }
         },
         error: err => console.log(err)
     });
