@@ -23,6 +23,12 @@
                                     <input type="file" name="document" class="form-control" required />
                                 </div>
                             </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="folio" class="font-weight-bold color-primary-sys">Folio</label>
+                                    <input type="text" name="folio" class="form-control" required />
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

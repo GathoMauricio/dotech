@@ -58,6 +58,7 @@ class WhitdrawalController extends Controller
         $name =  "WhitdrawalDocument_[".$whitdrawal->id."]_".\Str::random(8)."_".$file->getClientOriginalName();
         \Storage::disk('local')->put($name,  \File::get($file));
         $whitdrawal->document = $name;
+        $whitdrawal->folio = $request->folio;
         $whitdrawal->save();
         $msg = " subió la factura del retiro: ".$whitdrawal->description;
         createSysLog($msg);
