@@ -56,7 +56,7 @@
             <!--<td>{{ $whitdrawal->sale->company['name'] }}</td>-->
             <td>
             {{ $whitdrawal->sale['id'] }} 
-            {{ $whitdrawal->sale->company['name'] }} - {{ $whitdrawal->sale['description'] }}
+            <a href="{{ route('show_sale',$whitdrawal->sale->id) }}" target="_blank">{{ $whitdrawal->sale->company['name'] }} - {{ $whitdrawal->sale['description'] }}</a>
             <br/>
             <span class="text-info">Proveedor: </span>
             <br/>
