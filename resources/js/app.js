@@ -186,18 +186,30 @@ window.searchWhitdrawals = value => {
             $.each(data, (index, item) => {
                 count++;
                 $("#tbl_whitdrawal_to_search").append(`
-                <tr>
+
+                ${(item.paid == 'SI') ? '<tr class="bg-info"  id="tr_whitdrawal_'+item.id+'">' : '<tr id="tr_whitdrawal_'+item.id+'">' }
                 <td>${ item.id }</td>
                 <!--<td>${ item.provider }</td>-->
-                <td>${ item.company }</td>
-                <td>${ item.sale_id } - ${ item.sale_description}</td>
+                <!--<td>${ item.company }</td>-->
+                <td>
+                <a href="#" target="_blank">
+                ${ item.sale_id } 
+                ${ item.company } 
+                - 
+                ${ item.sale_description}
+                </a>
+                <br/>
+                <span class="text-info">Proveedor: </span>
+                <br/>
+                ${ item.provider }
+                </td>
                 <td>${ item.description }</td>
                 <td>${ item.author }</td>
                 <td>$${ item.quantity }</td>
-                <td>${ item.invoive }</td>
+                <!--<td>${ item.invoive }</td>-->
                 <td>${ item.date }</td>
-                <td>${ item.folio }</td>
-                <td>${ item.paid }</td>
+                <!--<td>${ item.folio }</td>-->
+                <td>${ item.paidCombo }</td>
                 <td>${ item.links }</td>
                 </tr>
                 `);

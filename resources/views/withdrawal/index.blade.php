@@ -37,9 +37,9 @@
             <th width="10%">Descripcion</th>
             <th width="10%">Empelado</th>
             <th width="10%">Cantidad</th>
-            <th width="10%">Factura</th>
+            <!--<th width="10%">Factura</th>-->
             <th width="10%">Fecha</th>
-            <th width="10%">Folio Factura</th>
+            <!--<th width="10%">Folio Factura</th>-->
             <th width="10%">Pagado</th>
             <th width="20%"></th>
         </tr>
@@ -55,8 +55,11 @@
             <!--<td>{{ $whitdrawal->provider['name'] }}</td>-->
             <!--<td>{{ $whitdrawal->sale->company['name'] }}</td>-->
             <td>
+            <a href="{{ route('show_sale',$whitdrawal->sale->id) }}" target="_blank">
             {{ $whitdrawal->sale['id'] }} 
-            <a href="{{ route('show_sale',$whitdrawal->sale->id) }}" target="_blank">{{ $whitdrawal->sale->company['name'] }} - {{ $whitdrawal->sale['description'] }}</a>
+            {{ $whitdrawal->sale->company['name'] }} 
+            - 
+            {{ $whitdrawal->sale['description'] }}</a>
             <br/>
             <span class="text-info">Proveedor: </span>
             <br/>
@@ -81,13 +84,15 @@
                 @endif
             </td>
             <td>${{ $whitdrawal->quantity }}</td>
-            <td>{{ $whitdrawal->invoive }}</td>
+            <!--<td>{{ $whitdrawal->invoive }}</td>-->
             <td>{{ onlyDate($whitdrawal->created_at) }}</td>
+            <!--
             <td width="40%;">
                 <input type="text" onkeyUp="updateWhitdrawalFolio({{ $whitdrawal->id }},this.value);" value="{{ $whitdrawal->folio }}"/>
                 <input type="hidden" id="txt_update_whidrawal_folio" value="{{ route('update_whitdrawal_folio') }}">
             </td>
-            <td width="40%;">
+            -->
+            <td>
             <select onchange="updateWhitdrawalPaid({{ $whitdrawal->id }},this.value);" >
                 @if($whitdrawal->paid == 'SI')
                     <option value="SI" selected>SI</option>
@@ -97,7 +102,7 @@
                     <option value="NO" selected>NO</option>
                 @endif
             </select>
-            <input type="hidden" id="txt_update_whidrawal_paid" value="{{ route('update_whitdrawal_paid') }}">
+            
             </td>
             @if(Auth::user()->rol_user_id == 1)
             <td>
@@ -136,6 +141,7 @@
 <input type="hidden" id="txt_disaprove_whitdrawal_route" value="{{ route('disaprove_whitdrawal') }}">
 <input type="hidden" id="txt_delete_whitdrawal_route" value="{{ route('delete_whitdrawal') }}">
 <input type="hidden" id="txt_show_whitdrawal_route" value="{{ route('show_whitdrawal') }}">
+<input type="hidden" id="txt_update_whidrawal_paid" value="{{ route('update_whitdrawal_paid') }}">
 @include('withdrawal.show_modal')
 @include('withdrawal.aprove_withdrawal_modal')
 @include('sale.add_whitdrawal_document_modal')

@@ -271,6 +271,23 @@ class WhitdrawalController extends Controller
 
             }
 
+            if($whitdrawal->PAGADO == 'SI')
+            {
+                $paidCombo= '
+                <select onchange="updateWhitdrawalPaid('.$whitdrawal->ID.',this.value);" >
+                    <option value="SI" selected>SI</option>
+                    <option value="NO">NO</option>
+                </select>
+                ';
+            }else{
+                $paidCombo= '
+                <select onchange="updateWhitdrawalPaid('.$whitdrawal->ID.',this.value);" >
+                    <option value="SI">SI</option>
+                    <option value="NO" selected>NO</option>
+                </select>
+                ';
+            }
+
             $json [] = [
                 'id' => $whitdrawal->ID,
                 'provider' => $whitdrawal->PROVEDOR,
@@ -283,6 +300,7 @@ class WhitdrawalController extends Controller
                 'invoive' => $whitdrawal->FACTURA,
                 'folio' => $whitdrawal->FOLIO,
                 'paid' => $whitdrawal->PAGADO,
+                'paidCombo' => $paidCombo,
                 'date' => onlyDate($whitdrawal->FECHA),
                 //'a_invoive' => $a_invoive,
                 'links' => $links
