@@ -188,6 +188,7 @@ class WhitdrawalController extends Controller
     }
     public function searchWhitdrawalAjax2(Request $request)
     {
+        $links = "";
         $whitdrawals = Whitdrawal::
         select(
             'whitdrawals.id as ID',

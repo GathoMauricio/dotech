@@ -54,7 +54,14 @@
             <td>{{ $whitdrawal->id }}</td>
             <!--<td>{{ $whitdrawal->provider['name'] }}</td>-->
             <!--<td>{{ $whitdrawal->sale->company['name'] }}</td>-->
-            <td>{{ $whitdrawal->sale['id'] }} {{ $whitdrawal->sale->company['name'] }} - {{ $whitdrawal->sale['description'] }}</td>
+            <td>
+            {{ $whitdrawal->sale['id'] }} 
+            {{ $whitdrawal->sale->company['name'] }} - {{ $whitdrawal->sale['description'] }}
+            <br/>
+            <span class="text-info">Proveedor: </span>
+            <br/>
+            {{ $whitdrawal->provider['name'] }}
+            </td>
             <!--
             <td><a href="{{ route('show_sale',$whitdrawal->sale_id) }}" target="_blank">
                 {{ $whitdrawal->sale['id'] }} 
