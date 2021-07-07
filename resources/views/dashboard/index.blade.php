@@ -5,7 +5,7 @@
 <div class="container">
 
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-6 card p-2">
         @php
             $totalMes = App\Sale::whereYear('created_at', '=', date('Y'))->whereMonth('created_at', '=', date('m'))->get();
             $cotizacionesMes = App\Sale::where('status','Pendiente')->whereYear('created_at', '=', date('Y'))->whereMonth('created_at', '=', date('m'))->get();
@@ -69,9 +69,9 @@
             });
             </script>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6 card p-2">
         @php
-            $proyectosCaducados = App\Sale::where('status','Proyecto')->get();
+            $proyectosActivos = App\Sale::where('status','Proyecto')->get();
             
         @endphp
             <h4 class="text-center">
@@ -90,7 +90,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($proyectosCaducados as $p)
+                    @foreach ($proyectosActivos as $p)
                         @php
                             $intervalo = date_diff(date_create($p->created_at),date_create(date("Y-m-d H:i:s")));
                         @endphp
@@ -108,38 +108,155 @@
         </div>
     </div>
 
-
-
-
-
-
-
-
-
-
     <div class="row">
-        <div class="col-md-6">
-            <h4 class="text-center">
-                Proyectos y Cotizaciones.
+        <div class="col-md-12 card p-2">
+        @php
+            $companiasConProyectosActivos = App\Sale::distinct()->where('status','Proyecto')->get('company_id');
+        @endphp
+        <h4 class="text-center">
+                Proyectos activos por cliente
             </h4>
             <p class="font-weight-bold">
-                En esta gráfica se muestra la cantidad de proyectos activos así como la cantidad de cotizaciones pendientes
-                que no han sido aprobadas para convertirse en proyecto ni rechazadas para dejar de ser tomadas en cuenta.
+                En las siguentes gráficas se muestran 
+                {{ count($companiasConProyectosActivos) }} clientes con proyectos activos así como
+                el pago pendiente en total y por cada proyecto a partir de sus pagos. 
             </p>
-            <canvas id="projects_quotes" ></canvas>
         </div>
-        <div class="col-md-6">
-            <h4 class="text-center">
-                Venta, Inversión y Utilidad
+
+        
+
+        @foreach($companiasConProyectosActivos as $p)
+        @php
+            $company = \App\Company::find($p->company_id);
+            $proyectosActivosPorCompania = App\Sale::where('company_id', $company->id)->where('status', 'Proyecto')->get();
+            $sumaCostoTotal = 0;
+            $sumaPagosTotal = 0;
+            foreach($proyectosActivosPorCompania as $p)
+            {
+                $sumaCostoTotal += $p->estimated + ($p->estimated * 0.16); 
+                $pagosPorProyecto = 0;
+                $pagos = App\SalePayment::where('sale_id',$p->id)->get();
+                foreach($pagos as $pay)
+                {
+                    $pagosPorProyecto += $pay->amount;
+                }
+                $sumaPagosTotal += $pagosPorProyecto;
+            }
+        @endphp
+        @if(count($proyectosActivosPorCompania) > 3)
+        <div class="col-md-12 card p-2">
+        @else
+        <div class="col-md-6 card p-2">
+        @endif
+        <h4 class="text-center">
+                {{ $company->name }}
             </h4>
             <p class="font-weight-bold">
-                En seguida se muestra el total de la utilidad esperada de todos los proyectos activos a partir de la inversión 
-                realizada hasta el momento.
-                <br/>
-                El costo total de todos los proyectos activos es:  ${{ number_format($costoTotal,2) }}
+                Cuenta con 
+                <span class="text-primary">{{ count($proyectosActivosPorCompania) }}</span> proyectos activos los cuales suman 
+                <span class="text-success">${{ number_format($sumaCostoTotal,2) }}</span> en costo de proyecto y un total de
+                <span class="text-info">${{ number_format($sumaPagosTotal,2) }}</span> en pagos.
             </p>
-            <canvas id="sale_investment_utility" ></canvas>
+            <canvas id="projects_by_client_{{ $company->id }}" ></canvas>
+            <script>
+            var ctx = document.getElementById("projects_by_client_{{ $company->id }}").getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'bar',
+                //type: 'pie',
+                //type: 'bar',
+                data: {
+                    labels: [
+                        @foreach($proyectosActivosPorCompania as $p)
+                        @php
+                            $costo = $p->estimated + ($p->estimated * 0.16);
+                            $pagosPorProyecto = 0;
+                            $pagos = App\SalePayment::where('sale_id',$p->id)->get();
+                            foreach($pagos as $pago){
+                                $pagosPorProyecto += $pago->amount;
+                            }
+
+                        @endphp
+                        '{{ $p->id }}\n{{ substr(preg_replace("/[\r\n|\n|\r]+/", " ", $p->description),0,15) }} \n Costo: ${{ number_format($costo,2) }} \n Pagos: ${{ number_format($pagosPorProyecto,2) }}',
+                        @endforeach
+                        ],
+                    datasets: [{
+                        label: '{{ count($proyectosActivosPorCompania) }} proyectos activos',
+                        data: [
+                        @foreach($proyectosActivosPorCompania as $p)
+                        {{ $p->estimated + ($p->estimated * 0.16) }},
+                        @endforeach
+                        ],
+                        backgroundColor: [
+                            @foreach($proyectosActivosPorCompania as $p)
+                            @php
+                                $costo = $p->estimated + ($p->estimated * 0.16);
+                                $pagosPorProyecto = 0;
+                                $pagos = App\SalePayment::where('sale_id',$p->id)->get();
+                                foreach($pagos as $pago){
+                                    $pagosPorProyecto += $pago->amount;
+                                }
+                                $colorBarra = "";
+                                if($costo <= $pagosPorProyecto)
+                                {
+                                    $colorBarra= "rgba(57, 194, 128 ,0.2)";
+                                }else{
+                                    $colorBarra= "rgba(255, 251, 25 ,0.2)";
+                                }
+                                if($pagosPorProyecto <= 0){
+                                    $colorBarra= "rgba(238, 44, 4 ,0.2)";
+                                }
+                            @endphp
+                            '{{ $colorBarra }}',
+                            @endforeach
+                        ],
+                        borderColor: [
+                            @foreach($proyectosActivosPorCompania as $p)
+                                                        @php
+                                $costo = $p->estimated + ($p->estimated * 0.16);
+                                $pagosPorProyecto = 0;
+                                $pagos = App\SalePayment::where('sale_id',$p->id)->get();
+                                foreach($pagos as $pago){
+                                    $pagosPorProyecto += $pago->amount;
+                                }
+                                $colorBarra = "";
+                                if($costo <= $pagosPorProyecto)
+                                {
+                                    $colorBarra= "rgba(57, 194, 128 ,0.2)";
+                                }else{
+                                    $colorBarra= "rgba(255, 251, 25 ,0.2)";
+                                }
+                                if($pagosPorProyecto <= 0){
+                                    $colorBarra= "rgba(238, 44, 4 ,0.2)";
+                                }
+                            @endphp
+                            '{{ $colorBarra }}',
+                            @endforeach
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    },
+                    onClick: function(event, legendItem, legend){
+                        let id = legendItem[0]._model.label.split("\n");
+                        window.open('{{ route('show_sale') }}/'+id[0]);
+                    },
+                }
+            });
+            </script>
         </div>
+
+        @endforeach
+
+
+
+
     </div>
 
     <div class="row">
@@ -154,7 +271,7 @@
                 
             </p>
             
-                <table class="table table-striped" id="index_table">
+                <table class="table table-striped" id="index_table2">
                 <thead>
                     <tr>
                         <th>Companía</th>
@@ -198,6 +315,38 @@
             <canvas id="proyect_by_company" ></canvas>
         </div>
     </div>
+
+<!--
+
+
+
+
+    <div class="row">
+        <div class="col-md-6">
+            <h4 class="text-center">
+                Proyectos y Cotizaciones.
+            </h4>
+            <p class="font-weight-bold">
+                En esta gráfica se muestra la cantidad de proyectos activos así como la cantidad de cotizaciones pendientes
+                que no han sido aprobadas para convertirse en proyecto ni rechazadas para dejar de ser tomadas en cuenta.
+            </p>
+            <canvas id="projects_quotes" ></canvas>
+        </div>
+        <div class="col-md-6">
+            <h4 class="text-center">
+                Venta, Inversión y Utilidad
+            </h4>
+            <p class="font-weight-bold">
+                En seguida se muestra el total de la utilidad esperada de todos los proyectos activos a partir de la inversión 
+                realizada hasta el momento.
+                <br/>
+                El costo total de todos los proyectos activos es:  ${{ number_format($costoTotal,2) }}
+            </p>
+            <canvas id="sale_investment_utility" ></canvas>
+        </div>
+    </div>
+
+    
 
 
 </div>
@@ -351,7 +500,7 @@ var myChart = new Chart(ctx, {
 
 
 
-
+-->
 
 
 
@@ -359,6 +508,7 @@ var myChart = new Chart(ctx, {
 <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
         <script>
             jQuery(document).ready(function(){
+
                 $("#index_table").dataTable({
                     deferRender: true,
                     bJQueryUI: true,
@@ -391,6 +541,42 @@ var myChart = new Chart(ctx, {
                 });
                 setTableStyle()
             });
+
+            jQuery(document).ready(function(){
+
+                $("#index_table2").dataTable({
+                    deferRender: true,
+                    bJQueryUI: true,
+                    bScrollInfinite: true,
+                    bScrollCollapse: true,
+                    bPaginate: true,
+                    bFilter: true,
+                    bSort: true,
+                    aaSorting: [[0, "asc"]],
+                    pageLength: 10,
+                    bDestroy: true,
+                    aoColumnDefs: [
+                        {
+                            
+                        },
+                    ],
+                    oLanguage: {
+                        sLengthMenu: "_MENU_ ",
+                        sInfo:
+                            "<b>Se muestran de _START_ a _END_ elementos de _TOTAL_ registros en total</b>",
+                        sInfoEmpty: "No hay registros para mostrar",
+                        sSearch: "",
+                        oPaginate: {
+                            sFirst: "Primer página",
+                            sLast: "Última página",
+                            sPrevious: "<b>Anterior</b>",
+                            sNext: "<b>Siguiente</b>"
+                        }
+                    }
+                });
+                setTableStyle()
+            });
+
             function setTableStyle() {
                 setTimeout(function() {
                     $("select[name='DataTables_Table_0_length']").prop(

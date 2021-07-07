@@ -47,7 +47,7 @@ Route::post('store_company_follow','CompanyFollowController@store')->name('store
 Route::get('load_departments_by_id','CompanyDepartmentController@loadDepartemnsById')->name('load_departments_by_id')->middleware('auth');
 Route::post('store_company_department','CompanyDepartmentController@store')->name('store_company_department')->middleware('auth');
 #Sale
-Route::get('show_sale/{id}','SaleController@show')->name('show_sale')->middleware('auth');
+Route::get('show_sale/{id?}','SaleController@show')->name('show_sale')->middleware('auth');
 Route::post('store_sale','SaleController@store')->name('store_sale')->middleware('auth');
 Route::get('edit_sale/{id}','SaleController@edit')->name('edit_sale')->middleware('auth');
 Route::put('update_sale/{id}','SaleController@update')->name('update_sale')->middleware('auth');
