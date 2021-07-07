@@ -3,6 +3,120 @@
 <h4 class="title_page ">Dashboard</h4>
 
 <div class="container">
+
+    <div class="row">
+        <div class="col-md-6">
+        @php
+            $totalMes = App\Sale::whereYear('created_at', '=', date('Y'))->whereMonth('created_at', '=', date('m'))->get();
+            $cotizacionesMes = App\Sale::where('status','Pendiente')->whereYear('created_at', '=', date('Y'))->whereMonth('created_at', '=', date('m'))->get();
+            $proyectosMes = App\Sale::where('status','Proyecto')->whereYear('created_at', '=', date('Y'))->whereMonth('created_at', '=', date('m'))->get();
+            $totalVentaMes = 0;
+            foreach ($proyectosMes as $p)
+            {
+                $totalVentaMes += $p->estimated;
+            }
+        @endphp
+            <h4 class="text-center">
+                Cotizaciones contra proyectos durante el mes
+            </h4>
+            <p class="font-weight-bold">
+                Durante {{ onlyMonth(date('Y-m-d')) }} se han creado 
+                <span class="text-info">{{ count($totalMes) }}</span> cotizaciones de las cuales 
+                <span class="text-success">{{ count($proyectosMes) }}</span> han sido aprobadas para 
+                proyecto y se ha logrado un total de 
+                <span class="text-primary">${{ number_format($totalVentaMes + ($totalVentaMes * 0.16),2) }}</span> en precio de venta.
+            </p>
+            <canvas id="quotes_vs_projects_per_month" ></canvas>
+            <script>
+            var ctx = document.getElementById('quotes_vs_projects_per_month').getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'pie',
+                //type: 'pie',
+                //type: 'bar',
+                data: {
+                    labels: ['Cotizaciones', 'Proyectos'],
+                    datasets: [{
+                        label: '{{ onlyMonth(date('Y-m-d')) }}',
+                        data: [{{ count($totalMes) }}, {{ count($proyectosMes) }}],
+                        backgroundColor: [
+                            //'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            //'rgba(255, 206, 86, 0.2)',
+                            //'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            //'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            //'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            //'rgba(255, 206, 86, 1)',
+                            //'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            //'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            });
+            </script>
+        </div>
+        <div class="col-md-6">
+        @php
+            $proyectosCaducados = App\Sale::where('status','Proyecto')->get();
+            
+        @endphp
+            <h4 class="text-center">
+                Proyectos caducados
+            </h4>
+            <p class="font-weight-bold">
+                La siguente lista Muestra el total de proyectos sin finalizar con más de 30 días desdé su creación.
+            </p>
+            <table class="table table-striped" id="index_table">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Proyecto</th>
+                        <th>Fecha</th>
+                        <th>Días</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($proyectosCaducados as $p)
+                        @php
+                            $intervalo = date_diff(date_create($p->created_at),date_create(date("Y-m-d H:i:s")));
+                        @endphp
+                        @if($intervalo->format('%a') > 30)
+                        <tr>
+                            <td><a href="{{ route('show_sale',$p->id) }}" target="_blank">{{ $p->id }}</a></td>
+                            <td>{{ $p->company['name'] .'-'. $p->description }}</td>
+                            <td>{{ onlyDate($p->created_at) }}</td>
+                            <td>{{ $intervalo->format('%a') }} Días</td>
+                        </tr>
+                        @endif
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
     <div class="row">
         <div class="col-md-6">
             <h4 class="text-center">
@@ -27,6 +141,7 @@
             <canvas id="sale_investment_utility" ></canvas>
         </div>
     </div>
+
     <div class="row">
         <div class="col-md-12">
             <h4 class="text-center">
@@ -39,7 +154,7 @@
                 
             </p>
             
-                <table class="table table-striped">
+                <table class="table table-striped" id="index_table">
                 <thead>
                     <tr>
                         <th>Companía</th>
@@ -49,6 +164,7 @@
                         <th>Costo</th>
                         <th>Inversión</th>
                         <th>Utilidad</th>
+                        <th>Fecha</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -74,6 +190,7 @@
                         <td>${{ number_format($proyecto->estimated + ($proyecto->estimated * 0.16),2) }}</td>
                         <td>${{ number_format($inversion_aux,2) }}</td>
                         <td>${{ number_format($utilidad_aux,2) }}</td>
+                        <td>{{ onlyDate($proyecto->created_at) }}</td>
                     </tr>
                     @endforeach
                 </tbody>
@@ -85,152 +202,6 @@
 
 </div>
 <br/>
-<div class="container">
-    <div class="row">
-
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-header">
-                    <h6 class="font-weight-bold">
-                        <a href="{{ route('whitdrawal_index') }}">Retiros pendientes</a>
-                    </h6>
-                </div>
-                <div class="card-body item_dashboard">
-                    <h1 class="font-weight-bold color-primary-sys text-center">
-                        <a href="{{ route('whitdrawal_index') }}" style="color:white;">{{ $withdrawals }} </a>
-                    </h1>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-header">
-                    <h6 class="font-weight-bold">
-                        <a href="{{ route('task_index') }}">Tareas pendientes</a>
-                    </h6>
-                </div>
-                <div class="card-body item_dashboard">
-                    <h1 class="font-weight-bold color-primary-sys text-center">
-                        <a href="{{ route('task_index') }}" style="color:white;">{{ $tasks }}</a> 
-                    </h1>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-header">
-                    <h6 class="font-weight-bold">
-                        <a href="{{ route('index_quotes') }}">Cotizaciones pendientes</a>
-                    </h6>
-                </div>
-                <div class="card-body item_dashboard">
-                    <h1 class="font-weight-bold color-primary-sys text-center">
-                        <a href="{{ route('index_quotes') }}" style="color:white;">{{ $quotes }}</a> 
-                    </h1>
-                </div>
-            </div>
-        </div>
-
-    </div>
-    <div class="row">
-
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-header">
-                    <h6 class="font-weight-bold">
-                        <a href="{{ route('index_proyects') }}">Proyectos activos</a>
-                    </h6>
-                </div>
-                <div class="card-body item_dashboard">
-                    <h1 class="font-weight-bold color-primary-sys text-center">
-                        <a href="{{ route('index_proyects') }}" style="color:white;">{{ $projects }}</a> 
-                    </h1>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-header">
-                    <h6 class="font-weight-bold">
-                        <a href="{{ route('index_binnacle') }}">Bitácoras</a>
-                    </h6>
-                </div>
-                <div class="card-body item_dashboard">
-                    <h1 class="font-weight-bold color-primary-sys text-center">
-                        <a href="{{ route('index_binnacle') }}" style="color:white;">{{ $binnacles }}</a>
-                    </h1>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-header">
-                    <h6 class="font-weight-bold">
-                        <a href="{{ route('company_index') }}">Compañías</a>
-                    </h6>
-                </div>
-                <div class="card-body item_dashboard">
-                    <h1 class="font-weight-bold color-primary-sys text-center">
-                        <a href="{{ route('company_index') }}" style="color:white;">{{ $companies }} </a>
-                    </h1>
-                </div>
-            </div>
-        </div>
-
-    </div>
-    <div class="row">
-
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-header">
-                    <h6 class="font-weight-bold">
-                        <a href="mobile/dotech_mobile_1-1-2.apk">App</a>
-                    </h6>
-                </div>
-                <div class="card-body item_dashboard">
-                    <h1 class="font-weight-bold color-primary-sys text-center">
-                        <a href="mobile/dotech_mobile_1-1-2.apk" style="color:white;">1-1-2</a>
-                    </h1>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-header">
-                    <h6 class="font-weight-bold">
-                        <a href="{{ route('log_index') }}">Log</a>
-                    </h6>
-                </div>
-                <div class="card-body item_dashboard">
-                    <h1 class="font-weight-bold color-primary-sys text-center">
-                        &nbsp; 
-                    </h1>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-header">
-                    <h6 class="font-weight-bold">
-                        <a href="{{ route('config_index') }}">Config</a>
-                    </h6>
-                </div>
-                <div class="card-body item_dashboard">
-                    <h1 class="font-weight-bold color-primary-sys text-center">
-                        &nbsp; 
-                    </h1>
-                </div>
-            </div>
-        </div>
-
-    </div>
-</div>
 
 
 
@@ -385,6 +356,63 @@ var myChart = new Chart(ctx, {
 
 
 
+<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+        <script>
+            jQuery(document).ready(function(){
+                $("#index_table").dataTable({
+                    deferRender: true,
+                    bJQueryUI: true,
+                    bScrollInfinite: true,
+                    bScrollCollapse: true,
+                    bPaginate: true,
+                    bFilter: true,
+                    bSort: true,
+                    aaSorting: [[0, "asc"]],
+                    pageLength: 2,
+                    bDestroy: true,
+                    aoColumnDefs: [
+                        {
+                            
+                        },
+                    ],
+                    oLanguage: {
+                        sLengthMenu: "_MENU_ ",
+                        sInfo:
+                            "<b>Se muestran de _START_ a _END_ elementos de _TOTAL_ registros en total</b>",
+                        sInfoEmpty: "No hay registros para mostrar",
+                        sSearch: "",
+                        oPaginate: {
+                            sFirst: "Primer página",
+                            sLast: "Última página",
+                            sPrevious: "<b>Anterior</b>",
+                            sNext: "<b>Siguiente</b>"
+                        }
+                    }
+                });
+                setTableStyle()
+            });
+            function setTableStyle() {
+                setTimeout(function() {
+                    $("select[name='DataTables_Table_0_length']").prop(
+                        "class",
+                        "custom-select"
+                    );
+                    $(".dataTables_length").prepend("<b>Mostrar</b> ");
+                    $("select[name='table_asistencias_length']").prop(
+                        "class",
+                        "custom-select"
+                    );
+                    $("select[name='DataTables_Table_0_length']").prop(
+                        "class",
+                        "form-control"
+                    );
+                    $(".dataTables_length").append(" <b>elementos por página</b>");
+
+                    $("input[type='search']").prop("class", "form-control");
+                    $("input[type='search']").prop("placeholder", "Ingrese un filtro...");
+                }, 300);
+            }
+        </script>
 
 
 
@@ -393,10 +421,155 @@ var myChart = new Chart(ctx, {
 
 
 
+<!--
 
 
+<div class="container">
+    <div class="row">
 
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <h6 class="font-weight-bold">
+                        <a href="{{ route('whitdrawal_index') }}">Retiros pendientes</a>
+                    </h6>
+                </div>
+                <div class="card-body item_dashboard">
+                    <h1 class="font-weight-bold color-primary-sys text-center">
+                        <a href="{{ route('whitdrawal_index') }}" style="color:white;">{{ $withdrawals }} </a>
+                    </h1>
+                </div>
+            </div>
+        </div>
 
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <h6 class="font-weight-bold">
+                        <a href="{{ route('task_index') }}">Tareas pendientes</a>
+                    </h6>
+                </div>
+                <div class="card-body item_dashboard">
+                    <h1 class="font-weight-bold color-primary-sys text-center">
+                        <a href="{{ route('task_index') }}" style="color:white;">{{ $tasks }}</a> 
+                    </h1>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <h6 class="font-weight-bold">
+                        <a href="{{ route('index_quotes') }}">Cotizaciones pendientes</a>
+                    </h6>
+                </div>
+                <div class="card-body item_dashboard">
+                    <h1 class="font-weight-bold color-primary-sys text-center">
+                        <a href="{{ route('index_quotes') }}" style="color:white;">{{ $quotes }}</a> 
+                    </h1>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="row">
+
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <h6 class="font-weight-bold">
+                        <a href="{{ route('index_proyects') }}">Proyectos activos</a>
+                    </h6>
+                </div>
+                <div class="card-body item_dashboard">
+                    <h1 class="font-weight-bold color-primary-sys text-center">
+                        <a href="{{ route('index_proyects') }}" style="color:white;">{{ $projects }}</a> 
+                    </h1>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <h6 class="font-weight-bold">
+                        <a href="{{ route('index_binnacle') }}">Bitácoras</a>
+                    </h6>
+                </div>
+                <div class="card-body item_dashboard">
+                    <h1 class="font-weight-bold color-primary-sys text-center">
+                        <a href="{{ route('index_binnacle') }}" style="color:white;">{{ $binnacles }}</a>
+                    </h1>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <h6 class="font-weight-bold">
+                        <a href="{{ route('company_index') }}">Compañías</a>
+                    </h6>
+                </div>
+                <div class="card-body item_dashboard">
+                    <h1 class="font-weight-bold color-primary-sys text-center">
+                        <a href="{{ route('company_index') }}" style="color:white;">{{ $companies }} </a>
+                    </h1>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="row">
+
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <h6 class="font-weight-bold">
+                        <a href="mobile/dotech_mobile_1-1-2.apk">App</a>
+                    </h6>
+                </div>
+                <div class="card-body item_dashboard">
+                    <h1 class="font-weight-bold color-primary-sys text-center">
+                        <a href="mobile/dotech_mobile_1-1-2.apk" style="color:white;">1-1-2</a>
+                    </h1>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <h6 class="font-weight-bold">
+                        <a href="{{ route('log_index') }}">Log</a>
+                    </h6>
+                </div>
+                <div class="card-body item_dashboard">
+                    <h1 class="font-weight-bold color-primary-sys text-center">
+                        &nbsp; 
+                    </h1>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <h6 class="font-weight-bold">
+                        <a href="{{ route('config_index') }}">Config</a>
+                    </h6>
+                </div>
+                <div class="card-body item_dashboard">
+                    <h1 class="font-weight-bold color-primary-sys text-center">
+                        &nbsp; 
+                    </h1>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
 
 
 
@@ -418,4 +591,6 @@ $cog = asset('img/background_black_red.jpg');
     overflow: hidden;
 }
 </style>
+
+-->
 @endsection
