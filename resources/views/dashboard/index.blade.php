@@ -119,7 +119,7 @@
             <p class="font-weight-bold">
                 En las siguentes gráficas se muestran 
                 {{ count($companiasConProyectosActivos) }} clientes con proyectos activos así como
-                el pago pendiente en total y por cada proyecto a partir de sus pagos. 
+                el total en costo de proyectos y el total en pagos realizados.
             </p>
         </div>
 
