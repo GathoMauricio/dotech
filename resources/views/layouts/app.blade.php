@@ -429,5 +429,7 @@
     </script>
 
     @include('companies.show_modal')
+    <input type="hidden" id="txt_user_id" value="{{ Auth::user()->id }}" />
+    <input type="hidden" id="txt_rol_user_id" value="{{ Auth::user()->rol_user_id }}" />
 </body>
 </html>
