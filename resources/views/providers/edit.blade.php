@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-<h4 class="title_page">Edición de retiro</h4>
+<h4 class="title_page">Edición de provedor</h4>
 @include('config.menu')
 <br><br>
 <form action="{{ route('update_provider',$whitdrawal->id) }}" method="POST">

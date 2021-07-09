@@ -2,7 +2,7 @@
 @section('content')
 <img src="{{ asset('img/withdrawal_header.png') }}" style="width:100%;" height="200" />
 <br><br>
-<h4 class="title_page">Agregar provedor de retiro</h4>
+<h4 class="title_page">Agregar departamento de retiro</h4>
 @include('config.menu')
 <br>
 <form action="{{ route('store_department') }}" method="POST">

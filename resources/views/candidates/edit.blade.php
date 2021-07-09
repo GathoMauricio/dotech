@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-    <h4 class="title_page">Editar candidato</h4>
+    <h4 class="title_page">Editar</h4>
     <center>
         @if($user->image == 'perfil.png')
             <img src="{{asset('img')}}/{{ $user->image }}" width="150" height="120" />
