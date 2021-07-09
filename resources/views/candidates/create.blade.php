@@ -1,8 +1,5 @@
 @extends('layouts.app')
 @section('content')
-    <p class="text-right">
-        <a href="{{ route('candidates') }}"><span class="icon-cross"></span></a>
-    </p>
     <h4 class="title_page">Agregar aspirante</h4>
     <br>
     <form action="{{ route('candidates_store') }}" method="POST" accept-charset="UTF-8" enctype="multipart/form-data">
