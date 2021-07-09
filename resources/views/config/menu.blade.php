@@ -1,3 +1,4 @@
+<!--
 <p class="text-right">
     <a href="{{ route('config_index') }}"><span class="icon-home"></span> Inicio</a>
     &nbsp;&nbsp;
@@ -21,3 +22,4 @@
         </form>
     </a>
 </p>
+-->
