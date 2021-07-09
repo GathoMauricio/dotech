@@ -318,14 +318,17 @@
            @yield('page_title')
             </h1>
           </div><!-- /.col -->
-          <!--
+          
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
+            {{ Breadcrumbs::render(Route::currentRouteName()) }}
+            <!--
               <li class="breadcrumb-item"><a href="#">Home</a></li>
               <li class="breadcrumb-item active">Starter Page</li>
+              -->
             </ol>
           </div>
-          -->
+          
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
     </div>
@@ -434,5 +437,14 @@
     @include('companies.show_modal')
     <input type="hidden" id="txt_user_id" value="{{ Auth::user()->id }}" />
     <input type="hidden" id="txt_rol_user_id" value="{{ Auth::user()->rol_user_id }}" />
+    <style>
+    .comment-box-modal{
+            background:url({{ asset('img/background_black_red.jpg')}});
+            width: 100%;
+            height: 400px;
+            overflow: hidden;
+            overflow-y:scroll;
+        }
+    </style>
 </body>
 </html>
