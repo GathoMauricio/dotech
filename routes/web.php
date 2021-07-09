@@ -310,3 +310,7 @@ Route::get('candidates_destroy/{id?}','CandidateController@destroy')->name('cand
 Route::post('store_user_test','UserTestController@store')->name('store_user_test')->middleware('auth');
 Route::get('check_user_test/{id?}','UserTestController@checkUserTest')->name('check_user_test')->middleware('auth');
 Route::get('generate_user_test/{id?}','UserTestController@generateUserTest')->name('generate_user_test')->middleware('auth');
+
+Route::get('test',function(){
+    return view('test');
+})->name('test');
