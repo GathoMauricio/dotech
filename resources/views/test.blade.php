@@ -1,1 +1,1 @@
-{{ Breadcrumbs::render(Route::currentRouteName()) }}
+{{ \Breadcrumbs::render(Route::currentRouteName()) }}
