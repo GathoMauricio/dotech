@@ -16,7 +16,7 @@ Route::get('/', function () {
 })->name('/');
 
 #Sale Whitdraw temporaly
-Route::get('withdraw_request_index','WithdrawRequestController@index')->name('withdraw_request_index')->middleware('auth');
+//Route::get('withdraw_request_index','WithdrawRequestController@index')->name('withdraw_request_index')->middleware('auth');
 
 #Company
 Route::get('company_index','CompanyController@index')->name('company_index')->middleware('auth');;
