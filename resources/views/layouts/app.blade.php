@@ -23,7 +23,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
 </head>
-<body class="hold-transition sidebar-mini sidebar-collapse ">
+<body class="hold-transition sidebar-mini layout-navbar-fixed layout-fixed layout-fixed sidebar-collapse ">
 <div class="wrapper">
 
   <!-- Navbar -->
