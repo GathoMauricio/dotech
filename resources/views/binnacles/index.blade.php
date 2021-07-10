@@ -7,7 +7,7 @@
 @if(count($binnacles) <= 0)
 @include('layouts.no_records')
 @else
-{{ $binnacles->links() }}
+{{ $binnacles->links('pagination-links') }}
 <table class="table table-bordered">
     <thead>
         <tr>

@@ -5,7 +5,7 @@
 @if(count($follows) <= 0)
 @include('layouts.no_records')
 @else
-{{ $follows->links() }}
+{{ $follows->links('pagination-links') }}
 <table class="table table-bordered">
     <thead>
         <tr>

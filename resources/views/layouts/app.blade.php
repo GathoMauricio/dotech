@@ -22,6 +22,7 @@
     <link href="{{ asset('css/semantic.css') }}" rel="stylesheet">
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
+    @livewireStyles
 </head>
 <body class="hold-transition sidebar-mini layout-navbar-fixed layout-fixed layout-fixed sidebar-collapse ">
 <div class="wrapper">
@@ -336,11 +337,6 @@
 
     <!-- Main content -->
     <div class="content">
-    @if(Route::currentRouteName() != '/')
-      <p>
-        <span onclick="window.history.go(-1)" class="icon-arrow-left font-weight-bold" style="cursor: pointer;font-size: 18px;"></span>
-      </p>
-    @endif
     @include('layouts.notification')
     @if(Session::has('message')) @include('layouts.message') @endif
     @yield('content')
@@ -446,5 +442,6 @@
             overflow-y:scroll;
         }
     </style>
+    @livewireScripts
 </body>
 </html>

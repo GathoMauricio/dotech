@@ -272,9 +272,7 @@ class MySql extends DbDumper
         }
 
         if ($this->socket !== '') {
-            $command[] = "--socket=".env('MYSQL_SOCKET',$this->socket);
-        }else{
-            $command[] = "--socket=".env('MYSQL_SOCKET',$this->socket);
+            $command[] = "--socket={$this->socket}";
         }
 
         foreach ($this->excludeTables as $tableName) {
@@ -315,9 +313,12 @@ class MySql extends DbDumper
             '[client]',
             "user = '{$this->userName}'",
             "password = '{$this->password}'",
-            "host = '{$this->host}'",
             "port = '{$this->port}'",
         ];
+
+        if ($this->socket === '') {
+            $contents[] = "host = '{$this->host}'";
+        }
 
         return implode(PHP_EOL, $contents);
     }
