@@ -6,6 +6,11 @@
 
     <div class="row">
         <div class="col-md-6 card p-2">
+        <div class="ribbon-wrapper">
+            <div class="ribbon bg-info">
+                &nbsp;
+            </div>
+        </div>
         @php
             $totalMes = App\Sale::whereYear('created_at', '=', date('Y'))->whereMonth('created_at', '=', date('m'))->get();
             $cotizacionesMes = App\Sale::where('status','Pendiente')->whereYear('created_at', '=', date('Y'))->whereMonth('created_at', '=', date('m'))->get();
@@ -70,6 +75,11 @@
             </script>
         </div>
         <div class="col-md-6 card p-2">
+            <div class="ribbon-wrapper">
+                <div class="ribbon bg-info">
+                    &nbsp;
+                </div>
+            </div>
         @php
             $proyectosActivos = App\Sale::where('status','Proyecto')->get();
             
@@ -110,6 +120,11 @@
 
     <div class="row">
         <div class="col-md-12 card p-2">
+        <div class="ribbon-wrapper">
+            <div class="ribbon bg-info">
+                &nbsp;
+            </div>
+        </div>
         @php
             $companiasConProyectosActivos = App\Sale::distinct()->where('status','Proyecto')->get('company_id');
         @endphp
@@ -148,6 +163,11 @@
         @else
         <div class="col-md-6 card p-2">
         @endif
+        <div class="ribbon-wrapper">
+            <div class="ribbon bg-info">
+                &nbsp;
+            </div>
+        </div>
         <h4 class="text-center">
                 {{ $company->name }}
             </h4>
@@ -262,6 +282,11 @@
     <div class="row">
         <div class="col-md-12">
             <h4 class="text-center">
+            <div class="ribbon-wrapper">
+                <div class="ribbon bg-info">
+                    &nbsp;
+                </div>
+            </div>
                 Proyectos activos por compañía
             </h4>
             @php $proyectos = \App\Sale::where('status','Proyecto')->orderBy('company_id')->get() @endphp
