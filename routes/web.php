@@ -1,5 +1,6 @@
 <?php
 Auth::routes();
+
 Route::get('/', function () {
     if(Auth::check())
     {
