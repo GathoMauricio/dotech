@@ -58,6 +58,12 @@ Breadcrumbs::for('show_sale', function ($trail) {
     $trail->push('Detalles', route('show_sale',''));
 });
 
+//Wire Projects
+Breadcrumbs::for('wire_projects', function ($trail) {
+    $trail->parent('/');
+    $trail->push('Proyectos', route('wire_projects'));
+});
+
 //Bitácpras
 Breadcrumbs::for('index_binnacle', function ($trail) {
     $trail->parent('/');

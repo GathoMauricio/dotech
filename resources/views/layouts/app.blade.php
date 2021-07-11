@@ -241,8 +241,15 @@
                 </a>
             </li>
             @endif
+            <!--
             <li class="nav-item">
                 <a href="{{ route('index_proyects') }}" class="nav-link @if (Route::currentRouteName() == 'index_proyects') active @endif">
+                  <i class="nav-icon icon-price-tag"></i><p>Proyectos</p>
+                </a>
+            </li>
+            -->
+            <li class="nav-item">
+                <a href="{{ route('wire_projects') }}" class="nav-link @if (Route::currentRouteName() == 'wire_projects') active @endif">
                   <i class="nav-icon icon-price-tag"></i><p>Proyectos</p>
                 </a>
             </li>
