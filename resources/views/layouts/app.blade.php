@@ -22,7 +22,6 @@
     <link href="{{ asset('css/semantic.css') }}" rel="stylesheet">
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
-    @livewireStyles
 </head>
 <body class="hold-transition sidebar-mini layout-navbar-fixed layout-fixed layout-fixed sidebar-collapse ">
 <div class="wrapper">
@@ -34,8 +33,6 @@
       <li class="nav-item">
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
-      
-      
       <!--
       <li class="nav-item d-none d-sm-inline-block">
         <a href="#" class="nav-link">Home</a>
@@ -45,6 +42,7 @@
       </li>
       -->
     </ul>
+
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
       <!-- Navbar Search -->
@@ -242,15 +240,8 @@
                 </a>
             </li>
             @endif
-            <!--
             <li class="nav-item">
                 <a href="{{ route('index_proyects') }}" class="nav-link @if (Route::currentRouteName() == 'index_proyects') active @endif">
-                  <i class="nav-icon icon-price-tag"></i><p>Proyectos</p>
-                </a>
-            </li>
-            -->
-            <li class="nav-item">
-                <a href="{{ route('wire_projects') }}" class="nav-link @if (Route::currentRouteName() == 'wire_projects') active @endif">
                   <i class="nav-icon icon-price-tag"></i><p>Proyectos</p>
                 </a>
             </li>
@@ -324,7 +315,7 @@
         <div class="row mb-2">
           <div class="col-sm-6">
             <h1 class="m-0">
-              @yield('page_title')
+           @yield('page_title')
             </h1>
           </div><!-- /.col -->
           
@@ -345,6 +336,11 @@
 
     <!-- Main content -->
     <div class="content">
+    @if(Route::currentRouteName() != '/')
+      <p>
+        <span onclick="window.history.go(-1)" class="icon-arrow-left font-weight-bold" style="cursor: pointer;font-size: 18px;"></span>
+      </p>
+    @endif
     @include('layouts.notification')
     @if(Session::has('message')) @include('layouts.message') @endif
     @yield('content')
@@ -397,7 +393,7 @@
 <!-- ./wrapper -->
 
 <!-- REQUIRED SCRIPTS -->
-@livewireScripts
+
 <!-- jQuery -->
 <script src="{{ asset('adminlte/plugins/jquery/jquery.min.js') }}"></script>
 <!-- Bootstrap 4 -->

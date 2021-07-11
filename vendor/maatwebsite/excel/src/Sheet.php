@@ -13,7 +13,6 @@ use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\FromView;
 use Maatwebsite\Excel\Concerns\OnEachRow;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
-use Maatwebsite\Excel\Concerns\SkipsEmptyRows;
 use Maatwebsite\Excel\Concerns\ToArray;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\ToModel;
@@ -28,7 +27,6 @@ use Maatwebsite\Excel\Concerns\WithCustomStartCell;
 use Maatwebsite\Excel\Concerns\WithCustomValueBinder;
 use Maatwebsite\Excel\Concerns\WithDrawings;
 use Maatwebsite\Excel\Concerns\WithEvents;
-use Maatwebsite\Excel\Concerns\WithFormatData;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMappedCells;
 use Maatwebsite\Excel\Concerns\WithMapping;
@@ -254,7 +252,6 @@ class Sheet
         }
 
         $calculatesFormulas = $import instanceof WithCalculatedFormulas;
-        $formatData         = $import instanceof WithFormatData;
         $endColumn          = $import instanceof WithColumnLimit ? $import->endColumn() : null;
 
         if ($import instanceof WithMappedCells) {
@@ -265,7 +262,7 @@ class Sheet
             }
 
             if ($import instanceof ToCollection) {
-                $rows = $this->toCollection($import, $startRow, null, $calculatesFormulas, $formatData);
+                $rows = $this->toCollection($import, $startRow, null, $calculatesFormulas, $endColumn);
 
                 if ($import instanceof WithValidation) {
                     $this->validate($import, $startRow, $rows);
@@ -275,7 +272,7 @@ class Sheet
             }
 
             if ($import instanceof ToArray) {
-                $rows = $this->toArray($import, $startRow, null, $calculatesFormulas, $formatData);
+                $rows = $this->toArray($import, $startRow, null, $calculatesFormulas);
 
                 if ($import instanceof WithValidation) {
                     $this->validate($import, $startRow, $rows);
@@ -293,19 +290,17 @@ class Sheet
             foreach ($this->worksheet->getRowIterator()->resetStart($startRow ?? 1) as $row) {
                 $sheetRow = new Row($row, $headingRow);
 
-                if (!$import instanceof SkipsEmptyRows || ($import instanceof SkipsEmptyRows && !$sheetRow->isEmpty($calculatesFormulas))) {
-                    if ($import instanceof WithValidation) {
-                        $sheetRow->setPreparationCallback($preparationCallback);
-                        $toValidate = [$sheetRow->getIndex() => $sheetRow->toArray(null, $import instanceof WithCalculatedFormulas, $import instanceof WithFormatData, $endColumn)];
+                if ($import instanceof WithValidation) {
+                    $sheetRow->setPreparationCallback($preparationCallback);
+                    $toValidate = [$sheetRow->getIndex() => $sheetRow->toArray(null, $import instanceof WithCalculatedFormulas, $endColumn)];
 
-                        try {
-                            app(RowValidator::class)->validate($toValidate, $import);
-                            $import->onRow($sheetRow);
-                        } catch (RowSkippedException $e) {
-                        }
-                    } else {
+                    try {
+                        app(RowValidator::class)->validate($toValidate, $import);
                         $import->onRow($sheetRow);
+                    } catch (RowSkippedException $e) {
                     }
+                } else {
+                    $import->onRow($sheetRow);
                 }
 
                 if ($import instanceof WithProgressBar) {
@@ -342,13 +337,7 @@ class Sheet
 
         $rows = [];
         foreach ($this->worksheet->getRowIterator($startRow, $endRow) as $index => $row) {
-            $row = new Row($row, $headingRow);
-
-            if ($import instanceof SkipsEmptyRows && $row->isEmpty($calculateFormulas)) {
-                continue;
-            }
-
-            $row = $row->toArray($nullValue, $calculateFormulas, $formatData, $endColumn);
+            $row = (new Row($row, $headingRow))->toArray($nullValue, $calculateFormulas, $formatData, $endColumn);
 
             if ($import instanceof WithMapping) {
                 $row = $import->map($row);
@@ -425,8 +414,6 @@ class Sheet
         }
 
         $this->raise(new AfterSheet($this, $this->exportable));
-
-        $this->clearListeners();
     }
 
     /**
@@ -519,7 +506,7 @@ class Sheet
             $dimension = $this->worksheet->getColumnDimension($col);
 
             // Only auto-size columns that have not have an explicit width.
-            if ($dimension->getWidth() == -1) {
+            if ($dimension->getWidth() === -1) {
                 $dimension->setAutoSize(true);
             }
         }

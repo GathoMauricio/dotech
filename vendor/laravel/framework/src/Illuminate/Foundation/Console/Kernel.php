@@ -3,6 +3,7 @@
 namespace Illuminate\Foundation\Console;
 
 use Closure;
+use Exception;
 use Illuminate\Console\Application as Artisan;
 use Illuminate\Console\Command;
 use Illuminate\Console\Scheduling\Schedule;
@@ -14,6 +15,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Env;
 use Illuminate\Support\Str;
 use ReflectionClass;
+use Symfony\Component\Debug\Exception\FatalThrowableError;
 use Symfony\Component\Finder\Finder;
 use Throwable;
 
@@ -57,7 +59,7 @@ class Kernel implements KernelContract
     /**
      * The bootstrap classes for the application.
      *
-     * @var string[]
+     * @var array
      */
     protected $bootstrappers = [
         \Illuminate\Foundation\Bootstrap\LoadEnvironmentVariables::class,
@@ -111,7 +113,7 @@ class Kernel implements KernelContract
      */
     protected function scheduleCache()
     {
-        return $this->app['config']->get('cache.schedule_store', Env::get('SCHEDULE_CACHE_DRIVER'));
+        return Env::get('SCHEDULE_CACHE_DRIVER');
     }
 
     /**
@@ -127,7 +129,15 @@ class Kernel implements KernelContract
             $this->bootstrap();
 
             return $this->getArtisan()->run($input, $output);
+        } catch (Exception $e) {
+            $this->reportException($e);
+
+            $this->renderException($output, $e);
+
+            return 1;
         } catch (Throwable $e) {
+            $e = new FatalThrowableError($e);
+
             $this->reportException($e);
 
             $this->renderException($output, $e);
@@ -223,7 +233,7 @@ class Kernel implements KernelContract
             $command = $namespace.str_replace(
                 ['/', '.php'],
                 ['\\', ''],
-                Str::after($command->getRealPath(), realpath(app_path()).DIRECTORY_SEPARATOR)
+                Str::after($command->getPathname(), realpath(app_path()).DIRECTORY_SEPARATOR)
             );
 
             if (is_subclass_of($command, Command::class) &&
@@ -358,10 +368,10 @@ class Kernel implements KernelContract
     /**
      * Report the exception to the exception handler.
      *
-     * @param  \Throwable  $e
+     * @param  \Exception  $e
      * @return void
      */
-    protected function reportException(Throwable $e)
+    protected function reportException(Exception $e)
     {
         $this->app[ExceptionHandler::class]->report($e);
     }
@@ -370,10 +380,10 @@ class Kernel implements KernelContract
      * Render the given exception.
      *
      * @param  \Symfony\Component\Console\Output\OutputInterface  $output
-     * @param  \Throwable  $e
+     * @param  \Exception  $e
      * @return void
      */
-    protected function renderException($output, Throwable $e)
+    protected function renderException($output, Exception $e)
     {
         $this->app[ExceptionHandler::class]->renderForConsole($output, $e);
     }

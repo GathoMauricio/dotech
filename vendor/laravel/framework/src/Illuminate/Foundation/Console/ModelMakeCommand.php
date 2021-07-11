@@ -72,7 +72,7 @@ class ModelMakeCommand extends GeneratorCommand
      */
     protected function createFactory()
     {
-        $factory = Str::studly($this->argument('name'));
+        $factory = Str::studly(class_basename($this->argument('name')));
 
         $this->call('make:factory', [
             'name' => "{$factory}Factory",
@@ -108,7 +108,7 @@ class ModelMakeCommand extends GeneratorCommand
     {
         $seeder = Str::studly(class_basename($this->argument('name')));
 
-        $this->call('make:seeder', [
+        $this->call('make:seed', [
             'name' => "{$seeder}Seeder",
         ]);
     }
@@ -125,7 +125,7 @@ class ModelMakeCommand extends GeneratorCommand
         $modelName = $this->qualifyClass($this->getNameInput());
 
         $this->call('make:controller', array_filter([
-            'name' => "{$controller}Controller",
+            'name'  => "{$controller}Controller",
             '--model' => $this->option('resource') || $this->option('api') ? $modelName : null,
             '--api' => $this->option('api'),
         ]));
@@ -138,33 +138,11 @@ class ModelMakeCommand extends GeneratorCommand
      */
     protected function getStub()
     {
-        return $this->option('pivot')
-                    ? $this->resolveStubPath('/stubs/model.pivot.stub')
-                    : $this->resolveStubPath('/stubs/model.stub');
-    }
+        if ($this->option('pivot')) {
+            return __DIR__.'/stubs/pivot.model.stub';
+        }
 
-    /**
-     * Resolve the fully-qualified path to the stub.
-     *
-     * @param  string  $stub
-     * @return string
-     */
-    protected function resolveStubPath($stub)
-    {
-        return file_exists($customPath = $this->laravel->basePath(trim($stub, '/')))
-                        ? $customPath
-                        : __DIR__.$stub;
-    }
-
-    /**
-     * Get the default namespace for the class.
-     *
-     * @param  string  $rootNamespace
-     * @return string
-     */
-    protected function getDefaultNamespace($rootNamespace)
-    {
-        return is_dir(app_path('Models')) ? $rootNamespace.'\\Models' : $rootNamespace;
+        return __DIR__.'/stubs/model.stub';
     }
 
     /**

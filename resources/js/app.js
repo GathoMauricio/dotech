@@ -1818,14 +1818,3 @@ window.openUserTest = user_id => {
         }
     });
 };
-
-
-
-//Livewire functions
-
-Livewire.on('showFullModal', () => {
-    $("#full_modal").css('display', 'block');
-});
-Livewire.on('dissmisFullModal', () => {
-    $("#full_modal").css('display', 'none');
-});

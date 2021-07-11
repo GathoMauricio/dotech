@@ -11,7 +11,6 @@
 
 namespace Symfony\Component\Console\Helper;
 
-use Symfony\Component\Console\Cursor;
 use Symfony\Component\Console\Exception\MissingInputException;
 use Symfony\Component\Console\Exception\RuntimeException;
 use Symfony\Component\Console\Formatter\OutputFormatter;
@@ -24,7 +23,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\ChoiceQuestion;
 use Symfony\Component\Console\Question\Question;
 use Symfony\Component\Console\Terminal;
-use function Symfony\Component\String\s;
 
 /**
  * The QuestionHelper class provides helpers to interact with the user.
@@ -99,7 +97,7 @@ class QuestionHelper extends Helper
     /**
      * Asks the question to the user.
      *
-     * @return mixed
+     * @return bool|mixed|string|null
      *
      * @throws RuntimeException In case the fallback is deactivated and the response cannot be hidden
      */
@@ -109,6 +107,11 @@ class QuestionHelper extends Helper
 
         $inputStream = $this->inputStream ?: \STDIN;
         $autocomplete = $question->getAutocompleterCallback();
+
+        if (\function_exists('sapi_windows_cp_set')) {
+            // Codepage used by cmd.exe on Windows to allow special characters (éàüñ).
+            @sapi_windows_cp_set(1252);
+        }
 
         if (null === $autocomplete || !self::$stty || !Terminal::hasSttyAvailable()) {
             $ret = false;
@@ -124,7 +127,7 @@ class QuestionHelper extends Helper
             }
 
             if (false === $ret) {
-                $ret = $this->readInput($inputStream, $question);
+                $ret = fgets($inputStream, 4096);
                 if (false === $ret) {
                     throw new MissingInputException('Aborted.');
                 }
@@ -199,16 +202,18 @@ class QuestionHelper extends Helper
     }
 
     /**
+     * @param string $tag
+     *
      * @return string[]
      */
-    protected function formatChoiceQuestionChoices(ChoiceQuestion $question, string $tag)
+    protected function formatChoiceQuestionChoices(ChoiceQuestion $question, $tag)
     {
         $messages = [];
 
-        $maxWidth = max(array_map('self::width', array_keys($choices = $question->getChoices())));
+        $maxWidth = max(array_map('self::strlen', array_keys($choices = $question->getChoices())));
 
         foreach ($choices as $key => $value) {
-            $padding = str_repeat(' ', $maxWidth - self::width($key));
+            $padding = str_repeat(' ', $maxWidth - self::strlen($key));
 
             $messages[] = sprintf("  [<$tag>%s$padding</$tag>] %s", $key, $value);
         }
@@ -237,8 +242,6 @@ class QuestionHelper extends Helper
      */
     private function autocomplete(OutputInterface $output, Question $question, $inputStream, callable $autocomplete): string
     {
-        $cursor = new Cursor($output, $inputStream);
-
         $fullChoice = '';
         $ret = '';
 
@@ -266,9 +269,9 @@ class QuestionHelper extends Helper
             } elseif ("\177" === $c) { // Backspace Character
                 if (0 === $numMatches && 0 !== $i) {
                     --$i;
-                    $cursor->moveLeft(s($fullChoice)->slice(-1)->width(false));
-
                     $fullChoice = self::substr($fullChoice, 0, $i);
+                    // Move cursor backwards
+                    $output->write("\033[1D");
                 }
 
                 if (0 === $i) {
@@ -306,7 +309,7 @@ class QuestionHelper extends Helper
                         $remainingCharacters = substr($ret, \strlen(trim($this->mostRecentlyEnteredValue($fullChoice))));
                         $output->write($remainingCharacters);
                         $fullChoice .= $remainingCharacters;
-                        $i = (false === $encoding = mb_detect_encoding($fullChoice, null, true)) ? \strlen($fullChoice) : mb_strlen($fullChoice, $encoding);
+                        $i = self::strlen($fullChoice);
 
                         $matches = array_filter(
                             $autocomplete($ret),
@@ -354,14 +357,17 @@ class QuestionHelper extends Helper
                 }
             }
 
-            $cursor->clearLineAfter();
+            // Erase characters from cursor to end of line
+            $output->write("\033[K");
 
             if ($numMatches > 0 && -1 !== $ofs) {
-                $cursor->savePosition();
+                // Save cursor position
+                $output->write("\0337");
                 // Write highlighted text, complete the partially entered response
                 $charactersEntered = \strlen(trim($this->mostRecentlyEnteredValue($fullChoice)));
                 $output->write('<hl>'.OutputFormatter::escapeTrailingBackslash(substr($matches[$ofs], $charactersEntered)).'</hl>');
-                $cursor->restorePosition();
+                // Restore cursor position
+                $output->write("\0338");
             }
         }
 
@@ -406,7 +412,7 @@ class QuestionHelper extends Helper
                 $exe = $tmpExe;
             }
 
-            $sExec = shell_exec('"'.$exe.'"');
+            $sExec = shell_exec($exe);
             $value = $trimmable ? rtrim($sExec) : $sExec;
             $output->writeln('');
 
@@ -496,110 +502,5 @@ class QuestionHelper extends Helper
         exec('stty 2> /dev/null', $output, $status);
 
         return self::$stdinIsInteractive = 1 !== $status;
-    }
-
-    /**
-     * Reads one or more lines of input and returns what is read.
-     *
-     * @param resource $inputStream The handler resource
-     * @param Question $question    The question being asked
-     *
-     * @return string|bool The input received, false in case input could not be read
-     */
-    private function readInput($inputStream, Question $question)
-    {
-        if (!$question->isMultiline()) {
-            $cp = $this->setIOCodepage();
-            $ret = fgets($inputStream, 4096);
-
-            return $this->resetIOCodepage($cp, $ret);
-        }
-
-        $multiLineStreamReader = $this->cloneInputStream($inputStream);
-        if (null === $multiLineStreamReader) {
-            return false;
-        }
-
-        $ret = '';
-        $cp = $this->setIOCodepage();
-        while (false !== ($char = fgetc($multiLineStreamReader))) {
-            if (\PHP_EOL === "{$ret}{$char}") {
-                break;
-            }
-            $ret .= $char;
-        }
-
-        return $this->resetIOCodepage($cp, $ret);
-    }
-
-    /**
-     * Sets console I/O to the host code page.
-     *
-     * @return int Previous code page in IBM/EBCDIC format
-     */
-    private function setIOCodepage(): int
-    {
-        if (\function_exists('sapi_windows_cp_set')) {
-            $cp = sapi_windows_cp_get();
-            sapi_windows_cp_set(sapi_windows_cp_get('oem'));
-
-            return $cp;
-        }
-
-        return 0;
-    }
-
-    /**
-     * Sets console I/O to the specified code page and converts the user input.
-     *
-     * @param string|false $input
-     *
-     * @return string|false
-     */
-    private function resetIOCodepage(int $cp, $input)
-    {
-        if (0 !== $cp) {
-            sapi_windows_cp_set($cp);
-
-            if (false !== $input && '' !== $input) {
-                $input = sapi_windows_cp_conv(sapi_windows_cp_get('oem'), $cp, $input);
-            }
-        }
-
-        return $input;
-    }
-
-    /**
-     * Clones an input stream in order to act on one instance of the same
-     * stream without affecting the other instance.
-     *
-     * @param resource $inputStream The handler resource
-     *
-     * @return resource|null The cloned resource, null in case it could not be cloned
-     */
-    private function cloneInputStream($inputStream)
-    {
-        $streamMetaData = stream_get_meta_data($inputStream);
-        $seekable = $streamMetaData['seekable'] ?? false;
-        $mode = $streamMetaData['mode'] ?? 'rb';
-        $uri = $streamMetaData['uri'] ?? null;
-
-        if (null === $uri) {
-            return null;
-        }
-
-        $cloneStream = fopen($uri, $mode);
-
-        // For seekable and writable streams, add all the same data to the
-        // cloned stream and then seek to the same offset.
-        if (true === $seekable && !\in_array($mode, ['r', 'rb', 'rt'])) {
-            $offset = ftell($inputStream);
-            rewind($inputStream);
-            stream_copy_to_stream($inputStream, $cloneStream);
-            fseek($inputStream, $offset);
-            fseek($cloneStream, $offset);
-        }
-
-        return $cloneStream;
     }
 }

@@ -3,7 +3,7 @@
 <h4 class="title_page">Logs</h4> 
 @include('config.menu')
 <div class="float-right">
-{{ $logs->links('pagination-links') }}
+{{ $logs->links() }}
 </div>
 <br><br>
 <div style="width:100%;background-color:black;">
@@ -21,6 +21,6 @@
     </table>
 </div>
 <div class="float-right">
-    {{ $logs->links('pagination-links') }}
+    {{ $logs->links() }}
 </div>
 @endsection

@@ -4,7 +4,7 @@
 @if(count($sales) <= 0)
 @include('layouts.no_records')
 @else
-{{ $sales->links('pagination-links') }}
+{{ $sales->links() }}
 <table class="table table-bordered">
     <thead>
         <tr>

@@ -178,17 +178,11 @@ trait RequestWrapperTrait
             }
         }
 
-        if ($fetcher instanceof FetchAuthTokenCache) {
-            // The fetcher has already been wrapped in a cache by `ApplicationDefaultCredentials`;
-            // no need to wrap it another time.
-            return $fetcher;
-        } else {
-            return new FetchAuthTokenCache(
-                $fetcher,
-                $this->authCacheOptions,
-                $this->authCache
-            );
-        }
+        return new FetchAuthTokenCache(
+            $fetcher,
+            $this->authCacheOptions,
+            $this->authCache
+        );
     }
 
     /**
@@ -202,8 +196,8 @@ trait RequestWrapperTrait
         return ApplicationDefaultCredentials::getCredentials(
             $this->scopes,
             $this->authHttpHandler,
-            $this->authCacheOptions,
-            $this->authCache,
+            null,
+            null,
             $this->quotaProject
         );
     }

@@ -20,7 +20,7 @@ use Symfony\Component\VarDumper\Caster\ClassStub;
 /**
  * @author Fabien Potencier <fabien@symfony.com>
  *
- * @final
+ * @final since Symfony 4.4
  */
 class ConfigDataCollector extends DataCollector implements LateDataCollectorInterface
 {
@@ -28,6 +28,21 @@ class ConfigDataCollector extends DataCollector implements LateDataCollectorInte
      * @var KernelInterface
      */
     private $kernel;
+    private $name;
+    private $version;
+
+    public function __construct(string $name = null, string $version = null)
+    {
+        if (1 <= \func_num_args()) {
+            @trigger_error(sprintf('The "$name" argument in method "%s()" is deprecated since Symfony 4.2.', __METHOD__), \E_USER_DEPRECATED);
+        }
+        if (2 <= \func_num_args()) {
+            @trigger_error(sprintf('The "$version" argument in method "%s()" is deprecated since Symfony 4.2.', __METHOD__), \E_USER_DEPRECATED);
+        }
+
+        $this->name = $name;
+        $this->version = $version;
+    }
 
     /**
      * Sets the Kernel associated with this Request.
@@ -39,20 +54,17 @@ class ConfigDataCollector extends DataCollector implements LateDataCollectorInte
 
     /**
      * {@inheritdoc}
+     *
+     * @param \Throwable|null $exception
      */
-    public function collect(Request $request, Response $response, \Throwable $exception = null)
+    public function collect(Request $request, Response $response/*, \Throwable $exception = null*/)
     {
-        $eom = \DateTime::createFromFormat('d/m/Y', '01/'.Kernel::END_OF_MAINTENANCE);
-        $eol = \DateTime::createFromFormat('d/m/Y', '01/'.Kernel::END_OF_LIFE);
-
         $this->data = [
+            'app_name' => $this->name,
+            'app_version' => $this->version,
             'token' => $response->headers->get('X-Debug-Token'),
             'symfony_version' => Kernel::VERSION,
-            'symfony_minor_version' => sprintf('%s.%s', Kernel::MAJOR_VERSION, Kernel::MINOR_VERSION),
-            'symfony_lts' => 4 === Kernel::MINOR_VERSION,
-            'symfony_state' => $this->determineSymfonyState(),
-            'symfony_eom' => $eom->format('F Y'),
-            'symfony_eol' => $eol->format('F Y'),
+            'symfony_state' => 'unknown',
             'env' => isset($this->kernel) ? $this->kernel->getEnvironment() : 'n/a',
             'debug' => isset($this->kernel) ? $this->kernel->isDebug() : 'n/a',
             'php_version' => \PHP_VERSION,
@@ -70,6 +82,14 @@ class ConfigDataCollector extends DataCollector implements LateDataCollectorInte
             foreach ($this->kernel->getBundles() as $name => $bundle) {
                 $this->data['bundles'][$name] = new ClassStub(\get_class($bundle));
             }
+
+            $this->data['symfony_state'] = $this->determineSymfonyState();
+            $this->data['symfony_minor_version'] = sprintf('%s.%s', Kernel::MAJOR_VERSION, Kernel::MINOR_VERSION);
+            $this->data['symfony_lts'] = 4 === Kernel::MINOR_VERSION;
+            $eom = \DateTime::createFromFormat('d/m/Y', '01/'.Kernel::END_OF_MAINTENANCE);
+            $eol = \DateTime::createFromFormat('d/m/Y', '01/'.Kernel::END_OF_LIFE);
+            $this->data['symfony_eom'] = $eom->format('F Y');
+            $this->data['symfony_eol'] = $eol->format('F Y');
         }
 
         if (preg_match('~^(\d+(?:\.\d+)*)(.+)?$~', $this->data['php_version'], $matches) && isset($matches[2])) {
@@ -89,6 +109,26 @@ class ConfigDataCollector extends DataCollector implements LateDataCollectorInte
     public function lateCollect()
     {
         $this->data = $this->cloneVar($this->data);
+    }
+
+    /**
+     * @deprecated since Symfony 4.2
+     */
+    public function getApplicationName()
+    {
+        @trigger_error(sprintf('The method "%s()" is deprecated since Symfony 4.2.', __METHOD__), \E_USER_DEPRECATED);
+
+        return $this->data['app_name'];
+    }
+
+    /**
+     * @deprecated since Symfony 4.2
+     */
+    public function getApplicationVersion()
+    {
+        @trigger_error(sprintf('The method "%s()" is deprecated since Symfony 4.2.', __METHOD__), \E_USER_DEPRECATED);
+
+        return $this->data['app_version'];
     }
 
     /**
@@ -207,6 +247,20 @@ class ConfigDataCollector extends DataCollector implements LateDataCollectorInte
     }
 
     /**
+     * Gets the application name.
+     *
+     * @return string The application name
+     *
+     * @deprecated since Symfony 4.2
+     */
+    public function getAppName()
+    {
+        @trigger_error(sprintf('The "%s()" method is deprecated since Symfony 4.2.', __METHOD__), \E_USER_DEPRECATED);
+
+        return 'n/a';
+    }
+
+    /**
      * Gets the environment.
      *
      * @return string The environment
@@ -219,7 +273,7 @@ class ConfigDataCollector extends DataCollector implements LateDataCollectorInte
     /**
      * Returns true if the debug is enabled.
      *
-     * @return bool|string true if debug is enabled, false otherwise or a string if no kernel was set
+     * @return bool true if debug is enabled, false otherwise
      */
     public function isDebug()
     {

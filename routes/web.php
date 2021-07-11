@@ -315,9 +315,3 @@ Route::get('generate_user_test/{id?}','UserTestController@generateUserTest')->na
 Route::get('test',function(){
     return view('test');
 })->name('test');
-
-#Livewire Components
-Route::group(['middleware' => ['auth']],function(){
-    Route::get('wire_projects',function(){ return view('wire.projects.index'); })->name('wire_projects');
-
-});
