@@ -4,5 +4,5 @@
             @include("wire.$self_component.table")
         </div>
     </div>
-    
+    @include("wire.$self_component.show")
 </div>

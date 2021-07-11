@@ -34,6 +34,8 @@
       <li class="nav-item">
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
+      
+      
       <!--
       <li class="nav-item d-none d-sm-inline-block">
         <a href="#" class="nav-link">Home</a>
@@ -43,7 +45,6 @@
       </li>
       -->
     </ul>
-
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
       <!-- Navbar Search -->
@@ -323,7 +324,7 @@
         <div class="row mb-2">
           <div class="col-sm-6">
             <h1 class="m-0">
-           @yield('page_title')
+              @yield('page_title')
             </h1>
           </div><!-- /.col -->
           
@@ -396,7 +397,7 @@
 <!-- ./wrapper -->
 
 <!-- REQUIRED SCRIPTS -->
-
+@livewireScripts
 <!-- jQuery -->
 <script src="{{ asset('adminlte/plugins/jquery/jquery.min.js') }}"></script>
 <!-- Bootstrap 4 -->
@@ -449,6 +450,5 @@
             overflow-y:scroll;
         }
     </style>
-    @livewireScripts
 </body>
 </html>
