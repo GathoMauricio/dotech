@@ -22,26 +22,28 @@
             }
         @endphp
             <h4 class="text-center">
-                Cotizaciones contra proyectos durante el mes
+                Cotizaciones contra proyectos durante 
+                <input type="month" value="{{ date('Y-m') }}" onChange="changeMonth(this.value);">
+                <input type="hidden" id="change_graphic_month_route" value="{{ route('change_graphic_month') }}"/>
             </h4>
             <p class="font-weight-bold">
-                Durante {{ onlyMonth(date('Y-m-d')) }} se han creado 
-                <span class="text-info">{{ count($totalMes) }}</span> cotizaciones de las cuales 
-                <span class="text-success">{{ count($proyectosMes) }}</span> han sido aprobadas para 
+                se han creado 
+                <span id="span_total_mes" class="text-info">{{ count($totalMes) }}</span> cotizaciones de las cuales 
+                <span id="span_proyectos_mes" class="text-success">{{ count($proyectosMes) }}</span> han sido aprobadas para 
                 proyecto y se ha logrado un total de 
-                <span class="text-primary">${{ number_format($totalVentaMes + ($totalVentaMes * 0.16),2) }}</span> en precio de venta.
+                <span id="span_total_ventas_mes" class="text-primary">${{ number_format($totalVentaMes + ($totalVentaMes * 0.16),2) }}</span> en precio de venta.
             </p>
             <canvas id="quotes_vs_projects_per_month" ></canvas>
             <script>
-            var ctx = document.getElementById('quotes_vs_projects_per_month').getContext('2d');
-            var myChart = new Chart(ctx, {
+            var quotesVSprojectsCtx = document.getElementById('quotes_vs_projects_per_month').getContext('2d');
+            var quotesVSprojects = new Chart(quotesVSprojectsCtx, {
                 type: 'pie',
                 //type: 'pie',
                 //type: 'bar',
                 data: {
                     labels: ['Cotizaciones', 'Proyectos'],
                     datasets: [{
-                        label: '{{ onlyMonth(date('Y-m-d')) }}',
+                        label: '',
                         data: [{{ count($totalMes) }}, {{ count($proyectosMes) }}],
                         backgroundColor: [
                             //'rgba(255, 99, 132, 0.2)',
@@ -72,6 +74,62 @@
                     }
                 }
             });
+            function changeMonth(month) {
+                let route = $("#change_graphic_month_route").val();
+                if(month.length > 0) {
+                    $.ajax({
+                        type: "GET",
+                        url: route,
+                        data: {month:month},
+                        success: data => {
+                            
+                            $("#span_total_mes").text(data.totalMes);
+                            $("#span_proyectos_mes").text(data.proyectosMes);
+                            $("#span_total_ventas_mes").text(data.ventaMes);
+                            quotesVSprojects = new Chart(quotesVSprojectsCtx, {
+                                type: 'pie',
+                                //type: 'pie',
+                                //type: 'bar',
+                                data: {
+                                    labels: ['Cotizaciones', 'Proyectos'],
+                                    datasets: [{
+                                        label: '',
+                                        data: [data.totalMes, data.proyectosMes],
+                                        backgroundColor: [
+                                            //'rgba(255, 99, 132, 0.2)',
+                                            'rgba(54, 162, 235, 0.2)',
+                                            //'rgba(255, 206, 86, 0.2)',
+                                            //'rgba(75, 192, 192, 0.2)',
+                                            'rgba(153, 102, 255, 0.2)',
+                                            //'rgba(255, 159, 64, 0.2)'
+                                        ],
+                                        borderColor: [
+                                            //'rgba(255, 99, 132, 1)',
+                                            'rgba(54, 162, 235, 1)',
+                                            //'rgba(255, 206, 86, 1)',
+                                            //'rgba(75, 192, 192, 1)',
+                                            'rgba(153, 102, 255, 1)',
+                                            //'rgba(255, 159, 64, 1)'
+                                        ],
+                                        borderWidth: 1
+                                    }]
+                                },
+                                options: {
+                                    scales: {
+                                        yAxes: [{
+                                            ticks: {
+                                                beginAtZero: true
+                                            }
+                                        }]
+                                    }
+                                }
+                            });
+
+                        },
+                        error: err => console.log(err)
+                    });
+                }
+            }
             </script>
         </div>
         <div class="col-md-6 card p-2">

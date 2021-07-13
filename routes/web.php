@@ -312,6 +312,10 @@ Route::post('store_user_test','UserTestController@store')->name('store_user_test
 Route::get('check_user_test/{id?}','UserTestController@checkUserTest')->name('check_user_test')->middleware('auth');
 Route::get('generate_user_test/{id?}','UserTestController@generateUserTest')->name('generate_user_test')->middleware('auth');
 
+#Dashboard
+Route::get('change_graphic_month','DashboardController@changeGraphicMonth')->name('change_graphic_month')->middleware('auth');;
+
+
 Route::get('test',function(){
     return view('test');
 })->name('test');
