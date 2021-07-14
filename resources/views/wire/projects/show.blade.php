@@ -585,7 +585,6 @@
 }
 </style>
 
- @include('sale.sale_follow_modal')
     @include('sale.send_binnacle_pdf_modal')
     @include('sale.send_all_binnacle_pdf_modal')
     @include('withdrawal.add_provider_modal')

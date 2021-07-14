@@ -418,7 +418,7 @@
 <script src="//unpkg.com/vanilla-masker@1.1.1/lib/vanilla-masker.js"></script>
 <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
     <script>
-        Pusher.logToConsole = '{{ env('PUSHER_LOG',false) }}';
+        Pusher.logToConsole = false;
         var pusher = new Pusher('{{ env('PUSHER_APP_KEY') }}', {
         cluster: '{{ env('PUSHER_APP_CLUSTER') }}'
         });
