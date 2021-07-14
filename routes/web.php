@@ -330,5 +330,5 @@ Route::get('test',function(){
 #Livewire Components
 Route::group(['middleware' => ['auth']],function(){
     Route::get('wire_projects',function(){ return view('wire.projects.index'); })->name('wire_projects');
-
+    Route::get('wire_whitdrawals',function(){ return view('wire.whitdrawals.index'); })->name('wire_whitdrawals');
 });

@@ -4,6 +4,7 @@
 <input wire:model="search" class="form-control" placeholder="Buscar..." />
 <span id="span_result">@if(strlen($search) >0) Resultados de "{{ $search }}" @else &nbsp; @endif</span>
 <br/>
+
 @if(count($sales) <= 0)
 @include('layouts.no_records')
 @else

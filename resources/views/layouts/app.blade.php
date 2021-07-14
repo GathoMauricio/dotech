@@ -227,8 +227,15 @@
                   <p>Dashboard</p>
                 </a>
             </li>
+            <!--
             <li class="nav-item">
                 <a href="{{ route('whitdrawal_index') }}" class="nav-link @if (Route::currentRouteName() == 'whitdrawal_index') active @endif">
+                  <i class="nav-icon icon-checkmark"></i><p>Retiros</p>
+                </a>
+            </li>
+            -->
+             <li class="nav-item">
+                <a href="{{ route('wire_whitdrawals') }}" class="nav-link @if (Route::currentRouteName() == 'wire_whitdrawals') active @endif">
                   <i class="nav-icon icon-checkmark"></i><p>Retiros</p>
                 </a>
             </li>
