@@ -4,13 +4,13 @@
         @foreach ($breadcrumbs as $breadcrumb)
             @if ($breadcrumb->url && !$loop->last)
                  @if($breadcrumb->title == '')
-                <li class="breadcrumb-item" ><a href="{{ $breadcrumb->url }}"><img src="/images/icons/{{ $breadcrumb->icon }}" width="16" height="16">{{ $breadcrumb->title }}</a></li>
+                <li class="breadcrumb-item" ><a href="{{ $breadcrumb->url }}"><img src="/img/{{ $breadcrumb->icon }}" width="16" height="16">{{ $breadcrumb->title }}</a></li>
                 @else
                 <li class="breadcrumb-item"><a href="{{ $breadcrumb->url }}">{{ $breadcrumb->title }}</a></li>
                  @endif
             @else
                 @if($breadcrumb->title == '')
-                <li class="breadcrumb-item active" ><img src="/images/icons/{{ $breadcrumb->icon }}" width="16" height="16">{{ $breadcrumb->title }}</li>
+                <li class="breadcrumb-item active" ><img src="/img/{{ $breadcrumb->icon }}" width="16" height="16">{{ $breadcrumb->title }}</li>
                 @else
                 <li class="breadcrumb-item active">{{ $breadcrumb->title }}</li>
                 @endif
