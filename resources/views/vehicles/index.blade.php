@@ -28,6 +28,8 @@
             @php $lastMaintenance = \App\Maintenance::where('vehicle_id',$vehicle->id)->get()->last() @endphp
             @if($lastMaintenance)
             {{ $lastMaintenance->kilometers }} km
+            <br/>
+            {{ onlyDate($lastMaintenance->date) }}
             @else
             No definido
             @endif
@@ -36,6 +38,8 @@
             @php $lastService = \App\VehicleHistory::where('vehicle_id',$vehicle->id)->get()->last() @endphp
             @if($lastService)
             {{ $lastService->kilometers }} km
+            <br/>
+            {{ onlyDate($lastService->date) }}
             @else
             No definido
             @endif
