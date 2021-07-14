@@ -433,8 +433,40 @@
                 la utilidad generada en cada uno.
                 
             </p>
-            
-                <table class="table table-striped" id="index_table2">
+            <script>
+                function exportTableToExcel(tableID, filename = ''){
+                    var downloadLink;
+                    var dataType = 'application/vnd.ms-excel';
+                    var tableSelect = document.getElementById(tableID);
+                    var tableHTML = tableSelect.outerHTML.replace(/ /g, '%20');
+                    
+                    // Specify file name
+                    filename = filename?filename+'.xls':'excel_data.xls';
+                    
+                    // Create download link element
+                    downloadLink = document.createElement("a");
+                    
+                    document.body.appendChild(downloadLink);
+                    
+                    if(navigator.msSaveOrOpenBlob){
+                        var blob = new Blob(['ufeff', tableHTML], {
+                            type: dataType
+                        });
+                        navigator.msSaveOrOpenBlob( blob, filename);
+                    }else{
+                        // Create a link to the file
+                        downloadLink.href = 'data:' + dataType + ', ' + tableHTML;
+                    
+                        // Setting the file name
+                        downloadLink.download = filename;
+                        
+                        //triggering the function
+                        downloadLink.click();
+                    }
+                }
+            </script>
+            <button onclick="exportTableToExcel('index_table_hidden','Proyectos_activos_{{ date('YmdHis') }}.xls')" class="btn btn-success float-right">Exportar excel</button>
+            <table class="table table-striped" id="index_table2">
                 <thead>
                     <tr>
                         <th>Companía</th>
@@ -442,6 +474,7 @@
                         <th>Retiros aprobados</th>
                         <th>Retiros pendientes</th>
                         <th>Costo</th>
+                        <th>Pagos</th>
                         <th>Inversión</th>
                         <th>Utilidad</th>
                         <th>Fecha</th>
@@ -458,8 +491,13 @@
                             $inversion_aux += $retiro->quantity;
                         }
                         $utilidad_aux = ($proyecto->estimated + ($proyecto->estimated * 0.16)) - $inversion_aux;
-
-
+                        
+                        $pagos = \App\SalePayment::where('sale_id',$proyecto->id)->get();
+                        $totalPagos = 0;
+                        foreach($pagos as $pagos)
+                        {
+                            $totalPagos += $pago->amount;
+                        }
 
                      @endphp
                     <tr>
@@ -468,6 +506,55 @@
                         <td>{{ count($retiros_aux) }}</td>
                         <td><a href="{{ route('show_whitdrawal_by_project',$proyecto->id) }}" target="_blank">{{ count($retiros_p_aux) }}</a></td>
                         <td>${{ number_format($proyecto->estimated + ($proyecto->estimated * 0.16),2) }}</td>
+                        <td>${{ number_format($totalPagos,2) }}</td>
+                        <td>${{ number_format($inversion_aux,2) }}</td>
+                        <td>${{ number_format($utilidad_aux,2) }}</td>
+                        <td>{{ onlyDate($proyecto->created_at) }}</td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+            <table style="display:none;" id="index_table_hidden" border="1">
+                <thead>
+                    <tr>
+                        <th>Companía</th>
+                        <th>Proyecto</th>
+                        <th>Retiros aprobados</th>
+                        <th>Retiros pendientes</th>
+                        <th>Costo</th>
+                        <th>Pagos</th>
+                        <th>Inversión</th>
+                        <th>Utilidad</th>
+                        <th>Fecha</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($proyectos as $proyecto)
+                    @php 
+                        $retiros_aux = \App\Whitdrawal::where('sale_id',$proyecto->id)->where('status','Aprobado')->get();
+                        $retiros_p_aux = \App\Whitdrawal::where('sale_id',$proyecto->id)->where('status','Pendiente')->get();
+                        $inversion_aux = 0;
+                        foreach($retiros_aux as $retiro)
+                        {
+                            $inversion_aux += $retiro->quantity;
+                        }
+                        $utilidad_aux = ($proyecto->estimated + ($proyecto->estimated * 0.16)) - $inversion_aux;
+                        
+                        $pagos = \App\SalePayment::where('sale_id',$proyecto->id)->get();
+                        $totalPagos = 0;
+                        foreach($pagos as $pagos)
+                        {
+                            $totalPagos += $pago->amount;
+                        }
+
+                     @endphp
+                    <tr>
+                        <td>{{ $proyecto->company['name'] }}</td>
+                        <td>{{ $proyecto->description }}</td>
+                        <td>{{ count($retiros_aux) }}</td>
+                        <td>{{ count($retiros_p_aux) }}</td>
+                        <td>${{ number_format($proyecto->estimated + ($proyecto->estimated * 0.16),2) }}</td>
+                        <td>${{ number_format($totalPagos,2) }}</td>
                         <td>${{ number_format($inversion_aux,2) }}</td>
                         <td>${{ number_format($utilidad_aux,2) }}</td>
                         <td>{{ onlyDate($proyecto->created_at) }}</td>
