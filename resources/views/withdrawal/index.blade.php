@@ -13,7 +13,7 @@
 @if(count($whitdrawals) <= 0)
 @include('layouts.no_records')
 @else
-{{ $whitdrawals->links('pagination-links') }}
+
 <table class="table table-bordered" id="index_table">
     <thead>
         <tr>

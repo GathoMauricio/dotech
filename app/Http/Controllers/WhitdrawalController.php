@@ -13,7 +13,7 @@ class WhitdrawalController extends Controller
         {
             return view('users.default_password',['user' => $user]);
         }else{
-            $whitdrawals = Whitdrawal::where('status','Pendiente')->orderBy('id','desc')->paginate(15);
+            $whitdrawals = Whitdrawal::where('status','Pendiente')->orderBy('id','desc')->get();
             return view('withdrawal.index',[ 'whitdrawals' => $whitdrawals]);
         }
     }
@@ -40,11 +40,13 @@ class WhitdrawalController extends Controller
             $notificationUsers = User::where('rol_user_id',1)->get();
             foreach($notificationUsers as $user)
             {
+                /*
                 event(new \App\Events\NotificationEvent([
                     'id' => $user->id,
                     'msg' => \Auth::user()->name.' '.\Auth::user()->middle_name.' '.$msg,
                     'route' => route('whitdrawal_index')
                 ]));
+                */
             }
             return redirect()->back()->with('message', 'Solicitud de retiro agreagada');
         }else{
@@ -65,11 +67,13 @@ class WhitdrawalController extends Controller
         $notificationUsers = User::where('rol_user_id',1)->get();
         foreach($notificationUsers as $user)
         {
-            event(new \App\Events\NotificationEvent([
+            
+            /*event(new \App\Events\NotificationEvent([
                 'id' => $user->id,
                 'msg' => \Auth::user()->name.' '.\Auth::user()->middle_name.' '.$msg,
                 'route' => route('whitdrawal_index')
             ]));
+            */
         }
         return redirect()->back()->with('message', 'El documento se almacenó con éxito con el nombre: '.$whitdrawal->document);
     }
@@ -93,11 +97,13 @@ class WhitdrawalController extends Controller
         $account->save();
         $msg = "aprobó el retiro: ".$whitdrawal->description;
         createSysLog($msg);
+        /*
         event(new \App\Events\NotificationEvent([
             'id' => $whitdrawal->author_id,
             'msg' => \Auth::user()->name.' '.\Auth::user()->middle_name.' '.$msg,
             'route' => route('show_sale',$whitdrawal->sale_id)
         ]));
+        */
         return redirect()->back()->with('message', 'La solicitud se ha aprovado y la cantidad se ha descontado de la cuenta seleccionada.');
     }
     public function show(Request $request)
@@ -161,11 +167,13 @@ class WhitdrawalController extends Controller
         $whitdrawal->delete();
         $msg = "desaprobó el retiro: ".$whitdrawal->description;
         createSysLog($msg);
+        /*
         event(new \App\Events\NotificationEvent([
             'id' => $whitdrawal->author_id,
             'msg' => \Auth::user()->name.' '.\Auth::user()->middle_name.' '.$msg,
             'route' => route('show_sale',$whitdrawal->sale_id)
         ]));
+        */
         return redirect()->back()->with('message', 'La solicitud ha sido rechazada.');
     }
     public function destroy($id)
