@@ -25,6 +25,9 @@
     @livewireStyles
 </head>
 <body class="hold-transition sidebar-mini layout-navbar-fixed layout-fixed layout-fixed sidebar-collapse ">
+  <audio id="message" preload="auto">
+      <source src="{{ asset('sound/pristine.mp3') }}" type="audio/mp3">
+  </audio>
 <div class="wrapper">
 
   <!-- Navbar -->
