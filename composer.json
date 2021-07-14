@@ -22,7 +22,7 @@
         "livewire/livewire": "^2.5",
         "maatwebsite/excel": "^3.1",
         "madnest/madzipper": "^1.1",
-        "pusher/pusher-php-server": "~4.0",
+        "pusher/pusher-php-server": "^7.0",
         "spatie/db-dumper": "^2.21",
         "superbalist/flysystem-google-storage": "^7.2"
     },

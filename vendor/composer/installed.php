@@ -1005,12 +1005,12 @@
     ),
     'pusher/pusher-php-server' => 
     array (
-      'pretty_version' => 'v4.1.5',
-      'version' => '4.1.5.0',
+      'pretty_version' => '7.0.1',
+      'version' => '7.0.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => '251f22602320c1b1aff84798fe74f3f7ee0504a9',
+      'reference' => '7757a09209d20ff95b077ae48dc25f49a6ad94a2',
     ),
     'ralouphie/getallheaders' => 
     array (
