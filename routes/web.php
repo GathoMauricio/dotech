@@ -317,7 +317,12 @@ Route::get('change_graphic_month','DashboardController@changeGraphicMonth')->nam
 
 
 Route::get('test',function(){
-    return view('test');
+    //return view('test');
+    event(new \App\Events\NotificationEvent([
+        'id' => 259,
+        'msg' => "Prueba push",
+        'route' => "Testing"
+    ]));
 })->name('test');
 
 
