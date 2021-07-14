@@ -3,7 +3,7 @@ Breadcrumbs::for('test', function ($trail) {
     $trail->push('Breadcum de prueba', route('test'));
   });
 Breadcrumbs::for('/', function ($trail) {
-  $trail->push('Inicio', route('/'));
+  $trail->push('', route('/'),['icon' => 'home.png']);
 });
 //Retros
 Breadcrumbs::for('whitdrawal_index', function ($trail) {
