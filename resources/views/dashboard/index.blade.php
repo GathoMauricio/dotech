@@ -178,6 +178,86 @@
 
     <div class="row">
         <div class="col-md-12 card p-2">
+            <div class="ribbon-wrapper">
+            <div class="ribbon bg-info">
+                &nbsp;
+            </div>
+            </div>
+                @php
+                    foreach ($proyectosMes as $p)
+                    {
+                        $totalVentaMes += $p->estimated;
+                    }
+                @endphp
+                <h4 class="text-center">
+                    Utilidad generada en proyectos abiertos de {{ onlyMonth(date('Y-m')) }}
+                </h4>
+                <canvas id="utility_generated" ></canvas>
+                <script>
+                    var ctx = document.getElementById("utility_generated").getContext('2d');
+                    var myChart = new Chart(ctx, {
+                        type: 'bar',
+                        //type: 'pie',
+                        //type: 'bar',
+                        data: {
+                            labels: [
+                                    @foreach ($proyectosMes as $p)
+                                    @php
+                                        $whitdrawals = \App\Whitdrawal::where('sale_id',$p->id)->where('status','Aprobado')->get();
+                                        $totalRetiros = 0;
+                                        foreach($whitdrawals as $whitdrawal)
+                                        {
+                                            $totalRetiros += floatval($whitdrawal->quantity);
+                                        }
+                                        $utilidad = number_format($p->estimated + ($p->estimated * 0.16) - $totalRetiros,2);
+                                    @endphp
+                                    '{{ $p->id }}\n{{ substr(preg_replace("/[\r\n|\n|\r]+/", " ", $p->description),0,15) }} Costo: ${{ number_format($p->estimated + ($p->estimated * 0.16),2) }} / Utilidad: ${{ $utilidad }}',
+                                    @endforeach
+                                
+                                ],
+                            datasets: [{
+                                label: '',
+                                data: [
+                                    @foreach ($proyectosMes as $p)
+                                        {{ $p->estimated + ($p->estimated * 0.16) }},
+
+
+                                    @endforeach
+                                ],
+                                backgroundColor: [
+                                    @foreach ($proyectosMes as $p)
+                                        'rgba(57, 194, 128 ,0.2)',
+                                    @endforeach
+                                
+                                ],
+                                borderColor: [
+                                    @foreach ($proyectosMes as $p)
+                                        'rgba(57, 194, 128 ,0.2)',
+                                    @endforeach
+                                ],
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                yAxes: [{
+                                    ticks: {
+                                        beginAtZero: true
+                                    }
+                                }]
+                            },
+                            onClick: function(event, legendItem, legend){
+                                let id = legendItem[0]._model.label.split("\n");
+                                window.open('{{ route('show_sale') }}/'+id[0]);
+                            },
+                        }
+                    });
+                </script>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 card p-2">
         <div class="ribbon-wrapper">
             <div class="ribbon bg-info">
                 &nbsp;
