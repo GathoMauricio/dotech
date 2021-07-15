@@ -289,6 +289,9 @@ class SaleController extends Controller
         $total=0;
         $totalMasIva = 0;
         foreach($products as $product){ 
+            $subtotal = $product->unity_price_sell * $product->quantity;
+            $product->total_sell = $subtotal + ($subtotal * .16);
+            $product->save();
             $total += $product->total_sell; 
             $totalMasIva += $product->total_sell; 
         }
