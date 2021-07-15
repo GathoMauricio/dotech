@@ -287,13 +287,20 @@ class SaleController extends Controller
         $sale = Sale::findOrFail($id);
         $products = ProductSale::where('sale_id',$id)->get();
         $total=0;
-        foreach($products as $product){ $total += $product->total_sell; }
-        $totalIva = $total + (($total * 16) / 100);
+        $totalMasIva = 0;
+        foreach($products as $product){ 
+            $total += $product->total_sell; 
+            $totalMasIva += $product->total_sell; 
+        }
+        
+        $totalIva = $total + (($total * .16) / 100);
+
         return view('quotes.products',[
             'sale'=> $sale,
             'products' => $products,
             'total' => $total,
-            'totalIva' => $totalIva
+            'totalIva' => $totalIva,
+            'totalMasIva' => $totalMasIva
             ]);
     }
     public function destroy($id)
@@ -383,6 +390,8 @@ class SaleController extends Controller
     {
         $sale = Sale::findOrFail($id);
         $saleProducts =ProductSale::where('sale_id', $id)->get();
+
+
         $subtotal = 0;
         foreach($saleProducts as $saleProduct)
         {
@@ -390,6 +399,18 @@ class SaleController extends Controller
         }
         $iva = ($subtotal * 16) / 100;
         $total = $subtotal + $iva;
+
+        $products = ProductSale::where('sale_id',$id)->get();
+        $total=0;
+        $totalMasIva = 0;
+        foreach($products as $product){ 
+            $total += $product->total_sell; 
+            $totalMasIva += $product->total_sell; 
+        }
+        
+        $totalIva = $total + (($total * .16) / 100);
+
+
         $logo = parseBase64(public_path("img/dotech_fondo.png"));
         $logo2 = parseBase64(public_path("storage/".$sale->company['image']));
         $pdf = PDF::loadView('pdf.sale',
@@ -400,7 +421,10 @@ class SaleController extends Controller
                 'saleProducts' => $saleProducts,
                 'subtotal' => $subtotal,
                 'iva' => $iva,
-                'total' => $total
+                'total' => $total,
+                
+                'products' => $products,
+                'totalMasIva' => $totalMasIva
             ]
         );
         return $pdf->stream('Cotizacion.pdf');

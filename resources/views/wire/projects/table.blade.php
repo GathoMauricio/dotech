@@ -1,10 +1,7 @@
 <p class="float-right">
     <a href="{{ route('index_proyects_finished') }}">[Proyectos finalizados]</a>
 </p>
-<input wire:model="search" class="form-control" placeholder="Buscar..." />
-<span id="span_result">@if(strlen($search) >0) Resultados de "{{ $search }}" @else &nbsp; @endif</span>
-<br/>
-
+@include('wire.partials.search')
 @if(count($sales) <= 0)
 @include('layouts.no_records')
 @else

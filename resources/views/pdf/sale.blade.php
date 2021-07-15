@@ -123,14 +123,32 @@
     <table style="width:100%;">
         <tbody>
             <tr>
-                <th width="10%" style="background-color:#D5D8DC;">Cantidad</th>
+                <th width="10%" style="background-color:#D5D8DC;">Cant</th>
                 <th width="10%" style="background-color:#D5D8DC;">U. Medida</th>
-                <th width="35%" style="background-color:#D5D8DC;">Descripción</th>
-                <th width="15%" style="background-color:#D5D8DC;">P. Lista</th>
+                <th width="35%" style="background-color:#D5D8DC;">Producto</th>
+                <th width="15%" style="background-color:#D5D8DC;">P/U</th>
                 <th width="15%" style="background-color:#D5D8DC;">Descuento</th>
-                <th width="15%" style="background-color:#D5D8DC;">Importe</th>
+                <th width="15%" style="background-color:#D5D8DC;">Total + IVA</th>
             </tr>
+            @foreach($products as $product)
+        <tr style="background-color:#D5D8DC;">
+            <td style="text-align:center">{{ $product->quantity }}</td>
+            <td style="text-align:center">
+                @if(!empty($product->measure))
+                {{ $product->measure }}
+                @else
+                N/A
+                @endif
+            </td>
+            <td style="text-align:center">{{ $product->description }}</td>
+            <td style="text-align:center">${{ number_format($product->unity_price_sell,2) }}</td>
+            <td style="text-align:center">{{ $product->discount }}%</td>
+            <td style="text-align:center">${{ number_format($product->total_sell ,2) }}</td>
+        </tr>
+        @endforeach
             @foreach($saleProducts as $saleProduct)
+
+            <!--
             <tr style="background-color:#D5D8DC;">
                 <td style="text-align:center">{{ $saleProduct->quantity }}</td>
                 @if(!empty($saleProduct->measure))
@@ -143,6 +161,7 @@
                 <td style="text-align:center">{{ $saleProduct->discount }}%</td>
                 <td style="text-align:center">${{ number_format((   ($saleProduct->unity_price_sell * $saleProduct->quantity) - ($saleProduct->unity_price_sell * $saleProduct->quantity) * $saleProduct->discount / 100  ),2) }}</td>
             </tr>
+            -->
             @endforeach
             <tr>
                 <td style="text-align:center"></td>
@@ -152,6 +171,7 @@
                 <td style="text-align:center;background-color:#D5D8DC;">DIVISA</td>
                 <td style="text-align:center;background-color:#D5D8DC;">{{ $sale->currency }}</td>
             </tr>
+            <!--
             <tr>
                 <td style="text-align:center"></td>
                 <td style="text-align:center"></td>
@@ -160,6 +180,8 @@
                 <td style="text-align:center;background-color:#D5D8DC;">SUBTOTAL</td>
                 <td style="text-align:center;background-color:#D5D8DC;">${{ number_format($subtotal,2) }}</td>
             </tr>
+            -->
+            <!--
             <tr>
                 <td style="text-align:center"></td>
                 <td style="text-align:center"></td>
@@ -168,13 +190,14 @@
                 <td style="text-align:center;background-color:#D5D8DC;">IVA</td>
                 <td style="text-align:center;background-color:#D5D8DC;">${{ number_format($iva,2) }}</td>
             </tr>
+            -->
             <tr>
                 <td style="text-align:center"></td>
                 <td style="text-align:center"></td>
                 <td style="text-align:center"></td>
                 <td style="text-align:center"></td>
                 <td style="text-align:center;background-color:#D5D8DC;">TOTAL</td>
-                <td style="text-align:center;;background-color:#D5D8DC;">${{ number_format($total,2) }}</td>
+                <td style="text-align:center;;background-color:#D5D8DC;">${{ number_format($totalMasIva,2) }}</td>
             </tr>
         </tbody>
     </table>

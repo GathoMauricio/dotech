@@ -1,9 +1,8 @@
-   <div class="full-modal" id="full_modal">
-
+<div class="full-modal" id="full_modal">
     <p>
         <span wire:click="dissmisProject" class="icon-cross float-right p-3" style="cursor:pointer;"></span>
     </p>
-<div class="col-md-10 float-right">
+<div class="col-md-11 float-right">
 @if(!is_null($sale))
     <h4 class="title_page text-center">
     @if($sale->status == 'Pendiente')
@@ -323,6 +322,8 @@
     </table>
 </div>
 <div id="retiros_container_tab" style="display:none;">
+    
+    
     <table class="table" border="5">
         <tr>
             <td colspan="9" style="background-color:#d30035;color:white;font-weight:bold;">
@@ -335,6 +336,8 @@
             </td>
         </tr>
     </table>
+    
+    
     <table class="table" border="5" id="index_table_retiros">
         <thead>
             <tr>
@@ -415,6 +418,7 @@
         <tr><td colspan="9" class="text-center">Sin registros</td></tr>
         @endif
     </table>
+    
 </div>
 <div id="bitacoras_container_tab" style="display:none;">
     <table class="table" border="5">
@@ -595,3 +599,4 @@
     @include('sale.add_sale_payment_modal')
     @include('sale.add_sale_document_modal')
     @include('sale.add_sale_whitdrawal_modal')
+  

@@ -1829,3 +1829,5 @@ Livewire.on('showFullModal', () => {
 Livewire.on('dissmisFullModal', () => {
     $("#full_modal").css('display', 'none');
 });
+
+window.createWhitdrawal = () => $("#add_sale_whitdrawal_modal").modal();
