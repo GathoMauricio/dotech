@@ -291,6 +291,14 @@ class SaleController extends Controller
         foreach($products as $product){ 
             $subtotal = $product->unity_price_sell * $product->quantity;
             $product->total_sell = $subtotal + ($subtotal * .16);
+
+            if(strlen($product->discount) <= 1)
+            {
+                $product->total_sell = $product->total_sell / number_format('1.0'.$product->discount,2);
+            }else{
+                $product->total_sell = $product->total_sell / number_format('1.'.$product->discount,2); 
+            }
+
             $product->save();
             $total += $product->total_sell; 
             $totalMasIva += $product->total_sell; 
