@@ -42,7 +42,7 @@ class BinnacleController extends Controller
             event(new \App\Events\NotificationEvent([
                 'id' => $user->id,
                 'msg' => \Auth::user()->name.' '.\Auth::user()->middle_name.' '.$msg,
-                'route' => route('index_binnacle')
+                'route' => route('wire_binnacles')
             ]));
         }
         \Mail::send('email.notification', ['binnacle' => $binnacle, 'msg' => $message], function ($mail){
@@ -51,7 +51,7 @@ class BinnacleController extends Controller
         });
         if($id)
         { 
-            return redirect()->route('index_binnacle')
+            return redirect()->route('wire_binnacles')
               ->with('message', 'La bitácora '.$binnacle->description.' se creó con éxito.');  
         }
         return redirect()->back()
