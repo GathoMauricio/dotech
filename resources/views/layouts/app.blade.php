@@ -315,9 +315,16 @@
                 </a>
             </li>
             @if(Auth::user()->rol_user_id == 1 || Auth::user()->rol_user_id == 2)
+            <!--
             <li class="nav-item">
                 <a href="{{ route('candidates') }}" class="nav-link @if (Route::currentRouteName() == 'candidates') active @endif">
                   <i class="nav-icon icon-users"></i><p>Aspirantes</p>
+                </a>
+            </li>
+            -->
+            <li class="nav-item">
+                <a href="{{ route('wire_candidates') }}" class="nav-link @if (Route::currentRouteName() == 'wire_candidates') active @endif">
+                  <i class="nav-icon icon-users"></i><p>Aspirantes <img src="{{ asset('img/wire.png') }}" width="60"></p>
                 </a>
             </li>
             @endif

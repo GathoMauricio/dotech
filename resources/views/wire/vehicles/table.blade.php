@@ -4,6 +4,7 @@
 @if(count($vehicles) <= 0)
 @include('layouts.no_records')
 @else
+{{ $vehicles->links('pagination-links') }}
 <table class="table table-bordered">
     <thead>
         <tr>

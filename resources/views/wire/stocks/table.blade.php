@@ -5,6 +5,7 @@
 @if(count($products) <= 0)
 @include('layouts.no_records')
 @else
+{{ $products->links('pagination-links') }}
 <table class="table table-striped">
     <thead>
         <tr>

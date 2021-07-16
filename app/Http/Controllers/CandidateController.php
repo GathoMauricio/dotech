@@ -53,11 +53,11 @@ class CandidateController extends Controller
             \Storage::disk('local')->put($name,  \File::get($file));
             $user->image = $name;
             $user->save();
-            return redirect()->route('candidates')->with('message', 'El aspirante se guardó y su imagen se almacenó con éxito.');
+            return redirect()->route('wire_candidates')->with('message', 'El aspirante se guardó y su imagen se almacenó con éxito.');
         }
         $user->save();
         #TODO : Make email template whit instructions about login
-        return redirect()->route('candidates')->with('message', 'Aspirante creado');
+        return redirect()->route('wire_candidates')->with('message', 'Aspirante creado');
     }
 
     /**
@@ -125,7 +125,7 @@ class CandidateController extends Controller
             \Storage::disk('local')->put($name,  \File::get($file));
             $user->image = $name;
             $user->save();
-            return redirect()->route('edit_user',$user->id)->with('message', 'La usuario se actualizó y su imagen se almacenó con éxito.');
+            return redirect()->route('edit_user',$user->id)->with('message', 'El usuario se actualizó y su imagen se almacenó con éxito.');
         }
         $user->save();
         return redirect()->route('edit_user',$user->id)->with('message', 'Usuario actualizado');
@@ -141,6 +141,6 @@ class CandidateController extends Controller
     {
         $user = Candidate::findOrFail($id);
         $user->delete();
-        return redirect()->route('candidates')->with('message', 'Candidato eliminado');
+        return redirect()->route('wire_candidates')->with('message', 'Candidato eliminado');
     }
 }
