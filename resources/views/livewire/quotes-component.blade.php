@@ -1,0 +1,8 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            @include("wire.$self_component.table")
+        </div>
+    </div>
+    
+</div>

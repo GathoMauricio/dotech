@@ -246,8 +246,15 @@
                 </a>
             </li>
             @if(Auth::user()->rol_user_id == 1 || Auth::user()->rol_user_id == 2)
+            <!--
             <li class="nav-item">
                 <a href="{{ route('index_quotes') }}" class="nav-link @if (Route::currentRouteName() == 'index_quotes') active @endif">
+                  <i class="nav-icon icon-coin-dollar"></i><p>Cotizaciones</p>
+                </a>
+            </li>
+            -->
+            <li class="nav-item">
+                <a href="{{ route('wire_quotes') }}" class="nav-link @if (Route::currentRouteName() == 'wire_quotes') active @endif">
                   <i class="nav-icon icon-coin-dollar"></i><p>Cotizaciones</p>
                 </a>
             </li>

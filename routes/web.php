@@ -329,7 +329,22 @@ Route::get('test',function(){
 
 #Livewire Components
 Route::group(['middleware' => ['auth']],function(){
-    Route::get('wire_projects',function(){ return view('wire.projects.index'); })->name('wire_projects');
+    #Retiros
     Route::get('wire_whitdrawals',function(){ return view('wire.whitdrawals.index'); })->name('wire_whitdrawals');
+    #Tareas
+    Route::get('wire_tasks',function(){ return view('wire.tasks.index'); })->name('wire_tasks');
+    #Cotizaciones
+    Route::get('wire_quotes',function(){ return view('wire.quotes.index'); })->name('wire_quotes');
+    #Proyectos
+    Route::get('wire_projects',function(){ return view('wire.projects.index'); })->name('wire_projects');
+    #Bitácoras
     Route::get('wire_binnacles',function(){ return view('wire.binnacles.index'); })->name('wire_binnacles');
+    #Compañias
+    Route::get('wire_companies',function(){ return view('wire.companies.index'); })->name('wire_companies');
+    #Vehiculos
+    Route::get('wire_binnacles',function(){ return view('wire.binnacles.index'); })->name('wire_binnacles');
+    #Almacen
+    Route::get('wire_vehicles',function(){ return view('wire.vehicles.index'); })->name('wire_vehicles');
+    #Aspirantes
+    Route::get('wire_candidates',function(){ return view('wire.candidates.index'); })->name('wire_candidates');
 });
