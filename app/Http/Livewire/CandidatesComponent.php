@@ -24,9 +24,9 @@ class CandidatesComponent extends Component
                 $q->orWhere('name','LIKE','%'.$this->search.'%');
                 $q->orWhere('middle_name','LIKE','%'.$this->search.'%');
                 $q->orWhere('last_name','LIKE','%'.$this->search.'%');
-            })->get();
+            })->paginate(15);
         }else{
-            $users = Candidate::where('rol_user_id',4)->get();
+            $users = Candidate::where('rol_user_id',4)->paginate(15);
         }
         return view('livewire.candidates-component',['users' => $users]);
     }

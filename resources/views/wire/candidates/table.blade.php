@@ -4,7 +4,7 @@
 @if(count($users) <= 0)
         @include('layouts.no_records')
     @else
-    {{ $whitdrawals->links('pagination-links') }}
+    {{ $users->links('pagination-links') }}
         <br><br>
         <table class="table table-bordered" id="index_table">
             <thead>
