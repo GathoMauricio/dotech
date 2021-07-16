@@ -342,9 +342,9 @@ Route::group(['middleware' => ['auth']],function(){
     #Compañias
     Route::get('wire_companies',function(){ return view('wire.companies.index'); })->name('wire_companies');
     #Vehiculos
-    Route::get('wire_binnacles',function(){ return view('wire.binnacles.index'); })->name('wire_binnacles');
-    #Almacen
     Route::get('wire_vehicles',function(){ return view('wire.vehicles.index'); })->name('wire_vehicles');
+    #Almacen
+    Route::get('wire_stocks',function(){ return view('wire.stocks.index'); })->name('wire_stocks');
     #Aspirantes
     Route::get('wire_candidates',function(){ return view('wire.candidates.index'); })->name('wire_candidates');
 });

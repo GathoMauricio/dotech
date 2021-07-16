@@ -302,9 +302,16 @@
                   <i class="nav-icon icon-truck"></i><p>Vehículos <img src="{{ asset('img/wire.png') }}" width="60"></p>
                 </a>
             </li>
+            <!--
             <li class="nav-item">
                 <a href="{{ route('stock_product_index') }}" class="nav-link @if (Route::currentRouteName() == 'stock_product_index') active @endif">
                   <i class="nav-icon icon-barcode"></i><p>Almacén</p>
+                </a>
+            </li>
+            -->
+            <li class="nav-item">
+                <a href="{{ route('wire_stocks') }}" class="nav-link @if (Route::currentRouteName() == 'wire_stocks') active @endif">
+                  <i class="nav-icon icon-barcode"></i><p>Almacén <img src="{{ asset('img/wire.png') }}" width="60"></p>
                 </a>
             </li>
             @if(Auth::user()->rol_user_id == 1 || Auth::user()->rol_user_id == 2)
@@ -363,7 +370,9 @@
           
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
+            <!--
             {{ \Breadcrumbs::render(Route::currentRouteName()) }}
+            -->
             <!--
               <li class="breadcrumb-item"><a href="#">Home</a></li>
               <li class="breadcrumb-item active">Starter Page</li>

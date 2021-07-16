@@ -33,7 +33,7 @@ class StockProductController extends Controller
                 $product->image = $name;
                 $product->save();
             }
-            return redirect()->route('stock_product_index')->with('message', 'Registro almacenado.');
+            return redirect()->route('wire_stocks')->with('message', 'Registro almacenado.');
         }
     }
 
@@ -68,7 +68,7 @@ class StockProductController extends Controller
 
         }
         $product->fill($request->except(['image']))->save();
-        return redirect()->route('stock_product_index')->with('message', 'Registro actualizado.');
+        return redirect()->route('wire_stocks')->with('message', 'Registro actualizado.');
     }
 
     public function destroy($id)
