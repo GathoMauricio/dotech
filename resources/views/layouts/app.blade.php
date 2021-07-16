@@ -290,9 +290,16 @@
                   <i class="nav-icon icon-office"></i><p>Compañias <img src="{{ asset('img/react.png') }}" width="60"></p>
                 </a>
             </li>
+            <!--
             <li class="nav-item">
                 <a href="{{ route('vehicle_index') }}" class="nav-link @if (Route::currentRouteName() == 'vehicle_index') active @endif">
                   <i class="nav-icon icon-truck"></i><p>Vehículos</p>
+                </a>
+            </li>
+            -->
+            <li class="nav-item">
+                <a href="{{ route('wire_vehicles') }}" class="nav-link @if (Route::currentRouteName() == 'wire_vehicles') active @endif">
+                  <i class="nav-icon icon-truck"></i><p>Vehículos <img src="{{ asset('img/wire.png') }}" width="60"></p>
                 </a>
             </li>
             <li class="nav-item">

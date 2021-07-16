@@ -42,11 +42,11 @@ class VehicleController extends Controller
                 event(new \App\Events\NotificationEvent([
                     'id' => $user->id,
                     'msg' => \Auth::user()->name.' '.\Auth::user()->middle_name.' '.$msg,
-                    'route' => route('vehicle_index')
+                    'route' => route('wire_vehicles')
                 ]));
             }
             
-            return redirect()->route('vehicle_index')->with('message', 'El vehículo '.$vehicle->brand." ".$vehicle->model." se ha creado corréctamente.");
+            return redirect()->route('wire_vehicles')->with('message', 'El vehículo '.$vehicle->brand." ".$vehicle->model." se ha creado corréctamente.");
         }
     }
 
@@ -92,7 +92,7 @@ class VehicleController extends Controller
             ]));
         }
 
-        return redirect()->route('vehicle_index')->with('message','El vehículo '.$vehicle->brand." ".$vehicle->model." se actualizó corréctamente.");
+        return redirect()->route('wire_vehicles')->with('message','El vehículo '.$vehicle->brand." ".$vehicle->model." se actualizó corréctamente.");
     }
 
     public function destroy($id)
@@ -126,11 +126,11 @@ class VehicleController extends Controller
             event(new \App\Events\NotificationEvent([
                 'id' => $user->id,
                 'msg' => \Auth::user()->name.' '.\Auth::user()->middle_name.' '.$msg,
-                'route' => route('vehicle_index')
+                'route' => route('wire_vehicles')
             ]));
         }
 
         $vehicle->delete();
-       return redirect()->route('vehicle_index')->with('message','El vehículo '.$vehicle->brand." ".$vehicle->model." se eliminó corréctamente.");
+       return redirect()->route('wire_vehicles')->with('message','El vehículo '.$vehicle->brand." ".$vehicle->model." se eliminó corréctamente.");
     }
 }
