@@ -24,7 +24,7 @@
         @if(strlen($search) >0)
     <tr>
             <td>{{ $quote->ID }}</td>
-            <td>{{ $quote->COMPANY }}</td>
+            <td>{{ $quote->COMPANIA }}</td>
             <td>{{ $quote->DESCRIPCION }}</td>
             <td>${{ number_format($quote->MONTO + ($quote->MONTO * 0.16),2) }}</td>
             <td>{{ onlyDate($quote->FECHA) }}</td>
