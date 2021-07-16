@@ -236,13 +236,15 @@
             -->
              <li class="nav-item">
                 <a href="{{ route('wire_whitdrawals') }}" class="nav-link @if (Route::currentRouteName() == 'wire_whitdrawals') active @endif">
-                  <i class="nav-icon icon-checkmark"></i><p>Retiros</p>
+                  <i class="nav-icon icon-checkmark"></i><p>Retiros <img src="{{ asset('img/wire.png') }}" width="60"></p>
+                  
                 </a>
+                
             </li>
 
             <li class="nav-item">
                 <a href="{{ route('task_index') }}" class="nav-link @if (Route::currentRouteName() == 'task_index') active @endif">
-                  <i class="nav-icon icon-clipboard"></i><p>Tareas</p>
+                  <i class="nav-icon icon-clipboard"></i><p>Tareas <img src="{{ asset('img/react.png') }}" width="60"></p>
                 </a>
             </li>
             @if(Auth::user()->rol_user_id == 1 || Auth::user()->rol_user_id == 2)
@@ -255,7 +257,7 @@
             -->
             <li class="nav-item">
                 <a href="{{ route('wire_quotes') }}" class="nav-link @if (Route::currentRouteName() == 'wire_quotes') active @endif">
-                  <i class="nav-icon icon-coin-dollar"></i><p>Cotizaciones</p>
+                  <i class="nav-icon icon-coin-dollar"></i><p>Cotizaciones <img src="{{ asset('img/wire.png') }}" width="60"></p>
                 </a>
             </li>
             @endif
@@ -268,7 +270,7 @@
             -->
             <li class="nav-item">
                 <a href="{{ route('wire_projects') }}" class="nav-link @if (Route::currentRouteName() == 'wire_projects') active @endif">
-                  <i class="nav-icon icon-price-tag"></i><p>Proyectos</p>
+                  <i class="nav-icon icon-price-tag"></i><p>Proyectos <img src="{{ asset('img/wire.png') }}" width="60"></p>
                 </a>
             </li>
             <!--
@@ -280,12 +282,12 @@
             -->
             <li class="nav-item">
                 <a href="{{ route('wire_binnacles') }}" class="nav-link @if (Route::currentRouteName() == 'wire_binnacles') active @endif">
-                  <i class="nav-icon icon-book"></i><p>Bitácoras</p>
+                  <i class="nav-icon icon-book"></i><p>Bitácoras <img src="{{ asset('img/wire.png') }}" width="60"></p>
                 </a>
             </li>
             <li class="nav-item">
                 <a href="{{ route('company_index') }}" class="nav-link @if (Route::currentRouteName() == 'company_index') active @endif">
-                  <i class="nav-icon icon-office"></i><p>Compañias</p>
+                  <i class="nav-icon icon-office"></i><p>Compañias <img src="{{ asset('img/react.png') }}" width="60"></p>
                 </a>
             </li>
             <li class="nav-item">
