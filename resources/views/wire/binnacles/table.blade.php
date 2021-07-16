@@ -1,5 +1,5 @@
+<a href="{{ route('create_binnacle') }}" class="float-right">[<span class="icon-plus">Crear bitácora<span>]</a><br/><br/>
 @include('wire.partials.search')
-
 @if(count($binnacles) <= 0)
 @include('layouts.no_records')
 @else
