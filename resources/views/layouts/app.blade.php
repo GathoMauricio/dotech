@@ -264,11 +264,13 @@
                   <i class="nav-icon icon-price-tag"></i><p>Proyectos</p>
                 </a>
             </li>
+            <!--
             <li class="nav-item">
                 <a href="{{ route('index_binnacle') }}" class="nav-link @if (Route::currentRouteName() == 'index_binnacle') active @endif">
                   <i class="nav-icon icon-book"></i><p>Bitácoras</p>
                 </a>
             </li>
+            -->
             <li class="nav-item">
                 <a href="{{ route('wire_binnacles') }}" class="nav-link @if (Route::currentRouteName() == 'wire_binnacles') active @endif">
                   <i class="nav-icon icon-book"></i><p>Bitácoras</p>
