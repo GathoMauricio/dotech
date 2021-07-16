@@ -8,7 +8,7 @@
     <thead>
         <tr>
             <th width="10%">Cliente</th>
-            <th width="15%">Proyecto</th>
+            <th width="15%">Proyecto / Alias</th>
             <th width="10%">Autor</th>
             <th width="25%">Descriptción</th>
             <th width="15%">Fecha</th>
@@ -28,7 +28,7 @@
             @if(!empty($binnacle->sale['description']))
             <td width="10%"><a href="{{ route('show_sale',$binnacle->sale['id']) }}" target="_blank">{{ $binnacle->sale['description'] }}</a></td>
             @else
-            <td width="15%" class="text-center font-weight-bold">No asignado</td>
+            <td width="15%" class="text-center font-weight-bold">{{ $binnacle->alias }}</td>
             @endif
             <td width="15%">{{ $binnacle->author['name'] }} {{ $binnacle->author['middle_name'] }} {{ $binnacle->author['last_name'] }}</td>
             <td width="25%">{{ $binnacle->description }}</td>

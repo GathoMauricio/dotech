@@ -20,6 +20,10 @@ class BinnaclesComponent extends Component
     {
         if (strlen($this->search) > 0) {
             $binnacles = Binnacle::where('description','LIKE','%'.$this->search.'%')->paginate(15);
+            $binnacles = Binnacle::where(function($q){
+                $q->where('description','LIKE','%'.$this->search.'%');
+                $q->orWhere('alias','LIKE','%'.$this->search.'%');
+            })->paginate(15);
         }else{
             $binnacles = Binnacle::orderBy('created_at','DESC')->paginate(15);
         }

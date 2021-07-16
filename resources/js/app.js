@@ -1819,6 +1819,15 @@ window.openUserTest = user_id => {
     });
 };
 
+window.changeProjectBinnacle = project_id => {
+    if (project_id.length <= 0) {
+        $("#div_alias").css("display", "block");
+    } else {
+        $("#div_alias").css("display", "none");
+        $("#txt_alias_binnacle").val('');
+    }
+};
+
 
 
 //Livewire functions

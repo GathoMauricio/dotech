@@ -18,6 +18,7 @@ class Binnacle extends Model
         'firm',
         'feedbak',
         'email',
+        'alias',
         'created_at',
         'updated_at'
     ];
