@@ -1,7 +1,11 @@
 
 
 <a href="{{ route('all_rejects') }}" class="float-right">Cotizaciones rechazadas</a>
+<!--
 <a href="#" onclick="addQuoteModal();"><span class="icon-plus"></span> Agregar cotización</a>
+-->
+<a href="#" onclick="createQuote();"><span class="icon-plus"></span> Agregar cotización <img src="{{ asset('img/wire.png') }}" height="16"></a>
+
 <br/><br/>
 @include('wire.partials.search')
 @if(count($quotes) <= 0)
@@ -33,6 +37,10 @@
                 <br>
                 <a href="{{ route('quote_products',$quote->ID) }}" target="_blank"><span class="icon-eye" title="Productos" style="cursor:pointer;color:#3498DB"> Productos</span></a>
                 <br>
+                <!--
+                <a href="javascript:void(0);" wire:click.prevent="showFullModalProducts({{ $quote->id }});" ><span class="icon-eye" title="Productos wire" style="cursor:pointer;color:#3498DB"> Productos</span></a>
+                <br>
+                -->
                 <a href="#" onclick="changeStatusModal({{ $quote->ID }});"><span class="icon-checkmark" title="Cambiar estatus" style="cursor:pointer;color:#2ECC71"> Estatus</span></a>
                 <br>
                 <a href="#" onclick="editQuote({{ $quote->ID }});"><span class="icon-pencil" title="Editar" style="cursor:pointer;color:#F39C12"> Editar</span></a>
@@ -56,6 +64,10 @@
                 <br>
                 <a href="{{ route('quote_products',$quote->id) }}" target="_blank"><span class="icon-eye" title="Productos" style="cursor:pointer;color:#3498DB"> Productos</span></a>
                 <br>
+                <!--
+                <a href="javascript:void(0);" wire:click.prevent="showFullModalProducts({{ $quote->id }});" ><span class="icon-eye" title="Productos wire" style="cursor:pointer;color:#3498DB"> Productos</span></a>
+                <br>
+                -->
                 <a href="#" onclick="changeStatusModal({{ $quote->id }});"><span class="icon-checkmark" title="Cambiar estatus" style="cursor:pointer;color:#2ECC71"> Estatus</span></a>
                 <br>
                 <a href="#" onclick="editQuote({{ $quote->id }});"><span class="icon-pencil" title="Editar" style="cursor:pointer;color:#F39C12"> Editar</span></a>

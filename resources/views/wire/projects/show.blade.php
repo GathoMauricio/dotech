@@ -1,4 +1,4 @@
-<div class="full-modal" id="full_modal">
+<div wire:ignore.self class="full-modal" id="full_modal">
     <p>
         <span wire:click="dissmisProject" class="icon-cross float-right p-3" style="cursor:pointer;"></span>
     </p>

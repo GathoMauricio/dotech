@@ -1831,12 +1831,21 @@ window.changeProjectBinnacle = project_id => {
 
 
 //Livewire functions
-
+Livewire.on('successNotification', (text) => { alertify.success(text); });
+Livewire.on('errorNotification', (text) => { alertify.error(text);});
 Livewire.on('showFullModal', () => {
     $("#full_modal").css('display', 'block');
 });
 Livewire.on('dissmisFullModal', () => {
-    $("#full_modal").css('display', 'none');
+    $(".full-modal").css('display', 'none');
 });
+Livewire.on('showFullModalProducts',() => $("#full_modal_index_products").css('display', 'block'));
+
+window.successNotification = text => alertify.success(text);
+window.errorNotification = text => alertify.error(text);
 
 window.createWhitdrawal = () => $("#add_sale_whitdrawal_modal").modal();
+
+window.createQuote = () => $("#full_modal_create_quote").css('display', 'block');
+
+window.showFullModalProducts = () => $("#full_modal_index_products").css('display', 'block');
