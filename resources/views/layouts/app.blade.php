@@ -270,6 +270,11 @@
                 </a>
             </li>
             <li class="nav-item">
+                <a href="{{ route('wire_binnacles') }}" class="nav-link @if (Route::currentRouteName() == 'wire_binnacles') active @endif">
+                  <i class="nav-icon icon-book"></i><p>Bitácoras</p>
+                </a>
+            </li>
+            <li class="nav-item">
                 <a href="{{ route('company_index') }}" class="nav-link @if (Route::currentRouteName() == 'company_index') active @endif">
                   <i class="nav-icon icon-office"></i><p>Compañias</p>
                 </a>
