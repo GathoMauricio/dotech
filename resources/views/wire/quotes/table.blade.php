@@ -30,7 +30,7 @@
             <td>{{ $quote->ID }}</td>
             <td>{{ $quote->COMPANIA }}</td>
             <td>{{ $quote->DESCRIPCION }}</td>
-            <td>${{ number_format($quote->MONTO + ($quote->MONTO * 0.16),2) }}</td>
+            <td>${{ number_format($quote->MONTO,2) }}</td>
             <td>{{ onlyDate($quote->FECHA) }}</td>
             <td>
                 <a href="#" onclick="sendQuoteModal({{ $quote->ID }},'{{ $quote->EMAIL }}');"><span class="icon-envelop" title="Enviar" style="cursor:pointer;color:#D7DF01"> Enviar</span></a>
