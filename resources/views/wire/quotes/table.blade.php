@@ -35,12 +35,10 @@
             <td>
                 <a href="#" onclick="sendQuoteModal({{ $quote->ID }},'{{ $quote->EMAIL }}');"><span class="icon-envelop" title="Enviar" style="cursor:pointer;color:#D7DF01"> Enviar</span></a>
                 <br>
-                <a href="{{ route('quote_products',$quote->ID) }}" target="_blank"><span class="icon-eye" title="Productos" style="cursor:pointer;color:#3498DB"> Productos</span></a>
+                <a href="javascript:void(0);" onclick="loadPdf({{ $quote->ID }})"><span class="icon-file-pdf" title="Productos" style="cursor:pointer;color:red"> PDF</span></a>
                 <br>
-                <!--
-                <a href="javascript:void(0);" wire:click.prevent="showFullModalProducts({{ $quote->id }});" ><span class="icon-eye" title="Productos wire" style="cursor:pointer;color:#3498DB"> Productos</span></a>
+                <a href="javascript:void(0);" wire:click.prevent="showFullModalProducts({{ $quote->ID }});" ><span class="icon-eye" title="Productos" style="cursor:pointer;color:#3498DB"> Productos</span></a>
                 <br>
-                -->
                 <a href="#" onclick="changeStatusModal({{ $quote->ID }});"><span class="icon-checkmark" title="Cambiar estatus" style="cursor:pointer;color:#2ECC71"> Estatus</span></a>
                 <br>
                 <a href="#" onclick="editQuote({{ $quote->ID }});"><span class="icon-pencil" title="Editar" style="cursor:pointer;color:#F39C12"> Editar</span></a>
@@ -57,17 +55,18 @@
             <td>{{ $quote->id }}</td>
             <td>{{ $quote->company['name'] }}</td>
             <td>{{ $quote->description }}</td>
+            <!--
             <td>${{ number_format($quote->estimated + ($quote->estimated * 0.16),2) }}</td>
+            -->
+            <td>${{ number_format($quote->estimated,2) }}</td>
             <td>{{ onlyDate($quote->created_at) }}</td>
             <td>
                 <a href="#" onclick="sendQuoteModal({{ $quote->id }},'{{ $quote->department['email'] }}');"><span class="icon-envelop" title="Enviar" style="cursor:pointer;color:#D7DF01"> Enviar</span></a>
                 <br>
-                <a href="{{ route('quote_products',$quote->id) }}" target="_blank"><span class="icon-eye" title="Productos" style="cursor:pointer;color:#3498DB"> Productos</span></a>
+                <a href="javascript:void(0);" onclick="loadPdf({{ $quote->id }})"><span class="icon-file-pdf" title="Productos" style="cursor:pointer;color:red"> PDF</span></a>
                 <br>
-                <!--
-                <a href="javascript:void(0);" wire:click.prevent="showFullModalProducts({{ $quote->id }});" ><span class="icon-eye" title="Productos wire" style="cursor:pointer;color:#3498DB"> Productos</span></a>
+                <a href="javascript:void(0);" wire:click.prevent="showFullModalProducts({{ $quote->id }});" ><span class="icon-eye" title="Productos" style="cursor:pointer;color:#3498DB"> Productos</span></a>
                 <br>
-                -->
                 <a href="#" onclick="changeStatusModal({{ $quote->id }});"><span class="icon-checkmark" title="Cambiar estatus" style="cursor:pointer;color:#2ECC71"> Estatus</span></a>
                 <br>
                 <a href="#" onclick="editQuote({{ $quote->id }});"><span class="icon-pencil" title="Editar" style="cursor:pointer;color:#F39C12"> Editar</span></a>
@@ -93,3 +92,14 @@
 @include('companies.add_department_company_modal')
 @include('quotes.change_status_modal')
 @include('quotes.edit_quote_modal')
+<div id="example1"></div>
+<script src="{{ asset('js/pdf/pdfobject.js') }}"></script>
+<script>
+function loadPdf(id) {
+    PDFObject.embed("{{ route('load_sale_pdf') }}/"+id, "#content_pdf");
+    $("#full_modal_pdf").css('display', 'block');
+}
+</script>
+<style>
+.pdfobject-container { height: 90vh; }
+</style>

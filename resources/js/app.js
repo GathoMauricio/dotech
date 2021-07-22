@@ -1840,12 +1840,25 @@ Livewire.on('dissmisFullModal', () => {
     $(".full-modal").css('display', 'none');
 });
 Livewire.on('showFullModalProducts',() => $("#full_modal_index_products").css('display', 'block'));
+Livewire.on('dissmisCreateProductQuote',()=>$("#create_product_quote").modal('hide'));
+Livewire.on('editQuoteProductModal',() => $("#edit_product_quote").modal());
+Livewire.on('dissmisEditProductQuote',() => $("#edit_product_quote").modal('hide'));
 
 window.successNotification = text => alertify.success(text);
 window.errorNotification = text => alertify.error(text);
 
 window.createWhitdrawal = () => $("#add_sale_whitdrawal_modal").modal();
-
 window.createQuote = () => $("#full_modal_create_quote").css('display', 'block');
-
+window.createProductQuote = () =>$("#create_product_quote").modal();
 window.showFullModalProducts = () => $("#full_modal_index_products").css('display', 'block');
+window.destroyProductQuote = id => {
+    alertify.confirm("",
+            function() {
+                Livewire.emit('destroyProductQuote', id);
+            },
+            function() {
+                //alertify.error('Cancel');
+            })
+        .set('labels', { ok: 'Si, eliminar!', cancel: 'Cancelar' })
+        .set({ transition: 'flipx', title: 'Alerta', message: '¿Eliminar registro?' });
+};

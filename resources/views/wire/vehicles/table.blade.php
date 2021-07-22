@@ -39,7 +39,7 @@
             @if($lastService)
             {{ $lastService->kilometers }} km
             <br/>
-            {{ onlyDate($lastService->date) }}
+            {{ onlyDate($lastService->created_at) }}
             @else
             No definido
             @endif
