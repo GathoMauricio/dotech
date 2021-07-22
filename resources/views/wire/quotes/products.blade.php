@@ -39,7 +39,7 @@
                     <td>{{ $product->description }}</td>
                     <td>${{ number_format($product->unity_price_sell,2) }}</td>
                     <td>{{ $product->discount }}%</td>
-                    <td>${{ number_format($product->total_sell ,2) }}</td>
+                    <td>${{ number_format($product->unity_price_sell * $product->quantity ,2) }}</td>
                     <td>
                         <span wire:click="editQuoteProduct({{ $product->id }})" class="icon-pencil" style="cursor:pointer;color:#F39C12;"></span>
                         <br>
