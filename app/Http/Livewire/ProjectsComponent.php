@@ -22,6 +22,7 @@ class ProjectsComponent extends Component
     public $self_component = 'projects';
 
     public
+        $sale_id = null,
         $sale = null,
         $products = null,
         $whitdrawals = null,
@@ -39,6 +40,16 @@ class ProjectsComponent extends Component
         $grossNoIvaProfit = null,
         $commision = null,
         $grossNoIvaProfitNoCommision = null;
+
+    #Propiedades para manipular retiros retiros
+    public 
+        $WDwhitdrawal_provider_id,
+        $WDquantity,
+        $WDinvoive,
+        $WDfolio,
+        $WDpaid,
+        $WDdescription;
+    
 
     public function render()
     {
@@ -71,13 +82,17 @@ class ProjectsComponent extends Component
 
     public function show($id)
     {
-        $sale = Sale::findOrFail($id);
+        $this->sale_id = $id;
+        $sale = Sale::findOrFail($this->sale_id);
         $products = ProductSale::where('sale_id', $id)->get();
-        $whitdrawals = Whitdrawal::where('sale_id', $id)->where('status', 'Aprobado')->get();
+        $whitdrawals = Whitdrawal::where('sale_id', $id)->where(function($q){
+            $q->where('status', 'Aprobado');
+            $q->orWhere('status', 'Pendiente');
+        })->orderBy('id', 'DESC')->get();
         $payments = SalePayment::where('sale_id', $id)->get();
         $documents = SaleDocument::where('sale_id', $id)->get();
         $binnacles = Binnacle::where('sale_id', $id)->get();
-
+        #Aqui se actualiza el costo del proyecto al mostrar la info completa del mismo
         $estimado = 0;
         foreach ($products as $product) {
             $estimado += $product->unity_price_sell * $product->quantity;
@@ -85,8 +100,10 @@ class ProjectsComponent extends Component
         $sale->estimated = $estimado;
         $sale->iva = ($estimado + ($estimado * 0.16)) - $estimado;
         $sale->save();
+        #end
         $totalRetiros = 0;
         foreach ($whitdrawals as $whitdrawal) {
+            if($whitdrawal->status == 'Aprobado')
             $totalRetiros += floatval($whitdrawal->quantity);
         }
 
@@ -137,6 +154,50 @@ class ProjectsComponent extends Component
         $this->grossNoIvaProfitNoCommision = $grossNoIvaProfitNoCommision;
 
         $this->emit('showFullModal');
+    }
+
+    public function storeWhitdrawal()
+    {
+        $this->validate(
+            [
+                'WDwhitdrawal_provider_id' => 'required',
+                'WDquantity' => 'required|numeric',
+                'WDinvoive' => 'required',
+                'WDpaid' => 'required',
+                'WDdescription' => 'required'
+            ], 
+            [
+                'WDwhitdrawal_provider_id.required' => 'Este campo es obligatorio',
+                'WDquantity.required' => 'Este campo es obligatorio',
+                'WDquantity.numeric' => 'Este campo debe ser un número válido',
+                'WDinvoive.required' => 'Este campo es obligatorio',
+                'WDpaid.required' => 'Este campo es obligatorio',
+                'WDdescription.required' => 'Este campo es obligatorio'
+            ]
+        );
+        $whitdrawal = Whitdrawal::create([
+            'sale_id' => $this->sale_id,
+            'status' => 'Pendiente',
+            'whitdrawal_provider_id' => $this->WDwhitdrawal_provider_id,
+            'quantity' => $this->WDquantity,
+            'invoive' => $this->WDinvoive,
+            'folio' => $this->WDfolio,
+            'paid' => $this->WDpaid,
+            'description' => $this->WDdescription
+        ]);
+        #Regarga los retiros
+        $this->whitdrawals = Whitdrawal::where('sale_id', $this->sale_id)->where(function($q){
+            $q->where('status', 'Aprobado');
+            $q->orWhere('status', 'Pendiente');
+        })->orderBy('id', 'DESC')->get();
+        $this->emit('dissmisCreateWhitdrawal');
+        $this->emit('successNotification','Retiro '.$whitdrawal->description.' agregado.');
+        $this->WDwhitdrawal_provider_id = null;
+        $this->WDquantity = null;
+        $this->WDinvoive = null;
+        $this->WDfolio = null;
+        $this->WDpaid = null;
+        $this->WDdescription = null;
     }
 
     public function dissmisProject()

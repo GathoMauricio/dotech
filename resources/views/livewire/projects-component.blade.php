@@ -4,5 +4,7 @@
             @include("wire.$self_component.table")
         </div>
     </div>
+    
     @include("wire.$self_component.show")
+    @include("wire.$self_component.create_whitdrawal")
 </div>

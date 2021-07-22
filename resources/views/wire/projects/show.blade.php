@@ -330,7 +330,7 @@
                 <center>
                     <label>Retiros</label>
                     <label style="float:right;padding:5px;"><span
-                            onclick="addSaleWhitdrawal({{ $sale->id }});" class="icon-plus"
+                            onclick="createWhitdrawal();" class="icon-plus"
                             style="cursor:pointer;color:white;" title="Solicitar retiro..."></span></label>
                 </center>
             </td>
@@ -363,17 +363,17 @@
                 @if(!empty( $whitdrawal->account['name']))
                 <td>{{ $whitdrawal->account['name'] }}</td>
                 @else
-                <td class="text-center"><img src="{{ asset('img/loading.gif') }}" width="60"></td>
+                <td class="text-center">No definido</td>
                 @endif
                 @if(!empty( $whitdrawal->department['name']))
                 <td>{{ $whitdrawal->department['name'] }}</td>
                 @else
-                <td class="text-center"><img src="{{ asset('img/loading.gif') }}" width="60"></td>
+                <td class="text-center">No definido</td>
                 @endif
                 @if(!empty( $whitdrawal->type))
                 <td>{{ $whitdrawal->type }}</td>
                 @else
-                <td class="text-center"><img src="{{ asset('img/loading.gif') }}" width="60"></td>
+                <td class="text-center">No definido</td>
                 @endif
                 <td>${{  number_format($whitdrawal->quantity,2) }}</td>
                 <td>
@@ -598,5 +598,3 @@
     @include('sale.add_whitdrawal_document_modal')
     @include('sale.add_sale_payment_modal')
     @include('sale.add_sale_document_modal')
-    @include('sale.add_sale_whitdrawal_modal')
-  
