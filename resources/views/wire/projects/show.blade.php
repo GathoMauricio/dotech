@@ -82,7 +82,7 @@
             <td style="padding:5px;">
                 <center>
                     <a href="#">
-                        <span onclick="addSaleWhitdrawal({{ $sale->id }});" class="icon-credit-card" style="cursor:pointer;">
+                        <span onclick="createWhitdrawal();" class="icon-credit-card" style="cursor:pointer;">
                             Solicitar retito
                         </span>
                     </a>
