@@ -84,6 +84,13 @@ class QuotesComponent extends Component
         }
         foreach($quotes as $q){ 
             $products = ProductSale::where('sale_id',$q->id)->get();
+
+
+            foreach($products as $p){
+                $p->total_sell = $p->unity_price_sell * $p->quantity;
+                $p->save();
+            }
+
             #suma el total de los productos
             $subtotal = $products->sum('total_sell');
             #calcula el iva
@@ -93,6 +100,7 @@ class QuotesComponent extends Component
             #Actualza costo total de la cotización
             $q->estimated = $total;
             $q->save();
+
         }
         $this->companies = Company::orderBy('name')->get();
         return view('livewire.quotes-component',['quotes' => $quotes]);

@@ -131,6 +131,11 @@
                 <th width="15%" style="background-color:#D5D8DC;">Importe</th>
             </tr>
             @foreach($saleProducts as $saleProduct)
+
+            @php
+                $saleProduct->total_sell = $saleProduct->unity_price_sell * $saleProduct->quantity;
+            @endphp
+
             <tr style="background-color:#D5D8DC;">
                 <td style="text-align:center">{{ $saleProduct->quantity }}</td>
                 @if(!empty($saleProduct->measure))
@@ -153,6 +158,9 @@
                 <td style="text-align:center;background-color:#D5D8DC;">{{ $sale->currency }}</td>
             </tr>
             @php
+
+
+
                 #suma el total de los productos
                 $subtotal = $saleProducts->sum('total_sell');
                 #calcula el iva

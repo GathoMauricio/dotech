@@ -9,7 +9,7 @@
         </h3>
 
         <a href="#" onclick="createProductQuote();"><span class="icon-plus"></span> Agregar producto</a>
-        
+        <a href="{{ route('load_sale_pdf',$currentQuote->id ) }}" style="color:red" target="_blank"><span class="icon-file-pdf"></span> Generar cotización</a>
         @if(count($products) <= 0)
         @include('layouts.no_records')
         @else

@@ -95,6 +95,7 @@ class ProjectsComponent extends Component
         #Aqui se actualiza el costo del proyecto al mostrar la info completa del mismo
         $estimado = 0;
         foreach ($products as $product) {
+            $product->total_sell = $product->unity_price_sell * $product->quantity;
             $estimado += $product->unity_price_sell * $product->quantity;
         }
         $sale->estimated = $estimado;
