@@ -126,7 +126,7 @@
 <div id="cotizado_container_tab">
     <table class="table" border="5">
         <tr>
-            <td colspan="4" style="background-color:#d30035;color:white;font-weight:bold;">
+            <td colspan="5" style="background-color:#d30035;color:white;font-weight:bold;">
                 <label style="float:right;padding:5px;">
                     <span onclick="editarProyecto(0);" class="icon-pencil"
                         style="cursor:pointer;color:white;" title="Editar proyecto...">
@@ -147,6 +147,10 @@
             <td>
                 <b>Utilidad</b>
                 <span title="Utilidad generada hasta el momento..." class="icon-info"></span>
+            </td>
+            <td>
+                <b>Inversión estimada</b>
+                <span title="Inversión estimada..." class="icon-info"></span>
             </td>
             <td>
                 <b>Comisión</b>
@@ -177,11 +181,12 @@
             <td>${{ number_format($totalRetiros,2) }}</td>
             <td>${{ $costoProyecto }}</td>
             <td>${{ $utilidad }}</td>
+            <td>${{ $sale->investment }}</td>
             <td>${{ $comision }}</td>
         </tr>
 
         <tr>
-            <td colspan="4" style="word-wrap:break-word;"><b>Observaciones:</b> {{ $sale->observation }}</td>
+            <td colspan="5" style="word-wrap:break-word;"><b>Observaciones:</b> {{ $sale->observation }}</td>
         </tr>
     </table>
 </div>

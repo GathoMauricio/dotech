@@ -41,7 +41,8 @@ class QuotesComponent extends Component
         $shipping,
         $payment_type,
         $credit,
-        $currency;
+        $currency,
+        $investment;
     #Propiedades para ,anipular un producto a una cotización
     public 
         $id_product,
@@ -63,6 +64,7 @@ class QuotesComponent extends Component
                     'companies.name AS COMPANIA',
                     'sales.description AS DESCRIPCION',
                     'sales.estimated AS MONTO',
+                    'sales.investment AS INVERSION',
                     'company_department.email AS EMAIL',
                     'sales.created_at AS FECHA'
                     )
@@ -129,6 +131,7 @@ class QuotesComponent extends Component
             'description' => 'required',
             //'observation' => '',
             'delivery_days' => 'required|numeric|min:0',
+            'investment' => 'required|numeric|min:0',
             'shipping' => 'required',
             'payment_type' => 'required',
             'credit' => 'required',
@@ -141,6 +144,9 @@ class QuotesComponent extends Component
             'delivery_days.required' => 'Este campo es obligatorio.',
             'delivery_days.numeric' => 'Este campo debe ser un número.',
             'delivery_days.min' => 'El número debe ser por lo menos 0.',
+            'investment.required' => 'Este campo es obligatorio.',
+            'investment.numeric' => 'Este campo debe ser un número.',
+            'investment.min' => 'El número debe ser por lo menos 0.',
             'shipping.required' => 'Este campo es obligatorio.',
             'payment_type.required' => 'Este campo es obligatorio.',
             'credit.required' => 'Este campo es obligatorio.',
@@ -154,6 +160,7 @@ class QuotesComponent extends Component
             'description' => $this->description,
             'observation' => $this->observation,
             'delivery_days' => $this->delivery_days,
+            'investment' => $this->investment,
             'shipping' => $this->shipping,
             'payment_type' => $this->payment_type,
             'credit' => $this->credit,

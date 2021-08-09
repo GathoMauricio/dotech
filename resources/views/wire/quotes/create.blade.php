@@ -9,7 +9,7 @@
 
     <div class="container">
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <!--
                                     <a href="{{ route('create_company') }}"class="float-right"><span class="icon-plus"></span> Agregar compañía</a>
@@ -24,7 +24,7 @@
                                     @error('company_id') <span class="error-message">{{ $message }}</span> @enderror
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <!--
                                     <a href="#" onclick="addDepartmentCompanyModal()" class="float-right"><span class="icon-plus"></span> Agregar departamento</a>
@@ -45,7 +45,7 @@
                                     @error('department_id') <span class="error-message">{{ $message }}</span> @enderror
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="delivery_days" class="font-weight-bold color-primary-sys">
                                         Tiempo de entrega (Días)
@@ -53,6 +53,16 @@
                                     <input wire:model="delivery_days" type="text" 
                                         min="0"  class="form-control"  />
                                     @error('delivery_days') <span class="error-message">{{ $message }}</span> @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="delivery_days" class="font-weight-bold color-primary-sys">
+                                        Inversión estimada
+                                    </label>
+                                    <input wire:model="investment" type="text" 
+                                        min="0"  class="form-control"  />
+                                    @error('investment') <span class="error-message">{{ $message }}</span> @enderror
                                 </div>
                             </div>
                         </div>

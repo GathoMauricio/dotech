@@ -37,7 +37,7 @@ class Sale extends Model
 
 		static::creating(function ($query) {
             $query->author_id = \Auth::user()->id;
-            $query->investment = 0;
+            //$query->investment = 0;
             $query->estimated = 0;
             $query->iva = 0;
             $query->utility = 0;

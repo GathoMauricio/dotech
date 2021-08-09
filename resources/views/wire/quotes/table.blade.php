@@ -19,6 +19,7 @@
             <th width="15%">Compañía</th>
             <th width="25%">Descriptción</th>
             <th width="15%">Precio</th>
+            <th width="15%">Inversion estimada</th>
             <th width="15%">Fecha</th>
             <th width="15%"></th>
         </tr>
@@ -31,6 +32,7 @@
             <td>{{ $quote->COMPANIA }}</td>
             <td>{{ $quote->DESCRIPCION }}</td>
             <td>${{ number_format($quote->MONTO,2) }}</td>
+            <td>${{ number_format($quote->INVERSION,2) }}</td>
             <td>{{ onlyDate($quote->FECHA) }}</td>
             <td>
                 <a href="#" onclick="sendQuoteModal({{ $quote->ID }},'{{ $quote->EMAIL }}');"><span class="icon-envelop" title="Enviar" style="cursor:pointer;color:#D7DF01"> Enviar</span></a>
@@ -59,6 +61,7 @@
             <td>${{ number_format($quote->estimated + ($quote->estimated * 0.16),2) }}</td>
             -->
             <td>${{ number_format($quote->estimated,2) }}</td>
+            <td>${{ number_format($quote->investment,2) }}</td>
             <td>{{ onlyDate($quote->created_at) }}</td>
             <td>
                 <a href="#" onclick="sendQuoteModal({{ $quote->id }},'{{ $quote->department['email'] }}');"><span class="icon-envelop" title="Enviar" style="cursor:pointer;color:#D7DF01"> Enviar</span></a>
