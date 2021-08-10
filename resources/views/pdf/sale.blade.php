@@ -134,6 +134,7 @@
 
             @php
                 $saleProduct->total_sell = $saleProduct->unity_price_sell * $saleProduct->quantity;
+                $saleProduct->total_sell = ($saleProduct->total_sell - ($saleProduct->total_sell / 100 * $saleProduct->discount));
             @endphp
 
             <tr style="background-color:#D5D8DC;">

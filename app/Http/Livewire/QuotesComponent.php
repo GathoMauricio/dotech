@@ -90,6 +90,7 @@ class QuotesComponent extends Component
 
             foreach($products as $p){
                 $p->total_sell = $p->unity_price_sell * $p->quantity;
+                $p->total_sell = ($p->total_sell - ($p->total_sell / 100 * $p->discount));
                 $p->save();
             }
 
