@@ -17,7 +17,7 @@ class ProjectsComponent extends Component
     use WithPagination;
     use WithFileUploads;
     protected $paginationTheme = 'bootstrap';
-    protected $listeners = ['destroy' => 'destroy'];
+    protected $listeners = ['destroy' => 'destroy' ,'eliminarRetiro' => 'eliminarRetiro', 'eliminarDocumento' => 'eliminarDocumento'];
     public $search = "";
     public $self_component = 'projects';
 
@@ -221,5 +221,24 @@ class ProjectsComponent extends Component
         $this->grossNoIvaProfit = null;
         $this->commision = null;
         $this->grossNoIvaProfitNoCommision = null;
+    }
+
+    public function eliminarRetiro($id)
+    { 
+        $retiro = Whitdrawal::find($id);
+        $retiro->delete();
+        $this->whitdrawals = Whitdrawal::where('sale_id', $this->sale_id)->where(function($q){
+            $q->where('status', 'Aprobado');
+            $q->orWhere('status', 'Pendiente');
+        })->orderBy('id', 'DESC')->get();
+        $this->emit('successNotification','Registro eliminado');
+    }
+
+    public function eliminarDocumento($id)
+    { 
+        $documento = SaleDocument::find($id);
+        $documento->delete();
+        $this->documents = SaleDocument::where('sale_id', $this->sale_id)->get();
+        $this->emit('successNotification','Registro eliminado');
     }
 }

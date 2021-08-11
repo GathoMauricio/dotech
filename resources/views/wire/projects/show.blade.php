@@ -300,7 +300,7 @@
 <div id="archivos_container_tab" style="display:none;">
     <table class="table" border="5">
         <tr>
-            <td colspan="3" style="background-color:#d30035;color:white;font-weight:bold;">
+            <td colspan="4" style="background-color:#d30035;color:white;font-weight:bold;">
                 <center>
                     <label>Archivos</label>
                     <label style="float:right;padding:5px;"><span
@@ -310,19 +310,21 @@
             </td>
         </tr>
         <tr>
+            <td><b></b></td>
             <td><b>Fecha</b></td>
             <td><b>Descripción</b></td>
             <td><b>Archivo</b></td>
         </tr>
         @foreach($documents as $document)
         <tr>
+            <td><a href ="javascript:void(0);" class="text-red" onclick ="eliminarDocumento({{ $document->id }})">Eliminar</a></td>
             <td>{{ formatDate($document->created_at) }}</td>
             <td>{{ $document->description }}</td>
             <td class="text-center"><a href="{{ env('APP_URL').'/storage/'.$document->document }}" target="_BLANK"><span class="icon-eye"></span></a></td>
         </tr>
         @endforeach
         @if(count($documents)<=0)
-        <tr><td colspan="3" class="text-center">Sin registros</td></tr>
+        <tr><td colspan="4" class="text-center">Sin registros</td></tr>
         @endif
     </table>
 </div>
@@ -387,15 +389,19 @@
                     <br/>
                     <a href="#" onclick="aproveWithdrawalModal({{ $whitdrawal->id }});"><span class="icon-checkmark"></span> Aprobar</a>
                     @endif
+                    @if($whitdrawal->status == 'Pendiente')
+                    <br/>
+                    <a href="#" class="text-red" onclick="eliminarRetiro({{ $whitdrawal->id }});"><span class="icon-bin"></span> Eliminar</a>
+                    @endif
                 </td>
 
-                <td width="40%;">
-                <input type="text" onkeyUp="updateWhitdrawalFolio({{ $whitdrawal->id }},this.value);" value="{{ $whitdrawal->folio }}" class="form-control"/>
+                <td>
+                <input type="text" onkeyUp="updateWhitdrawalFolio({{ $whitdrawal->id }},this.value);" value="{{ $whitdrawal->folio }}"/>
                 <input type="hidden" id="txt_update_whidrawal_folio" value="{{ route('update_whitdrawal_folio') }}">
                 </td>
 
-                <td width="40%;">
-                <select onchange="updateWhitdrawalPaid({{ $whitdrawal->id }},this.value);" class="form-control">
+                <td>
+                <select onchange="updateWhitdrawalPaid({{ $whitdrawal->id }},this.value);">
                     @if($whitdrawal->paid == 'SI')
                         <option value="SI" selected>SI</option>
                         <option value="NO">NO</option>

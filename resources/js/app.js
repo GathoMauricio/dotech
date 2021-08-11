@@ -1867,3 +1867,25 @@ window.destroyProductQuote = id => {
         .set('labels', { ok: 'Si, eliminar!', cancel: 'Cancelar' })
         .set({ transition: 'flipx', title: 'Alerta', message: '¿Eliminar registro?' });
 };
+window.eliminarRetiro = id => {
+    alertify.confirm("",
+            function() {
+                Livewire.emit('eliminarRetiro', id);
+            },
+            function() {
+                //alertify.error('Cancel');
+            })
+        .set('labels', { ok: 'Si, eliminar!', cancel: 'Cancelar' })
+        .set({ transition: 'flipx', title: 'Alerta', message: '¿Eliminar registro?' });
+};
+window.eliminarDocumento = id =>{
+    alertify.confirm("",
+            function() {
+                Livewire.emit('eliminarDocumento', id);
+            },
+            function() {
+                //alertify.error('Cancel');
+            })
+        .set('labels', { ok: 'Si, eliminar!', cancel: 'Cancelar' })
+        .set({ transition: 'flipx', title: 'Alerta', message: '¿Eliminar registro?' });
+};
