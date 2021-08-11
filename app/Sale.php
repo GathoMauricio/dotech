@@ -27,6 +27,7 @@ class Sale extends Model
         'currency',
         'observation',
         'material',
+        'finished_at',
         'closed_at',
         'created_at',
         'updated_at',

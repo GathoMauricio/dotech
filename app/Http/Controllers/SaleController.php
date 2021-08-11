@@ -541,6 +541,7 @@ class SaleController extends Controller
     {
         $sale = Sale::findOrFail($id);
         $sale->status = 'Finalizado';
+        $sale->finished_at = date('Y-m-d H:i:s');
         $sale->save();
         $msg_user_id=0;
         $msg = 'ha marcado el proyecto: '.$sale->description.' de '.$sale->company->name.' como finalizado.';

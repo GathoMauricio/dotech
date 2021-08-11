@@ -9,7 +9,7 @@
     <thead>
         <tr>
             <tr>
-                <td colspan="6" width="100%">
+                <td colspan="7" width="100%">
                     <!--
                     <input id="txt_search_project" class="form-control" placeholder="Buscar..." />
                     <input type="hidden" id="txt_search_project_route_ajax" value="{{ route('search_project_ajax') }}">
@@ -24,7 +24,8 @@
             <th width="15%">Compañía</th>
             <th width="25%">Descriptción</th>
             <th width="15%">Costo</th>
-            <th width="15%">Fecha</th>
+            <th width="15%">Fecha creación</th>
+            <th width="15%">Fecha finalización</th>
             <th width="15%"></th>
         </tr>
     </thead>
@@ -35,7 +36,14 @@
             <td>{{ $sale->company['name'] }}</td>
             <td>{{ $sale->description }}</td>
             <td>${{ number_format($sale->estimated + ($sale->estimated * 0.16),2) }}</td>
-            <td>{{ onlyDate($sale->created_at) }}</td>
+            <td>{{ formatDate($sale->created_at) }}</td>
+            <td>
+            @if(!is_null($sale->finished_at))
+            {{ formatDate($sale->finished_at) }}
+            @else
+            No disponible
+            @endif
+            </td>
             <td>
                 <!--
                 <a href="{{ route('quote_products',$sale->id) }}"><span class="icon-eye" title="Productos" style="cursor:pointer;color:#3498DB"> Productos</span></a>

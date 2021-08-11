@@ -485,7 +485,13 @@
 </div>
 @if($sale->status != 'Rechazada')
     @if($sale->status == 'Finalizado')
-    <h3 class="font-weight-bold" style="color:green">[Proyecto finalizado]</h3>
+    <h4 class="font-weight-bold" style="color:green">
+    [Proyecto finalizado 
+    @if(!is_null($sale->finished_at))
+    el {{ formatDate($sale->finished_at) }}
+    @endif
+    ]
+    </h4>
     @else
         @if(Auth::user()->rol_user_id == 1)
             <a href="#" onclick="setProjectAsFinish({{ $sale->id }})" class="font-weight-bold link-sys">[Marcar proyecto como finalizado]</a>
