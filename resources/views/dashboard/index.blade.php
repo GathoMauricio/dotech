@@ -307,7 +307,7 @@
             </div>
         </div>
         <h4 class="text-center">
-                {{ $company->name }}
+                {{ $company->name }} 
             </h4>
             <p class="font-weight-bold">
                 Cuenta con 
@@ -334,7 +334,7 @@
                             }
 
                         @endphp
-                        '{{ $p->id }}\n{{ substr(preg_replace("/[\r\n|\n|\r]+/", " ", $p->description),0,15) }} \n Costo: ${{ number_format($costo,2) }} \n Pagos: ${{ number_format($pagosPorProyecto,2) }}',
+                        '{{ $p->id }}\n[{{$p->currency}}]\n{{ substr(preg_replace("/[\r\n|\n|\r]+/", " ", $p->description),0,15) }} \n Costo: ${{ number_format($costo,2) }} \n Pagos: ${{ number_format($pagosPorProyecto,2) }}',
                         @endforeach
                         ],
                     datasets: [{
