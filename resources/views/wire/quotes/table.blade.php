@@ -18,6 +18,7 @@
             <th width="15%">Folio</th>
             <th width="15%">Compañía</th>
             <th width="25%">Descriptción</th>
+            <th width="15%">Divisa</th>
             <th width="15%">Precio</th>
             <th width="15%">Inversion estimada</th>
             <th width="15%">Fecha</th>
@@ -31,6 +32,7 @@
             <td>{{ $quote->ID }}</td>
             <td>{{ $quote->COMPANIA }}</td>
             <td>{{ $quote->DESCRIPCION }}</td>
+            <td>{{ $quote->DIVISA }}</td>
             <td>${{ number_format($quote->MONTO,2) }}</td>
             <td>${{ number_format($quote->INVERSION,2) }}</td>
             <td>{{ onlyDate($quote->FECHA) }}</td>
@@ -57,6 +59,7 @@
             <td>{{ $quote->id }}</td>
             <td>{{ $quote->company['name'] }}</td>
             <td>{{ $quote->description }}</td>
+            <td>{{ $quote->currency }}</td>
             <!--
             <td>${{ number_format($quote->estimated + ($quote->estimated * 0.16),2) }}</td>
             -->

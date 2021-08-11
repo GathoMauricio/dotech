@@ -60,6 +60,7 @@ class ProjectsComponent extends Component
                 'sales.id AS ID',
                 'companies.name AS COMPANIA',
                 'sales.description AS DESCRIPCION',
+                'sales.currency AS DIVISA',
                 'sales.estimated AS MONTO',
                 'sales.created_at AS FECHA',
                 'sales.project_at AS FECHA2'
@@ -70,6 +71,7 @@ class ProjectsComponent extends Component
                     $q->where('sales.id', 'LIKE', '%' . $this->search . '%')
                         ->orWhere('companies.name', 'LIKE', '%' . $this->search . '%')
                         ->orWhere('sales.description', 'LIKE', '%' . $this->search . '%')
+                        ->orWhere('sales.currency', 'LIKE', '%' . $this->search . '%')
                         ->orWhere('sales.estimated', 'LIKE', '%' . $this->search . '%')
                         ->orWhere('sales.created_at', 'LIKE', '%' . $this->search . '%');
                 })

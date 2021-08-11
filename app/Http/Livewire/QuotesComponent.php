@@ -63,6 +63,7 @@ class QuotesComponent extends Component
                     'sales.id AS ID',
                     'companies.name AS COMPANIA',
                     'sales.description AS DESCRIPCION',
+                    'sales.currency AS DIVISA',
                     'sales.estimated AS MONTO',
                     'sales.investment AS INVERSION',
                     'company_department.email AS EMAIL',
@@ -75,6 +76,7 @@ class QuotesComponent extends Component
                         $q->where('sales.id','LIKE','%'.$this->search.'%')
                         ->orWhere('companies.name','LIKE','%'.$this->search.'%')
                         ->orWhere('sales.description','LIKE','%'.$this->search.'%')
+                        ->orWhere('sales.currency','LIKE','%'.$this->search.'%')
                         ->orWhere('sales.estimated','LIKE','%'.$this->search.'%')
                         ->orWhere('sales.created_at','LIKE','%'.$this->search.'%')
                         ;

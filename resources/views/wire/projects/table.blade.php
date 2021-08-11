@@ -12,6 +12,7 @@
             <th width="15%">Folio</th>
             <th width="15%">Compañía</th>
             <th width="25%">Descriptción</th>
+            <th width="25%">Divisa</th>
             <th width="15%">Costo</th>
             <th width="15%">Fecha creación</th>
             <th width="15%">Fecha proyecto</th>
@@ -25,6 +26,7 @@
             <td>{{ $sale->ID }}</td>
             <td>{{ $sale->COMPANIA }}</td>
             <td>{{ $sale->DESCRIPCION }}</td>
+            <td>{{ $sale->DIVISA }}</td>
             <td>${{ number_format($sale->MONTO + ($sale->MONTO * 0.16),2) }}</td>
             <td>{{ formatDate($sale->FECHA) }}</td>
             <td>
@@ -53,6 +55,7 @@
             <td>{{ $sale->id }}</td>
             <td>{{ $sale->company['name'] }}</td>
             <td>{{ $sale->description }}</td>
+            <td>{{ $sale->currency }}</td>
             <td>${{ number_format($sale->estimated + ($sale->estimated * 0.16),2) }}</td>
             <td>{{ formatDate($sale->created_at) }}</td>
             <td>
