@@ -156,6 +156,7 @@ window.searchProjectsF = value => {
                 <td>${ item.description }</td>
                 <td>$${ item.amount }</td>
                 <td>${ item.date }</td>
+                <td>${ item.date2 }</td>
                 <td>${ item.links }</td>
                 </tr>
                 `);

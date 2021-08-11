@@ -640,7 +640,8 @@ class SaleController extends Controller
             'companies.name AS COMPANIA',
             'sales.description AS DESCRIPCION',
             'sales.estimated AS MONTO',
-            'sales.created_at AS FECHA'
+            'sales.created_at AS FECHA',
+            'sales.finished_at AS FECHA2'
             )
             ->join('companies', 'sales.company_id', '=', 'companies.id')
             ->where('sales.status','Finalizado')
@@ -672,12 +673,19 @@ class SaleController extends Controller
                 <a href="#" onclick="deleteSale('.$sale->ID.')"><span class="icon-bin" title="Eliminar" style="cursor:pointer;color:#C0392B"> Eliminar</span></a>
                 ';
             }
+            if(!is_null($sale->FECHA2))
+            {
+                $Date2 = formatDate($sale->FECHA2);
+            }else{
+                $Date2 = "No disponible";
+            }
             $json[] = [
                 'id' => $sale->ID,
                 'company' => $sale->COMPANIA,
                 'description' => $sale->DESCRIPCION,
                 'amount' => number_format($sale->MONTO + ($sale->MONTO * 0.16),2),
-                'date' => onlyDate($sale->FECHA),
+                'date' => formatDate($sale->FECHA),
+                'date2' => $Date2,
                 'links' => $links
             ];
         }
