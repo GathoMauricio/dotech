@@ -13,7 +13,8 @@
             <th width="15%">Compañía</th>
             <th width="25%">Descriptción</th>
             <th width="15%">Costo</th>
-            <th width="15%">Fecha</th>
+            <th width="15%">Fecha creación</th>
+            <th width="15%">Fecha proyecto</th>
             <th width="15%"></th>
         </tr>
     </thead>
@@ -25,7 +26,14 @@
             <td>{{ $sale->COMPANIA }}</td>
             <td>{{ $sale->DESCRIPCION }}</td>
             <td>${{ number_format($sale->MONTO + ($sale->MONTO * 0.16),2) }}</td>
-            <td>{{ onlyDate($sale->FECHA) }}</td>
+            <td>{{ formatDate($sale->FECHA) }}</td>
+            <td>
+            @if(!is_null($sale->FECHA2))
+            {{ formatDate($sale->FECHA2) }}
+            @else
+            No disponible
+            @endif
+            </td>
             <td>
                 <a href="{{ route('binnacles_by_project',$sale->ID) }}"><span class="icon-book" title="Proyecto" style="cursor:pointer;color:#8E44AD"> Bitácoras</span></a>
                 <br>
@@ -46,7 +54,14 @@
             <td>{{ $sale->company['name'] }}</td>
             <td>{{ $sale->description }}</td>
             <td>${{ number_format($sale->estimated + ($sale->estimated * 0.16),2) }}</td>
-            <td>{{ onlyDate($sale->created_at) }}</td>
+            <td>{{ formatDate($sale->created_at) }}</td>
+            <td>
+            @if(!is_null($sale->project_at))
+            {{ formatDate($sale->project_at) }}
+            @else
+            No disponible
+            @endif
+            </td>
             <td>
                 <a href="{{ route('binnacles_by_project',$sale->id) }}"><span class="icon-book" title="Proyecto" style="cursor:pointer;color:#8E44AD"> Bitácoras</span></a>
                 <br>

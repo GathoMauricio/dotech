@@ -354,7 +354,12 @@ class SaleController extends Controller
 
         $sale = Sale::findOrFail($request->sale_id);
         $sale->status = $request->status;
+        if($request->status == 'Proyecto') {
+            $sale->project_at = date('Y-m-d H:i:s');
+        }
         $sale->save();
+
+        
 
         $msg_user_id=0;
         $msg = 'actualizó el estatus de la cotización: '.$sale->description.' de '.$sale->company->name." a ".$sale->status;

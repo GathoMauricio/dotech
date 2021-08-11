@@ -61,7 +61,8 @@ class ProjectsComponent extends Component
                 'companies.name AS COMPANIA',
                 'sales.description AS DESCRIPCION',
                 'sales.estimated AS MONTO',
-                'sales.created_at AS FECHA'
+                'sales.created_at AS FECHA',
+                'sales.project_at AS FECHA2'
             )
                 ->join('companies', 'sales.company_id', '=', 'companies.id')
                 ->where('sales.status', 'Proyecto')
