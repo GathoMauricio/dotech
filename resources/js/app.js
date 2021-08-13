@@ -25,6 +25,57 @@ const table = new TableLoads();
 import ProjectControl from "./control/ProjectControl";
 const projectControl = new ProjectControl();
 /*++ End ControlFunctions ++*/
+let currentCompanyId = 0;
+$(document).ready(function(){
+    $("#form_store_company_follow").on("submit", e => {
+        e.preventDefault();
+        const form = $("#form_store_company_follow");
+        $.ajax({
+            type: "POST",
+            url: form.prop("action"),
+            data: {
+                _token: $('meta[name="csrf-token"]').attr("content"),
+                company_id: currentCompanyId,
+                body: $("#txt_body_company_follow").val()
+            },
+            success: data => {
+                form[0].reset();
+                $("#CompanyFollowBox").html("");
+                let counter = 0;
+                $.each(data, function(index, value) {
+                    counter++;
+                    $("#CompanyFollowBox").append(
+                        '<div class="comment-item">' +
+                        '<label class="color-primary-sys font-weight-bold">' +
+                        value.author +
+                        "</label>" +
+                        "<br/>" +
+                        value.body +
+                        "<br/>" +
+                        '<span class="font-weight-bold float-right">' +
+                        value.created_at +
+                        "</span>" +
+                        "<br/>" +
+                        "</div><br/>"
+                    );
+                });
+                $("#CompanyFollowBox").animate({ scrollTop: $(document).height() * 10000 },
+                    0
+                );
+                if (counter <= 0) {
+                    $("#CompanyFollowBox").html(
+                        '<center><span style="background-color:#F7DC6F;padding:5px;border-radius:3px;" class="text-center font-weight-bold">' +
+                        "Aún no se han agregado seguimientos en esta compañía" +
+                        "</span></center>"
+                    );
+                }
+            },
+            error: error => console.log(error)
+        });
+    });
+});
+
+
 window.updateWhitdrawalFolio = (id, folio) => {
     console.log(id + ' ' + folio);
     const route = $("#txt_update_whidrawal_folio").val();
@@ -768,6 +819,7 @@ window.indexServiceFollow = service_id => {
     });
 };
 window.indexCompanyFollow = company_id => {
+    currentCompanyId = company_id;
     const index_route = $("#txt_index_company_follow").val();
     $.ajax({
         type: "GET",
@@ -776,6 +828,7 @@ window.indexCompanyFollow = company_id => {
             id: company_id
         },
         success: data => {
+            console.log(data);
             $("#CompanyFollowBox").html("");
             let counter = 0;
             $.each(data, function(index, value) {
@@ -812,53 +865,7 @@ window.indexCompanyFollow = company_id => {
         error: error => console.log(error)
     });
 
-    $("#form_store_company_follow").on("submit", e => {
-        e.preventDefault();
-        const form = $("#form_store_company_follow");
-        $.ajax({
-            type: "POST",
-            url: form.prop("action"),
-            data: {
-                _token: $('meta[name="csrf-token"]').attr("content"),
-                company_id: company_id,
-                body: $("#txt_body_company_follow").val()
-            },
-            success: data => {
-                form[0].reset();
-                $("#CompanyFollowBox").html("");
-                let counter = 0;
-                $.each(data, function(index, value) {
-                    counter++;
-                    $("#CompanyFollowBox").append(
-                        '<div class="comment-item">' +
-                        '<label class="color-primary-sys font-weight-bold">' +
-                        value.author +
-                        "</label>" +
-                        "<br/>" +
-                        value.body +
-                        "<br/>" +
-                        '<span class="font-weight-bold float-right">' +
-                        value.created_at +
-                        "</span>" +
-                        "<br/>" +
-                        "</div><br/>"
-                    );
-                });
-                $("#CompanyFollowBox").animate({ scrollTop: $(document).height() * 10000 },
-                    0
-                );
-                if (counter <= 0) {
-                    $("#CompanyFollowBox").html(
-                        '<center><span style="background-color:#F7DC6F;padding:5px;border-radius:3px;" class="text-center font-weight-bold">' +
-                        "Aún no se han agregado seguimientos en esta compañía" +
-                        "</span></center>"
-                    );
-                }
-                $("#company_follow_modal").modal("show");
-            },
-            error: error => console.log(error)
-        });
-    });
+    
 };
 window.loadDepartmentsByCompany = company_id => {
     $("#load_departments_by_company").css("display", "block");
