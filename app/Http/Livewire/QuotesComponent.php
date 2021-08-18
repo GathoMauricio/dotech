@@ -230,6 +230,13 @@ class QuotesComponent extends Component
         $quote->save();
         $this->emit('successNotification','El producto '.$product->description.' ha sido creado.');
         $this->emit('dissmisCreateProductQuote');
+        
+        $this->productDescription = null;
+        $this->productQuantity = null;
+        $this->productMeasure = null;
+        $this->productDiscount = null;
+        $this->productUnityPriceSell = null;
+        
     }
 
     public function editQuoteProduct($id) 
