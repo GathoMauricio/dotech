@@ -23,21 +23,8 @@
     <tbody>
         @foreach($users as $user)
         <tr>
-            <!--
-            <td>
-                @if($user->image == 'perfil.png')
-                <img onclick="showUserImage(this.src)" src="{{asset('img')}}/{{ $user->image }}" width="50" height="50"/>
-                @else
-                <img onclick="showUserImage(this.src)"  src="{{asset('storage')}}/{{ $user->image }}" width="50" height="50"/>
-                @endif
-            </td>
-            -->
-            <td>
-                
+           <td>
                 <img src="{{ Avatar::create($user->email)->toGravatar(['d' => 'identicon', 'r' => 'pg', 's' => 100]) }}" width="50" height="50"/>
-                <!--
-                <img src="{{ Avatar::create($user->name.' '.$user->middle_name)->toBase64() }}" width="50" height="50"/>
-                -->
             </td>
             <td>{{ $user->status['name'] }}</td>
             <td><a href="#">{{ $user->name }} {{ $user->middle_name }} {{ $user->last_name }}</a></td>
