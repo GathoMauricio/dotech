@@ -178,6 +178,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         DaveJamesMiller\Breadcrumbs\BreadcrumbsServiceProvider::class,
+        Laravolt\Avatar\ServiceProvider::class,
 
     ],
 
@@ -233,6 +234,7 @@ return [
         'Madzipper' => Madnest\Madzipper\Madzipper::class,
         'Image' => Intervention\Image\Facades\Image::class,
         "Breadcrumbs" => DaveJamesMiller\Breadcrumbs\Facades\Breadcrumbs::class,
+        'Avatar'    => Laravolt\Avatar\Facade::class,
     ],
 
 ];
