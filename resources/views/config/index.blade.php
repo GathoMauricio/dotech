@@ -8,6 +8,7 @@
     <div id="user_image">
         <br><br><br><br><br><br>
         <p style="background-color:black;opacity:0.8;padding:5px;">
+            <!--
             <label for="user_image_label" class="label_file" style="color:white;">
                 <span class="icon-camera"></span>
                 Cambiar
@@ -17,6 +18,8 @@
             {{ method_field('PUT') }}
             <input onchange="this.form.submit();" type="file" name="image" id="user_image_label" style="display:none;" accept="image/jpg, image/jpeg, image/bmp, image/png"/>
             </form>
+            -->
+            <a href = "https://es.gravatar.com/" target="_bank">Cambiar Gravatar</a>
         </p>
     </div>   
 </center>
@@ -64,7 +67,7 @@ if(Auth::user()->image == 'perfil.png')
 @endphp
 <style>
     #user_image{
-        background:url({{ $userImage }});
+        background:url({{ Avatar::create(Auth::user()->email)->toGravatar(['d' => 'identicon', 'r' => 'pg', 's' => 100]) }});
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;

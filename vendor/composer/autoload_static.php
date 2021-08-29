@@ -202,6 +202,7 @@ class ComposerStaticInitc76430cec0ac4972d1901c144bf246d6
             'League\\MimeTypeDetection\\' => 25,
             'League\\Flysystem\\' => 17,
             'League\\CommonMark\\' => 18,
+            'Laravolt\\Avatar\\' => 16,
             'Laraveles\\Spanish\\' => 18,
             'Laravel\\Ui\\' => 11,
             'Laravel\\Tinker\\' => 15,
@@ -535,6 +536,10 @@ class ComposerStaticInitc76430cec0ac4972d1901c144bf246d6
         'League\\CommonMark\\' => 
         array (
             0 => __DIR__ . '/..' . '/league/commonmark/src',
+        ),
+        'Laravolt\\Avatar\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/laravolt/avatar/src',
         ),
         'Laraveles\\Spanish\\' => 
         array (
@@ -3616,6 +3621,14 @@ class ComposerStaticInitc76430cec0ac4972d1901c144bf246d6
         'Laravel\\Ui\\UiServiceProvider' => __DIR__ . '/..' . '/laravel/ui/src/UiServiceProvider.php',
         'Laraveles\\Spanish\\Commands\\InstallLang' => __DIR__ . '/..' . '/laraveles/spanish/src/Commands/InstallLang.php',
         'Laraveles\\Spanish\\SpanishServiceProvider' => __DIR__ . '/..' . '/laraveles/spanish/src/SpanishServiceProvider.php',
+        'Laravolt\\Avatar\\Avatar' => __DIR__ . '/..' . '/laravolt/avatar/src/Avatar.php',
+        'Laravolt\\Avatar\\Concerns\\AttributeGetter' => __DIR__ . '/..' . '/laravolt/avatar/src/Concerns/AttributeGetter.php',
+        'Laravolt\\Avatar\\Concerns\\AttributeSetter' => __DIR__ . '/..' . '/laravolt/avatar/src/Concerns/AttributeSetter.php',
+        'Laravolt\\Avatar\\Facade' => __DIR__ . '/..' . '/laravolt/avatar/src/Facade.php',
+        'Laravolt\\Avatar\\Generator\\DefaultGenerator' => __DIR__ . '/..' . '/laravolt/avatar/src/Generator/DefaultGenerator.php',
+        'Laravolt\\Avatar\\Generator\\GeneratorInterface' => __DIR__ . '/..' . '/laravolt/avatar/src/Generator/GeneratorInterface.php',
+        'Laravolt\\Avatar\\LumenServiceProvider' => __DIR__ . '/..' . '/laravolt/avatar/src/LumenServiceProvider.php',
+        'Laravolt\\Avatar\\ServiceProvider' => __DIR__ . '/..' . '/laravolt/avatar/src/ServiceProvider.php',
         'League\\CommonMark\\Block\\Element\\AbstractBlock' => __DIR__ . '/..' . '/league/commonmark/src/Block/Element/AbstractBlock.php',
         'League\\CommonMark\\Block\\Element\\AbstractStringContainerBlock' => __DIR__ . '/..' . '/league/commonmark/src/Block/Element/AbstractStringContainerBlock.php',
         'League\\CommonMark\\Block\\Element\\BlockQuote' => __DIR__ . '/..' . '/league/commonmark/src/Block/Element/BlockQuote.php',

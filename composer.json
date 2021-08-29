@@ -19,6 +19,7 @@
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.3",
         "laraveles/spanish": "^1.5",
+        "laravolt/avatar": "^4.1",
         "livewire/livewire": "^2.5",
         "maatwebsite/excel": "^3.1",
         "madnest/madzipper": "^1.1",

@@ -11,10 +11,11 @@
 <table class="table table-bordered" id="index_table">
     <thead>
         <tr>
-            <th width="20%">Foto</th>
+            <th width="20%">Gravatar</th>
             <th width="20%">Estatus</th>
             <th width="20%">Nombre</th>
             <th width="20%">Teléfono</th>
+            <th width="20%">Email</th>
             <th width="10%">Localidad</th>
             <th width="20%"></th>
         </tr>
@@ -22,6 +23,7 @@
     <tbody>
         @foreach($users as $user)
         <tr>
+            <!--
             <td>
                 @if($user->image == 'perfil.png')
                 <img onclick="showUserImage(this.src)" src="{{asset('img')}}/{{ $user->image }}" width="50" height="50"/>
@@ -29,9 +31,18 @@
                 <img onclick="showUserImage(this.src)"  src="{{asset('storage')}}/{{ $user->image }}" width="50" height="50"/>
                 @endif
             </td>
+            -->
+            <td>
+                
+                <img src="{{ Avatar::create($user->email)->toGravatar(['d' => 'identicon', 'r' => 'pg', 's' => 100]) }}" width="50" height="50"/>
+                <!--
+                <img src="{{ Avatar::create($user->name.' '.$user->middle_name)->toBase64() }}" width="50" height="50"/>
+                -->
+            </td>
             <td>{{ $user->status['name'] }}</td>
             <td><a href="#">{{ $user->name }} {{ $user->middle_name }} {{ $user->last_name }}</a></td>
             <td>{{ $user->phone }}</td>
+            <td>{{ $user->email }}</td>
             <td>{{ $user->location['name'] }}</td>
             <td>
                 <a href="{{ route('edit_user', $user->id) }}"><span class="icon-eye" title="Ver/Editar" style="cursor:pointer;color:#F39C12"> Ver/Editar</span></a>

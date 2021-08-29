@@ -570,6 +570,15 @@ private static $installed = array (
       ),
       'reference' => '2224e3db7ec399952523b0769a7677de0b6afd8b',
     ),
+    'laravolt/avatar' => 
+    array (
+      'pretty_version' => '4.1.4',
+      'version' => '4.1.4.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'f50192566e6e4db7fc9623c1c925642acca5ac6a',
+    ),
     'league/commonmark' => 
     array (
       'pretty_version' => '1.6.5',
