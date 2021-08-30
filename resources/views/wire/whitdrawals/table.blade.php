@@ -70,8 +70,8 @@
                 <br>
                 <a href="#" onclick="deleteWithdrawal({{ $whitdrawal->ID }});"><span class="icon-bin" title="Eliminar" style="cursor:pointer;color:#DF0101"> Eliminar</span></a>
                 <br>
-                @if($whitdrawal->invoive == 'SI')
-                    @if(!empty($whitdrawal->document))
+                @if($whitdrawal->FACTURA == 'SI')
+                    @if(!empty($whitdrawal->DOCUMENTO))
                     <a href="{{ env('APP_URL').'/storage/'.$whitdrawal->DOCUMENTO }}" target="_BLANK"><span class="icon-eye"></span> Ver</a>
                     @else 
                     <a href="#" onclick="addWhitdralDocumentModal({{ $whitdrawal->ID }});"><span class="icon-upload"></span> Cargar</a>
@@ -81,11 +81,11 @@
                 @endif
             </td>
             @else
-                @if($whitdrawal->invoive == 'SI')
-                    @if(!empty($whitdrawal->document))
-                    <td class="text-center"><a href="{{ env('APP_URL').'/storage/'.$whitdrawal->document }}" target="_BLANK"><span class="icon-eye"></span></a></td>
+                @if($whitdrawal->FACTURA == 'SI')
+                    @if(!empty($whitdrawal->DOCUMENTO))
+                    <td class="text-center"><a href="{{ env('APP_URL').'/storage/'.$whitdrawal->DOCUMENTO }}" target="_BLANK"><span class="icon-eye"></span></a></td>
                     @else 
-                    <td class="text-center"><a href="#" onclick="addWhitdralDocumentModal({{ $whitdrawal->id }});"><span class="icon-upload"></span></a></td>
+                    <td class="text-center"><a href="#" onclick="addWhitdralDocumentModal({{ $whitdrawal->ID }});"><span class="icon-upload"></span></a></td>
                     @endif
                 @else
                 <td class="text-center">N/A</td>
