@@ -134,7 +134,7 @@ class QuotesComponent extends Component
             'description' => 'required',
             //'observation' => '',
             'delivery_days' => 'required|numeric|min:0',
-            'investment' => 'required|numeric|min:0',
+            //'investment' => 'required|numeric|min:0',
             'shipping' => 'required',
             'payment_type' => 'required',
             'credit' => 'required',

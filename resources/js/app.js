@@ -1005,8 +1005,20 @@ window.deleteProductModal = product_id => {
     });
 };
 window.changeStatusModal = sale_id => {
-    $("#txt_change_status_id").val(sale_id);
-    $("#change_status_modal").modal();
+    $.ajax({
+        type: 'GET',
+        url: $("#get_sale_ajax").val(),
+        data: {
+            id: sale_id
+        },
+        success: data => {
+            $("#txt_change_status_id").val(sale_id);
+            $("#txt_change_status_id_investment").val(data.investment);
+            $("#change_status_modal").modal();
+        },
+        error: err => console.log(err)
+    });
+    
 };
 window.addSaleFollowModal = sale_id => {
     $("#txt_add_sale_follow_sale_id").val(sale_id);

@@ -215,7 +215,8 @@ class SaleController extends Controller
             'shipping' => $sale->shipping,
             'payment_type' => $sale->payment_type,
             'credit' => $sale->credit,
-            'currency' => $sale->currency
+            'currency' => $sale->currency,
+            'investment' => $sale->investment
         ];
     }
     public function edit($id)
@@ -354,6 +355,7 @@ class SaleController extends Controller
 
         $sale = Sale::findOrFail($request->sale_id);
         $sale->status = $request->status;
+        $sale->investment = $request->investment;
         if($request->status == 'Proyecto') {
             $sale->project_at = date('Y-m-d H:i:s');
         }
