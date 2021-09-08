@@ -1,3 +1,4 @@
-login del cliente {{ auth('clients')->user()->name }} 
-<hr/>
-<a href = "{{ route('clients/logout') }}">Cerrar sesión</a
+@extends('layouts.app_client')
+@section('content')
+@livewire('client-component')
+@endsection

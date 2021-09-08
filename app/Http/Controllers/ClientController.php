@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use App\Binnacle;
 
 class ClientController extends Controller
 {
@@ -15,7 +16,7 @@ class ClientController extends Controller
     {
         if(!empty(\Auth::guard('clients')->user()))
         {
-            return redirect('clients/dashboard');
+            return redirect('clients_dashboard');
         }
         return view('clients.login');
     }
@@ -26,15 +27,16 @@ class ClientController extends Controller
 
         if(\Auth::guard('clients')->attempt($credentials))
         { 
-            return redirect('clients/dashboard');
+            return redirect('clients_dashboard');
         }else{
+            //Redirect with errors
             return "No login";
         }
     }
 
     public function authenticated()
     {
-        return redirect('clients/dashboard');
+        return redirect('clients_dashboard');
     }
 
     public function secret()
@@ -47,13 +49,39 @@ class ClientController extends Controller
         \Auth::guard('clients')->logout();
         $request->session()->flush();
         $request->session()->regenerate();
-        return redirect()->guest(route( 'clients/login' ));
+        return redirect()->guest(route( 'clients_login' ));
     }
 
     public function dashboard()
     {
         if (empty(\Auth::guard('clients')->user())) 
-            return redirect('clients/login');
-        return view('clients/dashboard');
+            return redirect('clients_login');
+        return view('clients.dashboard');
+    }
+    public function makePdf($id)
+    {
+        
+
+        $binnacle = Binnacle::findOrFail($id);
+        if(auth('clients')->user()->id != $binnacle->sale->company['id']){
+            abort(404);
+        }
+        $logo = parseBase64(public_path("img/dotech_fondo.png"));
+        if(!empty($binnacle->sale['description']))
+        {
+           $logo2 = parseBase64(public_path("storage/".$binnacle->sale->company['image'])); 
+        }else{
+            $logo2 = parseBase64(public_path("storage/compania.png")); 
+        }
+        if(!empty($binnacle->firm)) $firm = parseBase64(public_path("storage/".$binnacle->firm)); else $firm = NULL;
+        $pdf = \PDF::loadView('pdf.binnacle',
+            [
+                'logo' => $logo,
+                'logo2' => $logo2,
+                'firm' => $firm,
+                'binnacle' => $binnacle
+            ]
+        );
+        return $pdf->stream('Bitacora_'.$binnacle->id.'.pdf');
     }
 }

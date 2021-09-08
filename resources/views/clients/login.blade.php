@@ -31,7 +31,7 @@
 	<div class="limiter">
 		<div class="container-login100" style="background-image: url('{{ asset('login_template') }}/images/tecnology.png');">
 			<div class="wrap-login100 p-t-190 p-b-30">
-				<form method="POST" action="{{ route('clients/login') }}">
+				<form method="POST" action="{{ route('clients_login') }}">
                 @csrf
 					<div class="login100-form-avatar">
 						<img src="{{ asset('img/brand.png') }}" alt="AVATAR">
