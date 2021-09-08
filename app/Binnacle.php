@@ -12,6 +12,7 @@ class Binnacle extends Model
     public $timestamps = true;
     protected $fillable = [
         'id',
+        'company_id',
         'sale_id',
         'author_id',
         'description',
@@ -29,6 +30,15 @@ class Binnacle extends Model
         static::creating(function ($query) {
             $query->author_id = Auth::user()->id;
         });
+    }
+    public function company()
+    {
+        return $this->belongsTo(
+            'App\Company',
+            'company_id',
+            'id'
+        )
+            ->withDefault();
     }
     public function sale()
     {

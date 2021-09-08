@@ -231,6 +231,8 @@ Route::post('send_all_binnacle_pdf','BinnacleController@sendAllPdf')->name('send
 Route::get('binnacles_by_project/{id}','BinnacleController@indexByProject')->name('binnacles_by_project')->middleware('auth');
 Route::get('search_binnacle_ajax','BinnacleController@searchBinnacleAjax')->name('search_binnacle_ajax')->middleware('auth');
 Route::get('show_binnacle_ajax','BinnacleController@showBinnacleAjax')->name('show_binnacle_ajax')->middleware('auth');
+Route::get('asignar_compania_bitacora','BinnacleController@asignarCompaniaBitacora')->name('asignar_compania_bitacora')->middleware('auth');
+Route::get('asignar_alias_bitacora','BinnacleController@asignarAliasBitacora')->name('asignar_alias_bitacora')->middleware('auth');
 
 #Binnacle PDF
 Route::get('binnacle_pdf/{id}','BinnacleController@makePdf')->name('binnacle_pdf')->middleware('auth');

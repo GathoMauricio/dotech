@@ -457,7 +457,6 @@
 <!-- AdminLTE App -->
 <script src="{{ asset('adminlte/js/adminlte.min.js') }}"></script>
 
-
 <script src="{{ asset('js/alertify.js')}}" type="text/javascript"></script>
 <script src="{{ asset('js/app.js')}}" type="text/javascript"></script>
 <script src="{{ asset('js/jquery-ui.min.js') }}" defer></script>
@@ -466,7 +465,7 @@
 <script type="text/javascript"src="https://slideshow.triptracker.net/slide.js"></script>
 <script src="//unpkg.com/vanilla-masker@1.1.1/lib/vanilla-masker.js"></script>
 <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
-    <script>
+<script>
         Pusher.logToConsole = false;
         var pusher = new Pusher('{{ env('PUSHER_APP_KEY') }}', {
         cluster: '{{ env('PUSHER_APP_CLUSTER') }}'
@@ -488,6 +487,15 @@
                 break;
             }
         });
+    </script>
+
+    <!-- Select2 -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+      document.addEventListener('livewire:load',function(){
+        $('.select2').select2();
+      });
     </script>
 
     @include('companies.show_modal')

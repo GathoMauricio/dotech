@@ -224,4 +224,20 @@ class BinnacleController extends Controller
         }
         return $json;
     }
+
+    public function asignarCompaniaBitacora(Request $request)
+    {
+        $binnacle = Binnacle::find($request->id);
+        $binnacle->company_id = $request->company_id;
+        $binnacle->save();
+        return $binnacle;
+    }
+
+    public function asignarAliasBitacora(Request $request)
+    {
+        $binnacle = Binnacle::find($request->id);
+        $binnacle->alias = $request->alias;
+        $binnacle->save();
+        return $binnacle;
+    }
 }

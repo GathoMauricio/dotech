@@ -1914,3 +1914,45 @@ window.eliminarDocumento = id =>{
         .set('labels', { ok: 'Si, eliminar!', cancel: 'Cancelar' })
         .set({ transition: 'flipx', title: 'Alerta', message: '¿Eliminar registro?' });
 };
+
+window.asignarCompaniaBitacora = id => {
+    const route = $("#txt_asignar_compania_bitacora").val();
+    const company = $("#cbo_company_binnacle_"+id).val();
+    if(company.length > 0)
+    {
+        $.ajax({
+            type: 'GET',
+            url: route,
+            data: {id: id, company_id: company},
+            success: data => {
+                console.log(data);
+                successNotification("Reasignado");
+                Livewire.emit('render');
+            },
+            error: err => console.log(err)
+        });
+    }else{
+        errorNotification("Seleccione una compañía");
+    }
+};
+
+window.asignarAliasBitacora = id => {
+    const route = $("#txt_asignar_alias_bitacora").val();
+    const alias = $("#txt_alias_binnacle_"+id).val();
+    if(alias.length > 0)
+    {
+        $.ajax({
+            type: 'GET',
+            url: route,
+            data: {id: id, alias: alias},
+            success: data => {
+                console.log(data);
+                successNotification("Alias actualizado");
+                Livewire.emit('render');
+            },
+            error: err => console.log(err)
+        });
+    }else{
+        errorNotification("No se ingresó un valor");
+    }
+};

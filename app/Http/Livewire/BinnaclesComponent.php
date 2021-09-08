@@ -12,7 +12,7 @@ class BinnaclesComponent extends Component
     use WithPagination;
     use WithFileUploads;
     protected $paginationTheme = 'bootstrap';
-    protected $listeners = ['destroy' => 'destroy'];
+    protected $listeners = ['render' => 'render','destroy' => 'destroy'];
     public $search = "";
     public $self_component = 'binnacles';
 

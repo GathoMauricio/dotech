@@ -24,11 +24,11 @@ class ClientComponent extends Component
             $sales = Sale::where('company_id',auth('clients')->user()->id)
             ->where('description','LIKE','%'.$this->search.'%')
             ->orderBy('created_at','DESC')
-            ->paginate(10);
+            ->get();
         }else{
             $sales = Sale::where('company_id',auth('clients')->user()->id)
             ->orderBy('created_at','DESC')
-            ->paginate(10);
+            ->get();
         }
 
         return view('livewire.client-component',['sales' => $sales]);

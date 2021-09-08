@@ -60,10 +60,14 @@ class ClientController extends Controller
     public function makePdf($id)
     {
         
-
         $binnacle = Binnacle::findOrFail($id);
         if(auth('clients')->user()->id != $binnacle->sale->company['id']){
-            abort(404);
+            if(!empty($binnacle->company_id))
+            {
+                if(auth('clients')->user()->id != $binnacle->company_id){
+                    abort(404);
+                }
+            }
         }
         $logo = parseBase64(public_path("img/dotech_fondo.png"));
         if(!empty($binnacle->sale['description']))
