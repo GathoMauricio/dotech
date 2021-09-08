@@ -349,3 +349,8 @@ Route::group(['middleware' => ['auth']],function(){
     #Aspirantes
     Route::get('wire_candidates',function(){ return view('wire.candidates.index'); })->name('wire_candidates');
 });
+
+Route::get('clients/login','ClientController@showLoginForm')->name('clients/login');
+Route::post('clients/login','ClientController@login')->name('clients/login');
+Route::get('clients/dashboard','ClientController@dashboard')->name('clients/dashboard');
+Route::get('clients/logout','ClientController@logout')->name('clients/logout');

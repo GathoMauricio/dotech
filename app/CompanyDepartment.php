@@ -12,6 +12,7 @@ class CompanyDepartment extends Model
         'name',
         'manager',
         'email',
+        'password',
         'phone',
         'address',
         'created_at',
