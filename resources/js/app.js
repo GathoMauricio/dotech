@@ -1868,6 +1868,11 @@ Livewire.on('dissmisCreateWhitdrawal',() => {
     $("#create_whitdrawal").modal('hide');
 });
 
+Livewire.on('dismissPasswordModal', () => {
+    $("#modal_password").modal('hide');
+    successNotification("Su password ha sido actualizado");
+});
+
 window.successNotification = text => alertify.success(text);
 window.errorNotification = text => alertify.error(text);
 

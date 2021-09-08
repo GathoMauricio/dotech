@@ -40,19 +40,16 @@
 					<span class="login100-form-title p-t-20 p-b-45">
 						Dotech Client
 					</span>
-
+					@if($errors->has('email'))
+					<small style="color:#d30035;background-color:white;padding:5px;">{{ $errors->first('email') }}</small><br/><br/>
+					@endif
 					<div class="wrap-input100 validate-input m-b-10" data-validate = "Username is required">
 						<input class="input100" type="email" name="email" placeholder="Email">
 						<span class="focus-input100"></span>
 						<span class="symbol-input100">
 							<i class="fa fa-user"></i>
 						</span>
-                        @error('email')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-					</div>
+                    </div>
 
 					<div class="wrap-input100 validate-input m-b-10" data-validate = "Password is required">
 						<input class="input100" type="password" name="password" placeholder="Contraseña">

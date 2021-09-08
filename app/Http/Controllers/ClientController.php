@@ -29,8 +29,7 @@ class ClientController extends Controller
         { 
             return redirect('clients_dashboard');
         }else{
-            //Redirect with errors
-            return "No login";
+            return redirect()->back()->withErrors(['email' => 'Las credenciales no se encuentran en nuestros registros.']);
         }
     }
 

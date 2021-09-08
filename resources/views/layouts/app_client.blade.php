@@ -268,11 +268,9 @@
   <aside class="control-sidebar control-sidebar-dark">
     <!-- Control sidebar content goes here -->
     <div class="p-3">
-        <!--
-      <a href="#">
-        <i class="icon-cog"></i> Configuración
+      <a href="javascript:void(0);" onclick = "$('#modal_password').modal();">
+        <i class="icon-key"></i> Password
       </a><br/><br/>
-        -->
       <a href="#" onclick="event.preventDefault();
             document.getElementById('logout-form').submit();">
         <i class="icon-exit"></i>  Cerrar sesión

@@ -4,5 +4,5 @@
             @include("clients.table")
         </div>
     </div>
-    
+    @include("clients.password")
 </div>
