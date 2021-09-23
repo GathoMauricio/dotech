@@ -1877,6 +1877,10 @@ Livewire.on('dissmisCreateDocument',()=>$("#create_document").modal('hide'));
 Livewire.on('showEditDocument',()=>$("#edit_document").modal());
 Livewire.on('dismissEditDocument',()=>$("#edit_document").modal('hide'));
 
+Livewire.on('dissmisCreateForm',()=>$("#create_form").modal('hide'));
+Livewire.on('showEditForm',()=>$("#edit_form").modal());
+Livewire.on('dismissEditForm',()=>$("#edit_form").modal('hide'));
+
 window.successNotification = text => alertify.success(text);
 window.errorNotification = text => alertify.error(text);
 

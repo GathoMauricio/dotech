@@ -352,6 +352,8 @@ Route::group(['middleware' => ['auth']],function(){
     Route::get('wire_candidates',function(){ return view('wire.candidates.index'); })->name('wire_candidates');
     #Documentos
     Route::get('wire_documents',function(){ return view('wire.documents.index'); })->name('wire_documents');
+    #Machotes(Formularios)
+    Route::get('wire_forms',function(){ return view('wire.forms.index'); })->name('wire_forms');
 });
 
 Route::get('clients_login','ClientController@showLoginForm')->name('clients_login');
