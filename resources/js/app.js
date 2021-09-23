@@ -1873,6 +1873,8 @@ Livewire.on('dismissPasswordModal', () => {
     successNotification("Su password ha sido actualizado");
 });
 
+Livewire.on('dissmisCreateDocument',()=>$("#create_document").modal('hide'));
+
 window.successNotification = text => alertify.success(text);
 window.errorNotification = text => alertify.error(text);
 
@@ -1955,4 +1957,16 @@ window.asignarAliasBitacora = id => {
     }else{
         errorNotification("No se ingresó un valor");
     }
+};
+
+window.destroyDocument = id => {
+    alertify.confirm("",
+            function() {
+                Livewire.emit('destroy', id);
+            },
+            function() {
+                //alertify.error('Cancel');
+            })
+        .set('labels', { ok: 'Si, eliminar!', cancel: 'Cancelar' })
+        .set({ transition: 'flipx', title: 'Alerta', message: '¿Eliminar registro?' });
 };

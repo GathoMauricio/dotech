@@ -330,6 +330,11 @@
                   <i class="nav-icon icon-users"></i><p>Aspirantes <img src="{{ asset('img/wire.png') }}" width="60"></p>
                 </a>
             </li>
+            <li class="nav-item">
+              <a href="{{ route('wire_documents') }}" class="nav-link @if (Route::currentRouteName() == 'wire_documents') active @endif">
+                <i class="nav-icon icon-file-pdf"></i><p>Documentos <img src="{{ asset('img/wire.png') }}" width="60"></p>
+              </a>
+          </li>
             @endif
             <li class="nav-item">
                 <a href="{{ asset('mobile/dotech_mobile_1-1-2.apk') }}" target="_blank" class="nav-link">

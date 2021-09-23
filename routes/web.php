@@ -350,6 +350,8 @@ Route::group(['middleware' => ['auth']],function(){
     Route::get('wire_stocks',function(){ return view('wire.stocks.index'); })->name('wire_stocks');
     #Aspirantes
     Route::get('wire_candidates',function(){ return view('wire.candidates.index'); })->name('wire_candidates');
+    #Documentos
+    Route::get('wire_documents',function(){ return view('wire.documents.index'); })->name('wire_documents');
 });
 
 Route::get('clients_login','ClientController@showLoginForm')->name('clients_login');
