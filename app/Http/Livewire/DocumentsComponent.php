@@ -21,6 +21,7 @@ class DocumentsComponent extends Component
 
     //properties
     public 
+        $document_id,
         $name,
         $description,
         $visibility,
@@ -83,6 +84,37 @@ class DocumentsComponent extends Component
             $this->emit('dissmisCreateDocument');
             $this->emit('successNotification','Documento almacenado');
         }
+    }
+
+    public function edit($id)
+    {
+        $doc = Document::find($id);
+        $this->document_id = $doc->id;
+        $this->name = $doc->name;
+        $this->description = $doc->description;
+        $this->visibility = $doc->visibility;
+        $this->document = $doc->document;
+        $this->emit('showEditDocument');
+    }
+
+    public function update()
+    {
+        $this->validate([
+            'name' => 'required',
+            'visibility' => 'required'
+        ],[
+            'name.required' => 'Campo obligatorio',
+            'visibility.required' => 'Campo obligatorio'
+        ]);
+
+        $doc = Document::find($this->document_id);
+        $doc->name = $this->name;
+        $doc->description = $this->description;
+        $doc->visibility = $this->visibility;
+        $doc->save();
+        $this->default();
+        $this->emit('dismissEditDocument');
+        $this->emit('successNotification','Documento actualizado');
     }
 
     public function destroy($id) {

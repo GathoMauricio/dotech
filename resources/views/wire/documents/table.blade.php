@@ -27,6 +27,7 @@
                 <td><a href = "{{ asset('storage/documents') }}/{{ $document->document }}" target="_blank">{{ $document->document }}</a></td>
                 <td>
                     @if(\Auth::user()->rol_user_id == 1 || $document->author_id == \Auth::user()->id)
+                    <a href="javascript:void(0)" wire:click="edit({{ $document->id }});" style = "color:rgb(255, 153, 0);"><span class = "icon-pencil"> Editar</span></a>
                     <a href="javascript:void(0)" onclick="destroyDocument({{ $document->id }});" style = "color:red;"><span class = "icon-bin"> Eliminar</span></a>
                     @endif
                 </td>

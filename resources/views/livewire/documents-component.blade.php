@@ -5,4 +5,5 @@
         </div>
     </div>
     @include("wire.$self_component.create")
+    @include("wire.$self_component.edit")
 </div>

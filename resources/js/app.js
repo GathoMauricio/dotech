@@ -1874,6 +1874,8 @@ Livewire.on('dismissPasswordModal', () => {
 });
 
 Livewire.on('dissmisCreateDocument',()=>$("#create_document").modal('hide'));
+Livewire.on('showEditDocument',()=>$("#edit_document").modal());
+Livewire.on('dismissEditDocument',()=>$("#edit_document").modal('hide'));
 
 window.successNotification = text => alertify.success(text);
 window.errorNotification = text => alertify.error(text);
