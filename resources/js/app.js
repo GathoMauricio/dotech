@@ -1881,6 +1881,10 @@ Livewire.on('dissmisCreateForm',()=>$("#create_form").modal('hide'));
 Livewire.on('showEditForm',()=>$("#edit_form").modal());
 Livewire.on('dismissEditForm',()=>$("#edit_form").modal('hide'));
 
+Livewire.on('dismissCreateTask',()=>$("#create_task").modal('hide'));
+Livewire.on('showEditTask',()=>$("#edit_task").modal());
+Livewire.on('dismissEditTask',()=>$("#edit_task").modal('hide'));
+
 window.successNotification = text => alertify.success(text);
 window.errorNotification = text => alertify.error(text);
 
@@ -1915,6 +1919,17 @@ window.eliminarDocumento = id =>{
     alertify.confirm("",
             function() {
                 Livewire.emit('eliminarDocumento', id);
+            },
+            function() {
+                //alertify.error('Cancel');
+            })
+        .set('labels', { ok: 'Si, eliminar!', cancel: 'Cancelar' })
+        .set({ transition: 'flipx', title: 'Alerta', message: '¿Eliminar registro?' });
+};
+window.deleteTask = id =>{
+    alertify.confirm("",
+            function() {
+                Livewire.emit('destroy', id);
             },
             function() {
                 //alertify.error('Cancel');

@@ -12,6 +12,8 @@ class Task extends Model
         'author_id',
         'user_id',
         'project_id',
+        'company_id',
+        'sale_id',
         'priority',
         'context',
         'title',
@@ -57,6 +59,26 @@ class Task extends Model
         (
             'App\Project',
             'project_id',
+            'id'
+        )
+        ->withDefault();
+    }
+    public function sale()
+    {
+        return $this->belongsTo
+        (
+            'App\Sale',
+            'sale_id',
+            'id'
+        )
+        ->withDefault();
+    }
+    public function company()
+    {
+        return $this->belongsTo
+        (
+            'App\Company',
+            'company_id',
             'id'
         )
         ->withDefault();

@@ -244,12 +244,18 @@
                 </a>
                 
             </li>
-
+            <!--
             <li class="nav-item">
                 <a href="{{ route('task_index') }}" class="nav-link @if (Route::currentRouteName() == 'task_index') active @endif">
                   <i class="nav-icon icon-clipboard"></i><p>Tareas <img src="{{ asset('img/react.png') }}" width="60"></p>
                 </a>
             </li>
+            -->
+            <li class="nav-item">
+              <a href="{{ route('wire_tasks') }}" class="nav-link @if (Route::currentRouteName() == 'wire_tasks') active @endif">
+                <i class="nav-icon icon-clipboard"></i><p>Tareas <img src="{{ asset('img/wire.png') }}" width="60"></p>
+              </a>
+          </li>
             @if(Auth::user()->rol_user_id == 1 || Auth::user()->rol_user_id == 2)
             <!--
             <li class="nav-item">
