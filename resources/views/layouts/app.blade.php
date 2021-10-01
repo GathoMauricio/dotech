@@ -296,7 +296,7 @@
             </li>
             <li class="nav-item">
                 <a href="{{ route('company_index') }}" class="nav-link @if (Route::currentRouteName() == 'company_index') active @endif">
-                  <i class="nav-icon icon-office"></i><p>Compañias <img src="{{ asset('img/react.png') }}" width="60"></p>
+                  <i class="nav-icon icon-office"></i><p>Compañias <img src="{{ asset('img/wire.png') }}" width="60"></p>
                 </a>
             </li>
             <!--

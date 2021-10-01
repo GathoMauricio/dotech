@@ -40,6 +40,13 @@ Route::get('edit_company_repository/{id}','CompanyRepositoryController@edit')->n
 Route::put('update_company_repository/{id}','CompanyRepositoryController@update')->name('update_company_repository')->middleware('auth');
 Route::get('destroy_company_repository/{id?}','CompanyRepositoryController@destroy')->name('destroy_company_repository')->middleware('auth');
 
+#Company documents
+Route::get('company_documents/{id}','CompanyDocumentController@index')->name('company_documents')->middleware('auth');
+Route::post('store_company_document','CompanyDocumentController@store')->name('store_company_document')->middleware('auth');
+Route::get('edit_company_document','CompanyDocumentController@edit')->name('edit_company_document')->middleware('auth');
+Route::put('update_company_document','CompanyDocumentController@update')->name('update_company_document')->middleware('auth');
+Route::get('delete_company_document/{id?}','CompanyDocumentController@destroy')->name('delete_company_document')->middleware('auth');
+
 #CompanyFollow
 Route::get('index_company_follow','CompanyFollowController@index')->name('index_company_follow')->middleware('auth');
 Route::post('store_company_follow','CompanyFollowController@store')->name('store_company_follow')->middleware('auth');
