@@ -93,11 +93,17 @@ class WhitdrawalController extends Controller
         $account->save();
         $msg = "aprobó el retiro: ".$whitdrawal->description;
         createSysLog($msg);
-        event(new \App\Events\NotificationEvent([
-            'id' => $whitdrawal->author_id,
-            'msg' => \Auth::user()->name.' '.\Auth::user()->middle_name.' '.$msg,
-            'route' => route('show_sale',$whitdrawal->sale_id)
-        ]));
+
+        if(!empty($whitdrawal->author['fcm_token']))
+        {
+            event(new \App\Events\NotificationEvent([
+                'id' => $whitdrawal->author_id,
+                'msg' => \Auth::user()->name.' '.\Auth::user()->middle_name.' '.$msg,
+                'route' => route('show_sale',$whitdrawal->sale_id)
+            ]));
+        }
+
+        
         return redirect()->back()->with('message', 'La solicitud se ha aprovado y la cantidad se ha descontado de la cuenta seleccionada.');
     }
     public function show(Request $request)
