@@ -11,8 +11,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 Route::middleware('auth:api')->get('/get_current_version', function (Request $request) {
     return [
-        'currentVersion' => '1.1.2',
-        'downloadLink' => getUrl().'/mobile/dotech_mobile_1-1-2.apk'
+        'currentVersion' => '1.1.3',
+        'downloadLink' => getUrl().'/mobile/dotech_mobile_1-1-3.apk'
     ];
 });
 
@@ -25,6 +25,9 @@ Route::middleware('auth:api')->get('tasks_show/{id}','ApiTaskController@show')->
 Route::middleware('auth:api')->put('tasks_update/{id}','ApiTaskController@update')->name('tasks_update');
 Route::middleware('auth:api')->delete('tasks_delete/{id}','ApiTaskController@destroy')->name('delete_update');
 Route::middleware('auth:api')->post('tasks_store','ApiTaskController@store')->name('tasks_store');
+
+Route::middleware('auth:api')->get('get_clientes','ApiTaskController@getClientes')->name('get_clientes');
+Route::middleware('auth:api')->get('get_proyectos','ApiTaskController@getProyectos')->name('get_proyectos');
 
 #TaskChat
 Route::middleware('auth:api')->get('task_chat_index/{id}','ApiTaskCommentController@index')->name('task_chat_index');

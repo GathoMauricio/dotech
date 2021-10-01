@@ -127,7 +127,7 @@ class TasksComponent extends Component
 
         $this->user_id = $task->user_id;
         $this->company_id = $task->company_id;
-        $this->project_id = $task->project_id;
+        //$this->project_id = $task->project_id;
         $this->sale_id = $task->sale_id;
         $this->priority = $task->priority;
         $this->context = $task->context;
@@ -166,7 +166,7 @@ class TasksComponent extends Component
 
         $task->user_id = $this->user_id;
         $task->company_id = $this->company_id;
-        $task->project_id = $this->project_id;
+        //$task->project_id = $this->project_id;
         $task->sale_id = $this->sale_id;
         $task->priority = $this->priority;
         $task->context = $this->context;

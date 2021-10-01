@@ -2,6 +2,8 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Task;
+use App\Company;
+use App\Sale;
 use App\User;
 use Auth;
 class ApiTaskController extends Controller
@@ -30,7 +32,8 @@ class ApiTaskController extends Controller
                 'status' => $task->status,
                 'title' => $task->title,
                 'user' => $task->user['name'].' '.$task->user['middle_name'].' '.$task->user['last_name'],
-                'author' => $task->author['name'].' '.$task->author['middle_name'].' '.$task->author['last_name']
+                'author' => $task->author['name'].' '.$task->author['middle_name'].' '.$task->author['last_name'],
+                'deadline' => $task->deadline,
 
             ];
         }
@@ -39,12 +42,30 @@ class ApiTaskController extends Controller
     public function show($id)
     {
         $task = Task::findOrFail($id);
+        if(!empty($task->company_id))
+        {
+            $cliente = Company::findOrFail($task->company_id);
+        }else{
+            $cliente = ['name' => 'No asignado'];
+        }
+        if(!empty($task->sale_id))
+        {
+            $sale = Sale::findOrFail($task->sale_id);
+        }else{
+            $sale = ['description' => 'No asignado'];
+        }
         $taskUser = User::findOrFail($task->user_id);
         $users = User::orderBy('name')->get();
+        $clientes = Company::orderBy('name')->get();
+        $proyectos = Sale::where('company_id',$task->company_id)->get();
         return [
             'task' => $task,
             'taskUser' => $taskUser,
-            'users' => $users
+            'users' => $users,
+            'clientes' => $clientes,
+            'proyectos' => $proyectos,
+            'cliente' => $cliente,
+            'sale' => $sale,
         ];
     }
     public function update(Request $request, $id)
@@ -68,4 +89,14 @@ class ApiTaskController extends Controller
         $task->delete();
         return "Registro eliminado.";
     } 
+    public function getClientes()
+    {
+        $companies = Company::orderBy('name')->get();
+        return $companies;
+    }
+    public function getProyectos(Request $request)
+    {
+        $projects = Sale::where('status','Proyecto')->where('company_id',$request->company_id)->orderBy('description')->get();
+        return $projects;
+    }
 }

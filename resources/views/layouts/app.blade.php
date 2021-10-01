@@ -348,7 +348,7 @@
             </li>
             @endif
             <li class="nav-item">
-                <a href="{{ asset('mobile/dotech_mobile_1-1-2.apk') }}" target="_blank" class="nav-link">
+                <a href="{{ asset('mobile/dotech_mobile_1-1-3.apk') }}" target="_blank" class="nav-link">
                   <i class="nav-icon icon-android" style="color:green;"></i><p>App</p>
                 </a>
             </li>
