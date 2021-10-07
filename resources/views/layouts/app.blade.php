@@ -414,6 +414,7 @@
     <!-- Main content -->
     <div class="content">
     @include('layouts.notification')
+    @include('layouts.browser_notification')
     @if(Session::has('message')) @include('layouts.message') @endif
     @yield('content')
     </div>
@@ -439,6 +440,10 @@
       </a><br/><br/>
       <a href="{{ route('index_user') }}">
         <i class="icon-users"></i> Usuarios
+      </a><br/><br/>
+      <a onclick="$('#browser_notification_modal').modal();" href="javascript:void(0)">
+
+        <i class="icon-bell"></i> Notificación página web
       </a><br/><br/>
       @endif
       <a href="#" onclick="event.preventDefault();
@@ -502,6 +507,21 @@
                     }
                 break;
             }
+        });
+        $("#form_browser_notification").submit(function (e) {
+          e.preventDefault();
+          const form = $("#form_browser_notification");
+          $.ajax({
+            type: "GET",
+            url: form.attr("action"),
+            data: form.serialize(),
+            success: function (data) { 
+              form[0].reset();
+              $("#browser_notification_modal").modal('hide');
+            },
+            error: err => console.log(err)
+          });
+          
         });
     </script>
 
