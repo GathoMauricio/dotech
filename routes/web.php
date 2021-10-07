@@ -368,3 +368,13 @@ Route::post('clients_login','ClientController@login')->name('clients_login');
 Route::get('clients_dashboard','ClientController@dashboard')->name('clients_dashboard');
 Route::post('clients_logout','ClientController@logout')->name('clients_logout');
 Route::get('binnacle_pdf_client/{id}','ClientController@makePdf')->name('binnacle_pdf_client');
+
+Route::get('notificar',function(){
+
+    event(new \App\Events\NotificationEvent([
+        'id' => 'landing',
+        'titulo' => 'Nuevo mensaje',
+        'mensaje' => 'De System a Landing'
+    ]));
+    
+})->name('notificar');
