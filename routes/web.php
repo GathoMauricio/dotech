@@ -370,7 +370,6 @@ Route::post('clients_logout','ClientController@logout')->name('clients_logout');
 Route::get('binnacle_pdf_client/{id}','ClientController@makePdf')->name('binnacle_pdf_client');
 
 Route::get('notificar',function(){
-    return request('mensaje');
     event(new \App\Events\NotificationEvent([
         'id' => 'landing',
         'titulo' => request('titulo'),
