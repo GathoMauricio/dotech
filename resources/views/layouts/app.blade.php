@@ -516,6 +516,7 @@
             url: form.attr("action"),
             data: form.serialize(),
             success: function (data) { 
+              console.log(data);
               form[0].reset();
               $("#browser_notification_modal").modal('hide');
             },
