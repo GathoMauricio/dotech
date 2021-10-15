@@ -60,7 +60,7 @@
                                     <label for="delivery_days" class="font-weight-bold color-primary-sys">
                                         Inversión estimada
                                     </label>
-                                    <input wire:model="investment" type="text" 
+                                    <input wire:model="investment" type="number" step="0.1"
                                         min="0"  class="form-control"  />
                                     @error('investment') <span class="error-message">{{ $message }}</span> @enderror
                                 </div>
