@@ -6,7 +6,7 @@
 <table class="table table-bordered">
     <thead>
         <tr>
-            <th width="10%">Id</t)h>
+            <th width="10%">Id</th>
             <th width="10%">Proyecto</th>
             <th width="10%">Descripcion</th>
             <th width="10%">Empelado</th>
@@ -51,24 +51,41 @@
             <!--<td>{{ $whitdrawal->FACTURA }}</td>-->
             <td>{{ onlyDate($whitdrawal->FECHA) }}</td>
             <td>
-            <select onchange="updateWhitdrawalPaid({{ $whitdrawal->ID }},this.value);" >
-                @if($whitdrawal->PAGADO == 'SI')
-                    <option value="SI" selected>SI</option>
-                    <option value="NO">NO</option>
-                @else
-                    <option value="SI">SI</option>
-                    <option value="NO" selected>NO</option>
-                @endif
-            </select>
-            
+                <center>
+                    <select onchange="updateWhitdrawalPaid({{ $whitdrawal->ID }},this.value);" >
+                        @if($whitdrawal->PAGADO == 'SI')
+                            <option value="SI" selected>SI</option>
+                            <option value="NO">NO</option>
+                        @else
+                            <option value="SI">SI</option>
+                            <option value="NO" selected>NO</option>
+                        @endif
+                    </select>
+                    <br>
+                    <img src="{{ asset('img/sat.png') }}" alt="" width="40">
+                    <br>
+                    @if($whitdrawal->FACTURA == 'SI')
+                        @if(!empty($whitdrawal->ESTADO_CFDI))
+                        {{ $whitdrawal->ESTADO_CFDI }}
+                        @else
+                        No disponible
+                        @endif
+                    <br>
+                    <span wire:click = "validarFactura({{$whitdrawal->ID}})" class = "icon-spinner11" style = "cursor:pointer;color:#3498DB;"></span>
+                    @else
+                    N/A
+                    @endif
+                </center>
             </td>
             @if(Auth::user()->rol_user_id == 1)
             <td>
-                <a href="#" onclick="aproveWithdrawalModal({{ $whitdrawal->ID }});"><span class="icon-point-up" title="Aprovar" style="cursor:pointer;color:#74DF00"> Aprobar</span></a>
+                <a href="javascript:void(0)" onclick="aproveWithdrawalModal({{ $whitdrawal->ID }});"><span class="icon-point-up" title="Aprovar" style="cursor:pointer;color:#74DF00"> Aprobar</span></a>
                 <br>
-                <a href="#" onclick="disaproveWithdrawal({{ $whitdrawal->ID }});"><span class="icon-point-down" title="Desaprobar" style="cursor:pointer;color:#FFBF00"> Rechazar</span></a>
+                <a href="javascript:void(0)" onclick="disaproveWithdrawal({{ $whitdrawal->ID }});"><span class="icon-point-down" title="Desaprobar" style="cursor:pointer;color:#FFBF00"> Rechazar</span></a>
                 <br>
-                <a href="#" onclick="deleteWithdrawal({{ $whitdrawal->ID }});"><span class="icon-bin" title="Eliminar" style="cursor:pointer;color:#DF0101"> Eliminar</span></a>
+                <a href="javascript:void(0)" wire:click="edit({{ $whitdrawal->ID }});"><span class="icon-pencil" title="Desaprobar" style="cursor:pointer;color:#ff9100"> Editar</span></a>
+                <br>
+                <a href="javascript:void(0)" onclick="deleteWithdrawal({{ $whitdrawal->ID }});"><span class="icon-bin" title="Eliminar" style="cursor:pointer;color:#DF0101"> Eliminar</span></a>
                 <br>
                 @if($whitdrawal->FACTURA == 'SI')
                     @if(!empty($whitdrawal->DOCUMENTO))
@@ -83,9 +100,17 @@
             @else
                 @if($whitdrawal->FACTURA == 'SI')
                     @if(!empty($whitdrawal->DOCUMENTO))
-                    <td class="text-center"><a href="{{ env('APP_URL').'/storage/'.$whitdrawal->DOCUMENTO }}" target="_BLANK"><span class="icon-eye"></span></a></td>
+                    <td class="text-center">
+                        <a href="{{ env('APP_URL').'/storage/'.$whitdrawal->DOCUMENTO }}" target="_BLANK"><span class="icon-eye"></span></a>
+                        <br>
+                        <a href="javascript:void(0)" wire:click="edit({{ $whitdrawal->ID }});"><span class="icon-pencil" title="Desaprobar" style="cursor:pointer;color:#ff9100"> Editar</span></a>
+                    </td>
                     @else 
-                    <td class="text-center"><a href="#" onclick="addWhitdralDocumentModal({{ $whitdrawal->ID }});"><span class="icon-upload"></span></a></td>
+                    <td class="text-center">
+                        <a href="javascript:void(0)" onclick="addWhitdralDocumentModal({{ $whitdrawal->ID }});"><span class="icon-upload"></span></a>
+                        <br>
+                        <a href="javascript:void(0)" wire:click="edit({{ $whitdrawal->ID }});"><span class="icon-pencil" title="Desaprobar" style="cursor:pointer;color:#ff9100"> Editar</span></a>
+                    </td>
                     @endif
                 @else
                 <td class="text-center">N/A</td>
@@ -128,24 +153,41 @@
             <!--<td>{{ $whitdrawal->invoive }}</td>-->
             <td>{{ onlyDate($whitdrawal->created_at) }}</td>
             <td>
-            <select onchange="updateWhitdrawalPaid({{ $whitdrawal->id }},this.value);" >
-                @if($whitdrawal->paid == 'SI')
-                    <option value="SI" selected>SI</option>
-                    <option value="NO">NO</option>
-                @else
-                    <option value="SI">SI</option>
-                    <option value="NO" selected>NO</option>
-                @endif
-            </select>
-            
+                <center>
+                    <select onchange="updateWhitdrawalPaid({{ $whitdrawal->id }},this.value);" >
+                        @if($whitdrawal->paid == 'SI')
+                            <option value="SI" selected>SI</option>
+                            <option value="NO">NO</option>
+                        @else
+                            <option value="SI">SI</option>
+                            <option value="NO" selected>NO</option>
+                        @endif
+                    </select>
+                    <br>
+                    <img src="{{ asset('img/sat.png') }}" alt="" width="40">
+                    <br>
+                    @if($whitdrawal->invoive == 'SI')
+                        @if(!empty($whitdrawal->estado_cfdi))
+                        {{ $whitdrawal->estado_cfdi }}
+                        @else
+                            No disponible
+                        @endif
+                        <br>
+                        <span wire:click = "validarFactura({{$whitdrawal->id}})" class = "icon-spinner11" style = "cursor:pointer;color:#3498DB;"></span>
+                    @else
+                    N/A
+                    @endif
+                </center>
             </td>
             @if(Auth::user()->rol_user_id == 1)
             <td>
-                <a href="#" onclick="aproveWithdrawalModal({{ $whitdrawal->id }});"><span class="icon-point-up" title="Aprovar" style="cursor:pointer;color:#74DF00"> Aprobar</span></a>
+                <a href="javascript:void(0)" onclick="aproveWithdrawalModal({{ $whitdrawal->id }});"><span class="icon-point-up" title="Aprovar" style="cursor:pointer;color:#74DF00"> Aprobar</span></a>
                 <br>
-                <a href="#" onclick="disaproveWithdrawal({{ $whitdrawal->id }});"><span class="icon-point-down" title="Desaprobar" style="cursor:pointer;color:#FFBF00"> Rechazar</span></a>
+                <a href="javascript:void(0)" onclick="disaproveWithdrawal({{ $whitdrawal->id }});"><span class="icon-point-down" title="Desaprobar" style="cursor:pointer;color:#FFBF00"> Rechazar</span></a>
                 <br>
-                <a href="#" onclick="deleteWithdrawal({{ $whitdrawal->id }});"><span class="icon-bin" title="Eliminar" style="cursor:pointer;color:#DF0101"> Eliminar</span></a>
+                <a href="javascript:void(0)" wire:click="edit({{ $whitdrawal->id }});"><span class="icon-pencil" title="Desaprobar" style="cursor:pointer;color:#ff9100"> Editar</span></a>
+                <br>
+                <a href="javascript:void(0)" onclick="deleteWithdrawal({{ $whitdrawal->id }});"><span class="icon-bin" title="Eliminar" style="cursor:pointer;color:#DF0101"> Eliminar</span></a>
                 <br>
                 @if($whitdrawal->invoive == 'SI')
                     @if(!empty($whitdrawal->document))
@@ -160,9 +202,17 @@
             @else
                 @if($whitdrawal->invoive == 'SI')
                     @if(!empty($whitdrawal->document))
-                    <td class="text-center"><a href="{{ env('APP_URL').'/storage/'.$whitdrawal->document }}" target="_BLANK"><span class="icon-eye"></span></a></td>
+                    <td class="text-center">
+                        <a href="{{ env('APP_URL').'/storage/'.$whitdrawal->document }}" target="_BLANK"><span class="icon-eye"></span></a>
+                        <br>
+                        <a href="javascript:void(0)" wire:click="edit({{ $whitdrawal->id }});"><span class="icon-pencil" title="Desaprobar" style="cursor:pointer;color:#ff9100"> Editar</span></a>
+                    </td>
                     @else 
-                    <td class="text-center"><a href="#" onclick="addWhitdralDocumentModal({{ $whitdrawal->id }});"><span class="icon-upload"></span></a></td>
+                    <td class="text-center">
+                        <a href="javascript:void(0)" onclick="addWhitdralDocumentModal({{ $whitdrawal->id }});"><span class="icon-upload"></span></a>
+                        <br>
+                        <a href="javascript:void(0)" wire:click="edit({{ $whitdrawal->id }});"><span class="icon-pencil" title="Desaprobar" style="cursor:pointer;color:#ff9100"> Editar</span></a>
+                    </td>
                     @endif
                 @else
                 <td class="text-center">N/A</td>

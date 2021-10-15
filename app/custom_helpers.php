@@ -141,3 +141,37 @@ if (!function_exists('sendFcm')) {
             return $result;
     }
 }
+
+if (!function_exists('validarCFDI')) {
+    function validarCFDI($sEmisor,$sReceptor,$sTotal,$sUuid)
+   {
+        $emisor = $sEmisor;
+        $receptor = $sReceptor;
+        $total = $sTotal;
+        $uuid = $sUuid;
+        $SOAP = '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org/"><soapenv:Header/><soapenv:Body><tem:Consulta><tem:expresionImpresa>?re='.$emisor.'&amp;rr='.$receptor.'&amp;tt='.$total.'&amp;id='.$uuid.'</tem:expresionImpresa></tem:Consulta></soapenv:Body></soapenv:Envelope>';
+        $headers = [
+            'Content-Type: text/xml;charset=utf-8',
+            'SOAPAction: http://tempuri.org/IConsultaCFDIService/Consulta',
+            'Content-length: '.strlen($SOAP)
+        ];
+        $url = 'https://consultaqr.facturaelectronica.sat.gob.mx/ConsultaCFDIService.svc';
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $SOAP);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+        $res = curl_exec($ch);
+        curl_close($ch);
+        $xml = simplexml_load_string($res);
+        $data = $xml->children('s', true)->children('', true)->children('', true);
+        $data = json_encode($data->children('a', true), JSON_UNESCAPED_UNICODE);
+        return $data;
+        //$json = json_decode($data);
+        //return $json;
+        //return $json->CodigoEstatus;
+   }
+}

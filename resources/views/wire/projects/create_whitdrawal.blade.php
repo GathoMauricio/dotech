@@ -20,7 +20,7 @@
                                 -->
                                 <label for="whitdrawal_provider_id"
                                     class="font-weight-bold color-primary-sys">Proovedor</label>
-                                <select wire:model="WDwhitdrawal_provider_id" class="custom-select">
+                                <select wire:change = "loadRfc" wire:model="WDwhitdrawal_provider_id" class="custom-select">
                                     <option value>::Seleccione una opción::</option>
                                     @php $providers = \App\WhitdrawalProvider::orderBy('name')->get() @endphp
                                     @foreach($providers as $provider)
@@ -51,14 +51,20 @@
                         
                     </div>
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="emisor" class="font-weight-bold color-primary-sys">RFC Emisor</label>
+                                <input type="text" wire:model="WDemisor" class="form-control"/>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label for="folio" class="font-weight-bold color-primary-sys">Fólio</label>
                                 <input type="text" wire:model="WDfolio" class="form-control"/>
                                 @error('WDfolio') <span class="error-message">{{ $message }}</span> @enderror
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label for="paid" class="font-weight-bold color-primary-sys">Pagado</label>
                                 <select wire:model="WDpaid" class="custom-select">

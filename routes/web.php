@@ -376,3 +376,11 @@ Route::get('notificar',function(){
         'mensaje' => request('mensaje'),
     ]));    
 })->name('notificar');
+
+Route::get('sat',function(){
+    $res = validarCFDI('PET040903DH1','DTI100516SC5','300','c1374385-d21e-440d-9e37-70c9f4cb57ef');
+    //$res = validarCFDI('CIN960904FQ2','DTI100516SC5','306.94','cd9b0608-8540-4a74-a631-5999d71af7aa');
+    return $res;
+    $json = json_decode($res);
+    return $json->CodigoEstatus;
+})->name('sat');

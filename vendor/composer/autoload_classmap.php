@@ -11,6 +11,7 @@ return array(
     'App\\Candidate' => $baseDir . '/app/Candidate.php',
     'App\\Company' => $baseDir . '/app/Company.php',
     'App\\CompanyDepartment' => $baseDir . '/app/CompanyDepartment.php',
+    'App\\CompanyDocument' => $baseDir . '/app/CompanyDocument.php',
     'App\\CompanyFollow' => $baseDir . '/app/CompanyFollow.php',
     'App\\CompanyRepository' => $baseDir . '/app/CompanyRepository.php',
     'App\\Console\\Commands\\DumpMysql' => $baseDir . '/app/Console/Commands/DumpMysql.php',

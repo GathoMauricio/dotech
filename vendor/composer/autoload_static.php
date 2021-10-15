@@ -730,6 +730,7 @@ class ComposerStaticInitc76430cec0ac4972d1901c144bf246d6
         'App\\Candidate' => __DIR__ . '/../..' . '/app/Candidate.php',
         'App\\Company' => __DIR__ . '/../..' . '/app/Company.php',
         'App\\CompanyDepartment' => __DIR__ . '/../..' . '/app/CompanyDepartment.php',
+        'App\\CompanyDocument' => __DIR__ . '/../..' . '/app/CompanyDocument.php',
         'App\\CompanyFollow' => __DIR__ . '/../..' . '/app/CompanyFollow.php',
         'App\\CompanyRepository' => __DIR__ . '/../..' . '/app/CompanyRepository.php',
         'App\\Console\\Commands\\DumpMysql' => __DIR__ . '/../..' . '/app/Console/Commands/DumpMysql.php',

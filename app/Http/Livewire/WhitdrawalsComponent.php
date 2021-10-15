@@ -15,6 +15,13 @@ class WhitdrawalsComponent extends Component
     protected $listeners = ['destroy' => 'destroy'];
     public $search = "";
     public $self_component = 'whitdrawals';
+    public 
+    $whitdrawal_id,
+    $descripcion,
+    $quantity,
+    $emisor,
+    $folio_fiscal;
+
 
     public function render()
     {
@@ -36,6 +43,7 @@ class WhitdrawalsComponent extends Component
                 'whitdrawals.created_at AS FECHA',
                 'whitdrawals.document AS DOCUMENTO',
                 'whitdrawals.folio AS FOLIO',
+                'whitdrawals.estado_cfdi AS ESTADO_CFDI',
                 'whitdrawals.paid AS PAGADO'
                 )
             ->join('sales', 'sales.id', '=', 'whitdrawals.sale_id')
@@ -64,5 +72,99 @@ class WhitdrawalsComponent extends Component
             $whitdrawals = Whitdrawal::where('status','Pendiente')->orderBy('id','desc')->paginate(15);
         }
         return view('livewire.whitdrawals-component',['whitdrawals' => $whitdrawals]); 
+    }
+
+    public function edit($id)
+    {
+        $whitdrawal = Whitdrawal::findOrFail($id);
+        $this->whitdrawal_id = $whitdrawal->id;
+        $this->descripcion = $whitdrawal->description;
+        $this->quantity = $whitdrawal->quantity;
+        $this->emisor = $whitdrawal->emisor;
+        $this->folio_fiscal = $whitdrawal->folio;
+        $this->emit('eidt_whitdrawal_modal');
+    }
+
+    public function update(){
+        $this->validate([
+            'descripcion' => 'required',
+            'quantity' => 'required',
+            'emisor' => 'required',
+            'folio_fiscal' => 'required'
+        ],[
+            'descripcion.required' => 'Campo requerido',
+            'quantity.required' => 'Campo requerido',
+            'emisor.required' => 'Campo requerido',
+            'folio_fiscal.required' => 'Campo requerido'
+        ]);
+        $whitdrawal = Whitdrawal::findOrFail($this->whitdrawal_id );
+        $whitdrawal->description = $this->descripcion;
+        $whitdrawal->quantity = $this->quantity;
+        $whitdrawal->emisor = $this->emisor;
+        $whitdrawal->folio = $this->folio_fiscal;
+
+        if(!empty($whitdrawal->emisor) && !empty($whitdrawal->folio))
+        {
+            //validar CFDI
+            $sat = validarCFDI($whitdrawal->emisor,env('DOTECH_RFC'),$whitdrawal->quantity,$whitdrawal->folio);
+            $jsonSat = json_decode($sat);
+            $estatus = explode(":",$jsonSat->CodigoEstatus);
+            if($estatus[0] == 'N - 602')
+            {
+                $whitdrawal->estado_cfdi = $estatus[1];
+            }else{
+                $whitdrawal->es_cancelable = $jsonSat->EsCancelable;
+                $whitdrawal->codigo_estatus = $jsonSat->CodigoEstatus;
+                $whitdrawal->estado_cfdi = $jsonSat->Estado;
+                //$whitdrawal->estatus_cancelacion = $jsonSat->EstatusCancelacion;
+            }
+            $whitdrawal->save();
+        }
+
+        $whitdrawal->save();
+        $this->emit('dissmisEditWhitdrawalModal');
+        $this->emit('successNotification','Retiro actualizado');
+        $this->default();
+    }
+
+    public function validarFactura($id){
+        $whitdrawal = Whitdrawal::findOrFail($id);
+
+        if(empty($whitdrawal->emisor)){
+            $whitdrawal->estado_cfdi = "Sin emisor";
+            $whitdrawal->save();
+            $this->emit('errorNotification','No se ha agregado el emisor de la factura.');
+        }else{
+            if(empty($whitdrawal->folio)){
+                $this->emit('errorNotification','No se ha agregado el folio fiscal de la factura.');
+            }else{
+                //validar CFDI
+                $sat = validarCFDI($whitdrawal->emisor,env('DOTECH_RFC'),$whitdrawal->quantity,$whitdrawal->folio);
+                $jsonSat = json_decode($sat);
+
+                $estatus = explode(":",$jsonSat->CodigoEstatus);
+                if($estatus[0] == 'N - 601' || $estatus[0] == 'N - 602')
+                {
+                    $whitdrawal->estado_cfdi = $estatus[1];
+                    $this->emit('errorNotification','CFDI Validado: '.$jsonSat->Estado);
+                }else{
+                    $whitdrawal->es_cancelable = $jsonSat->EsCancelable;
+                    $whitdrawal->codigo_estatus = $jsonSat->CodigoEstatus;
+                    $whitdrawal->estado_cfdi = $jsonSat->Estado;
+                    //$whitdrawal->estatus_cancelacion = $jsonSat->EstatusCancelacion;
+                    $this->emit('successNotification','CFDI Validado: '.$jsonSat->CodigoEstatus);
+                }
+                $whitdrawal->save();
+            }
+        }  
+        $this->default();
+    }
+
+    public function default() {
+        $this->whitdrawal_id = null;
+        $this->descripcion = null;
+        $this->quantity = null;
+        $this->emisor = null;
+        $this->folio_fiscal = null;
     }
 }

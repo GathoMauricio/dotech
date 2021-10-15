@@ -46,6 +46,7 @@ class ProjectsComponent extends Component
         $WDwhitdrawal_provider_id,
         $WDquantity,
         $WDinvoive,
+        $WDemisor,
         $WDfolio,
         $WDpaid,
         $WDdescription;
@@ -186,9 +187,34 @@ class ProjectsComponent extends Component
             'quantity' => $this->WDquantity,
             'invoive' => $this->WDinvoive,
             'folio' => $this->WDfolio,
+            'emisor' => $this->WDemisor,
             'paid' => $this->WDpaid,
             'description' => $this->WDdescription
         ]);
+
+        if(!empty($whitdrawal->emisor) && !empty($whitdrawal->folio))
+        {
+            //validar CFDI
+            $sat = validarCFDI($whitdrawal->emisor,env('DOTECH_RFC'),$whitdrawal->quantity,$whitdrawal->folio);
+            $jsonSat = json_decode($sat);
+            $estatus = explode(":",$jsonSat->CodigoEstatus);
+            if($estatus[0] == 'N - 602')
+            {
+                $whitdrawal->estado_cfdi = $estatus[1];
+            }else{
+                $whitdrawal->es_cancelable = $jsonSat->EsCancelable;
+                $whitdrawal->codigo_estatus = $jsonSat->CodigoEstatus;
+                $whitdrawal->estado_cfdi = $jsonSat->Estado;
+                //$whitdrawal->estatus_cancelacion = $jsonSat->EstatusCancelacion;
+            }
+            $whitdrawal->save();
+
+            //Actualizar RFC del provedor
+            $provedor = \App\WhitdrawalProvider::find($whitdrawal->whitdrawal_provider_id);
+            $provedor->rfc = $whitdrawal->emisor;
+            $provedor->save();
+        }
+
         #Regarga los retiros
         $this->whitdrawals = Whitdrawal::where('sale_id', $this->sale_id)->where(function($q){
             $q->where('status', 'Aprobado');
@@ -200,6 +226,7 @@ class ProjectsComponent extends Component
         $this->WDquantity = null;
         $this->WDinvoive = null;
         $this->WDfolio = null;
+        $this->WDEmisor = null;
         $this->WDpaid = null;
         $this->WDdescription = null;
     }
@@ -243,5 +270,10 @@ class ProjectsComponent extends Component
         $documento->delete();
         $this->documents = SaleDocument::where('sale_id', $this->sale_id)->get();
         $this->emit('successNotification','Registro eliminado');
+    }
+
+    public function loadRfc(){
+        $proveedor = \App\WhitdrawalProvider::find($this->WDwhitdrawal_provider_id);
+        if($proveedor)$this->WDemisor = $proveedor->rfc;
     }
 }

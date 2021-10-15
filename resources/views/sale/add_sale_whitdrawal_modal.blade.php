@@ -49,13 +49,19 @@
                         
                     </div>
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="emisor" class="font-weight-bold color-primary-sys">RFC Emisor</label>
+                                <input type="text" name="emisor" class="form-control"/>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label for="folio" class="font-weight-bold color-primary-sys">Fólio</label>
                                 <input type="text" name="folio" class="form-control"/>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label for="paid" class="font-weight-bold color-primary-sys">Pagado</label>
                                 <select name="paid" class="custom-select">
@@ -69,7 +75,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="description" class="font-weight-bold color-primary-sys">Descripción</label>
-                                <textarea  name="description" class="form-control" required /></textarea
+                                <textarea  name="description" class="form-control" required ></textarea
                             </div>
                         </div>
                     </div>

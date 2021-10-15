@@ -56,7 +56,7 @@
                                 <label for="rfc" class="font-weight-bold color-primary-sys">
                                     rfc
                                 </label>
-                                <input name="" type="text" class="form-control">
+                                <input name="rfc" type="text" class="form-control">
                             </div>
                         </div>
                         <div class="col-md-6">

@@ -11,6 +11,7 @@
     <thead>
         <tr>
             <th >Nombre</th>
+            <th >RFC</th>
             <th >Banco</th>
             <th >Cuenta</th>
             <th >Forma pago</th>
@@ -25,6 +26,7 @@
         @foreach($whitdrawals as $whitdrawal)
         <tr>
             <td>{{ $whitdrawal->name }}</td>
+            <td>{{ $whitdrawal->rfc }}</td>
             <td>{{ $whitdrawal->bank }}</td>
             <td>{{ $whitdrawal->account }}</td>
             <td>{{ $whitdrawal->pay_type }}</td>
