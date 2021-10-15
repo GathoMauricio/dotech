@@ -59,7 +59,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="folio" class="font-weight-bold color-primary-sys">Fólio</label>
+                                <label for="folio" class="font-weight-bold color-primary-sys">Fólio Fiscal</label>
                                 <input type="text" wire:model="WDfolio" class="form-control"/>
                                 @error('WDfolio') <span class="error-message">{{ $message }}</span> @enderror
                             </div>
