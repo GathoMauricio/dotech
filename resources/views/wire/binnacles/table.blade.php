@@ -105,6 +105,6 @@
 <input type="hidden" id="txt_show_binnacle_image_route" value="{{ route('show_binnacle_image') }}">
 <input type="hidden" id="txt_view_binnacle_images_route" value="{{ route('binnacle_images_index') }}">
 <input type="hidden" id="txt_delete_binnacle_route" value="{{ route('delete_binnacle') }}"/>
-<input type="text" id = "txt_asignar_compania_bitacora" value ="{{ route('asignar_compania_bitacora') }}">
-<input type="text" id = "txt_asignar_alias_bitacora" value ="{{ route('asignar_alias_bitacora') }}">
+<input type="hidden" id = "txt_asignar_compania_bitacora" value ="{{ route('asignar_compania_bitacora') }}">
+<input type="hidden" id = "txt_asignar_alias_bitacora" value ="{{ route('asignar_alias_bitacora') }}">
 @endif

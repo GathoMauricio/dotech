@@ -13,23 +13,45 @@ class ClientComponent extends Component
     use WithPagination;
     use WithFileUploads;
     protected $paginationTheme = 'bootstrap';
-    public $search = "";
+
+    public $searchMonth = "";
+    public $searchCriteria = "";
+    public $searchStatus = "";
 
     public $password = "";
     public $password_confirmation = "";
 
     public function render()
     {
-        if (strlen($this->search) > 0) {
+        /*
+        if (strlen($this->searchCriteria) > 0) {
             $sales = Sale::where('company_id',auth('clients')->user()->id)
-            ->where('description','LIKE','%'.$this->search.'%')
+            ->where('created_at','LIKE','%'.$this->searchCriteria.'%')
+            ->where('description','LIKE','%'.$this->searchCriteria.'%')
             ->orderBy('created_at','DESC')
             ->get();
         }else{
             $sales = Sale::where('company_id',auth('clients')->user()->id)
+            ->where(function($q){
+                $q->where('status','Pendiente');
+                $q->orWhere('status','Proyecto');
+                $q->orWhere('status','Finalizado');
+            })
             ->orderBy('created_at','DESC')
             ->get();
         }
+        */
+        $sales = Sale::where('company_id',auth('clients')->user()->id)
+            ->where('created_at','LIKE','%'.$this->searchMonth.'%')
+            ->where('description','LIKE','%'.$this->searchCriteria.'%')
+            ->where('status','LIKE','%'.$this->searchStatus.'%')
+            ->where(function($q){
+                $q->where('status','Pendiente');
+                $q->orWhere('status','Proyecto');
+                $q->orWhere('status','Finalizado');
+            })
+            ->orderBy('created_at','DESC')
+            ->get();
 
         return view('livewire.client-component',['sales' => $sales]);
     }

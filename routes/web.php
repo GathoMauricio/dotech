@@ -86,7 +86,7 @@ Route::post('store_quote','SaleController@storeQuote')->name('store_quote')->mid
 Route::get('send_sale','SaleController@sendSale')->name('send_sale')->middleware('auth');
 
 #PDF Sale
-Route::get('load_sale_pdf/{id?}','SaleController@loadPDF')->name('load_sale_pdf')->middleware('auth');
+Route::get('load_sale_pdf/{id?}','SaleController@loadPDF')->name('load_sale_pdf');
 
 #Sale Follows
 Route::get('sale_follows/{id}','SaleFollowController@index')->name('sale_follows')->middleware('auth');
