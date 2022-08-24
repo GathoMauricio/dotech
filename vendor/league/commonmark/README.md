@@ -6,8 +6,8 @@
 [![Build Status](https://img.shields.io/github/workflow/status/thephpleague/commonmark/Tests/main.svg?style=flat-square)](https://github.com/thephpleague/commonmark/actions?query=workflow%3ATests+branch%3Amain)
 [![Coverage Status](https://img.shields.io/scrutinizer/coverage/g/thephpleague/commonmark.svg?style=flat-square)](https://scrutinizer-ci.com/g/thephpleague/commonmark/code-structure)
 [![Quality Score](https://img.shields.io/scrutinizer/g/thephpleague/commonmark.svg?style=flat-square)](https://scrutinizer-ci.com/g/thephpleague/commonmark)
+[![Psalm Type Coverage](https://shepherd.dev/github/thephpleague/commonmark/coverage.svg)](https://shepherd.dev/github/thephpleague/commonmark)
 [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/126/badge)](https://bestpractices.coreinfrastructure.org/projects/126)
-
 [![Sponsor development of this project](https://img.shields.io/badge/sponsor%20this%20package-%E2%9D%A4-ff69b4.svg?style=flat-square)](https://www.colinodell.com/sponsor)
 
 ![league/commonmark](commonmark-banner.png)
@@ -32,7 +32,7 @@ $converter = new CommonMarkConverter([
     'allow_unsafe_links' => false,
 ]);
 
-echo $converter->convertToHtml('# Hello World!');
+echo $converter->convert('# Hello World!');
 
 // <h1>Hello World!</h1>
 ```
@@ -47,7 +47,7 @@ $converter = new GithubFlavoredMarkdownConverter([
     'allow_unsafe_links' => false,
 ]);
 
-echo $converter->convertToHtml('# Hello World!');
+echo $converter->convert('# Hello World!');
 
 // <h1>Hello World!</h1>
 ```
@@ -119,7 +119,7 @@ Any classes or methods marked `@internal` are not intended for use outside of th
 
 ## 🛠️ Maintenance & Support
 
-When a new **minor** version (e.g. `1.5` -> `1.6`) is released, the previous one (`1.5`) will continue to receive security and critical bug fixes for *at least* 3 months.
+When a new **minor** version (e.g. `2.0` -> `2.1`) is released, the previous one (`2.0`) will continue to receive security and critical bug fixes for *at least* 3 months.
 
 When a new **major** version is released (e.g. `1.6` -> `2.0`), the previous one (`1.6`) will receive critical bug fixes for *at least* 3 months and security updates for 6 months after that new release comes out.
 
@@ -173,6 +173,7 @@ This code is partially based on the [CommonMark JS reference implementation][com
 We'd also like to extend our sincere thanks the following sponsors who support ongoing development of this project:
 
  - [Tidelift](https://tidelift.com/subscription/pkg/packagist-league-commonmark?utm_source=packagist-league-commonmark&utm_medium=referral&utm_campaign=readme) for offering support to both the maintainers and end-users through their [professional support](https://tidelift.com/subscription/pkg/packagist-league-commonmark?utm_source=packagist-league-commonmark&utm_medium=referral&utm_campaign=readme) program
+ - [Blackfire](https://www.blackfire.io/) for providing an Open-Source Profiler subscription
  - [JetBrains](https://www.jetbrains.com/) for supporting this project with complimentary [PhpStorm](https://www.jetbrains.com/phpstorm/) licenses
  - [Taylor Otwell](https://twitter.com/taylorotwell) for sponsoring this project through GitHub sponsors
 

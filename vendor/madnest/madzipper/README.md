@@ -11,7 +11,11 @@ This is a simple Wrapper around the ZipArchive methods with some handy functions
 
 ## Installation
 
-1. `"madnest/madzipper": "1.0.x"` can be installed by running `composer require madnest/madzipper`
+1. `"madnest/madzipper": "1.x"` can be installed by running:
+
+``` bash
+composer require madnest/madzipper
+```
 
 2. Optionally when using with Laravel 8, 7 or 6, go to `app/config/app.php`
 
@@ -193,6 +197,16 @@ Example: extract all files **except** those ending with `test.php` from `src` fo
 ```php
 Madzipper::make('test.zip')->folder('src')->extractMatchingRegex($path, '/^(?!.*test\.php).*$/i');
 ```
+
+## Testing
+
+```bash
+composer test
+```
+
+## Changelog
+
+Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
 
 # Development
 
