@@ -42,7 +42,7 @@ class ProjectsComponent extends Component
         $grossNoIvaProfitNoCommision = null;
 
     #Propiedades para manipular retiros retiros
-    public 
+    public
         $WDwhitdrawal_provider_id,
         $WDquantity,
         $WDinvoive,
@@ -50,7 +50,7 @@ class ProjectsComponent extends Component
         $WDfolio,
         $WDpaid,
         $WDdescription;
-    
+
 
     public function render()
     {
@@ -86,6 +86,7 @@ class ProjectsComponent extends Component
 
     public function show($id)
     {
+        \Log::debug($id);
         $this->sale_id = $id;
         $sale = Sale::findOrFail($this->sale_id);
         $products = ProductSale::where('sale_id', $id)->get();
@@ -125,7 +126,7 @@ class ProjectsComponent extends Component
         /*
         costoProyecto
         1044/1.16=900
-        900*.13=117 
+        900*.13=117
         */
 
         $sale->utility = $utilidad;
@@ -170,7 +171,7 @@ class ProjectsComponent extends Component
                 'WDinvoive' => 'required',
                 'WDpaid' => 'required',
                 'WDdescription' => 'required'
-            ], 
+            ],
             [
                 'WDwhitdrawal_provider_id.required' => 'Este campo es obligatorio',
                 'WDquantity.required' => 'Este campo es obligatorio',
@@ -254,7 +255,7 @@ class ProjectsComponent extends Component
     }
 
     public function eliminarRetiro($id)
-    { 
+    {
         $retiro = Whitdrawal::find($id);
         $retiro->delete();
         $this->whitdrawals = Whitdrawal::where('sale_id', $this->sale_id)->where(function($q){
@@ -265,7 +266,7 @@ class ProjectsComponent extends Component
     }
 
     public function eliminarDocumento($id)
-    { 
+    {
         $documento = SaleDocument::find($id);
         $documento->delete();
         $this->documents = SaleDocument::where('sale_id', $this->sale_id)->get();

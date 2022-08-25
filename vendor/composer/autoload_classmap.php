@@ -275,6 +275,7 @@ return array(
     'Cron\\HoursField' => $vendorDir . '/dragonmantank/cron-expression/src/Cron/HoursField.php',
     'Cron\\MinutesField' => $vendorDir . '/dragonmantank/cron-expression/src/Cron/MinutesField.php',
     'Cron\\MonthField' => $vendorDir . '/dragonmantank/cron-expression/src/Cron/MonthField.php',
+    'Database\\Seeders\\AdminSeeder' => $baseDir . '/database/seeders/AdminSeeder.php',
     'Database\\Seeders\\DatabaseSeeder' => $baseDir . '/database/seeders/DatabaseSeeder.php',
     'DaveJamesMiller\\Breadcrumbs\\BreadcrumbsException' => $vendorDir . '/davejamesmiller/laravel-breadcrumbs/src/BreadcrumbsException.php',
     'DaveJamesMiller\\Breadcrumbs\\BreadcrumbsGenerator' => $vendorDir . '/davejamesmiller/laravel-breadcrumbs/src/BreadcrumbsGenerator.php',
