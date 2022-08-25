@@ -7,7 +7,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-<!--===============================================================================================-->	
+<!--===============================================================================================-->
 	<link rel="icon" type="image/png" href="{{ asset('login_template') }}/images/icons/favicon.ico"/>
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="{{ asset('login_template') }}/vendor/bootstrap/css/bootstrap.min.css">
@@ -17,7 +17,7 @@
 	<link rel="stylesheet" type="text/css" href="{{ asset('login_template') }}/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="{{ asset('login_template') }}/vendor/animate/animate.css">
-<!--===============================================================================================-->	
+<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="{{ asset('login_template') }}/vendor/css-hamburgers/hamburgers.min.css">
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="{{ asset('login_template') }}/vendor/select2/select2.min.css">
@@ -27,7 +27,7 @@
 <!--===============================================================================================-->
 </head>
 <body>
-	
+
 	<div class="limiter">
 		<div class="container-login100" style="background-image: url('{{ asset('login_template') }}/images/tecnology.png');">
 			<div class="wrap-login100 p-t-190 p-b-30">
@@ -38,7 +38,7 @@
 					</div>
 
 					<span class="login100-form-title p-t-20 p-b-45">
-						Dotech System
+						{{ env('APP_NAME') }}
 					</span>
 
 					<div class="wrap-input100 validate-input m-b-10" data-validate = "Username is required">
@@ -78,11 +78,11 @@
 							Forgot Username / Password?
 						</a>
 					</div>
-                    
+
 					<div class="text-center w-full">
 						<a class="txt1" href="#">
 							Create new account
-							<i class="fa fa-long-arrow-right"></i>						
+							<i class="fa fa-long-arrow-right"></i>
 						</a>
 					</div>
                     -->
@@ -90,11 +90,11 @@
 			</div>
 		</div>
 	</div>
-	
-	
 
-	
-<!--===============================================================================================-->	
+
+
+
+<!--===============================================================================================-->
 	<script src="{{ asset('login_template') }}/vendor/jquery/jquery-3.2.1.min.js"></script>
 <!--===============================================================================================-->
 	<script src="{{ asset('login_template') }}/vendor/bootstrap/js/popper.js"></script>
