@@ -37,8 +37,8 @@
       <li class="nav-item">
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
-      
-      
+
+
       <!--
       <li class="nav-item d-none d-sm-inline-block">
         <a href="#" class="nav-link">Home</a>
@@ -81,7 +81,7 @@
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
           <a href="#" class="dropdown-item">
-            
+
             <div class="media">
               <img src="{{ asset('adminlte/img/user1-128x128.jpg') }}" alt="User Avatar" class="img-size-50 mr-3 img-circle">
               <div class="media-body">
@@ -93,11 +93,11 @@
                 <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
               </div>
             </div>
-           
+
           </a>
           <div class="dropdown-divider"></div>
           <a href="#" class="dropdown-item">
-            
+
             <div class="media">
               <img src="{{ asset('adminlte/img/user8-128x128.jpg') }}" alt="User Avatar" class="img-size-50 img-circle mr-3">
               <div class="media-body">
@@ -109,11 +109,11 @@
                 <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
               </div>
             </div>
-            
+
           </a>
           <div class="dropdown-divider"></div>
           <a href="#" class="dropdown-item">
-            
+
             <div class="media">
               <img src="{{ asset('adminlte/img/user3-128x128.jpg') }}" alt="User Avatar" class="img-size-50 img-circle mr-3">
               <div class="media-body">
@@ -125,14 +125,14 @@
                 <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
               </div>
             </div>
-            
+
           </a>
           <div class="dropdown-divider"></div>
           <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
         </div>
       </li>
       -->
-      
+
       <!-- Notifications Dropdown Menu -->
       <li class="nav-item dropdown">
       <!--
@@ -169,7 +169,7 @@
       </li>
       <li class="nav-item">
         <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
-          <i class="fa fa-user"></i><i class="fa fa-caret-down"></i> 
+          <i class="fa fa-user"></i><i class="fa fa-caret-down"></i>
         </a>
       </li>
     </ul>
@@ -181,9 +181,9 @@
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="{{ route('/') }}" class="brand-link">
-      
+
       <img src="{{ asset('img/brand.png') }}" alt="DotechLogo" class="img-circle p-1" style="background-color:white;" width="40">
-      
+
       <span class="brand-text font-weight-light">Dotech System</span>
     </a>
 
@@ -240,9 +240,9 @@
              <li class="nav-item">
                 <a href="{{ route('wire_whitdrawals') }}" class="nav-link @if (Route::currentRouteName() == 'wire_whitdrawals') active @endif">
                   <i class="nav-icon icon-checkmark"></i><p>Retiros <img src="{{ asset('img/wire.png') }}" width="60"></p>
-                  
+
                 </a>
-                
+
             </li>
             <!--
             <li class="nav-item">
@@ -374,7 +374,7 @@
             </ul>
           </li>
           -->
-        
+
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
@@ -393,7 +393,7 @@
               @yield('page_title')
             </h1>
           </div><!-- /.col -->
-          
+
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
             <!--
@@ -405,7 +405,7 @@
               -->
             </ol>
           </div>
-          
+
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
     </div>
@@ -427,16 +427,16 @@
     <div class="p-3">
       @if(Auth::user()->rol_user_id == 1 || Auth::user()->rol_user_id == 2)
       <a href="{{ route('provider_index') }}">
-        <i class="icon-cart"></i> Proveedores de retiro 
+        <i class="icon-cart"></i> Proveedores de retiro
       </a><br/><br/>
       <a href="{{ route('index_department') }}">
         <i class="icon-tree"></i> Departamentos de retiro
       </a><br/><br/>
       <a href="{{ route('index_account') }}">
-        <i class="icon-credit-card"></i> Cuentas de retiro 
+        <i class="icon-credit-card"></i> Cuentas de retiro
       </a><br/><br/>
       <a href="{{ route('log_index') }}">
-        <i class="icon-database"></i> Log 
+        <i class="icon-database"></i> Log
       </a><br/><br/>
       <a href="{{ route('index_user') }}">
         <i class="icon-users"></i> Usuarios
@@ -483,7 +483,6 @@
 <script src="{{ asset('js/jquery-ui.min.js') }}" defer></script>
 <script src="{{ asset('datepicker/jquery.datetimepicker.full.min.js') }}" defer></script>
 <link rel="stylesheet" type="text/css" href="{{ asset('datepicker/jquery.datetimepicker.min.css') }}"/>
-<script type="text/javascript"src="https://slideshow.triptracker.net/slide.js"></script>
 <script src="//unpkg.com/vanilla-masker@1.1.1/lib/vanilla-masker.js"></script>
 <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
 <script>
@@ -515,13 +514,13 @@
             type: "GET",
             url: form.attr("action"),
             data: form.serialize(),
-            success: function (data) { 
+            success: function (data) {
               form[0].reset();
               $("#browser_notification_modal").modal('hide');
             },
             error: err => console.log(err)
           });
-          
+
         });
     </script>
 

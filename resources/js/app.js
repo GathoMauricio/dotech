@@ -245,9 +245,9 @@ window.searchWhitdrawals = value => {
                 <!--<td>${ item.company }</td>-->
                 <td>
                 <a href="#" target="_blank">
-                ${ item.sale_id } 
-                ${ item.company } 
-                - 
+                ${ item.sale_id }
+                ${ item.company }
+                -
                 ${ item.sale_description}
                 </a>
                 <br/>
@@ -865,7 +865,7 @@ window.indexCompanyFollow = company_id => {
         error: error => console.log(error)
     });
 
-    
+
 };
 window.loadDepartmentsByCompany = company_id => {
     $("#load_departments_by_company").css("display", "block");
@@ -1018,7 +1018,7 @@ window.changeStatusModal = sale_id => {
         },
         error: err => console.log(err)
     });
-    
+
 };
 window.addSaleFollowModal = sale_id => {
     $("#txt_add_sale_follow_sale_id").val(sale_id);
@@ -1284,8 +1284,19 @@ window.showServiceImage = id => {
 window.editPasswordModal = () => {
     $("#edit_password_modal").modal();
 };
+window.viewBinnacleImages = (binnacle_id, count,url) => {
+    if(count > 0){
+        newwindow=window.open(url,"Imagenes",'height=800,width=800');
+       if (window.focus) {newwindow.focus()}
+       return false;
+    }else{
+        toast('Aviso','No hay imágenes para mostrar...');
+    }
 
+};
+/*
 window.viewBinnacleImages = (binnacle_id, count) => {
+    console.log(binnacle_id+' '+count);
     if (count > 0) {
         const route = $("#txt_view_binnacle_images_route").val();
         let viewer = new PhotoViewer();
@@ -1318,7 +1329,7 @@ window.viewBinnacleImages = (binnacle_id, count) => {
     }
 
 };
-
+*/
 window.addBinnacle = sale_id => {
     $("#txt_add_sale_id").val(sale_id);
     $("#add_binnacle_modal").modal();

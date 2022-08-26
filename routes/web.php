@@ -241,6 +241,7 @@ Route::get('show_binnacle_ajax','BinnacleController@showBinnacleAjax')->name('sh
 Route::get('asignar_compania_bitacora','BinnacleController@asignarCompaniaBitacora')->name('asignar_compania_bitacora')->middleware('auth');
 Route::get('asignar_alias_bitacora','BinnacleController@asignarAliasBitacora')->name('asignar_alias_bitacora')->middleware('auth');
 
+
 #Binnacle PDF
 Route::get('binnacle_pdf/{id}','BinnacleController@makePdf')->name('binnacle_pdf')->middleware('auth');
 
@@ -250,6 +251,7 @@ Route::get('binnacle_images_index/{id?}','BinnacleImageController@index')->name(
 Route::post('store_binnacle_image','BinnacleImageController@store')->name('store_binnacle_image')->middleware('auth');
 Route::put('update_binnacle_image/{id}','BinnacleImageController@update')->name('update_binnacle_image')->middleware('auth');
 Route::delete('delete_binnacle_image/{id?}','BinnacleImageController@destroy')->name('delete_binnacle_image')->middleware('auth');
+Route::get('binnacle_images/{id}','BinnacleImageController@binnacleImages')->name('binnacle_images');
 
 #Vehicles
 Route::get('vehicle_index','VehicleController@index')->name('vehicle_index')->middleware('auth');
@@ -317,7 +319,7 @@ Route::post('candidates_store','CandidateController@store')->name('candidates_st
 Route::put('candidates_update/{id}','CandidateController@update')->name('candidates_update')->middleware('auth');
 Route::get('candidates_destroy/{id?}','CandidateController@destroy')->name('candidates_destroy')->middleware('auth');
 
-#UserTest 
+#UserTest
 Route::post('store_user_test','UserTestController@store')->name('store_user_test')->middleware('auth');
 Route::get('check_user_test/{id?}','UserTestController@checkUserTest')->name('check_user_test')->middleware('auth');
 Route::get('generate_user_test/{id?}','UserTestController@generateUserTest')->name('generate_user_test')->middleware('auth');
@@ -374,7 +376,7 @@ Route::get('notificar',function(){
         'id' => 'landing',
         'titulo' => request('titulo'),
         'mensaje' => request('mensaje'),
-    ]));    
+    ]));
 })->name('notificar');
 
 Route::get('sat',function(){

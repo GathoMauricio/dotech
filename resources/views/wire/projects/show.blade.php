@@ -329,8 +329,8 @@
     </table>
 </div>
 <div id="retiros_container_tab" style="display:none;">
-    
-    
+
+
     <table class="table" border="5">
         <tr>
             <td colspan="9" style="background-color:#d30035;color:white;font-weight:bold;">
@@ -343,8 +343,8 @@
             </td>
         </tr>
     </table>
-    
-    
+
+
     <table class="table" border="5" id="index_table_retiros">
         <thead>
             <tr>
@@ -429,7 +429,7 @@
         <tr><td colspan="9" class="text-center">Sin registros</td></tr>
         @endif
     </table>
-    
+
 </div>
 <div id="bitacoras_container_tab" style="display:none;">
     <table class="table" border="5">
@@ -476,7 +476,7 @@
                     </span>
                 </a>
                 <br>
-                <a href="#" onclick="viewBinnacleImages({{ $binnacle->id }},{{ count(App\BinnacleImage::where('binnacle_id',$binnacle->id)->get()) }})">
+                <a href="#" onclick="viewBinnacleImages({{ $binnacle->id }},{{ count(App\BinnacleImage::where('binnacle_id',$binnacle->id)->get()) }},'{{ route('binnacle_images',$binnacle->id) }}')">
                     <span class="icon-image" title="ver imágenes..." style="cursor:pointer;color:#2c49ec">
                         {{ count(App\BinnacleImage::where('binnacle_id',$binnacle->id)->get()) }}
                         Imágenes

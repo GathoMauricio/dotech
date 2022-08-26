@@ -69,7 +69,7 @@ class BinnacleImageController extends Controller
         $image = BinnacleImage::findOrFail($id);
         $image->description = $request->description;
         $image->save();
-        
+
         $msg = "Actualizó una imagen de la bitácora ".$image->binnacle['description'];
         createSysLog($msg);
         $notificationUsers = \App\User::where('rol_user_id',1)->get();
@@ -105,5 +105,14 @@ class BinnacleImageController extends Controller
 
         $image->delete();
         return redirect()->back()->with('message', 'La imagen se eliminó con éxito');
+    }
+
+    public function binnacleImages($id){
+        $images = BinnacleImage::where('binnacle_id',$id)->get();
+        $urls = [];
+        foreach($images as $image){
+            $urls[] = getUrl().'/storage/'.$image->image;
+        }
+        return view('binnacles.images',['urls' =>$urls]);
     }
 }
