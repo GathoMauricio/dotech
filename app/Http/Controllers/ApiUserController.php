@@ -13,26 +13,31 @@ class ApiUserController extends Controller
         {
             if( $user->status_user_id != 2 )
             {
-                return 
+                return
                 [
                     'error' => 0,
-                    'api_token' => $user->api_token
+                    'api_token' => $user->api_token,
+                    'name' => $user->name,
+                    'middle_name' => $user->middle_name,
+                    'last_name' => $user->last_name,
+                    'email' => $user->email,
+                    'image' => $user->image,
                 ];
             }else{
-                return 
+                return
                 [
                     'error' => 1,
                     'message' => 'El usuario se encuentra inactivo.'
                 ];
             }
         }else{
-            return 
+            return
             [
                 'error' => 2,
                 'message' => 'El usuario no se encuentra en nuestros registros.'
             ];
         }
-        
+
     }
     public function index()
     {

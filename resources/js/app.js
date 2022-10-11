@@ -1286,7 +1286,7 @@ window.editPasswordModal = () => {
 };
 window.viewBinnacleImages = (binnacle_id, count,url) => {
     if(count > 0){
-        newwindow=window.open(url,"Imagenes",'height=800,width=800');
+        const newwindow = window.open(url,"Imagenes",'height=800,width=800');
        if (window.focus) {newwindow.focus()}
        return false;
     }else{
