@@ -21,7 +21,7 @@ class ApiUserController extends Controller
                     'middle_name' => $user->middle_name,
                     'last_name' => $user->last_name,
                     'email' => $user->email,
-                    'image' => $user->image,
+                    'image' => $user->image == 'perfil.png' ? asset('img/'.$user->image) : asset('storage/'.$user->image),
                 ];
             }else{
                 return
