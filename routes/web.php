@@ -343,6 +343,8 @@ Route::get('test',function(){
 Route::group(['middleware' => ['auth']],function(){
     #Retiros
     Route::get('wire_whitdrawals',function(){ return view('wire.whitdrawals.index'); })->name('wire_whitdrawals');
+    #Transacciones
+    Route::get('wire_transactions',function(){ return view('wire.transactions.index'); })->name('wire_transactions');
     #Tareas
     Route::get('wire_tasks',function(){ return view('wire.tasks.index'); })->name('wire_tasks');
     #Cotizaciones

@@ -244,6 +244,13 @@
                 </a>
 
             </li>
+            <li class="nav-item">
+                <a href="{{ route('wire_transactions') }}" class="nav-link @if (Route::currentRouteName() == 'wire_transactions') active @endif">
+                  <i class="nav-icon icon-credit-card"></i><p>Transacciones <img src="{{ asset('img/wire.png') }}" width="60"></p>
+
+                </a>
+
+            </li>
             <!--
             <li class="nav-item">
                 <a href="{{ route('task_index') }}" class="nav-link @if (Route::currentRouteName() == 'task_index') active @endif">
@@ -486,6 +493,21 @@
 <script src="//unpkg.com/vanilla-masker@1.1.1/lib/vanilla-masker.js"></script>
 <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
 <script>
+        Livewire.on('dissmisUploadFileModal',() => $('#upload_file_modal').modal('hide'));
+        Livewire.on('dissmissCreateTransactionModal',() => $('#create_transaction_modal').modal('hide'));
+        Livewire.on('showEditTransactionModal',() => $('#edit_transaction_modal').modal());
+        Livewire.on('dissmissEditTransactionModal',() => $('#edit_transaction_modal').modal('hide'));
+        window.deleteTransaction = transaction_id => {
+            alertify.confirm("",
+                    function() {
+                        Livewire.emit('destroy', transaction_id);
+                    },
+                    function() {
+                        //alertify.error('Cancel');
+                    })
+                .set('labels', { ok: 'Si, eliminar!', cancel: 'Cancelar' })
+                .set({ transition: 'flipx', title: 'Alerta', message: '¿Eliminar registro?' });
+        };
         Pusher.logToConsole = false;
         var pusher = new Pusher('{{ env('PUSHER_APP_KEY') }}', {
         cluster: '{{ env('PUSHER_APP_CLUSTER') }}'
