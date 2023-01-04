@@ -1,9 +1,9 @@
-credentials.json
 /node_modules
+/vendor
+credentials.json
 /public/hot
 /public/storage
 /storage/*.key
-/vendor
 /vendor/*
 .env
 .env.backup
