@@ -1,5 +1,6 @@
 /node_modules
 /vendor
+composer.lock
 credentials.json
 /public/hot
 /public/storage
