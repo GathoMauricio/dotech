@@ -90,6 +90,19 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="file">Asignar a un proyecto</label>
+                                <select  wire:model="project_id" class="form-control">
+                                    <option value>--Seleccione una opcíón--</option>
+                                    @foreach($projects as $project)
+                                    <option value="{{ $project->id }}">{{ $project->description }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button wire:click="store" class="btn btn-primary">Guardar</button>

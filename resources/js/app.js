@@ -1899,6 +1899,8 @@ Livewire.on('dismissEditTask',()=>$("#edit_task").modal('hide'));
 Livewire.on('eidt_whitdrawal_modal',() => $('#edit_whitdrawal_modal').modal());
 Livewire.on('dissmisEditWhitdrawalModal',() => $('#edit_whitdrawal_modal').modal('hide'));
 
+Livewire.on('showTransaccionesModal', () => $('#show_transacciones_modal').modal());
+
 window.successNotification = text => alertify.success(text);
 window.errorNotification = text => alertify.error(text);
 

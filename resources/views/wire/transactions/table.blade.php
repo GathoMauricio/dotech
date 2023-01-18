@@ -50,7 +50,7 @@
                 </td>
                 <td>
                     @if ($transaction->description)
-                        ${{ $transaction->description }}
+                        {{ $transaction->description }}
                     @else
                         <center><strong>-</strong></center>
                     @endif

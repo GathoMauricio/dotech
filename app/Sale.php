@@ -1,6 +1,7 @@
 <?php
 namespace App;
 use Illuminate\Database\Eloquent\Model;
+use App\ProjectTransaction;
 class Sale extends Model
 {
     protected $table = 'sales';
@@ -76,5 +77,9 @@ class Sale extends Model
             'id'
         )
         ->withDefault();
+    }
+    public function transactions()
+    {
+        return $this->hasMany(ProjectTransaction::class);
     }
 }

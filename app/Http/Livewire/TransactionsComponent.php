@@ -7,6 +7,8 @@ use Livewire\WithPagination;
 use Livewire\WithFileUploads;
 
 use App\Transaction;
+use App\ProjectTransaction;
+use App\Sale;
 use App\Http\Controllers\DataMigrater;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 
@@ -22,10 +24,13 @@ class TransactionsComponent extends Component
 
     public $transaction,$file,$date,$concept_ref,$chargue,$payment,$balance,$description,$bank;
 
+    public $project_id;
+
     public function render()
     {
         $transactions = Transaction::orderBy('date', 'desc')->paginate(15);
-        return view('livewire.transactions-component', compact('transactions'));
+        $projects = Sale::where('status','Proyecto')->orderBy('id','DESC')->get();
+        return view('livewire.transactions-component', compact('transactions','projects'));
     }
 
     public function store(){
@@ -51,6 +56,13 @@ class TransactionsComponent extends Component
             'bank' => $this->bank,
         ]);
 
+        if($this->project_id){
+            ProjectTransaction::create([
+                'sale_id' => $this->project_id,
+                'transaction_id' => $transaction->id
+            ]);
+        }
+
         if($transaction){
             $this->emit('successNotification','Registro almacenado...');
         }
@@ -66,6 +78,10 @@ class TransactionsComponent extends Component
         $this->balance = $this->transaction->balance;
         $this->description = $this->transaction->description;
         $this->bank = $this->transaction->bank;
+        $projectTransaction = ProjectTransaction::where('transaction_id',$transaction_id)->first();
+        if($projectTransaction){
+            $this->project_id = $projectTransaction->sale_id;
+        }
         $this->emit('showEditTransactionModal');
     }
 
@@ -89,6 +105,13 @@ class TransactionsComponent extends Component
         $this->transaction->description = $this->description;
         $this->transaction->bank = $this->bank;
         $this->transaction->save();
+        ProjectTransaction::where('transaction_id',$this->transaction->id)->delete();
+        if($this->project_id){
+            ProjectTransaction::create([
+                'sale_id' => $this->project_id,
+                'transaction_id' => $this->transaction->id
+            ]);
+        }
         $this->emit('dissmissEditTransactionModal');
         $this->emit('successNotification','Registro actualizado...');
     }

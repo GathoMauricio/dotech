@@ -9,14 +9,15 @@
 <table class="table table-bordered">
     <thead>
         <tr>
-            <th width="15%">Folio</th>
-            <th width="15%">Compañía</th>
-            <th width="25%">Descriptción</th>
-            <th width="25%">Divisa</th>
-            <th width="15%">Costo</th>
-            <th width="15%">Fecha creación</th>
-            <th width="15%">Fecha proyecto</th>
-            <th width="15%"></th>
+            <th>Folio</th>
+            <th>Compañía</th>
+            <th>Descriptción</th>
+            <th>Divisa</th>
+            <th>Costo</th>
+            <th>Fecha creación</th>
+            <th>Fecha proyecto</th>
+            <th>Transacciones</th>
+            <th></th>
         </tr>
     </thead>
     <tbody id="tbl_projects_to_search">
@@ -36,6 +37,7 @@
             No disponible
             @endif
             </td>
+            <td>{{ count(App\Sale::find($sale->ID)->transactions) }} Registros</td>
             <td>
                 <a href="{{ route('binnacles_by_project',$sale->ID) }}"><span class="icon-book" title="Proyecto" style="cursor:pointer;color:#8E44AD"> Bitácoras</span></a>
                 <br>
@@ -65,6 +67,7 @@
             No disponible
             @endif
             </td>
+            <td><a href="javascript:void(0)" wire:click="showTransactions({{ $sale->id }})">{{ count($sale->transactions) }} Registros</a></td>
             <td>
                 <a href="{{ route('binnacles_by_project',$sale->id) }}"><span class="icon-book" title="Proyecto" style="cursor:pointer;color:#8E44AD"> Bitácoras</span></a>
                 <br>
@@ -91,3 +94,4 @@
 @include('projects.show_modal')
 @include('projects.edit_project_modal')
 @include('sale.sale_follow_modal')
+@include('wire.transactions.show')

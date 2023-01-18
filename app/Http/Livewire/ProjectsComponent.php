@@ -11,6 +11,7 @@ use App\Whitdrawal;
 use App\SalePayment;
 use App\SaleDocument;
 use App\Binnacle;
+use App\ProjectTransaction;
 
 class ProjectsComponent extends Component
 {
@@ -50,6 +51,9 @@ class ProjectsComponent extends Component
         $WDfolio,
         $WDpaid,
         $WDdescription;
+
+    #Esta variable muestar las transacciones de algún proyecto;
+    public $currentTransactions = null;
 
 
     public function render()
@@ -276,5 +280,10 @@ class ProjectsComponent extends Component
     public function loadRfc(){
         $proveedor = \App\WhitdrawalProvider::find($this->WDwhitdrawal_provider_id);
         if($proveedor)$this->WDemisor = $proveedor->rfc;
+    }
+
+    public function showTransactions($sale_id){
+        $this->currentTransactions = Sale::find($sale_id)->transactions;
+        $this->emit('showTransaccionesModal');
     }
 }
