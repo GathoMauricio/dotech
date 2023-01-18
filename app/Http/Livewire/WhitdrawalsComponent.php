@@ -15,17 +15,21 @@ class WhitdrawalsComponent extends Component
     protected $listeners = ['destroy' => 'destroy'];
     public $search = "";
     public $self_component = 'whitdrawals';
-    public 
+    public
     $whitdrawal_id,
     $descripcion,
     $quantity,
     $emisor,
     $folio_fiscal;
+    #Mostrar todo
+    public $showAll = false;
+    #Variable para mostrar transacciones
+    public $currentTransactions;
 
 
     public function render()
     {
-        
+
         if (strlen($this->search) > 0) {
             $whitdrawals = Whitdrawal::
             select(
@@ -49,10 +53,12 @@ class WhitdrawalsComponent extends Component
             ->join('sales', 'sales.id', '=', 'whitdrawals.sale_id')
             ->join('whitdrawal_providers','whitdrawal_providers.id','whitdrawals.whitdrawal_provider_id')
             ->join('companies','companies.id','=','sales.company_id')
-            ->join('users','users.id','=','whitdrawals.author_id')
-
-            ->where('whitdrawals.status','Pendiente')
-            ->where(function($q){
+            ->join('users','users.id','=','whitdrawals.author_id');
+            if(!$this->showAll)
+            {
+                $whitdrawals=$whitdrawals->where('whitdrawals.status','Pendiente');
+            }
+            $whitdrawals = $whitdrawals->where(function($q){
                 $q->where('companies.name','LIKE','%'.$this->search.'%')
                 ->orWhere('whitdrawal_providers.name','LIKE','%'.$this->search.'%')
                 ->orWhere('sales.description','LIKE','%'.$this->search.'%')
@@ -69,9 +75,15 @@ class WhitdrawalsComponent extends Component
             ->paginate(15);
         }else
         {
-            $whitdrawals = Whitdrawal::where('status','Pendiente')->orderBy('id','desc')->paginate(15);
+            if($this->showAll)
+            {
+                $whitdrawals = Whitdrawal::orderBy('id','desc')->paginate(15);
+            }else{
+                $whitdrawals = Whitdrawal::where('status','Pendiente')->orderBy('id','desc')->paginate(15);
+            }
+
         }
-        return view('livewire.whitdrawals-component',['whitdrawals' => $whitdrawals]); 
+        return view('livewire.whitdrawals-component',['whitdrawals' => $whitdrawals]);
     }
 
     public function edit($id)
@@ -156,7 +168,7 @@ class WhitdrawalsComponent extends Component
                 }
                 $whitdrawal->save();
             }
-        }  
+        }
         $this->default();
     }
 
@@ -166,5 +178,10 @@ class WhitdrawalsComponent extends Component
         $this->quantity = null;
         $this->emisor = null;
         $this->folio_fiscal = null;
+    }
+
+    public function showTransactions($whitdrawal_id){
+        $this->currentTransactions = Whitdrawal::find($whitdrawal_id)->transactions;
+        $this->emit('showTransaccionesModal');
     }
 }

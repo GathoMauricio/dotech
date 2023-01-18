@@ -37,7 +37,7 @@
             No disponible
             @endif
             </td>
-            <td>{{ count(App\Sale::find($sale->ID)->transactions) }} Registros</td>
+            <td><a href="javascript:void(0)" wire:click="showTransactions({{ $sale->ID }})">{{ count(App\Sale::find($sale->ID)->transactions) }} Registros</a></td>
             <td>
                 <a href="{{ route('binnacles_by_project',$sale->ID) }}"><span class="icon-book" title="Proyecto" style="cursor:pointer;color:#8E44AD"> Bitácoras</span></a>
                 <br>

@@ -1,6 +1,7 @@
 <?php
 namespace App;
 use Illuminate\Database\Eloquent\Model;
+use App\WithdrawalTransaction;
 use Auth;
 class Whitdrawal extends Model
 {
@@ -37,7 +38,7 @@ class Whitdrawal extends Model
 		static::creating(function ($query) {
             $query->author_id = \Auth::user()->id;
 		});
-    } 
+    }
     public function sale()
     {
         return $this->belongsTo
@@ -87,5 +88,9 @@ class Whitdrawal extends Model
             'id'
         )
         ->withDefault();
+    }
+    public function transactions()
+    {
+        return $this->hasMany(WithdrawalTransaction::class);
     }
 }

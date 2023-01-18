@@ -3,6 +3,10 @@
 @include('layouts.no_records')
 @else
 {{ $whitdrawals->links('pagination-links') }}
+<div style="width:100%;text-align:right">
+    <br><br><br>
+    <input wire:model="showAll" type="checkbox"> <label>Mostrar todo {{ $showAll }}</label>
+</div>
 <table class="table table-bordered">
     <thead>
         <tr>
@@ -13,6 +17,7 @@
             <th width="10%">Cantidad</th>
             <th width="10%">Fecha</th>
             <th width="10%">Pagado</th>
+            <th width="10%">Transacciones</th>
             <th width="20%"></th>
         </tr>
     </thead>
@@ -28,9 +33,9 @@
             <td>{{ $whitdrawal->ID }}</td>
             <td>
             <a href="{{ route('show_sale',$whitdrawal->ID_VENTA) }}" target="_blank">
-            {{ $whitdrawal->ID_VENTA }} 
-            {{ $whitdrawal->NOMBRE_COMPANIA }} 
-            - 
+            {{ $whitdrawal->ID_VENTA }}
+            {{ $whitdrawal->NOMBRE_COMPANIA }}
+            -
             {{ $whitdrawal->PROYECTO }}</a>
             <br/>
             <span class="text-info">Proveedor: </span>
@@ -40,8 +45,8 @@
             <td>{{ $whitdrawal->DESCRIPCION }}</td>
             <td>
                 @if(!empty($whitdrawal->NOMBRE_AUTOR))
-                {{ $whitdrawal->NOMBRE_AUTOR }} 
-                {{ $whitdrawal->PATERNO_AUTOR }} 
+                {{ $whitdrawal->NOMBRE_AUTOR }}
+                {{ $whitdrawal->PATERNO_AUTOR }}
                 {{ $whitdrawal->MATERNO_AUTOR }}
                 @else
                 No definido
@@ -77,6 +82,7 @@
                     @endif
                 </center>
             </td>
+            <td><a href="javascript:void(0)" wire:click="showTransactions({{ $whitdrawal->ID }})">{{ count(App\Whitdrawal::find($whitdrawal->ID)->transactions) }} Registros<a></td>
             @if(Auth::user()->rol_user_id == 1)
             <td>
                 <a href="javascript:void(0)" onclick="aproveWithdrawalModal({{ $whitdrawal->ID }});"><span class="icon-point-up" title="Aprovar" style="cursor:pointer;color:#74DF00"> Aprobar</span></a>
@@ -90,7 +96,7 @@
                 @if($whitdrawal->FACTURA == 'SI')
                     @if(!empty($whitdrawal->DOCUMENTO))
                     <a href="{{ env('APP_URL').'/storage/'.$whitdrawal->DOCUMENTO }}" target="_BLANK"><span class="icon-eye"></span> Ver</a>
-                    @else 
+                    @else
                     <a href="#" onclick="addWhitdralDocumentModal({{ $whitdrawal->ID }});"><span class="icon-upload"></span> Cargar</a>
                     @endif
                 @else
@@ -105,7 +111,7 @@
                         <br>
                         <a href="javascript:void(0)" wire:click="edit({{ $whitdrawal->ID }});"><span class="icon-pencil" title="Desaprobar" style="cursor:pointer;color:#ff9100"> Editar</span></a>
                     </td>
-                    @else 
+                    @else
                     <td class="text-center">
                         <a href="javascript:void(0)" onclick="addWhitdralDocumentModal({{ $whitdrawal->ID }});"><span class="icon-upload"></span></a>
                         <br>
@@ -130,9 +136,9 @@
             <td>{{ $whitdrawal->id }}</td>
             <td>
             <a href="{{ route('show_sale',$whitdrawal->sale->id) }}" target="_blank">
-            {{ $whitdrawal->sale['id'] }} 
-            {{ $whitdrawal->sale->company['name'] }} 
-            - 
+            {{ $whitdrawal->sale['id'] }}
+            {{ $whitdrawal->sale->company['name'] }}
+            -
             {{ $whitdrawal->sale['description'] }}</a>
             <br/>
             <span class="text-info">Proveedor: </span>
@@ -142,8 +148,8 @@
             <td>{{ $whitdrawal->description }}</td>
             <td>
                 @if(!empty($whitdrawal->author['name']))
-                {{ $whitdrawal->author['name'] }} 
-                {{ $whitdrawal->author['middle_name'] }} 
+                {{ $whitdrawal->author['name'] }}
+                {{ $whitdrawal->author['middle_name'] }}
                 {{ $whitdrawal->author['last_name'] }}
                 @else
                 No definido
@@ -179,6 +185,7 @@
                     @endif
                 </center>
             </td>
+            <td><a href="javascript:void(0)" wire:click="showTransactions({{ $whitdrawal->id }})">{{ count($whitdrawal->transactions) }} Registros</a></td>
             @if(Auth::user()->rol_user_id == 1)
             <td>
                 <a href="javascript:void(0)" onclick="aproveWithdrawalModal({{ $whitdrawal->id }});"><span class="icon-point-up" title="Aprovar" style="cursor:pointer;color:#74DF00"> Aprobar</span></a>
@@ -192,7 +199,7 @@
                 @if($whitdrawal->invoive == 'SI')
                     @if(!empty($whitdrawal->document))
                     <a href="{{ env('APP_URL').'/storage/'.$whitdrawal->document }}" target="_BLANK"><span class="icon-eye"></span> Ver</a>
-                    @else 
+                    @else
                     <a href="#" onclick="addWhitdralDocumentModal({{ $whitdrawal->id }});"><span class="icon-upload"></span> Cargar</a>
                     @endif
                 @else
@@ -207,7 +214,7 @@
                         <br>
                         <a href="javascript:void(0)" wire:click="edit({{ $whitdrawal->id }});"><span class="icon-pencil" title="Desaprobar" style="cursor:pointer;color:#ff9100"> Editar</span></a>
                     </td>
-                    @else 
+                    @else
                     <td class="text-center">
                         <a href="javascript:void(0)" onclick="addWhitdralDocumentModal({{ $whitdrawal->id }});"><span class="icon-upload"></span></a>
                         <br>
@@ -220,7 +227,7 @@
             @endif
         </tr>
         @endforeach
-        
+
         @endif
 
     </tbody>
@@ -234,3 +241,4 @@
 @include('withdrawal.show_modal')
 @include('withdrawal.aprove_withdrawal_modal')
 @include('sale.add_whitdrawal_document_modal')
+@include('wire.transactions.show')

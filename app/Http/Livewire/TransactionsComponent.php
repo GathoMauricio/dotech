@@ -9,6 +9,8 @@ use Livewire\WithFileUploads;
 use App\Transaction;
 use App\ProjectTransaction;
 use App\Sale;
+use App\Whitdrawal;
+use App\WithdrawalTransaction;
 use App\Http\Controllers\DataMigrater;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 
@@ -24,13 +26,14 @@ class TransactionsComponent extends Component
 
     public $transaction,$file,$date,$concept_ref,$chargue,$payment,$balance,$description,$bank;
 
-    public $project_id;
+    public $project_id,$whitdrawal_id;
 
     public function render()
     {
         $transactions = Transaction::orderBy('date', 'desc')->paginate(15);
         $projects = Sale::where('status','Proyecto')->orderBy('id','DESC')->get();
-        return view('livewire.transactions-component', compact('transactions','projects'));
+        $whitdrawals = Whitdrawal::orderBy('id','DESC')->get();
+        return view('livewire.transactions-component', compact('transactions','projects','whitdrawals'));
     }
 
     public function store(){
@@ -63,6 +66,13 @@ class TransactionsComponent extends Component
             ]);
         }
 
+        if($this->whitdrawal_id){
+            WithdrawalTransaction::create([
+                'whitdrawal_id' => $this->whitdrawal_id,
+                'transaction_id' => $transaction->id
+            ]);
+        }
+
         if($transaction){
             $this->emit('successNotification','Registro almacenado...');
         }
@@ -70,6 +80,7 @@ class TransactionsComponent extends Component
     }
 
     public function edit($transaction_id){
+        $this->clean();
         $this->transaction = Transaction::find($transaction_id);
         $this->date = $this->transaction->date;
         $this->concept_ref = $this->transaction->concept_ref;
@@ -81,6 +92,10 @@ class TransactionsComponent extends Component
         $projectTransaction = ProjectTransaction::where('transaction_id',$transaction_id)->first();
         if($projectTransaction){
             $this->project_id = $projectTransaction->sale_id;
+        }
+        $whitdrawalTransaction = WithdrawalTransaction::where('transaction_id',$transaction_id)->first();
+        if($whitdrawalTransaction){
+            $this->whitdrawal_id = $whitdrawalTransaction->whitdrawal_id;
         }
         $this->emit('showEditTransactionModal');
     }
@@ -109,6 +124,13 @@ class TransactionsComponent extends Component
         if($this->project_id){
             ProjectTransaction::create([
                 'sale_id' => $this->project_id,
+                'transaction_id' => $this->transaction->id
+            ]);
+        }
+        WithdrawalTransaction::where('transaction_id',$this->transaction->id)->delete();
+        if($this->whitdrawal_id){
+            WithdrawalTransaction::create([
+                'whitdrawal_id' => $this->whitdrawal_id,
                 'transaction_id' => $this->transaction->id
             ]);
         }
@@ -142,7 +164,6 @@ class TransactionsComponent extends Component
                 'bank' => $row['banco']
             ]);
         }
-        $this->progressBar = 0;
         $this->emit('dissmisUploadFileModal');
         $this->emit('successNotification','Archivo procesado...');
         $this->clean();
@@ -159,7 +180,8 @@ class TransactionsComponent extends Component
     }
 
     public function clean(){
-        $this->progressBar = 0;
         $this->file = null;
+        $this->project_id = null;
+        $this->whitdrawal_id = null;
     }
 }

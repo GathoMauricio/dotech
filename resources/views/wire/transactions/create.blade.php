@@ -103,6 +103,19 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="file">Asignar a un retiro {{ $whitdrawal_id }}</label>
+                                <select  wire:model="whitdrawal_id" class="form-control">
+                                    <option value>--Seleccione una opcíón--</option>
+                                    @foreach($whitdrawals as $whitdrawal)
+                                    <option value="{{ $whitdrawal->id }}">{{ preg_replace( "/\r|\n/", "", trim($whitdrawal->description)) }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button wire:click="store" class="btn btn-primary">Guardar</button>
