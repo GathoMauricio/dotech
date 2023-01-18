@@ -45,12 +45,12 @@ class DumpMysql extends Command
 
         \Log::info("Base de datos creada...".date('Y-m-d'));
 
-        $disk = \Storage::disk('gcs');
-        $disk->put("DB_dotech.sql",\File::get(storage_path('dump_db/dump_'.date('Y-m-d').'.sql')));
+        // $disk = \Storage::disk('gcs');
+        // $disk->put("DB_dotech.sql",\File::get(storage_path('dump_db/dump_'.date('Y-m-d').'.sql')));
 
-        \App\BinnacleImage::where('image',null)->delete();
+        // \App\BinnacleImage::where('image',null)->delete();
 
-        \Log::info("Base de datos almacenada...");
+        // \Log::info("Base de datos almacenada...");
 
         //$files = glob('public/storage/*');
         //\Madzipper::make('storage/zipped/storage.zip')->add($files)->close();
