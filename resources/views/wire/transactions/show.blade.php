@@ -17,6 +17,7 @@
                         <tr>
                             <th>Concepto</th>
                             <th>Cargo</th>
+                            <th>Pago</th>
                             <th>Observaciones</th>
                             <th>Banco</th>
                         </tr>
@@ -27,6 +28,7 @@
                             <tr>
                                 <td>{{ $transaction->transaction->concept_ref }}</td>
                                 <td>${{ $transaction->transaction->chargue }}</td>
+                                <td>${{ $transaction->transaction->payment }}</td>
                                 <td>{{ $transaction->transaction->description }}</td>
                                 <td>{{ $transaction->transaction->bank }}</td>
                             </tr>
