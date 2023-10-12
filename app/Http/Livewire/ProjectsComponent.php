@@ -18,7 +18,7 @@ class ProjectsComponent extends Component
     use WithPagination;
     use WithFileUploads;
     protected $paginationTheme = 'bootstrap';
-    protected $listeners = ['destroy' => 'destroy' ,'eliminarRetiro' => 'eliminarRetiro', 'eliminarDocumento' => 'eliminarDocumento'];
+    protected $listeners = ['destroy' => 'destroy', 'eliminarRetiro' => 'eliminarRetiro', 'eliminarDocumento' => 'eliminarDocumento'];
     public $search = "";
     public $self_component = 'projects';
 
@@ -63,6 +63,7 @@ class ProjectsComponent extends Component
             $this->gotoPage(1);
             $sales = Sale::select(
                 'sales.id AS ID',
+                'sales.folio_proyecto AS FOLIO',
                 'companies.name AS COMPANIA',
                 'sales.description AS DESCRIPCION',
                 'sales.currency AS DIVISA',
@@ -80,10 +81,10 @@ class ProjectsComponent extends Component
                         ->orWhere('sales.estimated', 'LIKE', '%' . $this->search . '%')
                         ->orWhere('sales.created_at', 'LIKE', '%' . $this->search . '%');
                 })
-                ->orderBy('sales.id', 'DESC')
+                ->orderBy('sales.folio_proyecto', 'DESC')
                 ->paginate(15);
         } else {
-            $sales = Sale::where('status', 'Proyecto')->orderBy('id', 'desc')->paginate(15);
+            $sales = Sale::where('status', 'Proyecto')->orderBy('folio_proyecto', 'desc')->paginate(15);
         }
         return view('livewire.projects-component', ['sales' => $sales]);
     }
@@ -94,7 +95,7 @@ class ProjectsComponent extends Component
         $this->sale_id = $id;
         $sale = Sale::findOrFail($this->sale_id);
         $products = ProductSale::where('sale_id', $id)->get();
-        $whitdrawals = Whitdrawal::where('sale_id', $id)->where(function($q){
+        $whitdrawals = Whitdrawal::where('sale_id', $id)->where(function ($q) {
             $q->where('status', 'Aprobado');
             $q->orWhere('status', 'Pendiente');
         })->orderBy('id', 'DESC')->get();
@@ -113,8 +114,8 @@ class ProjectsComponent extends Component
         #end
         $totalRetiros = 0;
         foreach ($whitdrawals as $whitdrawal) {
-            if($whitdrawal->status == 'Aprobado')
-            $totalRetiros += floatval($whitdrawal->quantity);
+            if ($whitdrawal->status == 'Aprobado')
+                $totalRetiros += floatval($whitdrawal->quantity);
         }
 
         $costoProyecto = number_format($sale->estimated + ($sale->estimated * 0.16), 2);
@@ -197,16 +198,14 @@ class ProjectsComponent extends Component
             'description' => $this->WDdescription
         ]);
 
-        if(!empty($whitdrawal->emisor) && !empty($whitdrawal->folio))
-        {
+        if (!empty($whitdrawal->emisor) && !empty($whitdrawal->folio)) {
             //validar CFDI
-            $sat = validarCFDI($whitdrawal->emisor,env('DOTECH_RFC'),$whitdrawal->quantity,$whitdrawal->folio);
+            $sat = validarCFDI($whitdrawal->emisor, env('DOTECH_RFC'), $whitdrawal->quantity, $whitdrawal->folio);
             $jsonSat = json_decode($sat);
-            $estatus = explode(":",$jsonSat->CodigoEstatus);
-            if($estatus[0] == 'N - 602')
-            {
+            $estatus = explode(":", $jsonSat->CodigoEstatus);
+            if ($estatus[0] == 'N - 602') {
                 $whitdrawal->estado_cfdi = $estatus[1];
-            }else{
+            } else {
                 $whitdrawal->es_cancelable = $jsonSat->EsCancelable;
                 $whitdrawal->codigo_estatus = $jsonSat->CodigoEstatus;
                 $whitdrawal->estado_cfdi = $jsonSat->Estado;
@@ -221,12 +220,12 @@ class ProjectsComponent extends Component
         }
 
         #Regarga los retiros
-        $this->whitdrawals = Whitdrawal::where('sale_id', $this->sale_id)->where(function($q){
+        $this->whitdrawals = Whitdrawal::where('sale_id', $this->sale_id)->where(function ($q) {
             $q->where('status', 'Aprobado');
             $q->orWhere('status', 'Pendiente');
         })->orderBy('id', 'DESC')->get();
         $this->emit('dissmisCreateWhitdrawal');
-        $this->emit('successNotification','Retiro '.$whitdrawal->description.' agregado.');
+        $this->emit('successNotification', 'Retiro ' . $whitdrawal->description . ' agregado.');
         $this->WDwhitdrawal_provider_id = null;
         $this->WDquantity = null;
         $this->WDinvoive = null;
@@ -262,11 +261,11 @@ class ProjectsComponent extends Component
     {
         $retiro = Whitdrawal::find($id);
         $retiro->delete();
-        $this->whitdrawals = Whitdrawal::where('sale_id', $this->sale_id)->where(function($q){
+        $this->whitdrawals = Whitdrawal::where('sale_id', $this->sale_id)->where(function ($q) {
             $q->where('status', 'Aprobado');
             $q->orWhere('status', 'Pendiente');
         })->orderBy('id', 'DESC')->get();
-        $this->emit('successNotification','Registro eliminado');
+        $this->emit('successNotification', 'Registro eliminado');
     }
 
     public function eliminarDocumento($id)
@@ -274,15 +273,17 @@ class ProjectsComponent extends Component
         $documento = SaleDocument::find($id);
         $documento->delete();
         $this->documents = SaleDocument::where('sale_id', $this->sale_id)->get();
-        $this->emit('successNotification','Registro eliminado');
+        $this->emit('successNotification', 'Registro eliminado');
     }
 
-    public function loadRfc(){
+    public function loadRfc()
+    {
         $proveedor = \App\WhitdrawalProvider::find($this->WDwhitdrawal_provider_id);
-        if($proveedor)$this->WDemisor = $proveedor->rfc;
+        if ($proveedor) $this->WDemisor = $proveedor->rfc;
     }
 
-    public function showTransactions($sale_id){
+    public function showTransactions($sale_id)
+    {
         $this->currentTransactions = Sale::find($sale_id)->transactions;
         $this->emit('showTransaccionesModal');
     }

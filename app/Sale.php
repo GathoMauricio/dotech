@@ -1,14 +1,19 @@
 <?php
+
 namespace App;
+
 use Illuminate\Database\Eloquent\Model;
 use App\ProjectTransaction;
+
 class Sale extends Model
 {
     protected $table = 'sales';
-	protected $primaryKey = 'id';
-	public $timestamps = true;
+    protected $primaryKey = 'id';
+    public $timestamps = true;
     protected $fillable = [
         'id',
+        'folio_cotizacion',
+        'folio_proyecto',
         'company_id',
         'department_id',
         'author_id',
@@ -35,10 +40,10 @@ class Sale extends Model
         'updated_at',
     ];
     protected static function boot()
-	{
-		parent::boot();
+    {
+        parent::boot();
 
-		static::creating(function ($query) {
+        static::creating(function ($query) {
             $query->author_id = \Auth::user()->id;
             //$query->investment = 0;
             $query->estimated = 0;
@@ -46,37 +51,34 @@ class Sale extends Model
             $query->utility = 0;
             $query->commision_percent = 0;
             $query->commision_pay = 0;
-		});
-	}
+        });
+    }
     public function company()
     {
-        return $this->belongsTo
-        (
+        return $this->belongsTo(
             'App\Company',
             'company_id',
             'id'
         )
-        ->withDefault();
+            ->withDefault();
     }
     public function department()
     {
-        return $this->belongsTo
-        (
+        return $this->belongsTo(
             'App\CompanyDepartment',
             'department_id',
             'id'
         )
-        ->withDefault();
+            ->withDefault();
     }
     public function author()
     {
-        return $this->belongsTo
-        (
+        return $this->belongsTo(
             'App\User',
             'author_id',
             'id'
         )
-        ->withDefault();
+            ->withDefault();
     }
     public function transactions()
     {

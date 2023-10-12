@@ -16,7 +16,7 @@ class QuotesComponent extends Component
     use WithFileUploads;
     protected $paginationTheme = 'bootstrap';
     protected $listeners = [
-        'destroy' => 'destroy' ,
+        'destroy' => 'destroy',
         'editQuoteProduct' => 'editQuoteProduct',
         'destroyProductQuote' => 'destroyProductQuote'
     ];
@@ -24,14 +24,14 @@ class QuotesComponent extends Component
     public $self_component = 'quotes';
 
     #Propiedades auxiliares para mostrar información
-    public 
-    $currentQuote = null,
-    $companies = null,
-    $departments = null,
-    $products = null;
-    
+    public
+        $currentQuote = null,
+        $companies = null,
+        $departments = null,
+        $products = null;
+
     #Propiedades para validar y crear una cotización
-    public 
+    public
         $quote_id,
         $company_id,
         $department_id,
@@ -44,14 +44,14 @@ class QuotesComponent extends Component
         $currency,
         $investment;
     #Propiedades para ,anipular un producto a una cotización
-    public 
+    public
         $id_product,
         $productDescription,
         $productQuantity,
         $productMeasure,
         $productDiscount,
         $productUnityPriceSell,
-        
+
         $subtotal,
         $iva,
         $total;
@@ -60,37 +60,37 @@ class QuotesComponent extends Component
     {
         if (strlen($this->search) > 0) {
             $quotes = Sale::select(
-                    'sales.id AS ID',
-                    'companies.name AS COMPANIA',
-                    'sales.description AS DESCRIPCION',
-                    'sales.currency AS DIVISA',
-                    'sales.estimated AS MONTO',
-                    'sales.investment AS INVERSION',
-                    'company_department.email AS EMAIL',
-                    'sales.created_at AS FECHA'
-                    )
-                    ->join('companies', 'sales.company_id', '=', 'companies.id')
-                    ->join('company_department','company_department.id','=','sales.department_id')
-                    ->where('sales.status','Pendiente')
-                    ->where(function($q){
-                        $q->where('sales.id','LIKE','%'.$this->search.'%')
-                        ->orWhere('companies.name','LIKE','%'.$this->search.'%')
-                        ->orWhere('sales.description','LIKE','%'.$this->search.'%')
-                        ->orWhere('sales.currency','LIKE','%'.$this->search.'%')
-                        ->orWhere('sales.estimated','LIKE','%'.$this->search.'%')
-                        ->orWhere('sales.created_at','LIKE','%'.$this->search.'%')
-                        ;
-                    })
-                    ->orderBy('sales.id','DESC')
-                    ->paginate(15);
-        }else{
-            $quotes = Sale::where('status','Pendiente')->orderBy('id','desc')->paginate(15);
+                'sales.id AS ID',
+                'sales.folio_cotizacion AS FOLIO',
+                'companies.name AS COMPANIA',
+                'sales.description AS DESCRIPCION',
+                'sales.currency AS DIVISA',
+                'sales.estimated AS MONTO',
+                'sales.investment AS INVERSION',
+                'company_department.email AS EMAIL',
+                'sales.created_at AS FECHA'
+            )
+                ->join('companies', 'sales.company_id', '=', 'companies.id')
+                ->join('company_department', 'company_department.id', '=', 'sales.department_id')
+                ->where('sales.status', 'Pendiente')
+                ->where(function ($q) {
+                    $q->where('sales.id', 'LIKE', '%' . $this->search . '%')
+                        ->orWhere('companies.name', 'LIKE', '%' . $this->search . '%')
+                        ->orWhere('sales.description', 'LIKE', '%' . $this->search . '%')
+                        ->orWhere('sales.currency', 'LIKE', '%' . $this->search . '%')
+                        ->orWhere('sales.estimated', 'LIKE', '%' . $this->search . '%')
+                        ->orWhere('sales.created_at', 'LIKE', '%' . $this->search . '%');
+                })
+                ->orderBy('sales.id', 'DESC')
+                ->paginate(15);
+        } else {
+            $quotes = Sale::where('status', 'Pendiente')->orderBy('id', 'desc')->paginate(15);
         }
-        foreach($quotes as $q){ 
-            $products = ProductSale::where('sale_id',$q->id)->get();
+        foreach ($quotes as $q) {
+            $products = ProductSale::where('sale_id', $q->id)->get();
 
 
-            foreach($products as $p){
+            foreach ($products as $p) {
                 $p->total_sell = $p->unity_price_sell * $p->quantity;
                 $p->total_sell = ($p->total_sell - ($p->total_sell / 100 * $p->discount));
                 $p->save();
@@ -105,16 +105,15 @@ class QuotesComponent extends Component
             #Actualza costo total de la cotización
             $q->estimated = $total;
             $q->save();
-
         }
         $this->companies = Company::orderBy('name')->get();
-        return view('livewire.quotes-component',['quotes' => $quotes]);
+        return view('livewire.quotes-component', ['quotes' => $quotes]);
     }
 
     public function showFullModalProducts($id)
     {
         $this->currentQuote = Sale::find($id);
-        $this->products = ProductSale::where('sale_id',$this->currentQuote->id)->get();
+        $this->products = ProductSale::where('sale_id', $this->currentQuote->id)->get();
         #suma el total de los productos
         $this->subtotal = $this->products->sum('total_sell');
         #calcula el iva
@@ -139,7 +138,7 @@ class QuotesComponent extends Component
             'payment_type' => 'required',
             'credit' => 'required',
             'currency' => 'required',
-        ],[
+        ], [
             'company_id.required' => 'Este campo es obligatorio.',
             'department_id.required' => 'Este campo es obligatorio.',
             'description.required' => 'Este campo es obligatorio.',
@@ -156,6 +155,9 @@ class QuotesComponent extends Component
             'currency.required' => 'Este campo es obligatorio.',
         ]);
         #Crear registro
+        $last_cot = Sale::orderBy('id', 'DESC')->first();
+        $part = explode('-', $last_cot->folio_cotizacion);
+
         $this->currentQuote = Sale::create([
             'status' => 'Pendiente',
             'company_id' => $this->company_id,
@@ -168,15 +170,16 @@ class QuotesComponent extends Component
             'payment_type' => $this->payment_type,
             'credit' => $this->credit,
             'currency' => $this->currency,
+            'folio_cotizacion' => 'COT-' . ($part[1] + 1),
         ]);
         #Notificar
-        $this->emit('successNotification','Cotización '.$this->currentQuote->id.' creada.');
+        $this->emit('successNotification', 'Cotización ' . $this->currentQuote->id . ' creada.');
         #Ocultar contenedor del formulario
         $this->dissmisFullModal();
         #Igualar el id de la nueva cotización con la propiedad pública del componente para agregar productos
         $this->quote_id = $this->currentQuote->id;
         #mostrar formulario para agregar productos
-        $this->products = ProductSale::where('sale_id',$this->currentQuote->id)->get();
+        $this->products = ProductSale::where('sale_id', $this->currentQuote->id)->get();
         $this->emit('showFullModalProducts');
     }
 
@@ -187,7 +190,7 @@ class QuotesComponent extends Component
             'productQuantity' => 'required|numeric',
             'productDiscount' => 'required|numeric',
             'productUnityPriceSell' => 'required',
-        ],[
+        ], [
             'productDescription.required' => 'Este campo es requerido.',
             'productQuantity.required' => 'Este campo es requerido.',
             'productQuantity.numeric' => 'Este campo debe ser un número valido.',
@@ -209,15 +212,15 @@ class QuotesComponent extends Component
         $total = $total - ($total * ($this->productDiscount / 100));
         $product = ProductSale::create([
             'sale_id' => $this->currentQuote->id,
-            'description' => $this->productDescription ,
-            'quantity' => $this->productQuantity ,
-            'measure' => $this->productMeasure ,
-            'discount' => $this->productDiscount ,
-            'unity_price_sell' => $this->productUnityPriceSell ,
+            'description' => $this->productDescription,
+            'quantity' => $this->productQuantity,
+            'measure' => $this->productMeasure,
+            'discount' => $this->productDiscount,
+            'unity_price_sell' => $this->productUnityPriceSell,
             'total_sell' => $total
         ]);
-        
-        $this->products = ProductSale::where('sale_id',$this->currentQuote->id)->get();
+
+        $this->products = ProductSale::where('sale_id', $this->currentQuote->id)->get();
         #suma el total de los productos
         $this->subtotal = $this->products->sum('total_sell');
         #calcula el iva
@@ -228,18 +231,17 @@ class QuotesComponent extends Component
         $quote = Sale::find($this->currentQuote->id);
         $quote->estimated = $this->total;
         $quote->save();
-        $this->emit('successNotification','El producto '.$product->description.' ha sido creado.');
+        $this->emit('successNotification', 'El producto ' . $product->description . ' ha sido creado.');
         $this->emit('dissmisCreateProductQuote');
-        
+
         $this->productDescription = null;
         $this->productQuantity = null;
         $this->productMeasure = null;
         $this->productDiscount = null;
         $this->productUnityPriceSell = null;
-        
     }
 
-    public function editQuoteProduct($id) 
+    public function editQuoteProduct($id)
     {
         $product = ProductSale::find($id);
         $this->id_product = $product->id;
@@ -258,7 +260,7 @@ class QuotesComponent extends Component
             'productQuantity' => 'required|numeric',
             'productDiscount' => 'required|numeric',
             'productUnityPriceSell' => 'required',
-        ],[
+        ], [
             'productDescription.required' => 'Este campo es requerido.',
             'productQuantity.required' => 'Este campo es requerido.',
             'productQuantity.numeric' => 'Este campo debe ser un número valido.',
@@ -279,7 +281,7 @@ class QuotesComponent extends Component
         $product->save();
 
         #recargar productos
-        $this->products = ProductSale::where('sale_id',$this->currentQuote->id)->get();
+        $this->products = ProductSale::where('sale_id', $this->currentQuote->id)->get();
         #suma el total de los productos
         $this->subtotal = $this->products->sum('total_sell');
         #calcula el iva
@@ -291,9 +293,8 @@ class QuotesComponent extends Component
         $quote->estimated = $this->total;
         $quote->save();
 
-        $this->emit('successNotification','El producto '.$product->description.' ha sido creado.');
+        $this->emit('successNotification', 'El producto ' . $product->description . ' ha sido creado.');
         $this->emit('dissmisEditProductQuote');
-        
     }
 
     public function dissmisFullModal()
@@ -303,19 +304,18 @@ class QuotesComponent extends Component
 
     public function changeCompany()
     {
-        if(strlen($this->company_id) > 0)
-        {
-            $this->departments = CompanyDepartment::where('company_id',$this->company_id)->get(); 
-        }else{
+        if (strlen($this->company_id) > 0) {
+            $this->departments = CompanyDepartment::where('company_id', $this->company_id)->get();
+        } else {
             $this->departments = null;
-        }    
+        }
     }
 
     public function destroyProductQuote($id)
     {
         $item = ProductSale::find($id);
         $item->delete();
-        $this->products = ProductSale::where('sale_id',$this->currentQuote->id)->get();
+        $this->products = ProductSale::where('sale_id', $this->currentQuote->id)->get();
         #suma el total de los productos
         $this->subtotal = $this->products->sum('total_sell');
         #calcula el iva
@@ -326,6 +326,6 @@ class QuotesComponent extends Component
         $quote = Sale::find($this->currentQuote->id);
         $quote->estimated = $this->total;
         $quote->save();
-        $this->emit('successNotification',"Registro eliminado.");
+        $this->emit('successNotification', "Registro eliminado.");
     }
 }
