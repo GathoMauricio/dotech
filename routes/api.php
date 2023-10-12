@@ -112,3 +112,4 @@ Route::middleware('auth:api')->get('get_product_categories', 'ApiStockProductCat
 
 #DOTECH APP API
 Route::post('enviar_cotizacion', 'DotechAppController@enviarCotizacion')->middleware(App\Http\Middleware\Gathoken::class);
+Route::get('load_sale_pdf/{id?}', 'SaleController@loadPDF')->name('load_sale_pdf');
