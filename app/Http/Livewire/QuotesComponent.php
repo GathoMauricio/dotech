@@ -79,6 +79,7 @@ class QuotesComponent extends Component
                         ->orWhere('sales.description', 'LIKE', '%' . $this->search . '%')
                         ->orWhere('sales.currency', 'LIKE', '%' . $this->search . '%')
                         ->orWhere('sales.estimated', 'LIKE', '%' . $this->search . '%')
+                        ->orWhere('sales.folio_cotizacion', 'LIKE', '%' . $this->search . '%')
                         ->orWhere('sales.created_at', 'LIKE', '%' . $this->search . '%');
                 })
                 ->orderBy('sales.id', 'DESC')

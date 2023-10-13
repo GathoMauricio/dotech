@@ -79,6 +79,7 @@ class ProjectsComponent extends Component
                         ->orWhere('sales.description', 'LIKE', '%' . $this->search . '%')
                         ->orWhere('sales.currency', 'LIKE', '%' . $this->search . '%')
                         ->orWhere('sales.estimated', 'LIKE', '%' . $this->search . '%')
+                        ->orWhere('sales.folio_proyecto', 'LIKE', '%' . $this->search . '%')
                         ->orWhere('sales.created_at', 'LIKE', '%' . $this->search . '%');
                 })
                 ->orderBy('sales.folio_proyecto', 'DESC')
