@@ -4,10 +4,62 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Sale;
+//use Maatwebsite\Excel\Excel;
+use App\Exports\CotizacionesExport;
+use App\Exports\ProyectosExport;
+use App\Exports\FinalizadosExport;
 
 class DashboardController extends Controller
 {
     public function index()
+    {
+        $cotizaciones = Sale::whereYear('created_at', date('Y'))
+            ->whereMonth('created_at', date('m'))
+            ->get();
+        $proyectos = Sale::whereYear('project_at', date('Y'))
+            ->whereMonth('created_at', date('m'))
+            ->get();
+        $finalizados = Sale::whereYear('created_at', date('Y'))
+            ->whereMonth('finished_at', date('m'))
+            ->get();
+        return view('dashboard.index', compact('cotizaciones', 'proyectos', 'finalizados'));
+    }
+
+    public function cambiarMesReportes($anio, $mes)
+    {
+        $cotizaciones = Sale::whereYear('created_at', $anio)
+            ->whereMonth('created_at', $mes)
+            ->get();
+        $proyectos = Sale::whereYear('project_at', $anio)
+            ->whereMonth('created_at', $mes)
+            ->get();
+        $finalizados = Sale::whereYear('created_at', $anio)
+            ->whereMonth('finished_at', $mes)
+            ->get();
+        return response()->json([
+            'estatus' => 1,
+            'mensaje' => "Información obtenida",
+            'data' => [
+                'numero_cotizaciones' => count($cotizaciones),
+                'numero_proyectos' => count($proyectos),
+                'numero_finalizados' => count($finalizados),
+            ]
+        ]);
+    }
+
+    public function exportCotizaciones($anio, $mes)
+    {
+        return \Excel::download(new CotizacionesExport($anio, $mes), 'cotizaciones_' . $anio . '_' . $mes . '.xlsx');
+    }
+    public function exportProyectos($anio, $mes)
+    {
+        return \Excel::download(new ProyectosExport($anio, $mes), 'proyectos_' . $anio . '_' . $mes . '.xlsx');
+    }
+    public function exportFinalizados($anio, $mes)
+    {
+        return \Excel::download(new FinalizadosExport($anio, $mes), 'finalizados_' . $anio . '_' . $mes . '.xlsx');
+    }
+    public function _index()
     {
         $withdrawals = count(\App\Whitdrawal::where('status', 'Pendiente')->get());
         $tasks = count(\App\Task::where('archived', 'NO')->get());
@@ -80,7 +132,7 @@ class DashboardController extends Controller
         return [
             'totalMes' => count($totalMes),
             'proyectosMes' => count($proyectosMes),
-            'ventaMes' => '$'.number_format($totalVentaMes + ($totalVentaMes * 0.16),2)
+            'ventaMes' => '$' . number_format($totalVentaMes + ($totalVentaMes * 0.16), 2)
         ];
     }
 }

@@ -227,7 +227,7 @@
             <li class="nav-item">
                 <a href="{{ route('/') }}" class="nav-link @if (Route::currentRouteName() == '/') active @endif">
                   <i class="nav-icon fas fa-tachometer-alt"></i>
-                  <p>Dashboard</p>
+                  <p>Reportes</p>
                 </a>
             </li>
             <!--
