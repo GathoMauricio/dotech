@@ -102,7 +102,7 @@
                     <span style="color:#d30035;font-weight:bold;">
                         Folio:
                     </span>
-                    {{ $sale->id }}
+                    {{ $sale->folio_cotizacion }}
                 </td>
                 <td width="50%">
                     <span style="color:#d30035;font-weight:bold;">
@@ -197,7 +197,7 @@
                         <td style="text-align:center;background-color:#D5D8DC;">{{ $sale->currency }}</td>
                     </tr>
                     @php
-                        
+
                         #suma el total de los productos
                         $subtotal = $saleProducts->sum('total_sell');
                         #calcula el iva

@@ -6,11 +6,11 @@
         @if (!is_null($sale))
             <h4 class="title_page text-center">
                 @if ($sale->status == 'Pendiente')
-                    Cotización:
+                    Cotización: {{ $sale->folio_cotizacion }}
                 @else
-                    {{ $sale->status }}:
+                    {{ $sale->status }}: {{ $sale->folio_proyecto }}
                 @endif
-                {{ $sale->id }}
+                {{--  {{ $sale->id }}  --}}
                 {{ $sale->description }}
             </h4>
             <h5 class="text-center">{{ $sale->company['name'] }}</h5>
@@ -265,7 +265,8 @@
                                 </tr>
                             @endif
                             <tr>
-                                <td colspan="7" class="text-right">Subtotal: ${{ number_format($totalProduct, 2) }}
+                                <td colspan="7" class="text-right">Subtotal:
+                                    ${{ number_format($totalProduct, 2) }}
                                 </td>
                             </tr>
                             <tr>
