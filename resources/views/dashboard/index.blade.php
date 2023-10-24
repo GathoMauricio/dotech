@@ -96,7 +96,7 @@
                 var mes = data[1];
                 var url = '{{ env('APP_URL') }}/dashboard/' + anio + '/' + mes;
                 console.log(url);
-                //window.location = url;
+                window.location = url;
             }
         });
     </script>
