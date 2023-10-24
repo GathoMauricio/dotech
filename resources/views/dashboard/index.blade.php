@@ -94,7 +94,9 @@
                 var data = mes_actual.split('-');
                 var anio = data[0];
                 var mes = data[1];
-                window.location = '{{ env('APP_URL') }}/dashboard/' + anio + '/' + mes;
+                var url = '{{ env('APP_URL') }}/dashboard/' + anio + '/' + mes;
+                console.log(url);
+                //window.location = url;
             }
         });
     </script>
