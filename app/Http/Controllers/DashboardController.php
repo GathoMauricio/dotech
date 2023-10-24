@@ -11,18 +11,26 @@ use App\Exports\FinalizadosExport;
 
 class DashboardController extends Controller
 {
-    public function index()
+    public function index($anio = null, $mes = null)
     {
-        $cotizaciones = Sale::whereYear('created_at', date('Y'))
-            ->whereMonth('created_at', date('m'))
+        if ($anio && $mes) {
+            $anioActual = $anio;
+            $mesActual = $mes;
+        } else {
+            $anioActual = date('Y');
+            $mesActual = date('m');
+        }
+        $cotizaciones = Sale::whereYear('created_at', $anioActual)
+            ->whereMonth('created_at', $mesActual)
             ->get();
-        $proyectos = Sale::whereYear('project_at', date('Y'))
-            ->whereMonth('created_at', date('m'))
+        $proyectos = Sale::whereYear('project_at', $anioActual)
+            ->whereMonth('project_at', $mesActual)
             ->get();
-        $finalizados = Sale::whereYear('created_at', date('Y'))
-            ->whereMonth('finished_at', date('m'))
+        $finalizados = Sale::whereYear('finished_at', $anioActual)
+            ->whereMonth('finished_at', $mesActual)
             ->get();
-        return view('dashboard.index', compact('cotizaciones', 'proyectos', 'finalizados'));
+
+        return view('dashboard.index', compact('cotizaciones', 'proyectos', 'finalizados', 'anioActual', 'mesActual'));
     }
 
     public function cambiarMesReportes($anio, $mes)

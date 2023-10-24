@@ -7,6 +7,7 @@
             <th>Divisa</th>
             <th>Precio</th>
             <th>Inversión</th>
+            <th>Fecha de cotización</th>
             <th>Fecha proyecto</th>
             <th>Cotización</th>
         </tr>
@@ -20,6 +21,7 @@
                 <td>{{ $ticket->currency }}</td>
                 <td>${{ number_format($ticket->estimated, 2) }}</td>
                 <td>${{ number_format($ticket->investment, 2) }}</td>
+                <td>{{ onlyDate($ticket->created_at) }}</td>
                 <td>{{ onlyDate($ticket->project_at) }}</td>
                 <td>{{ $ticket->folio_cotizacion }}</td>
             </tr>

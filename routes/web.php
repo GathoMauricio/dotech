@@ -4,15 +4,18 @@ Auth::routes();
 Route::get('/', function () {
     if (Auth::check()) {
         if (Auth::user()->rol_user_id == 1 || Auth::user()->rol_user_id == 2) {
-            $dashboard = new \App\Http\Controllers\DashboardController();
-            return $dashboard->index();
+            // $dashboard = new \App\Http\Controllers\DashboardController();
+            // return $dashboard->index();
+            return redirect('/dashboard');
         }
-        $whitdrawal = new \App\Http\Controllers\WhitdrawalController();
-        return $whitdrawal->index();
+        return 'Unauthorized';
+        // $whitdrawal = new \App\Http\Controllers\WhitdrawalController();
+        // return $whitdrawal->index();
     } else {
         return view('auth.login');
     }
 })->name('/');
+Route::get('dashboard/{anio?}/{mes?}', 'DashboardController@index')->name('/dashboard');
 
 #Sale Whitdraw temporaly
 //Route::get('withdraw_request_index','WithdrawRequestController@index')->name('withdraw_request_index')->middleware('auth');
