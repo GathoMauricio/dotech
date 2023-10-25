@@ -201,13 +201,6 @@
                 <!-- Sidebar user panel (optional) -->
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
-                        <!--
-          @if (Auth::user()->image == 'perfil.png')
-<img src="{{ asset('img/' . Auth::user()->image) }}" class="img-circle elevation-2" alt="User Image"  width="60" height="60" />
-@else
-<img src="{{ asset('storage/' . Auth::user()->image) }}" class="img-circle elevation-2" alt="User Image"  width="60" height="60" />
-@endif
-          -->
                         <img src="{{ Avatar::create(Auth::user()->email)->toGravatar(['d' => 'identicon', 'r' => 'pg', 's' => 100]) }}"
                             class="img-circle elevation-3" alt="User Image" width="80" height="80" />
                     </div>
