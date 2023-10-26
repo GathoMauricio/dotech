@@ -72,10 +72,11 @@
         </div>
         <div class="row">
             <div class="col-lg-4 col-4">
-                <canvas id='cotizaciones_vs_proyectos'></canvas>
+                {{--  <canvas id='cotizaciones_vs_proyectos'></canvas>  --}}
+                <div id="chart_div"></div>
             </div>
             <div class="col-lg-8 col-8">
-                <canvas id='proyectos_mes'></canvas>
+                <div id="grafica_proyectos_mes" style="width: 100%; height: 500px;"></div>
             </div>
         </div>
     </div>
@@ -100,6 +101,18 @@
             }
         });
     </script>
+
     @include('dashboard.grafica_cotizaciones')
     @include('dashboard.grafica_proyectos')
+    <script>
+        google.charts.load('current', {
+            'packages': ['corechart', 'bar']
+        });
+        google.charts.setOnLoadCallback(pintarGraficas);
+
+        function pintarGraficas() {
+            pintarGraficaPieCotizaciones();
+            pintarGraficaProyectosMes();
+        }
+    </script>
 @endsection
