@@ -13,7 +13,8 @@
             'height': 300,
             'is3D': true,
         };
-        var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
-        chart.draw(data, options);
+        var graficaCotizacionesVsProyectos = new google.visualization.PieChart(document.getElementById(
+            'grafica_cotizaciones_vs_proyectos'));
+        graficaCotizacionesVsProyectos.draw(data, options);
     }
 </script>

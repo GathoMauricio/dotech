@@ -72,8 +72,7 @@
         </div>
         <div class="row">
             <div class="col-lg-4 col-4">
-                {{--  <canvas id='cotizaciones_vs_proyectos'></canvas>  --}}
-                <div id="chart_div"></div>
+                <div id="grafica_cotizaciones_vs_proyectos"></div>
             </div>
             <div class="col-lg-8 col-8">
                 <div id="grafica_proyectos_mes" style="width: 100%; height: 500px;"></div>
