@@ -420,3 +420,5 @@ Route::get('sat', function () {
 Route::get('export_cotizaciones/{anio}/{mes}', 'DashboardController@exportCotizaciones');
 Route::get('export_proyectos/{anio}/{mes}', 'DashboardController@exportProyectos');
 Route::get('export_finalizados/{anio}/{mes}', 'DashboardController@exportFinalizados');
+
+Route::post('store_origen', 'CompanyController@storeOrigen')->name('store_origen');

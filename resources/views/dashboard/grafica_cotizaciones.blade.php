@@ -12,6 +12,7 @@
             'width': '100%',
             'height': 300,
             'is3D': true,
+            'colors': ['#3498DB', '#82E0AA'],
         };
         var graficaCotizacionesVsProyectos = new google.visualization.PieChart(document.getElementById(
             'grafica_cotizaciones_vs_proyectos'));

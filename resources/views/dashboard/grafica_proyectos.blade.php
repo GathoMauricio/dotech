@@ -15,7 +15,7 @@
             'width': '100%',
             'height': 300,
             'bars': 'horizontal',
-            'is3D': true,
+
         };
         var graficaProyectosMes = new google.charts.Bar(document.getElementById('grafica_proyectos_mes'));
         google.visualization.events.addListener(graficaProyectosMes, 'select', selectHandler);
@@ -27,8 +27,20 @@
             if (selectedItem) {
                 var selectedValue = data.getValue(selectedItem.row, 0);
                 var data_array = selectedValue.split(',');
-                alert(data_array[0]);
+                $("#modal_preview_proyecto").modal();
+                console.log(data_array[0]);
             }
         }
+    }
+
+    function generarNuevoColor() {
+        var simbolos, color;
+        simbolos = "0123456789ABCDEF";
+        color = "#";
+
+        for (var i = 0; i < 6; i++) {
+            color = color + simbolos[Math.floor(Math.random() * 16)];
+        }
+        return color;
     }
 </script>

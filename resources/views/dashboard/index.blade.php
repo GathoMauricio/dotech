@@ -103,6 +103,8 @@
 
     @include('dashboard.grafica_cotizaciones')
     @include('dashboard.grafica_proyectos')
+
+    @include('dashboard.modal_preview_proyecto')
     <script>
         google.charts.load('current', {
             'packages': ['corechart', 'bar']
