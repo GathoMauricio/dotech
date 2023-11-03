@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Sale;
+use App\Company;
 //use Maatwebsite\Excel\Excel;
 use App\Exports\CotizacionesExport;
 use App\Exports\ProyectosExport;
@@ -29,8 +30,14 @@ class DashboardController extends Controller
         $finalizados = Sale::whereYear('finished_at', $anioActual)
             ->whereMonth('finished_at', $mesActual)
             ->get();
+        $prospectos = Company::where('status', 'Prospecto')->whereYear('created_at', $anioActual)
+            ->whereMonth('created_at', $mesActual)
+            ->get();
+        $clientes = Company::where('status', 'Cliente')->whereYear('created_at', $anioActual)
+            ->whereMonth('created_at', $mesActual)
+            ->get();
 
-        return view('dashboard.index', compact('cotizaciones', 'proyectos', 'finalizados', 'anioActual', 'mesActual'));
+        return view('dashboard.index', compact('cotizaciones', 'proyectos', 'finalizados', 'prospectos', 'clientes', 'anioActual', 'mesActual'));
     }
 
     public function cambiarMesReportes($anio, $mes)

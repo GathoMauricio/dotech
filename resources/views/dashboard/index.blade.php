@@ -77,6 +77,12 @@
             <div class="col-lg-8 col-8">
                 <div id="grafica_proyectos_mes" style="width: 100%; height: 500px;"></div>
             </div>
+
+        </div>
+        <div class="row">
+            <div class="col-lg-6 col-6">
+                <div id="grafica_prospectos_vs_clientes"></div>
+            </div>
         </div>
     </div>
 
@@ -103,7 +109,7 @@
 
     @include('dashboard.grafica_cotizaciones')
     @include('dashboard.grafica_proyectos')
-
+    @include('dashboard.grafica_prospectos_vs_clientes')
     @include('dashboard.modal_preview_proyecto')
     <script>
         google.charts.load('current', {
@@ -114,28 +120,7 @@
         function pintarGraficas() {
             pintarGraficaPieCotizaciones();
             pintarGraficaProyectosMes();
-        }
-
-        function cargarPreviewProyecto(proy) {
-            $.ajax({
-                type: 'GET',
-                url: '{{ url('preview_proyecto') }}',
-                data: {
-                    proy: proy
-                }
-            }).done(function(response) {
-                $("#span_autor").text(response.author.name + ' ' + response.author.middle_name + ' ' + response
-                    .author
-                    .last_name);
-                $("#span_folio_proyecto").text(response.folio_proyecto);
-                $("#span_cliente").text(response.company.name);
-                $("#span_departamento").text(response.department.name);
-                $("#span_descripcion").text(response.description);
-                $("#span_estimado").text(response.estimated);
-                $("#span_observaciones").text(response.observation);
-                $("#link_abrir_proyecto").prop('href', '{{ url('show_sale') }}/' + response.id);
-                $("#modal_preview_proyecto").modal();
-            }).fail(function(jqXHR, textStatus, errorThrown) {});
+            pintarGraficaPieProspectosClientes();
         }
     </script>
 @endsection
