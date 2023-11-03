@@ -27,13 +27,12 @@
             if (selectedItem) {
                 var selectedValue = data.getValue(selectedItem.row, 0);
                 var data_array = selectedValue.split(',');
-                $("#modal_preview_proyecto").modal();
-                console.log(data_array[0]);
+                cargarPreviewProyecto(data_array[0]);
             }
         }
     }
 
-    function generarNuevoColor() {
+    {{--  function generarNuevoColor() {
         var simbolos, color;
         simbolos = "0123456789ABCDEF";
         color = "#";
@@ -42,5 +41,5 @@
             color = color + simbolos[Math.floor(Math.random() * 16)];
         }
         return color;
-    }
+    }  --}}
 </script>

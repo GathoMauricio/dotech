@@ -115,5 +115,27 @@
             pintarGraficaPieCotizaciones();
             pintarGraficaProyectosMes();
         }
+
+        function cargarPreviewProyecto(proy) {
+            $.ajax({
+                type: 'GET',
+                url: '{{ url('preview_proyecto') }}',
+                data: {
+                    proy: proy
+                }
+            }).done(function(response) {
+                $("#span_autor").text(response.author.name + ' ' + response.author.middle_name + ' ' + response
+                    .author
+                    .last_name);
+                $("#span_folio_proyecto").text(response.folio_proyecto);
+                $("#span_cliente").text(response.company.name);
+                $("#span_departamento").text(response.department.name);
+                $("#span_descripcion").text(response.description);
+                $("#span_estimado").text(response.estimated);
+                $("#span_observaciones").text(response.observation);
+                $("#link_abrir_proyecto").prop('href', '{{ url('show_sale') }}/' + response.id);
+                $("#modal_preview_proyecto").modal();
+            }).fail(function(jqXHR, textStatus, errorThrown) {});
+        }
     </script>
 @endsection

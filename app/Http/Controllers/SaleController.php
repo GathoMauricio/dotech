@@ -760,4 +760,14 @@ class SaleController extends Controller
         }
         return $json;
     }
+
+    public function showPreview(Request $request)
+    {
+        $proyecto =  Sale::where('folio_proyecto', $request->proy)
+            ->with('author')
+            ->with('company')
+            ->with('department')
+            ->first();
+        return response()->json($proyecto);
+    }
 }
