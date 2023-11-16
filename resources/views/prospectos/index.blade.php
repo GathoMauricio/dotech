@@ -4,7 +4,7 @@
     <br><br>
     <a href="javascript:void(0)" onclick="$('#prospectos_create_modal').modal();" class="btn btn-primary float-right">Crear</a>
     <br><br>
-    <div style="width:200px;" class="float-right">
+    {{--  <div style="width:200px;" class="float-right">
         <form action="#" method="POST">
             @csrf
             <table>
@@ -14,7 +14,7 @@
                 </tr>
             </table>
         </form>
-    </div>
+    </div>  --}}
     {{ $prospectos->links('pagination::bootstrap-4') }}
     <table class="table">
         <thead>
@@ -38,10 +38,11 @@
                     <td>{{ $prospecto->phone }}</td>
                     <td>{{ $prospecto->created_at }}</td>
                     <td>
-                        <a href="javascript:void(0)">(0)Seguimientos</a><br>
-                        <a href="javascript:void(0)">Cotizar</a><br>
+                        <a href="javascript:void(0)"
+                            onclick="openSeguimientos({{ $prospecto->id }})">({{ $prospecto->seguimientos->count() }})Seguimientos</a><br>
+                        {{--  <a href="javascript:void(0)">Cotizar</a><br>  --}}
                         <a href="javascript:void(0)" onclick="editProspecto({{ $prospecto->id }})">Editar</a><br>
-                        <a href="javascript:void(0)">Eliminar</a><br>
+                        <a href="javascript:void(0)" onclick="eliminarProspecto({{ $prospecto->id }})">Eliminar</a><br>
                     </td>
                 </tr>
             @endforeach
@@ -51,6 +52,7 @@
     @include('prospectos.create')
     @include('prospectos.edit')
     @include('prospectos.nuevo_origen')
+    @include('prospectos.seguimientos')
     <script src="{{ asset('adminlte/plugins/jquery/jquery.min.js') }}"></script>
     <script>
         $(document).ready(function() {
@@ -73,6 +75,31 @@
                     $("#txt_nuevo_origen").val('');
                     $("#nuevo_origen_modal").modal('hide');
                     alertify.success("Registro almacenado");
+                }).fail(function(jqXHR, textStatus,
+                    errorThrown) {
+                    console.log(jqXHR);
+                });
+            });
+
+            $("#form_store_seguimiento_prospecto").submit(function(e) {
+                e.preventDefault();
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ url('ajax_store_seguimiento_prospecto') }}",
+                    data: $("#form_store_seguimiento_prospecto").serialize(),
+                }).done(function(response) {
+                    var html = ``;
+                    $.each(response, function(index, item) {
+                        html += `
+                        <div class="alert alert-secondary" role="alert">
+                            <b>${item.author.name} ${item.author.middle_name} ${item.author.last_name}</b>
+                            <p>${item.body}</p>
+                            <small class="float-right">${item.created_at}</small><br>
+                        </div>
+                        `;
+                    });
+                    $("#caja_seguimientos").html(html);
+                    $("#txt_body_seguimiento").val('');
                 }).fail(function(jqXHR, textStatus,
                     errorThrown) {
                     console.log(jqXHR);
@@ -105,6 +132,67 @@
                 errorThrown) {
                 console.log(jqXHR);
             });
+        }
+
+        function openSeguimientos(prospecto_id) {
+            $("#txt_seguimiento_prospecto_id").val(prospecto_id);
+            $.ajax({
+                type: 'GET',
+                url: "{{ url('ajax_open_seguimientos') }}",
+                data: {
+                    prospecto_id: prospecto_id
+                },
+            }).done(function(response) {
+                var html = ``;
+                $.each(response, function(index, item) {
+                    html += `
+                    <div class="alert alert-secondary" role="alert">
+                        <b>${item.author.name} ${item.author.middle_name} ${item.author.last_name}</b>
+                        <p>${item.body}</p>
+                        <small class="float-right">${item.created_at}</small><br>
+                    </div>
+                    `;
+                });
+                $("#caja_seguimientos").html(html);
+                $("#prospectos_seguimientos_modal").modal();
+            }).fail(function(jqXHR, textStatus,
+                errorThrown) {
+                console.log(jqXHR);
+            });
+        }
+
+        function eliminarProspecto(prospecto_id) {
+            alertify
+                .confirm(
+                    "",
+                    function() {
+                        $.ajax({
+                            type: 'GET',
+                            url: "{{ url('ajax_eliminar_prospecto') }}",
+                            data: {
+                                prospecto_id: prospecto_id
+                            },
+                        }).done(function(response) {
+                            alert(response);
+                            window.location.reload();
+                        }).fail(function(jqXHR, textStatus,
+                            errorThrown) {
+                            console.log(jqXHR);
+                        });
+                    },
+                    function() {
+
+                    }
+                )
+                .set("labels", {
+                    ok: "Si, eliminar!",
+                    cancel: "Cancelar"
+                })
+                .set({
+                    transition: "flipx",
+                    title: "Alerta",
+                    message: "¿Eliminar registro?",
+                });
         }
     </script>
 @endsection

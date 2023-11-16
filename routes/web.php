@@ -429,3 +429,6 @@ Route::post('store_prospecto', 'ProspectoController@store')->name('store_prospec
 Route::post('ajax_store_origen', 'ClienteOrigenController@ajaxStoreOrigen')->name('ajax_store_origen');
 Route::get('ajax_show_prospecto', 'ProspectoController@ajaxShowProspecto')->name('ajax_show_prospecto');
 Route::put('update_prospecto', 'ProspectoController@update')->name('update_prospecto');
+Route::get('ajax_open_seguimientos', 'ProspectoController@ajaxOpenSeguimientos')->name('ajax_open_seguimientos');
+Route::post('ajax_store_seguimiento_prospecto', 'ProspectoController@ajaxStoreSeguimientoProspecto');
+Route::get('ajax_eliminar_prospecto', 'ProspectoController@destroy');

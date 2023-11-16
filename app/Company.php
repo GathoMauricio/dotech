@@ -8,8 +8,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class Company extends Authenticatable
 {
     protected $table = 'companies';
-	protected $primaryKey = 'id';
-	public $timestamps = true;
+    protected $primaryKey = 'id';
+    public $timestamps = true;
 
     protected $fillable = [
         'id',
@@ -30,10 +30,15 @@ class Company extends Authenticatable
         'updated_at'
     ];
     protected static function boot()
-	{
-		parent::boot();
+    {
+        parent::boot();
         static::creating(function ($query) {
             $query->image = 'compania.png';
-		});
-	}
+        });
+    }
+
+    public function seguimientos()
+    {
+        return $this->hasMany(CompanyFollow::class);
+    }
 }

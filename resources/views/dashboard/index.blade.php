@@ -71,17 +71,21 @@
             </div>
         </div>
         <div class="row">
+
             <div class="col-lg-4 col-4">
                 <div id="grafica_cotizaciones_vs_proyectos"></div>
             </div>
             <div class="col-lg-8 col-8">
-                <div id="grafica_proyectos_mes" style="width: 100%; height: 500px;"></div>
+                <div id="grafica_proyectos_mes"></div>
             </div>
 
         </div>
         <div class="row">
-            <div class="col-lg-6 col-6">
+            <div class="col-lg-4 col-4">
                 <div id="grafica_prospectos_vs_clientes"></div>
+            </div>
+            <div class="col-lg-8 col-8">
+                <b>TAREAS</b>
             </div>
         </div>
     </div>
@@ -106,11 +110,11 @@
             }
         });
     </script>
-
+    @include('dashboard.modal_preview_proyecto')
     @include('dashboard.grafica_cotizaciones')
     @include('dashboard.grafica_proyectos')
     @include('dashboard.grafica_prospectos_vs_clientes')
-    @include('dashboard.modal_preview_proyecto')
+
     <script>
         google.charts.load('current', {
             'packages': ['corechart', 'bar']

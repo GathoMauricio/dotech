@@ -5,7 +5,8 @@
         data.addColumn('number', 'Proyectos');
         data.addRows([
             @foreach ($proyectos as $proyecto)
-                ['{{ $proyecto->folio_proyecto }}, {{ $proyecto->description }} ${{ $proyecto->estimated }}',
+                ['{{ preg_replace("[\n|\r|\n\r]", '', $proyecto->folio_proyecto . ', ' . substr($proyecto->description, 0, 40) . ' $' . $proyecto->estimated) }}'
+                    .split("\n").join(""),
                     {{ $proyecto->estimated }}
                 ],
             @endforeach

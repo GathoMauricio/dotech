@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Company;
 use App\ClienteOrigen;
 use App\CompanyDepartment;
+use App\CompanyFollow;
 
 class ProspectoController extends Controller
 {
@@ -53,6 +54,34 @@ class ProspectoController extends Controller
             return redirect()->back()->with('message', 'Registro actualizado.');
         } else {
             return redirect()->back()->with('message', 'Error al actualizar el registro.');
+        }
+    }
+
+    public function ajaxOpenSeguimientos(Request $request)
+    {
+        $seguimientos = CompanyFollow::where('company_id', $request->prospecto_id)->with('author')->orderBy('id', 'DESC')->get();
+        return response()->json($seguimientos);
+    }
+
+    public function ajaxStoreSeguimientoProspecto(Request $request)
+    {
+        $seguimiento = CompanyFollow::create([
+            'author_id' => \Auth::user()->id,
+            'company_id' => $request->prospecto_id,
+            'body' => $request->body,
+        ]);
+        if ($seguimiento) {
+            return $this->ajaxOpenSeguimientos($request);
+        } else {
+            return "Error";
+        }
+    }
+
+    public function destroy(Request $request)
+    {
+        $prospecto = Company::find($request->prospecto_id);
+        if ($prospecto->delete()) {
+            return "Registro eliminado";
         }
     }
 }
