@@ -60,7 +60,7 @@
             </tr>
         </table>
         <p style="page-break-after: never;">
-            <br><br><br>
+            <br>
             @if (!empty($binnacle->sale['description']))
                 <table style="width:100%;">
                     <tr>
@@ -189,6 +189,7 @@
         </table>
         </p>
     </main>
+    <br><br>
     <footer>
 
     </footer>
