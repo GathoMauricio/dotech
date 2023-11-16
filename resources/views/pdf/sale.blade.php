@@ -36,41 +36,6 @@
 </head>
 
 <body>
-    {{--  <header>
-        <table style="width:100%;">
-            <tr>
-                <td width="30%" style="padding-top:50px;">
-                    <img src="{{ $logo }}" width="50%" height="">
-                </td>
-                <td width="40%" style="color:black;">
-                    <p>
-                    <h1 style="color:#d30035;font-weight:bold;text-align:center;padding:10px;">Cotización</h1>
-                    </p>
-                    <small>Laguna San Cristóbal 99, Anáhuac I Secc.,</small>
-                    <br />
-                    <small>Anáhuac I Secc, Miguel Hidalgo, 11320 </small>
-                    <br />
-                    <small>Ciudad de México, CDMX</small>
-                    <br />
-                    <small>Tel: 55460615</small>
-                </td>
-                <td width="30%" style="text-align: right;padding-top:50px;">
-                    <img src="{{ $logo2 }}" width="50%" height="">
-                </td>
-            </tr>
-            <tr>
-                <td colspan="3">
-                    <div style="color:blue;width:100%;height:200px">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos illum amet vero nisi recusandae
-                        impedit doloribus labore laboriosam quae vel est aliquam laudantium, asperiores vitae. Ad eum
-                        unde in labore.
-                    </div>
-                </td>
-            </tr>
-        </table>
-
-    </header>  --}}
-
     <main>
         <table style="width:100%;">
             <tr>

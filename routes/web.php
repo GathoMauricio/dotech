@@ -423,3 +423,9 @@ Route::get('export_finalizados/{anio}/{mes}', 'DashboardController@exportFinaliz
 
 Route::post('store_origen', 'CompanyController@storeOrigen')->name('store_origen');
 Route::get('preview_proyecto', 'SaleController@showPreview');
+
+Route::get('prospecto_index', 'ProspectoController@index')->name('prospecto_index');
+Route::post('store_prospecto', 'ProspectoController@store')->name('store_prospecto');
+Route::post('ajax_store_origen', 'ClienteOrigenController@ajaxStoreOrigen')->name('ajax_store_origen');
+Route::get('ajax_show_prospecto', 'ProspectoController@ajaxShowProspecto')->name('ajax_show_prospecto');
+Route::put('update_prospecto', 'ProspectoController@update')->name('update_prospecto');
