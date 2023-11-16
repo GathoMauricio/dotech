@@ -82,10 +82,30 @@
         </div>
         <div class="row">
             <div class="col-lg-4 col-4">
+                <a href="{{ url('prospecto_index') }}" target="_BLANK"><b>Prospectos</b></a>
                 <div id="grafica_prospectos_vs_clientes"></div>
             </div>
             <div class="col-lg-8 col-8">
-                <b>TAREAS</b>
+                <a href="{{ url('wire_tasks') }}" target="_BLANK"><b>Tareas</b></a>
+                <div style="width:100%;height: 300px;overflow: hidden;overflow-y: scroll;">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Tarea</th>
+                                <th>Descripción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($tareas as $tarea)
+                                <tr>
+                                    <td>{{ $tarea->title }}</td>
+                                    <td>{{ $tarea->description }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+
             </div>
         </div>
     </div>

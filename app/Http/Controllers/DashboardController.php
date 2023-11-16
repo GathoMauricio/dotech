@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Sale;
 use App\Company;
+use App\Task;
 //use Maatwebsite\Excel\Excel;
 use App\Exports\CotizacionesExport;
 use App\Exports\ProyectosExport;
@@ -37,7 +38,21 @@ class DashboardController extends Controller
             ->whereMonth('created_at', $mesActual)
             ->get();
 
-        return view('dashboard.index', compact('cotizaciones', 'proyectos', 'finalizados', 'prospectos', 'clientes', 'anioActual', 'mesActual'));
+        if (\Auth::user()->rol_user_id == 1) {
+            $tareas = Task::where('archived', 'NO')
+                ->orderBy('created_at', 'DESC')
+                ->get();
+        } else {
+            $tareas = Task::where('archived', 'NO')->where(function ($query) {
+                $query->orWhere('user_id', \Auth::user()->id);
+                $query->orWhere('author_id', \Auth::user()->id);
+                $query->orWhere('visibility', 'Público');
+            })
+                ->orderBy('created_at', 'DESC')
+                ->get();
+        }
+
+        return view('dashboard.index', compact('cotizaciones', 'proyectos', 'finalizados', 'prospectos', 'clientes', 'anioActual', 'mesActual', 'tareas'));
     }
 
     public function cambiarMesReportes($anio, $mes)

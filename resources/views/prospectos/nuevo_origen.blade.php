@@ -11,7 +11,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="{{ route('store_origen') }}" id="form_nuevo_origen" method="POST">
+            <form action="#" id="form_nuevo_origen" method="POST">
                 @csrf
                 <div class="container">
                     <div class="row">
