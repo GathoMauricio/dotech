@@ -192,9 +192,9 @@
         <br><br>
     </main>
     <br><br>
-    <footer>
+    {{--  <footer>
 
-    </footer>
+    </footer>  --}}
 </body>
 
 </html>
