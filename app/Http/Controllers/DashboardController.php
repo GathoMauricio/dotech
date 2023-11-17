@@ -10,6 +10,7 @@ use App\Task;
 use App\Exports\CotizacionesExport;
 use App\Exports\ProyectosExport;
 use App\Exports\FinalizadosExport;
+use App\Exports\ProspectosExport;
 
 class DashboardController extends Controller
 {
@@ -164,5 +165,10 @@ class DashboardController extends Controller
             'proyectosMes' => count($proyectosMes),
             'ventaMes' => '$' . number_format($totalVentaMes + ($totalVentaMes * 0.16), 2)
         ];
+    }
+
+    public function reporteMensualCotizacionesProyectos($anio, $mes)
+    {
+        return \Excel::download(new ProspectosExport($anio, $mes), 'reporte_mensual_cotizaciones_proyectos_' . $anio . '_' . $mes . '.xlsx');
     }
 }

@@ -432,3 +432,4 @@ Route::put('update_prospecto', 'ProspectoController@update')->name('update_prosp
 Route::get('ajax_open_seguimientos', 'ProspectoController@ajaxOpenSeguimientos')->name('ajax_open_seguimientos');
 Route::post('ajax_store_seguimiento_prospecto', 'ProspectoController@ajaxStoreSeguimientoProspecto');
 Route::get('ajax_eliminar_prospecto', 'ProspectoController@destroy');
+Route::get('reporte_mensual_cotizaciones_proyectos/{anio}/{mes}', 'DashboardController@reporteMensualCotizacionesProyectos');

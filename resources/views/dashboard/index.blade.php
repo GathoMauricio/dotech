@@ -73,20 +73,25 @@
         <div class="row">
 
             <div class="col-lg-4 col-4">
+                <a href="{{ url('wire_projects') }}" target="_BLANK"><b>Proyectos <span
+                            class="icon icon-share"></span></b></a>
                 <div id="grafica_cotizaciones_vs_proyectos"></div>
             </div>
             <div class="col-lg-8 col-8">
+                <a href="{{ url('reporte_mensual_cotizaciones_proyectos/' . $anioActual . '/' . $mesActual) }}"
+                    target="_BLANK"><b>Descargar
+                        reporte mensual <span class="icon icon-download"></span></b></a>
                 <div id="grafica_proyectos_mes"></div>
             </div>
-
         </div>
         <div class="row">
             <div class="col-lg-4 col-4">
-                <a href="{{ url('prospecto_index') }}" target="_BLANK"><b>Prospectos</b></a>
+                <a href="{{ url('prospecto_index') }}" target="_BLANK"><b>Prospectos <span
+                            class="icon icon-share"></span></b></a>
                 <div id="grafica_prospectos_vs_clientes"></div>
             </div>
             <div class="col-lg-8 col-8">
-                <a href="{{ url('wire_tasks') }}" target="_BLANK"><b>Tareas</b></a>
+                <a href="{{ url('wire_tasks') }}" target="_BLANK"><b>Tareas <span class="icon icon-share"></span></b></a>
                 <div style="width:100%;height: 300px;overflow: hidden;overflow-y: scroll;">
                     <table class="table">
                         <thead>
