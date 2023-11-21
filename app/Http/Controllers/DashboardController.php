@@ -113,7 +113,7 @@ class DashboardController extends Controller
         $utilidadTotal = $costoTotal - $inversionTotal;
 
 
-        return view('dashboard.index', [
+        return view('dashboard._index', [
             'costoTotal' => $costoTotal,
             'inversionTotal' => $inversionTotal,
             'utilidadTotal' => $utilidadTotal,

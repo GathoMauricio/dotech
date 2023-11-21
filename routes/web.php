@@ -433,3 +433,4 @@ Route::get('ajax_open_seguimientos', 'ProspectoController@ajaxOpenSeguimientos')
 Route::post('ajax_store_seguimiento_prospecto', 'ProspectoController@ajaxStoreSeguimientoProspecto');
 Route::get('ajax_eliminar_prospecto', 'ProspectoController@destroy');
 Route::get('reporte_mensual_cotizaciones_proyectos/{anio}/{mes}', 'DashboardController@reporteMensualCotizacionesProyectos');
+Route::get('last_dashboard', 'DashboardController@_index')->name('last_dashboard');

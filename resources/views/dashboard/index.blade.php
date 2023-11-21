@@ -1,6 +1,9 @@
 @extends('layouts.app')
 @section('content')
-    <h4 class="title_page ">Reportes</h4>
+    <a href="{{ url('last_dashboard') }}" class="float-right">Último dashboard <span class="icon icon-share"></span></a>
+    <h4 class="title_page ">
+        Reportes
+    </h4>
 
     <div class="container">
         <div class="row">
