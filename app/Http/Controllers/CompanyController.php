@@ -129,7 +129,8 @@ class CompanyController extends Controller
     public function edit($id)
     {
         $company = Company::findOrFail($id);
-        return view('companies.edit', ['company' => $company]);
+        $origenes = ClienteOrigen::orderBy('origen')->get();
+        return view('companies.edit', ['company' => $company, 'origenes' => $origenes]);
     }
     public function update(Request $request, $id)
     {
@@ -144,6 +145,7 @@ class CompanyController extends Controller
         $company->address = $request->address;
         $company->description = $request->description;
         $company->iguala = $request->iguala;
+        $company->porcentaje = $request->porcentaje;
 
         $msg = "Actualizó la compañía  " . $company->name;
         createSysLog($msg);

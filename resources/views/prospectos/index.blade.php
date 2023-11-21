@@ -20,6 +20,7 @@
         <thead>
             <tr>
                 <th>Origen</th>
+                <th>Porcentaje</th>
                 <th>Nombre</th>
                 <th>Responsable</th>
                 <th>Email</th>
@@ -32,6 +33,7 @@
             @foreach ($prospectos as $key => $prospecto)
                 <tr>
                     <td>{{ $prospecto->origin }}</td>
+                    <td>{{ $prospecto->porcentaje }}%</td>
                     <td>{{ $prospecto->name }}</td>
                     <td>{{ $prospecto->responsable }}</td>
                     <td>{{ $prospecto->email }}</td>
@@ -71,7 +73,7 @@
                         html += `<option value="${item.origen}">${item.origen}</option>`;
                     });
                     cbo_create.html(html);
-                    cbo_edit_create.htmlm(html);
+                    cbo_edit_create.html(html);
                     $("#txt_nuevo_origen").val('');
                     $("#nuevo_origen_modal").modal('hide');
                     alertify.success("Registro almacenado");
@@ -122,6 +124,7 @@
             }).done(function(response) {
                 console.log(response);
                 $("#cbo_edit_origin").val(response.origin);
+                $("#cbo_edit_porcentaje").val(response.porcentaje);
                 $("#txt_edit_name").val(response.name);
                 $("#txt_edit_responsable").val(response.responsable);
                 $("#txt_edit_phone").val(response.phone);

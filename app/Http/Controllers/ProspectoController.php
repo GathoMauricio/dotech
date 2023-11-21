@@ -26,6 +26,7 @@ class ProspectoController extends Controller
             'phone' => $request->phone,
             'email' => $request->email,
             'status' => 'Prospecto',
+            'porcentaje' => $request->porcentaje,
         ]);
         $departamento =  CompanyDepartment::create([
             'company_id' => $prospecto->id,

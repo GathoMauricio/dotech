@@ -15,7 +15,7 @@
                 <input type="hidden" name="prospecto_id" id="txt_edit_prospecto_id">
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <a href="javascript:void(0)" onclick="nuevoOrigen();" class="float-right">Nuevo
                                     origen</a>
@@ -25,6 +25,16 @@
                                     @foreach ($origenes as $key => $origen)
                                         <option value="{{ $origen->origen }}">{{ $origen->origen }}</option>
                                     @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="porcentaje">Porcentaje</label>
+                                <select name="porcentaje" id="cbo_edit_porcentaje" class="form-control" required>
+                                    <option value>--Seleccione una opción--</option>
+                                    <option value="8">8%</option>
+                                    <option value="13">13%</option>
                                 </select>
                             </div>
                         </div>

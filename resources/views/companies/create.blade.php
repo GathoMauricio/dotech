@@ -10,16 +10,13 @@
                         <a href="javascript:void(0);" onclick="$('#add_origen_modal').modal();" style="float: right;">Agregar
                             origen</a>
                         <label for="origin" class="font-weight-bold color-primary-sys">
-                            Origen
+                            Origen*
                         </label>
-                        <select name="origin" class="custom-select">
+                        <select name="origin" class="custom-select" required>
+                            <option value>--Seleccione una opción--</option>
                             @foreach ($origenes as $origen)
                                 <option value="{{ $origen->origen }}">{{ $origen->origen }}</option>
                             @endforeach
-                            {{--  <option value="Recomendación">Recomendación</option>
-                        <option value="Google">Google</option>
-                        <option value="Facebook">Facebook</option>
-                        <option value="App">App</option>  --}}
                         </select>
                     </div>
                 </div>
@@ -35,6 +32,20 @@
                     </div>
                 </div>
                 <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="porcentaje" class="font-weight-bold color-primary-sys">
+                            Porcentaje*
+                        </label>
+                        <select name="porcentaje" class="custom-select" required>
+                            <option value>--Seleccione una opción--</option>
+                            <option value="8">8%</option>
+                            <option value="13">13%</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
                     <div class="form-group">
                         <label for="name" class="font-weight-bold color-primary-sys">
                             Nombre*
@@ -117,25 +128,25 @@
                 </div>
             </div>
             <!--
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="password" class="font-weight-bold color-primary-sys">
-                                                Contraseña
-                                            </label>
-                                            <input name="password" type="password" class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="password_confirm" class="font-weight-bold color-primary-sys">
-                                                Confirmar contraseña
-                                            </label>
-                                            <input name="password_confirm" type="password" class="form-control">
-                                        </div>
-                                    </div>
-                                </div>
-                                -->
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label for="password" class="font-weight-bold color-primary-sys">
+                                                                    Contraseña
+                                                                </label>
+                                                                <input name="password" type="password" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label for="password_confirm" class="font-weight-bold color-primary-sys">
+                                                                    Confirmar contraseña
+                                                                </label>
+                                                                <input name="password_confirm" type="password" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    -->
             <div class="row">
                 <div class="col-md-12">
                     <div class="float-right">
