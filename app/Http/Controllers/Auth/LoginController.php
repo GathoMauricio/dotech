@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
+
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
@@ -37,8 +38,15 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+
     protected function credentials(Request $request)
-    {        
-    return ['email' => $request->{$this->username()}, 'password' => $request->password, 'status_user_id' => 1];
+    {
+        return ['email' => $request->{$this->username()}, 'password' => $request->password, 'status_user_id' => 1];
+    }
+
+    protected function authenticated(Request $request, $user)
+    {
+        createSysLog($user->name . ' Ha iniciado sesión desde ' . $request->ip());
+        \Session::put('recent_login', $user->id);
     }
 }

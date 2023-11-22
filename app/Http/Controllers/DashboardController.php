@@ -171,4 +171,13 @@ class DashboardController extends Controller
     {
         return \Excel::download(new ProspectosExport($anio, $mes), 'reporte_mensual_cotizaciones_proyectos_' . $anio . '_' . $mes . '.xlsx');
     }
+
+    public function obtenerPendientes(Request $request)
+    {
+        $tareas = Task::where('archived', 'NO')->where('user_id', $request->user_id)->get();
+
+        return response()->json([
+            'tareas' => $tareas,
+        ]);
+    }
 }

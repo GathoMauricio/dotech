@@ -617,6 +617,42 @@
             overflow-y: scroll;
         }
     </style>
+    @include('layouts.pendientes_modal')
+    @if (session()->has('recent_login'))
+        <script>
+            var user_id = {{ session('recent_login') }};
+            //cargarPendientesInicio(user_id);
+
+            function cargarPendientesInicio(user_id) {
+                $.ajax({
+                    type: "GET",
+                    url: "{{ url('obtener_pendientes') }}",
+                    data: {
+                        user_id: user_id
+                    },
+                    success: function(response) {
+                        console.log(response);
+                        //Tareas
+                        var html_lista_tareas_pendientes = ``;
+                        $.each(response.tareas, function(index, item) {
+                            html_lista_tareas_pendientes += `<li>${item.title}</li>`;
+                        });
+                        if (response.tareas.length <= 0) {
+                            html_lista_tareas_pendientes = `<li>No tienes tareas pendientes</li>`;
+                        }
+                        $("#lista_tareas_pendientes").html(html_lista_tareas_pendientes);
+                        //Otros pendientes
+                        $("#pendientes_modal").modal();
+                    },
+                    error: err => console.log(err)
+                });
+
+            }
+        </script>
+        @php
+            session()->forget('recent_login');
+        @endphp
+    @endif
 </body>
 
 </html>
