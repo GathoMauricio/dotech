@@ -621,7 +621,7 @@
     @if (session()->has('recent_login'))
         <script>
             var user_id = {{ session('recent_login') }};
-            //cargarPendientesInicio(user_id);
+            cargarPendientesInicio(user_id);
 
             function cargarPendientesInicio(user_id) {
                 $.ajax({
@@ -653,6 +653,53 @@
             session()->forget('recent_login');
         @endphp
     @endif
+    <script src="https://cdn.jsdelivr.net/npm/driver.js@1.0.1/dist/driver.js.iife.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/driver.js@1.0.1/dist/driver.css" />
+
+    <script>
+        const driver = window.driver.js.driver;
+
+        const driverObj = driver({
+            showProgress: true,
+            nextBtnText: "Siguiente",
+            prevBtnText: "Atras",
+            doneBtnText: "Terminar",
+            onDestroyed: function() {
+                alert("Se termino el tour");
+            },
+            steps: [{
+                    element: '.page-header',
+                    popover: {
+                        title: 'Title',
+                        description: 'Description'
+                    }
+                },
+                {
+                    element: '.top-nav',
+                    popover: {
+                        title: 'Title',
+                        description: 'Description'
+                    }
+                },
+                {
+                    element: '.sidebar',
+                    popover: {
+                        title: 'Title',
+                        description: 'Description'
+                    }
+                },
+                {
+                    element: '.footer',
+                    popover: {
+                        title: 'Title',
+                        description: 'Description'
+                    }
+                },
+            ]
+        });
+
+        //driverObj.drive();
+    </script>
 </body>
 
 </html>
