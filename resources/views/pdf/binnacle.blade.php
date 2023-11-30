@@ -44,7 +44,7 @@
                 </td>
                 <td width="40%" style="color:black;">
                     <p>
-                    <h1 style="color:#d30035;font-weight:bold;text-align:center;padding:10px;">Cotización</h1>
+                    <h1 style="color:#d30035;font-weight:bold;text-align:center;padding:10px;">Bitácora</h1>
                     </p>
                     <small>Laguna San Cristóbal 99, Anáhuac I Secc.,</small>
                     <br />
