@@ -438,3 +438,6 @@ Route::get('ajax_eliminar_prospecto', 'ProspectoController@destroy');
 Route::get('reporte_mensual_cotizaciones_proyectos/{anio}/{mes}', 'DashboardController@reporteMensualCotizacionesProyectos');
 Route::get('last_dashboard', 'DashboardController@_index')->name('last_dashboard');
 Route::get('obtener_pendientes', 'DashboardController@obtenerPendientes')->name('obtener_pendientes');
+
+Route::get('clientes', 'ClienteController@index')->name('clientes');
+Route::get('clientes.show/{id}', 'ClienteController@show')->name('clientes.show');

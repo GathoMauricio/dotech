@@ -328,6 +328,13 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a href="{{ route('clientes') }}"
+                                class="nav-link @if (Route::currentRouteName() == 'clientes') active @endif">
+                                <i class="nav-icon icon-office"></i>
+                                <p>Clientes</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="{{ route('company_index') }}"
                                 class="nav-link @if (Route::currentRouteName() == 'company_index') active @endif">
                                 <i class="nav-icon icon-office"></i>

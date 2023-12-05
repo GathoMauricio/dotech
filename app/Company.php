@@ -28,7 +28,9 @@ class Company extends Authenticatable
         'searches',
         'created_at',
         'updated_at',
-        'porcentaje'
+        'porcentaje',
+        'fecha_prospecto',
+        'fecha_cliente'
     ];
     protected static function boot()
     {
@@ -41,5 +43,21 @@ class Company extends Authenticatable
     public function seguimientos()
     {
         return $this->hasMany(CompanyFollow::class);
+    }
+    public function repositorios()
+    {
+        return $this->hasMany(CompanyRepository::class);
+    }
+    public function documentaciones()
+    {
+        return $this->hasMany(CompanyDocument::class);
+    }
+    public function departamentos()
+    {
+        return $this->hasMany(CompanyDepartment::class);
+    }
+    public function cotizaciones_proyectos()
+    {
+        return $this->hasMany(Sale::class);
     }
 }
