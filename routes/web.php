@@ -441,3 +441,6 @@ Route::get('obtener_pendientes', 'DashboardController@obtenerPendientes')->name(
 
 Route::get('clientes', 'ClienteController@index')->name('clientes');
 Route::get('clientes.show/{id}', 'ClienteController@show')->name('clientes.show');
+Route::put('clientes.update/{id}', 'ClienteController@update')->name('clientes.update');
+
+Route::post('iniciar_cotización/{id?}', 'CotizacionController@store')->name('iniciar_cotización');

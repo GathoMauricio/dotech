@@ -23,6 +23,30 @@ class ClienteController extends Controller
     public function show($id)
     {
         $cliente = Company::findOrFail($id);
-        return view('clientes.show', compact('cliente'));
+        $origenes = ClienteOrigen::orderBy('origen')->get();
+        return view('clientes.show', compact('cliente', 'origenes'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'origin' => 'required',
+            'porcentaje' => 'required',
+            'name' => 'required',
+            'responsable' => 'required',
+            'phone' => 'required',
+            'email' => 'required',
+        ]);
+        $cliente = Company::findOrFail($id);
+        foreach ($cliente->cotizaciones_proyectos as $key => $historial) {
+            $historial->commision_percent = $request->porcentaje;
+            //$historial->commision_pay = 0; //Calcular porcentaje ganado
+            $historial->save();
+        }
+        if ($cliente->update($request->all())) {
+            return redirect()->back()->with('message', 'Registro actualizado.');
+        } else {
+            return redirect()->back()->with('message', 'Error al procesar petición.');
+        }
     }
 }

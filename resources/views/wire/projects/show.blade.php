@@ -148,7 +148,7 @@
                                 <span title="Inversión hasta el momento..." class="icon-info"></span>
                             </td>
                             <td>
-                                <b>Costo del proyecto</b>
+                                <b>Precio de venta</b>
                                 <span title="Costo total del proyecto..." class="icon-info"></span>
                             </td>
                             <td>
@@ -164,7 +164,9 @@
                                 <span title="Comisión para el vendedor hasta el momento..." class="icon-info"></span>
                                 <input type="hidden" id="txt_change_commision_route"
                                     value="{{ route('change_commision') }}">
-                                @if (Auth::user()->rol_user_id == 1)
+                                <br>
+                                <strong>{{ $sale->commision_percent }}%</strong>
+                                {{--  @if (Auth::user()->rol_user_id == 1)
                                     <select onchange="changeCommision(this.value,{{ $sale->id }});"
                                         style="width:50%;">
                                         @if ($sale->commision_percent == '0')
@@ -183,7 +185,7 @@
                                             <option value="13" selected>13%</option>
                                         @endif
                                     </select>
-                                @endif
+                                @endif  --}}
                             </td>
                         </tr>
                         <tr>

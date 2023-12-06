@@ -11,13 +11,13 @@
     </h4>
     <h5 class="text-center">{{ $sale->company['name'] }}</h5>
     <!--
-                <span class="float-right title_page">
-                    Autor:
-                    {{ $sale->author['name'] }}
-                    {{ $sale->author['middle_name'] }}
-                    {{ $sale->author['last_name'] }}
-                </span>
-                -->
+                                <span class="float-right title_page">
+                                    Autor:
+                                    {{ $sale->author['name'] }}
+                                    {{ $sale->author['middle_name'] }}
+                                    {{ $sale->author['last_name'] }}
+                                </span>
+                                -->
     <center>
         <table class="table" border="1">
             <tr>
@@ -144,7 +144,7 @@
                         <span title="Inversión hasta el momento..." class="icon-info"></span>
                     </td>
                     <td>
-                        <b>Costo del proyecto</b>
+                        <b>Precio de venta</b>
                         <span title="Costo total del proyecto..." class="icon-info"></span>
                     </td>
                     <td>
@@ -155,7 +155,9 @@
                         <b>Comisión</b>
                         <span title="Comisión para el vendedor hasta el momento..." class="icon-info"></span>
                         <input type="hidden" id="txt_change_commision_route" value="{{ route('change_commision') }}">
-                        @if (Auth::user()->rol_user_id == 1)
+                        <br>
+                        <strong>{{ $sale->commision_percent }}%</strong>
+                        {{--  @if (Auth::user()->rol_user_id == 1)
                             <select onchange="changeCommision(this.value,{{ $sale->id }});" style="width:50%;">
                                 @if ($sale->commision_percent == '0')
                                     <option value="0" selected>0%</option>
@@ -173,7 +175,7 @@
                                     <option value="13" selected>13%</option>
                                 @endif
                             </select>
-                        @endif
+                        @endif  --}}
                     </td>
                 </tr>
                 <tr>
@@ -194,12 +196,12 @@
                     <tr>
                         <td colspan="7" style="background-color:#d30035;color:white;font-weight:bold;">
                             <!--
-                                    <label style="float:right;padding:5px;">
-                                        <span class="icon-plus"
-                                            style="cursor:pointer;color:white;" title="Agregar producto...">
-                                        </span>
-                                    </label>
-                                -->
+                                                    <label style="float:right;padding:5px;">
+                                                        <span class="icon-plus"
+                                                            style="cursor:pointer;color:white;" title="Agregar producto...">
+                                                        </span>
+                                                    </label>
+                                                -->
                             <center><label>Productos</label></center>
                         </td>
                     </tr>
@@ -241,9 +243,9 @@
                                         style="cursor:pointer;color:#F39C12;"></span> </a>
 
                                 <!--
-                                    <br>
-                                    <span onclick="deleteProductModal({{ $product->id }})" class="icon-bin" style="cursor:pointer;color:#E74C3C ;"></span>
-                                    -->
+                                                    <br>
+                                                    <span onclick="deleteProductModal({{ $product->id }})" class="icon-bin" style="cursor:pointer;color:#E74C3C ;"></span>
+                                                    -->
                             </td>
                         </tr>
                     @endforeach
@@ -452,9 +454,9 @@
                                     class="icon-plus" style="cursor:pointer;color:white;"
                                     title="Agregar bitácora..."></span></label>
                             <!--
-                                    <br/>
-                                    <a href="#" onclick="sendBinnacleAll({{ $sale->id }})" style="color:white;"><span class="icon-envelop"></span> Enviar todas las bitácoras</a>
-                                    -->
+                                                    <br/>
+                                                    <a href="#" onclick="sendBinnacleAll({{ $sale->id }})" style="color:white;"><span class="icon-envelop"></span> Enviar todas las bitácoras</a>
+                                                    -->
                         </center>
                     </td>
                 </tr>
