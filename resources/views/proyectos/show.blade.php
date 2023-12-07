@@ -10,7 +10,9 @@
                     <div class="col-md-6 p-2">
                         <span class="font-weight-bold">Cliente</span>
                     </div>
-                    <div class="col-md-6 p-2">{{ $proyecto->cliente->name }}</div>
+                    <div class="col-md-6 p-2"><a
+                            href="{{ route('clientes.show', $proyecto->cliente->id) }}">{{ $proyecto->cliente->name }}</a>
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6 p-2">
