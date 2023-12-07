@@ -194,6 +194,8 @@
                                 <td>{{ $historial->commision_percent }}%</td>
                                 <td>
                                     <a href="{{ route('show_sale', $historial->id) }}">Abrir</a>
+                                    <a href="{{ route('proyecto.show', $historial->id) }}"><i
+                                            class="icon icon-clock"></i></a>
                                 </td>
                             </tr>
                         @endforeach

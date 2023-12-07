@@ -1,5 +1,5 @@
 <?php
-
+#TODO Las funciones con nombre en inglés se eliminaran cuando se reemplacen las vistas que usan esas relaciones
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
@@ -39,6 +39,7 @@ class Sale extends Model
         'created_at',
         'updated_at',
     ];
+
     protected static function boot()
     {
         parent::boot();
@@ -53,6 +54,7 @@ class Sale extends Model
             $query->commision_pay = 0;
         });
     }
+
     public function company()
     {
         return $this->belongsTo(
@@ -62,6 +64,17 @@ class Sale extends Model
         )
             ->withDefault();
     }
+
+    public function cliente()
+    {
+        return $this->belongsTo(
+            'App\Company',
+            'company_id',
+            'id'
+        )
+            ->withDefault();
+    }
+
     public function department()
     {
         return $this->belongsTo(
@@ -71,6 +84,17 @@ class Sale extends Model
         )
             ->withDefault();
     }
+
+    public function departamento()
+    {
+        return $this->belongsTo(
+            'App\CompanyDepartment',
+            'department_id',
+            'id'
+        )
+            ->withDefault();
+    }
+
     public function author()
     {
         return $this->belongsTo(
@@ -80,8 +104,54 @@ class Sale extends Model
         )
             ->withDefault();
     }
+
+    public function autor()
+    {
+        return $this->belongsTo(
+            'App\User',
+            'author_id',
+            'id'
+        )
+            ->withDefault();
+    }
+
     public function transactions()
     {
         return $this->hasMany(ProjectTransaction::class);
+    }
+
+    public function transacciones()
+    {
+        return $this->hasMany(ProjectTransaction::class);
+    }
+
+    public function productos()
+    {
+        return $this->hasMany(ProductSale::class);
+    }
+
+    public function pagos()
+    {
+        return $this->hasMany(SalePayment::class);
+    }
+
+    public function archivos()
+    {
+        return $this->hasMany(SaleDocument::class);
+    }
+
+    public function retiros()
+    {
+        return $this->hasMany(Whitdrawal::class);
+    }
+
+    public function bitacoras()
+    {
+        return $this->hasMany(Binnacle::class);
+    }
+
+    public function seguimientos()
+    {
+        return $this->hasMany(SaleFollow::class);
     }
 }

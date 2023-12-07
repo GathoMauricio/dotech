@@ -419,28 +419,32 @@ Route::get('sat', function () {
 
 
 #Exports
+Route::group(['middleware' => ['auth']], function () {
 
-Route::get('export_cotizaciones/{anio}/{mes}', 'DashboardController@exportCotizaciones');
-Route::get('export_proyectos/{anio}/{mes}', 'DashboardController@exportProyectos');
-Route::get('export_finalizados/{anio}/{mes}', 'DashboardController@exportFinalizados');
+    Route::get('export_cotizaciones/{anio}/{mes}', 'DashboardController@exportCotizaciones');
+    Route::get('export_proyectos/{anio}/{mes}', 'DashboardController@exportProyectos');
+    Route::get('export_finalizados/{anio}/{mes}', 'DashboardController@exportFinalizados');
 
-Route::post('store_origen', 'CompanyController@storeOrigen')->name('store_origen');
-Route::get('preview_proyecto', 'SaleController@showPreview');
+    Route::post('store_origen', 'CompanyController@storeOrigen')->name('store_origen');
+    Route::get('preview_proyecto', 'SaleController@showPreview');
 
-Route::get('prospecto_index', 'ProspectoController@index')->name('prospecto_index');
-Route::post('store_prospecto', 'ProspectoController@store')->name('store_prospecto');
-Route::post('ajax_store_origen', 'ClienteOrigenController@ajaxStoreOrigen')->name('ajax_store_origen');
-Route::get('ajax_show_prospecto', 'ProspectoController@ajaxShowProspecto')->name('ajax_show_prospecto');
-Route::put('update_prospecto', 'ProspectoController@update')->name('update_prospecto');
-Route::get('ajax_open_seguimientos', 'ProspectoController@ajaxOpenSeguimientos')->name('ajax_open_seguimientos');
-Route::post('ajax_store_seguimiento_prospecto', 'ProspectoController@ajaxStoreSeguimientoProspecto');
-Route::get('ajax_eliminar_prospecto', 'ProspectoController@destroy');
-Route::get('reporte_mensual_cotizaciones_proyectos/{anio}/{mes}', 'DashboardController@reporteMensualCotizacionesProyectos');
-Route::get('last_dashboard', 'DashboardController@_index')->name('last_dashboard');
-Route::get('obtener_pendientes', 'DashboardController@obtenerPendientes')->name('obtener_pendientes');
+    Route::get('prospecto_index', 'ProspectoController@index')->name('prospecto_index');
+    Route::post('store_prospecto', 'ProspectoController@store')->name('store_prospecto');
+    Route::post('ajax_store_origen', 'ClienteOrigenController@ajaxStoreOrigen')->name('ajax_store_origen');
+    Route::get('ajax_show_prospecto', 'ProspectoController@ajaxShowProspecto')->name('ajax_show_prospecto');
+    Route::put('update_prospecto', 'ProspectoController@update')->name('update_prospecto');
+    Route::get('ajax_open_seguimientos', 'ProspectoController@ajaxOpenSeguimientos')->name('ajax_open_seguimientos');
+    Route::post('ajax_store_seguimiento_prospecto', 'ProspectoController@ajaxStoreSeguimientoProspecto');
+    Route::get('ajax_eliminar_prospecto', 'ProspectoController@destroy');
+    Route::get('reporte_mensual_cotizaciones_proyectos/{anio}/{mes}', 'DashboardController@reporteMensualCotizacionesProyectos');
+    Route::get('last_dashboard', 'DashboardController@_index')->name('last_dashboard');
+    Route::get('obtener_pendientes', 'DashboardController@obtenerPendientes')->name('obtener_pendientes');
 
-Route::get('clientes', 'ClienteController@index')->name('clientes');
-Route::get('clientes.show/{id}', 'ClienteController@show')->name('clientes.show');
-Route::put('clientes.update/{id}', 'ClienteController@update')->name('clientes.update');
+    Route::get('clientes', 'ClienteController@index')->name('clientes');
+    Route::get('clientes.show/{id}', 'ClienteController@show')->name('clientes.show');
+    Route::put('clientes.update/{id}', 'ClienteController@update')->name('clientes.update');
 
-Route::post('iniciar_cotización/{id?}', 'CotizacionController@store')->name('iniciar_cotización');
+    Route::post('iniciar_cotización/{id?}', 'CotizacionController@store')->name('iniciar_cotización');
+
+    Route::get('proyecto.show/{id}', 'ProyectoController@show')->name('proyecto.show');
+});
