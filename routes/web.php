@@ -447,4 +447,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('iniciar_cotización/{id?}', 'CotizacionController@store')->name('iniciar_cotización');
 
     Route::get('proyecto.show/{id}', 'ProyectoController@show')->name('proyecto.show');
+
+    Route::get('ajax_imagenes_bitacora', 'BitacoraController@ajaxIndex')->name('ajax_imagenes_bitacora');
 });
