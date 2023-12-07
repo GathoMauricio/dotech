@@ -112,35 +112,150 @@
                 </div>
                 <div class="row">
                     <div class="col-md-6 p-2">
-                        <span class="font-weight-bold">N° de Productos</span>
+                        <span class="font-weight-bold"><a href="#row_productos">N° de Productos</a></span>
                     </div>
                     <div class="col-md-6 p-2">{{ $proyecto->productos->count() }}</div>
                 </div>
                 <div class="row">
                     <div class="col-md-6 p-2">
-                        <span class="font-weight-bold">N° de Pagos</span>
+                        <span class="font-weight-bold"><a href="#row_pagos">N° de Pagos</a></span>
                     </div>
                     <div class="col-md-6 p-2">{{ $proyecto->pagos->count() }}</div>
                 </div>
                 <div class="row">
                     <div class="col-md-6 p-2">
-                        <span class="font-weight-bold">N° de Archivos</span>
+                        <span class="font-weight-bold"><a href="#row_archivos">N° de Archivos</a></span>
                     </div>
                     <div class="col-md-6 p-2">{{ $proyecto->archivos->count() }}</div>
                 </div>
                 <div class="row">
                     <div class="col-md-6 p-2">
-                        <span class="font-weight-bold">N° de Retiros</span>
+                        <span class="font-weight-bold"><a href="#row_retiros">N° de Retiros</a></span>
                     </div>
                     <div class="col-md-6 p-2">{{ $proyecto->retiros->count() }}</div>
                 </div>
                 <div class="row">
                     <div class="col-md-6 p-2">
-                        <span class="font-weight-bold">N° de Bitácoras</span>
+                        <span class="font-weight-bold"><a href="#row_bitacoras">N° de Bitácoras</a></span>
                     </div>
                     <div class="col-md-6 p-2">{{ $proyecto->bitacoras->count() }}</div>
                 </div>
             </div>
         </div>
+        <br>
+        <div class="row" style="background-color: white;p-3" id="row_productos">
+            <div class="col-md-12 p-2">
+                {{--  <a href="javascript:void(0);" class="float-right"><span class="icon icon-eye-blocked"></span></a>  --}}
+                <h5 class="text-success">Productos</h5>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <td colspan="6">
+                                <a href="{{ route('quote_products', $proyecto->id) }}" class="float-right"><span
+                                        class="icon icon-pencil"></span></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Cant</th>
+                            <th>U. Medida</th>
+                            <th>Producto</th>
+                            <th>P/U</th>
+                            <th>Descuento</th>
+                            <th>Venta</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($proyecto->productos as $key => $producto)
+                            <tr>
+                                <td>{{ $producto->quantity }}</td>
+                                <td>{{ $producto->measure }}</td>
+                                <td>{{ $producto->description }}</td>
+                                <td>${{ $producto->unity_price_sell }}</td>
+                                <td>{{ $producto->discount }}%</td>
+                                <td>${{ $producto->total_sell }}</td>
+                            </tr>
+                        @endforeach
+                        <tr>
+                            <td colspan="6" class="text-right">Subtotal: ${{ number_format($productos_subtotal, 2) }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="6" class="text-right">IVA: ${{ number_format($productos_iva, 2) }}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="6" class="text-right">Total: ${{ number_format($productos_total, 2) }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <br>
+        <div class="row" style="background-color: white;p-3" id="row_pagos">
+            <div class="col-md-12 p-2">
+                <h5 class="text-success">Pagos</h5>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Descripción</th>
+                            <th>Monto</th>
+                            <th>Comprobante</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+        <br>
+        <div class="row" style="background-color: white;p-3" id="row_archivos">
+            <div class="col-md-12 p-2">
+                <h5 class="text-success">Archivos</h5>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Descripción</th>
+                            <th>Archivo</th>
+                            <th>&nbsp;</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+        <br>
+        <div class="row" style="background-color: white;p-3" id="row_retiros">
+            <div class="col-md-12 p-2">
+                <h5 class="text-success">Retiros</h5>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Proveedor</th>
+                            <th>Descripción</th>
+                            <th>Cuenta</th>
+                            <th>Departamento</th>
+                            <th>Tipo</th>
+                            <th>Cantidad</th>
+                            <th>Estatus</th>
+                            <th>Folio</th>
+                            <th>Pagado</th>
+                            <th>Documento</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+        <br>
+        <div class="row" style="background-color: white;p-3" id="row_bitacoras">
+            <div class="col-md-12 p-2">
+                <h5 class="text-success">Bitácoras</h5>
+                <table class="table">
+                    <thead></thead>
+                </table>
+            </div>
+        </div>
+        <br>
     </div>
 @endsection

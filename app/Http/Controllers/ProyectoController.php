@@ -52,7 +52,21 @@ class ProyectoController extends Controller
         // $grossNoIvaProfit = 0;
         // $commision = 0;
         // $grossNoIvaProfitNoCommision = 0;
-        return view('proyectos.show', compact('proyecto', 'costoProyecto', 'utilidad', 'totalRetiros', 'comision'));
+
+        $productos_subtotal = $proyecto->productos->sum('total_sell');
+        $productos_iva = ($productos_subtotal * 16) / 100;
+        $productos_total = ($productos_subtotal + $productos_iva);
+
+        return view('proyectos.show', compact(
+            'proyecto',
+            'costoProyecto',
+            'utilidad',
+            'totalRetiros',
+            'comision',
+            'productos_subtotal',
+            'productos_iva',
+            'productos_total'
+        ));
         // return view('proyectos.show', [
         //     //'sale' => $sale,
         //     'proyecto' => $proyecto,
