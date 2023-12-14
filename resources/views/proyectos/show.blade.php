@@ -156,6 +156,12 @@
             </div>
         </div>
         <br>
+        <div class="row">
+            <div class="col-md-12 p-3" style="background-color: white;border: solid 5px #f4f6f9;">
+                <div id="grafica_costos"></div>
+            </div>
+        </div>
+        <br>
         <div class="row" style="background-color: white;p-3" id="row_productos">
             <div class="col-md-12 p-2">
                 <h5 class="text-success">Productos</h5>
@@ -476,6 +482,15 @@
     @include('proyectos.agregar_bitacora_modal')
     @include('proyectos.agregar_imagen_bitacora_modal')
     <script>
+        google.charts.load('current', {
+            'packages': ['corechart', 'bar']
+        });
+        google.charts.setOnLoadCallback(pintarGraficas);
+
+        function pintarGraficas() {
+            pintarGraficaCostos();
+        }
+
         function solicitarRetiro() {
             $("#solicitar_retiro_modal").modal('show');
         }
@@ -501,4 +516,5 @@
             sendBinnacle(binnacle_id);
         };
     </script>
+    @include('proyectos.grafica_costos')
 @endsection
