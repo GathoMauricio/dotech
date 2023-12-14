@@ -60,7 +60,7 @@
                             retiro</a>
                     </div>
                     <div class="col-md-4 p-2">
-                        <a href="javascript:void(0)" onclick="abrirSeguimientos();"
+                        <a href="javascript:void(0)" onclick="abrirSeguimientos({{ $proyecto->id }});"
                             class="btn btn-primary">({{ $proyecto->seguimientos->count() }})
                             Seguimientos</a>
                     </div>
@@ -435,6 +435,7 @@
     </div>
     @include('proyectos.solicitar_retiro_modal')
     @include('proyectos.subir_factura_modal')
+    @include('proyectos.sale_follow_modal')
     @include('proyectos.visor_imagenes')
 
     <script>
@@ -445,6 +446,10 @@
         function subirFactura(retiro_id) {
             $("#txt_retiro_id").val(retiro_id);
             $("#subir_factura_modal").modal('show');
+        }
+
+        function abrirSeguimientos(proyecto_id) {
+            saleFollowModal(proyecto_id);
         }
     </script>
 @endsection
