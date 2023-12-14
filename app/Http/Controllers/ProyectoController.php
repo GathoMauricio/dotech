@@ -4,23 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Sale;
-// use App\ProductSale;
-// use App\Whitdrawal;
-// use App\SalePayment;
-// use App\SaleDocument;
-// use App\Binnacle;
+use App\WhitdrawalProvider;
+use App\Whitdrawal;
 
 class ProyectoController extends Controller
 {
     public function show($id)
     {
         $proyecto =  Sale::findOrFail($id);
-        //$sale = Sale::findOrFail($id);
-        //$products = ProductSale::where('sale_id', $id)->get();
-        //$whitdrawals = Whitdrawal::where('sale_id', $id)->where('status', 'Aprobado')->get();
-        //$payments = SalePayment::where('sale_id', $id)->get();
-        //$documnets = SaleDocument::where('sale_id', $id)->get();
-        //$binnacles = Binnacle::where('sale_id', $id)->get();
 
         $estimado = 0;
         foreach ($proyecto->productos as $producto) {
@@ -42,20 +33,12 @@ class ProyectoController extends Controller
 
         $proyecto->utility = $utilidad;
         $proyecto->save();
-        // $totalSell = 0;
-        // foreach ($proyecto->retiros as $retiro) {
-        //     if ($retiro->status == 'Aprobado') {
-        //         $totalSell += $retiro->quantity;
-        //     }
-        // }
-        // $grossProfit = 0;
-        // $grossNoIvaProfit = 0;
-        // $commision = 0;
-        // $grossNoIvaProfitNoCommision = 0;
 
         $productos_subtotal = $proyecto->productos->sum('total_sell');
         $productos_iva = ($productos_subtotal * 16) / 100;
         $productos_total = ($productos_subtotal + $productos_iva);
+
+        $proveedores = WhitdrawalProvider::orderBy('name')->get();
 
         return view('proyectos.show', compact(
             'proyecto',
@@ -65,27 +48,33 @@ class ProyectoController extends Controller
             'comision',
             'productos_subtotal',
             'productos_iva',
-            'productos_total'
+            'productos_total',
+            'proveedores'
         ));
-        // return view('proyectos.show', [
-        //     //'sale' => $sale,
-        //     'proyecto' => $proyecto,
-        //     //'products' => $products,
-        //     //'whitdrawals' => $whitdrawals,
-        //     //'payments' => $payments,
-        //     //'documents' => $documnets,
-        //     //'binnacles' => $binnacles,
+    }
 
-        //     'costoProyecto' => $costoProyecto,
-        //     'utilidad' => $utilidad,
-        //     'totalRetiros' => $totalRetiros,
-        //     'comision' => $comision,
+    public function solicitarRetiro(Request $request)
+    {
+        $retiro = Whitdrawal::create($request->all());
+        if ($retiro) {
+            return redirect()->back()->with('message', 'Solicitud de retiro agreagada');
+        } else {
+            return redirect()->back()->with('message', 'Error al procesar la peticion');
+        }
+    }
 
-        //     //'totalSell' => $totalSell,
-        //     //'grossProfit' => $grossProfit,
-        //     //'grossNoIvaProfit' => $grossNoIvaProfit,
-        //     //'commision' => $commision,
-        //     //'grossNoIvaProfitNoCommision' => $grossNoIvaProfitNoCommision
-        // ]);
+    public function subirFacturaRetiro(Request $request)
+    {
+        $retiro = Whitdrawal::findOrFail($request->id);
+        $file = $request->file('document');
+        $name =  "FacturaRetiro_[" . $retiro->id . "]_" . \Str::random(8) . "_" . $file->getClientOriginalName();
+        \Storage::disk('local')->put($name,  \File::get($file));
+        $retiro->document = $name;
+        $retiro->folio = $request->folio;
+        if ($retiro->save()) {
+            return redirect()->back()->with('message', 'El documento se almacenó con éxito con el nombre: ' . $retiro->document);
+        } else {
+            return redirect()->back()->with('message', 'Error al procesar la peticion');
+        }
     }
 }

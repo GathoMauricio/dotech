@@ -353,10 +353,6 @@ class SaleController extends Controller
         $sale->status = $request->status;
         $sale->investment = $request->investment;
         if ($request->status == 'Proyecto') {
-            // $last_proy = Sale::whereNotNull('folio_proyecto')->orderBy('id', 'DESC')->first();
-            // $part = explode('-', $last_proy->folio_proyecto);
-            // $sale->folio_proyecto = 'PROY-' . ($part[1] + 1);
-            // $sale->project_at = date('Y-m-d H:i:s');
             $folios = [];
             $proyectos = Sale::whereNotNull('folio_proyecto')->get();
             foreach ($proyectos as $proyecto) {
@@ -366,7 +362,6 @@ class SaleController extends Controller
             sort($folios);
             $sale->folio_proyecto = 'PROY-' . (end($folios) + 1);
             $sale->project_at = date('Y-m-d H:i:s');
-            //return dd(end($folios));
         }
         $sale->save();
         $msg_user_id = 0;

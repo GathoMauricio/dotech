@@ -1,13 +1,16 @@
 <?php
+
 namespace App;
+
 use Illuminate\Database\Eloquent\Model;
 use App\WithdrawalTransaction;
 use Auth;
+
 class Whitdrawal extends Model
 {
     protected $table = 'whitdrawals';
-	protected $primaryKey = 'id';
-	public $timestamps = true;
+    protected $primaryKey = 'id';
+    public $timestamps = true;
 
     protected $fillable = [
         'id',
@@ -33,61 +36,57 @@ class Whitdrawal extends Model
         'updated_at'
     ];
     protected static function boot()
-	{
-		parent::boot();
-		static::creating(function ($query) {
+    {
+        parent::boot();
+        static::creating(function ($query) {
             $query->author_id = \Auth::user()->id;
-		});
+            $query->status = 'Pendiente';
+        });
     }
     public function sale()
     {
-        return $this->belongsTo
-        (
-            'App\Sale',
-            'sale_id',
-            'id'
-        )
-        ->withDefault();
+        return $this->belongsTo(
+                'App\Sale',
+                'sale_id',
+                'id'
+            )
+            ->withDefault();
     }
     public function author()
     {
-        return $this->belongsTo
-        (
-            'App\User',
-            'author_id',
-            'id'
-        )
-        ->withDefault();
+        return $this->belongsTo(
+                'App\User',
+                'author_id',
+                'id'
+            )
+            ->withDefault();
     }
     public function provider()
     {
-        return $this->belongsTo
-        (
-            'App\WhitdrawalProvider',
-            'whitdrawal_provider_id',
-            'id'
-        )
-        ->withDefault();
+        return $this->belongsTo(
+                'App\WhitdrawalProvider',
+                'whitdrawal_provider_id',
+                'id'
+            )
+            ->withDefault();
     }
     public function account()
     {
-        return $this->belongsTo
-        (
-            'App\WhitdrawalAccount',
-            'whitdrawal_account_id',
-            'id'
-        )
-        ->withDefault();
+        return $this->belongsTo(
+                'App\WhitdrawalAccount',
+                'whitdrawal_account_id',
+                'id'
+            )
+            ->withDefault();
     }
     public function department()
     {
-        return $this->belongsTo
-        (
-            'App\WhitdrawalDepartment',
-            'whitdrawal_department_id',
-            'id'
-        )
-        ->withDefault();
+        return $this->belongsTo(
+                'App\WhitdrawalDepartment',
+                'whitdrawal_department_id',
+                'id'
+            )
+            ->withDefault();
     }
     public function transactions()
     {

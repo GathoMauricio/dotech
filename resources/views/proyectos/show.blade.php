@@ -340,8 +340,8 @@
                                                 href="{{ 'http://dotech.dyndns.biz:16666/dotech/public/storage/' . $retiro->document }}"
                                                 target="_BLANK"><span class="icon-eye"></span></a></td>
                                     @else
-                                        <td class="text-center"><a href="#"
-                                                onclick="addWhitdralDocumentModal({{ $retiro->id }});"><span
+                                        <td class="text-center"><a href="javascript:void(0);"
+                                                onclick="subirFactura({{ $retiro->id }});"><span
                                                     class="icon-upload"></span></a></td>
                                     @endif
                                 @else
@@ -433,5 +433,18 @@
         </div>
         <br>
     </div>
+    @include('proyectos.solicitar_retiro_modal')
+    @include('proyectos.subir_factura_modal')
     @include('proyectos.visor_imagenes')
+
+    <script>
+        function solicitarRetiro() {
+            $("#solicitar_retiro_modal").modal('show');
+        }
+
+        function subirFactura(retiro_id) {
+            $("#txt_retiro_id").val(retiro_id);
+            $("#subir_factura_modal").modal('show');
+        }
+    </script>
 @endsection
