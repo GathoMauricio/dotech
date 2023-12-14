@@ -454,7 +454,8 @@
         }
 
         function enviarBitacora(binnacle_id) {
-            console.log("enviar bitacora");
+            sendBinnacle(binnacle_id);
+            {{--  console.log("enviar bitacora");
             const route = $("#txt_get_binnacle").val();
             $.ajax({
                 type: "GET",
@@ -467,7 +468,7 @@
                     $("#send_binnacle_pdf_modal").modal();
                 },
                 error: (error) => console.log(error),
-            });
+            });  --}}
         };
     </script>
 @endsection

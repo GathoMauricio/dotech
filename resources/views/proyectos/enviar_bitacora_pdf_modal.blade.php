@@ -4,6 +4,7 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
+                <input type="hidden" id="txt_get_binnacle" value="{{ route('binnacle_show_json') }}">
                 <h5 class="modal-title font-weight-bold color-primary-sys" id="exampleModalLabel">
                     Enviar Bitácora
                 </h5>
