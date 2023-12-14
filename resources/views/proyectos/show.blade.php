@@ -2,7 +2,14 @@
 
 @section('content')
     <div class="container">
-        <h3 class="text-center">Folio: {{ $proyecto->folio_proyecto }}</h3>
+        <h3 class="text-center">
+            Folio:
+            @if ($proyecto->status == 'Proyecto')
+                {{ $proyecto->folio_proyecto }}
+            @else
+                {{ $proyecto->folio_cotizacion }}
+            @endif
+        </h3>
         <div class="row">
             <div class="col-md-8 p-3" style="background-color: white;border: solid 5px #f4f6f9;">
                 <h5>Detalles</h5>
@@ -73,6 +80,12 @@
                         <span class="font-weight-bold">Identificador interno</span>
                     </div>
                     <div class="col-md-6 p-2">{{ $proyecto->id }}</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 p-2">
+                        <span class="font-weight-bold">Estatus</span>
+                    </div>
+                    <div class="col-md-6 p-2">{{ $proyecto->status }}</div>
                 </div>
                 <div class="row">
                     <div class="col-md-6 p-2">

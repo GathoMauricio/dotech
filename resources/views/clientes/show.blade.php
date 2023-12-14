@@ -193,9 +193,9 @@
                                 <td>${{ number_format($historial->investment, 2) }}</td>
                                 <td>{{ $historial->commision_percent }}%</td>
                                 <td>
-                                    <a href="{{ route('show_sale', $historial->id) }}">Abrir</a>
-                                    <a href="{{ route('proyecto.show', $historial->id) }}"><i
-                                            class="icon icon-clock"></i></a>
+                                    <a href="{{ route('proyecto.show', $historial->id) }}">Abrir</a>
+                                    {{--  <a href="{{ route('sho_sale', $historial->id) }}"><i
+                                            class="icon icon-clock"></i></a>  --}}
                                 </td>
                             </tr>
                         @endforeach

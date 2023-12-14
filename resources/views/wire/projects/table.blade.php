@@ -40,7 +40,7 @@
                         <td><a href="javascript:void(0)"
                                 wire:click="showTransactions({{ $sale->ID }})">{{ count(App\Sale::find($sale->ID)->transactions) }}
                                 Registros</a></td>
-                        <td>
+                        {{--  <td>
                             <a href="{{ route('binnacles_by_project', $sale->ID) }}"><span class="icon-book"
                                     title="Proyecto" style="cursor:pointer;color:#8E44AD"> Bitácoras</span></a>
                             <br>
@@ -58,6 +58,9 @@
                                 <a href="#" onclick="deleteSale({{ $sale->ID }})"><span class="icon-bin"
                                         title="Eliminar" style="cursor:pointer;color:#C0392B"> Eliminar</span></a>
                             @endif
+                        </td>  --}}
+                        <td>
+                            <a href="{{ route('proyecto.show', $sale->ID) }}">Abrir</a>
                         </td>
                     @else
                         <td>{{ $sale->folio_proyecto }}</td>
@@ -76,7 +79,7 @@
                         <td><a href="javascript:void(0)"
                                 wire:click="showTransactions({{ $sale->id }})">{{ count($sale->transactions) }}
                                 Registros</a></td>
-                        <td>
+                        {{--  <td>
                             <a href="{{ route('binnacles_by_project', $sale->id) }}"><span class="icon-book"
                                     title="Proyecto" style="cursor:pointer;color:#8E44AD"> Bitácoras</span></a>
                             <br>
@@ -94,6 +97,9 @@
                                 <a href="#" onclick="deleteSale({{ $sale->id }})"><span class="icon-bin"
                                         title="Eliminar" style="cursor:pointer;color:#C0392B"> Eliminar</span></a>
                             @endif
+                        </td>  --}}
+                        <td>
+                            <a href="{{ route('proyecto.show', $sale->id) }}">Abrir</a>
                         </td>
                     @endif
                 </tr>
