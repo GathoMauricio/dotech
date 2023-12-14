@@ -457,7 +457,7 @@
             const route = $("#txt_get_binnacle").val();
             $.ajax({
                 type: "GET",
-                url: "/binnacle_show_json/" + binnacle_id,
+                url: "./binnacle_show_json/" + binnacle_id,
                 data: {},
                 success: (data) => {
                     console.log(data);
