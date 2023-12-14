@@ -150,8 +150,8 @@
                     <thead>
                         <tr>
                             <td colspan="6">
-                                <a href="{{ route('quote_products', $proyecto->id) }}" class="float-right"><span
-                                        class="icon icon-pencil"></span></a>
+                                <a href="{{ route('quote_products', $proyecto->id) }}"
+                                    class="float-right btn btn-success"><span class="icon icon-pencil"></span> Editar</a>
                             </td>
                         </tr>
                         <tr>
@@ -195,6 +195,12 @@
                 <table class="table">
                     <thead>
                         <tr>
+                            <td colspan="6">
+                                <a href="javascript:void(0)" onclick="agregarPago();"
+                                    class="float-right btn btn-success"><span class="icon icon-plus"></span> Agregar</a>
+                            </td>
+                        </tr>
+                        <tr>
                             <th>Fecha</th>
                             <th>Descripción</th>
                             <th>Monto</th>
@@ -231,6 +237,12 @@
                 <h5 class="text-success">Archivos</h5>
                 <table class="table">
                     <thead>
+                        <tr>
+                            <td colspan="6">
+                                <a href="javascript:void(0)" onclick="agregarArchivo();"
+                                    class="float-right btn btn-success"><span class="icon icon-plus"></span> Agregar</a>
+                            </td>
+                        </tr>
                         <tr>
                             <th>Fecha</th>
                             <th>Descripción</th>
@@ -304,11 +316,11 @@
                                 <td>${{ number_format($retiro->quantity, 2) }}</td>
                                 <td>
                                     {{ $retiro->status }}
-                                    @if (Auth::user()->rol_user_id == 1 && $retiro->status == 'Pendiente')
+                                    {{--  @if (Auth::user()->rol_user_id == 1 && $retiro->status == 'Pendiente')
                                         <br />
                                         <a href="#" onclick="aproveWithdrawalModal({{ $retiro->id }});"><span
                                                 class="icon-checkmark"></span> Aprobar</a>
-                                    @endif
+                                    @endif  --}}
                                 </td>
 
                                 <td width="40%;">
@@ -365,12 +377,20 @@
                 <h5 class="text-success">Bitácoras</h5>
                 <table class="table">
                     <thead>
-                        <th>Fecha</th>
-                        <th>Autor</th>
-                        <th>Descripción</th>
-                        <th>Firma</th>
-                        <th>Observaciones</th>
-                        <th>&nbsp</th>
+                        <tr>
+                            <td colspan="6">
+                                <a href="javascript:void(0)" onclick="addBinnacle({{ $proyecto->id }});"
+                                    class="float-right btn btn-success"><span class="icon icon-plus"></span> Agregar</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Autor</th>
+                            <th>Descripción</th>
+                            <th>Firma</th>
+                            <th>Observaciones</th>
+                            <th>&nbsp</th>
+                        </tr>
                     </thead>
                     <tbody>
                         @foreach ($proyecto->bitacoras as $bitacora)
@@ -438,10 +458,21 @@
     @include('proyectos.agregar_seguimiento_proyecto_modal')
     @include('proyectos.enviar_bitacora_pdf_modal')
     @include('proyectos.visor_imagenes')
-
+    @include('proyectos.agregar_pago_modal')
+    @include('proyectos.agregar_archivo_modal')
+    @include('proyectos.agregar_bitacora_modal')
+    @include('proyectos.agregar_imagen_bitacora_modal')
     <script>
         function solicitarRetiro() {
             $("#solicitar_retiro_modal").modal('show');
+        }
+
+        function agregarPago() {
+            $("#add_sale_payment_modal").modal('show');
+        }
+
+        function agregarArchivo() {
+            $("#add_binnacle_image_modal").modal('show');
         }
 
         function subirFactura(retiro_id) {
@@ -455,20 +486,6 @@
 
         function enviarBitacora(binnacle_id) {
             sendBinnacle(binnacle_id);
-            {{--  console.log("enviar bitacora");
-            const route = $("#txt_get_binnacle").val();
-            $.ajax({
-                type: "GET",
-                url: "binnacle_show_json/" + binnacle_id,
-                data: {},
-                success: (data) => {
-                    console.log(data);
-                    $("#txt_binnacle_id_send_pdf").val(data.binnacle.id);
-                    $("#txt_email_binnacle_pdf").val(data.department.email);
-                    $("#send_binnacle_pdf_modal").modal();
-                },
-                error: (error) => console.log(error),
-            });  --}}
         };
     </script>
 @endsection
