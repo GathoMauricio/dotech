@@ -412,7 +412,7 @@
                                         </span>
                                     </a>
                                     <br>
-                                    <a href="javascript:vouid(0);" onclick="sendBinnacle({{ $bitacora->id }});">
+                                    <a href="javascript:void(0);" onclick="enviarBitacora({{ $bitacora->id }});">
                                         <span class="icon-envelop" title="Enviar pdf..."
                                             style="cursor:pointer;color:#b3d420">
                                             Enviar
@@ -435,7 +435,8 @@
     </div>
     @include('proyectos.solicitar_retiro_modal')
     @include('proyectos.subir_factura_modal')
-    @include('proyectos.sale_follow_modal')
+    @include('proyectos.agregar_seguimiento_proyecto_modal')
+    @include('proyectos.enviar_bitacora_pdf_modal')
     @include('proyectos.visor_imagenes')
 
     <script>
@@ -451,5 +452,21 @@
         function abrirSeguimientos(proyecto_id) {
             saleFollowModal(proyecto_id);
         }
+
+        function enviarBitacora(binnacle_id) {
+            const route = $("#txt_get_binnacle").val();
+            $.ajax({
+                type: "GET",
+                url: "/binnacle_show_json/" + binnacle_id,
+                data: {},
+                success: (data) => {
+                    console.log(data);
+                    $("#txt_binnacle_id_send_pdf").val(data.binnacle.id);
+                    $("#txt_email_binnacle_pdf").val(data.department.email);
+                    $("#send_binnacle_pdf_modal").modal();
+                },
+                error: (error) => console.log(error),
+            });
+        };
     </script>
 @endsection
