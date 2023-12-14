@@ -5,9 +5,11 @@
         data.addColumn('number', 'Costos');
         data.addRows([
             ['Precio de venta ${{ $costoProyecto }}', {{ str_replace(',', '', $costoProyecto) }}],
-            ['Utilidad ${{ $utilidad }}', {{ $utilidad }}],
-            ['Total en retiros ${{ $totalRetiros }}', {{ $totalRetiros }}],
-            ['Comisión ({{ $proyecto->commision_percent }}%) ${{ $comision }}', {{ $comision }}],
+            ['Utilidad ${{ $utilidad }}', {{ str_replace(',', '', $utilidad) }}],
+            ['Total en retiros ${{ $totalRetiros }}', {{ str_replace(',', '', $totalRetiros) }}],
+            ['Comisión ({{ $proyecto->commision_percent }}%) ${{ $comision }}',
+                {{ str_replace(',', '', $comision) }}
+            ],
         ]);
         var options = {
             'title': 'Costos',
