@@ -362,6 +362,11 @@ class SaleController extends Controller
             sort($folios);
             $sale->folio_proyecto = 'PROY-' . (end($folios) + 1);
             $sale->project_at = date('Y-m-d H:i:s');
+
+            if ($sale->company->status == 'Prospecto') {
+                $sale->company->status = 'Cliente';
+                $sale->company->save();
+            }
         }
         $sale->save();
         $msg_user_id = 0;

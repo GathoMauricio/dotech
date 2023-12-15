@@ -444,7 +444,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('clientes.show/{id}', 'ClienteController@show')->name('clientes.show');
     Route::put('clientes.update/{id}', 'ClienteController@update')->name('clientes.update');
 
-    Route::post('iniciar_cotización/{id?}', 'CotizacionController@store')->name('iniciar_cotización');
+    Route::post('iniciar_cotizacion/{id?}', 'CotizacionController@store')->name('iniciar_cotizacion');
 
     Route::get('proyecto.show/{id}', 'ProyectoController@show')->name('proyecto.show');
     Route::post('solicitar_retiro', 'ProyectoController@solicitarRetiro')->name('solicitar_retiro');

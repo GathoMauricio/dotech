@@ -40,9 +40,10 @@
                     <td>{{ $prospecto->phone }}</td>
                     <td>{{ $prospecto->created_at }}</td>
                     <td>
+                        <a href="javascript:void(0)" onclick="iniciarCotizacion({{ $prospecto->id }});">Iniciar
+                            cotizacion</a><br>
                         <a href="javascript:void(0)"
                             onclick="openSeguimientos({{ $prospecto->id }})">({{ $prospecto->seguimientos->count() }})Seguimientos</a><br>
-                        {{--  <a href="javascript:void(0)">Cotizar</a><br>  --}}
                         <a href="javascript:void(0)" onclick="editProspecto({{ $prospecto->id }})">Editar</a><br>
                         <a href="javascript:void(0)" onclick="eliminarProspecto({{ $prospecto->id }})">Eliminar</a><br>
                     </td>
@@ -54,6 +55,7 @@
     @include('prospectos.create')
     @include('prospectos.edit')
     @include('prospectos.nuevo_origen')
+    @include('prospectos.iniciar_cotizacion_modal')
     @include('prospectos.seguimientos')
     <script src="{{ asset('adminlte/plugins/jquery/jquery.min.js') }}"></script>
     <script>
@@ -108,6 +110,26 @@
                 });
             });
         });
+
+        function iniciarCotizacion(prospecto_id) {
+            $.ajax({
+                type: 'GET',
+                url: "{{ url('company_department_show_ajax') }}",
+                data: {
+                    id: prospecto_id
+                },
+            }).done(function(response) {
+                console.log(response);
+                var html = `<option value>--Seleccione una opción--</option>`;
+                html += response.department_items;
+                $("#cbo_prospecto_iniciar_cotizacion").html(html);
+                $("#txt_iniciar_cotizacion_prospecto_id").val(prospecto_id);
+                $("#iniciar_cotizacion_modal").modal('show');
+            }).fail(function(jqXHR, textStatus,
+                errorThrown) {
+                console.log(jqXHR);
+            });
+        }
 
         function nuevoOrigen() {
             $("#nuevo_origen_modal").modal();

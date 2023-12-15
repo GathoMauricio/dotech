@@ -8,7 +8,7 @@ use App\Sale;
 
 class CotizacionController extends Controller
 {
-    public function store(Request $request, $id)
+    public function store(Request $request, $id = null)
     {
         $request->validate([
             'description' => 'required',

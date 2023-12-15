@@ -9,7 +9,8 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="{{ route('iniciar_cotizacion', $cliente->id) }}" method="POST">
+            <form action="{{ route('iniciar_cotizacion') }}" method="POST">
+                <input type="hidden" name="company_id" id="txt_iniciar_cotizacion_prospecto_id">
                 @csrf
                 <div class="modal-body">
                     <div class="row">
@@ -82,13 +83,10 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="department_id">Departamento</label>
-                                <select name="department_id" class="form-control" required>
+                                <select name="department_id" id="cbo_prospecto_iniciar_cotizacion" class="form-control"
+                                    required>
                                     <option value>--Seleccione una opción--</option>
-                                    @foreach ($cliente->departamentos as $key => $departamento)
-                                        <option value="{{ $departamento->id }}">{{ $departamento->name }}
-                                            ({{ $departamento->manager }})
-                                        </option>
-                                    @endforeach
+
                                 </select>
                                 @error('department_id')
                                     <span style="color:red">{{ $message }}</span>
