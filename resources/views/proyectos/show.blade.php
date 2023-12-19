@@ -85,7 +85,13 @@
                     <div class="col-md-6 p-2">
                         <span class="font-weight-bold">Estatus</span>
                     </div>
-                    <div class="col-md-6 p-2">{{ $proyecto->status }}</div>
+                    <div class="col-md-6 p-2">
+                        @if (Auth::user()->rol_user_id == 1)
+                            <a href="javascript:void(0)" onclick="actualizarEstatus();_" class="float-right"><span
+                                    class="icon icon-pencil"></span></a>
+                        @endif
+                        {{ $proyecto->status }}
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6 p-2">
@@ -137,7 +143,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-6 p-2">
-                        <span class="font-weight-bold"><a href="#row_archivos">N° de Archivos</a></span>
+                        <span class="font-weight-bold"><a href="#row_archivos">N° de facturas</a></span>
                     </div>
                     <div class="col-md-6 p-2">{{ $proyecto->archivos->count() }}</div>
                 </div>
@@ -253,7 +259,7 @@
         <br>
         <div class="row" style="background-color: white;p-3" id="row_archivos">
             <div class="col-md-12 p-2">
-                <h5 class="text-success">Archivos</h5>
+                <h5 class="text-success">Facturas</h5>
                 <table class="table">
                     <thead>
                         <tr>
@@ -481,6 +487,7 @@
     @include('proyectos.agregar_archivo_modal')
     @include('proyectos.agregar_bitacora_modal')
     @include('proyectos.agregar_imagen_bitacora_modal')
+    @include('proyectos.actualizar_estatus_modal')
     <script>
         google.charts.load('current', {
             'packages': ['corechart', 'bar']
@@ -515,6 +522,10 @@
         function enviarBitacora(binnacle_id) {
             sendBinnacle(binnacle_id);
         };
+
+        function actualizarEstatus() {
+            $("#actualizar_estatus_modal").modal('show');
+        }
     </script>
     @include('proyectos.grafica_costos')
 @endsection

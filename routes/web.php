@@ -449,6 +449,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('proyecto.show/{id}', 'ProyectoController@show')->name('proyecto.show');
     Route::post('solicitar_retiro', 'ProyectoController@solicitarRetiro')->name('solicitar_retiro');
     Route::post('subir_factura_retiro', 'ProyectoController@subirFacturaRetiro')->name('subir_factura_retiro');
+    Route::put('actualizar_estatus_proyecto', 'ProyectoController@actualizarEstatus')->name('actualizar_estatus_proyecto');
 
     Route::get('ajax_imagenes_bitacora', 'BitacoraController@ajaxIndex')->name('ajax_imagenes_bitacora');
 });
