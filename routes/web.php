@@ -452,4 +452,5 @@ Route::group(['middleware' => ['auth']], function () {
     Route::put('actualizar_estatus_proyecto', 'ProyectoController@actualizarEstatus')->name('actualizar_estatus_proyecto');
 
     Route::get('ajax_imagenes_bitacora', 'BitacoraController@ajaxIndex')->name('ajax_imagenes_bitacora');
+    Route::delete('eliminar_retiro/{retiro_id}', 'RetiroController@destroy')->name('eliminar_retiro');
 });

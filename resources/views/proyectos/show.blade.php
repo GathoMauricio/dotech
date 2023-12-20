@@ -346,6 +346,16 @@
                                         <a href="#" onclick="aproveWithdrawalModal({{ $retiro->id }});"><span
                                                 class="icon-checkmark"></span> Aprobar</a>
                                     @endif  --}}
+                                    @if ($retiro->status != 'Aprobado')
+                                        <a href="javascript:void(0)"
+                                            onclick="eliminarRetiroNoAprobado({{ $retiro->id }});"
+                                            class="text-danger">Eliminar</a>
+                                        <form id="form_eliminar_retiro_{{ $retiro->id }}"
+                                            action="{{ route('eliminar_retiro', $retiro->id) }}" method="POST">
+                                            @csrf
+                                            @method('delete')
+                                        </form>
+                                    @endif
                                 </td>
 
                                 <td width="40%;">
@@ -370,20 +380,20 @@
                                     <input type="hidden" id="txt_update_whidrawal_paid"
                                         value="{{ route('update_whitdrawal_paid') }}">
                                 </td>
-
-                                @if ($retiro->invoive == 'SI')
-                                    @if (!empty($retiro->document))
-                                        <td class="text-center"><a
-                                                href="{{ 'http://dotech.dyndns.biz:16666/dotech/public/storage/' . $retiro->document }}"
-                                                target="_BLANK"><span class="icon-eye"></span></a></td>
-                                    @else
-                                        <td class="text-center"><a href="javascript:void(0);"
+                                <td class="text-center">
+                                    @if ($retiro->invoive == 'SI')
+                                        @if (!empty($retiro->document))
+                                            <a href="{{ 'http://dotech.dyndns.biz:16666/dotech/public/storage/' . $retiro->document }}"
+                                                target="_BLANK"><span class="icon-eye"></span></a>
+                                        @else
+                                            <a href="javascript:void(0);"
                                                 onclick="subirFactura({{ $retiro->id }});"><span
-                                                    class="icon-upload"></span></a></td>
+                                                    class="icon-upload"></span></a>
+                                        @endif
+                                    @else
+                                        N/A
                                     @endif
-                                @else
-                                    <td class="text-center">N/A</td>
-                                @endif
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>
@@ -525,6 +535,12 @@
 
         function actualizarEstatus() {
             $("#actualizar_estatus_modal").modal('show');
+        }
+
+        function eliminarRetiroNoAprobado(retiro_id) {
+            if (confirm("Realmente desea eliminar el registro?")) {
+                $("#form_eliminar_retiro_" + retiro_id).submit();
+            }
         }
     </script>
     @include('proyectos.grafica_costos')
