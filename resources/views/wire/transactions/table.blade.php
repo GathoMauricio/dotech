@@ -1,7 +1,7 @@
 <a href="javascript:void(0)" onclick="$('#upload_file_modal').modal();" class="float-right"> [<span class="icon-upload">
         Cargar documento<span>]</a>
 <br><br>
-<a href="{{ asset('file/template_excel.xlsx') }}" target="_blank"  class="float-right"> [<span class="icon-download">
+<a href="{{ asset('file/template_excel.xlsx') }}" target="_blank" class="float-right"> [<span class="icon-download">
         Descargar template<span>]</a>
 <br><br>
 {{ $transactions->links('pagination-links') }}
@@ -11,6 +11,7 @@
 <table class="table table-bordered">
     <thead>
         <tr>
+            <th>ID</th>
             <th scope="col">Banco</th>
             <th width="10%" scope="col">Día</th>
             <th scope="col">Concepto / Referencia</th>
@@ -24,6 +25,7 @@
     <tbody>
         @foreach ($transactions as $transaction)
             <tr>
+                <td>{{ $transaction->id }}</td>
                 <td>{{ $transaction->bank }}</td>
                 <td>{{ $transaction->date }}</td>
                 <td>{{ $transaction->concept_ref }}</td>
