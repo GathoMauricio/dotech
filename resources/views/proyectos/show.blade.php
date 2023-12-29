@@ -171,7 +171,54 @@
         <div class="row" style="background-color: white;p-3" id="row_productos">
             <div class="col-md-12 p-2">
                 <h5 class="text-success">Productos</h5>
-                <table class="table">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <td colspan="6">
+                                <a href="{{ route('quote_products', $proyecto->id) }}"
+                                    class="float-right btn btn-success"><span class="icon icon-pencil"></span> Editar</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Cant</th>
+                            <th>U. Medida</th>
+                            <th>Producto</th>
+                            <th>P/U</th>
+                            <th>Descuento</th>
+                            <th>Total + IVA</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($products as $product)
+                            <tr>
+                                <td>{{ $product->quantity }}</td>
+                                <td>
+                                    @if (!empty($product->measure))
+                                        {{ $product->measure }}
+                                    @else
+                                        N/A
+                                    @endif
+                                </td>
+                                <td>{{ $product->description }}</td>
+                                <td>${{ number_format($product->unity_price_sell, 2) }}</td>
+                                <td>{{ $product->discount }}%</td>
+                                <td>${{ number_format($product->total_sell, 2) }}</td>
+                                <td>
+                                    {{--  <span onclick="editProductModal({{ $product->id }})" class="icon-pencil"
+                                        style="cursor:pointer;color:#F39C12;"></span>
+                                    <br>
+                                    <span onclick="deleteProductModal({{ $product->id }})" class="icon-bin"
+                                        style="cursor:pointer;color:#E74C3C ;"></span>  --}}
+                                </td>
+                            </tr>
+                        @endforeach
+                        <tr>
+                            <td colspan="7" class="text-right">Total: ${{ number_format($totalMasIva, 2) }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                {{--  <table class="table">
                     <thead>
                         <tr>
                             <td colspan="6">
@@ -210,7 +257,7 @@
                             <td colspan="6" class="text-right">Total: ${{ number_format($productos_total, 2) }}</td>
                         </tr>
                     </tbody>
-                </table>
+                </table>  --}}
             </div>
         </div>
         <br>

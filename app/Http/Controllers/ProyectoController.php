@@ -38,6 +38,26 @@ class ProyectoController extends Controller
         $productos_iva = ($productos_subtotal * 16) / 100;
         $productos_total = ($productos_subtotal + $productos_iva);
 
+        $total = 0;
+        $totalMasIva = 0;
+        $products = $proyecto->productos;
+        foreach ($products as $product) {
+            $subtotal = $product->unity_price_sell * $product->quantity;
+            $product->total_sell = $subtotal + ($subtotal * .16);
+
+            if (strlen($product->discount) <= 1) {
+                $product->total_sell = $product->total_sell / number_format('1.0' . $product->discount, 2);
+            } else {
+                $product->total_sell = $product->total_sell / number_format('1.' . $product->discount, 2);
+            }
+
+            $product->save();
+            $total += $product->total_sell;
+            $totalMasIva += $product->total_sell;
+        }
+
+        $totalIva = $total + (($total * .16) / 100);
+
         $proveedores = WhitdrawalProvider::orderBy('name')->get();
 
         return view('proyectos.show', compact(
@@ -49,7 +69,12 @@ class ProyectoController extends Controller
             'productos_subtotal',
             'productos_iva',
             'productos_total',
-            'proveedores'
+            'proveedores',
+
+            'products',
+            'total',
+            'totalIva',
+            'totalMasIva',
         ));
     }
 
