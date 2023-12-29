@@ -247,7 +247,7 @@ Route::get('asignar_alias_bitacora', 'BinnacleController@asignarAliasBitacora')-
 
 
 #Binnacle PDF
-Route::get('binnacle_pdf/{id}', 'BinnacleController@makePdf')->name('binnacle_pdf')->middleware('auth');
+Route::get('binnacle_pdf/{id}', 'BinnacleController@makePdf')->name('binnacle_pdf');
 
 #Binnacles Images
 Route::get('show_binnacle_image/{id?}', 'BinnacleImageController@show')->name('show_binnacle_image')->middleware('auth');
