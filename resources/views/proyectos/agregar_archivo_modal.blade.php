@@ -1,4 +1,4 @@
-<div class="modal fade" id="add_binnacle_image_modal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<div class="modal fade" id="add_sale_document_modal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">

@@ -563,6 +563,10 @@
             $("#add_sale_payment_modal").modal('show');
         }
 
+        function agregarArchivo() {
+            $("#add_sale_document_modal").modal('show');
+        }
+
         function agregarImagenBitacora(bitacora_id) {
             $("#txt_add_binnacle_image_id").val(bitacora_id);
             $("#agregar_imagen_bitacora_modal").modal('show');
