@@ -10,8 +10,8 @@
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
-            <form action="{{ route('store_binnacle') }}" method="POST">
-                @csrf
+            <form action="{{ route('store_binnacle', $proyecto->id) }}">
+
                 <input type="hidden" name="_token" value="hj0DbnoNyJtHVcs4WJEfUr8yQqIDsWhognVw8WPe">
                 <input type="hidden" name="sale_id" value="{{ $proyecto->id }}">
                 <div class="container">
