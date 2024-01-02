@@ -491,7 +491,7 @@
                                 </td>
                                 <td>{{ $bitacora->feedback }}</td>
                                 <td>
-                                    <a href="javascript:vouid(0);" onclick="addBinnacleImage({{ $bitacora->id }})">
+                                    <a href="javascript:void(0);" onclick="agregarImagenBitacora({{ $bitacora->id }})">
                                         <span class="icon-plus" title="Agregar imagen..."
                                             style="cursor:pointer;color:#c52cec">
                                             Nuevo
@@ -563,8 +563,9 @@
             $("#add_sale_payment_modal").modal('show');
         }
 
-        function agregarArchivo() {
-            $("#add_binnacle_image_modal").modal('show');
+        function agregarImagenBitacora(bitacora_id) {
+            $("#txt_add_binnacle_image_id").val(bitacora_id);
+            $("#agregar_imagen_bitacora_modal").modal('show');
         }
 
         function subirFactura(retiro_id) {

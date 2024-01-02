@@ -1,4 +1,4 @@
-<div class="modal fade" id="add_binnacle_image_modal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<div class="modal fade" id="agregar_imagen_bitacora_modal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -13,7 +13,7 @@
             <form action="{{ route('store_binnacle_image') }}" method="POST" accept-charset="UTF-8"
                 enctype="multipart/form-data">
                 @csrf
-                <input type="hidden" name="binnacle_id" id="txt_add_binnacle_image_id" value="2069">
+                <input type="hidden" name="binnacle_id" id="txt_add_binnacle_image_id">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
