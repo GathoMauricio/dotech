@@ -116,7 +116,7 @@ if (!function_exists('sendFcm')) {
                 "sound" => "default",
                 "priority" => "high"
             ],
-            "data" => $dataArray
+            "data" => []
         ]);
         $url = 'https://fcm.googleapis.com/fcm/send';
         $server_key = env('FCM_KEY');

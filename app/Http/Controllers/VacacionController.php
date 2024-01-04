@@ -36,10 +36,16 @@ class VacacionController extends Controller
             'motivo' => $request->motivo,
         ]);
 
-        $tokens = User::where('rol_user_id', 1)->whereNotNull('fcm_token')->get();
-        //return dd($tokens);
-        foreach ($tokens->pluck('fcm_token') as $token) {
-            $res = sendFcm($token, "Solicitud de vacaciones", $vacacion->empleado->name . ' ' . $vacacion->empleado->middle_name . ' ha solicitado ' . $vacacion->estatus, []);
+        $users = User::where('rol_user_id', 1)->whereNotNull('fcm_token')->get();
+
+        foreach ($users as $user) {
+            $msg = $vacacion->empleado->name . ' ' . $vacacion->empleado->middle_name . ' ha solicitado ' . $vacacion->estatus;
+            event(new \App\Events\NotificationEvent([
+                'id' => $user->id,
+                'msg' => \Auth::user()->name . ' ' . \Auth::user()->middle_name . ' ' . $msg,
+                'route' => route('index_user')
+            ]));
+            //$res = sendFcm($token, "Solicitud de vacaciones", $vacacion->empleado->name . ' ' . $vacacion->empleado->middle_name . ' ha solicitado ' . $vacacion->estatus, []);
             //\Log::debug($res);
         }
 
