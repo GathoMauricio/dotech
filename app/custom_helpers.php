@@ -116,7 +116,7 @@ if (!function_exists('sendFcm')) {
                 "sound" => "default",
                 "priority" => "high"
             ],
-            "data" => []
+            "data" => $dataArray
         ]);
         $url = 'https://fcm.googleapis.com/fcm/send';
         $server_key = env('FCM_KEY');
@@ -137,7 +137,7 @@ if (!function_exists('sendFcm')) {
             return die('Oops! FCM Send Error: ' . curl_error($ch));
         }
         curl_close($ch);
-        \Log::debug($result);
+        //\Log::debug($result);
         return $result;
     }
 }

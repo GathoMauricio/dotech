@@ -39,14 +39,12 @@ class VacacionController extends Controller
         $users = User::where('rol_user_id', 1)->whereNotNull('fcm_token')->get();
 
         foreach ($users as $user) {
-            $msg = ' ha solicitado ' . $vacacion->estatus;
+            $msg = ' ha solicitado ' . $vacacion->tipo;
             event(new \App\Events\NotificationEvent([
                 'id' => $user->id,
                 'msg' => \Auth::user()->name . ' ' . \Auth::user()->middle_name . ' ' . $msg,
                 'route' => route('index_user')
             ]));
-            //$res = sendFcm($token, "Solicitud de vacaciones", $vacacion->empleado->name . ' ' . $vacacion->empleado->middle_name . ' ha solicitado ' . $vacacion->estatus, []);
-            //\Log::debug($res);
         }
 
         if ($vacacion) {
