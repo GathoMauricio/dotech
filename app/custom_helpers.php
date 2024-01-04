@@ -137,6 +137,7 @@ if (!function_exists('sendFcm')) {
             return die('Oops! FCM Send Error: ' . curl_error($ch));
         }
         curl_close($ch);
+        \Log::debug($result);
         return $result;
     }
 }
