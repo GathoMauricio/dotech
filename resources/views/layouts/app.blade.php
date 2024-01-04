@@ -384,6 +384,15 @@
                                     <p>Aspirantes </p>
                                 </a>
                             </li>
+                            @if (Auth::user()->rol_user_id == 1)
+                                <li class="nav-item">
+                                    <a href="{{ route('index_user') }}"
+                                        class="nav-link @if (Route::currentRouteName() == 'index_user') active @endif">
+                                        <i class="nav-icon icon-dice"></i>
+                                        <p>Vacaciones</p>
+                                    </a>
+                                </li>
+                            @endif
                             <li class="nav-item">
                                 <a href="{{ route('wire_documents') }}"
                                     class="nav-link @if (Route::currentRouteName() == 'wire_documents') active @endif">

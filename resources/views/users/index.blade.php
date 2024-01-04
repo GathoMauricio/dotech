@@ -1,106 +1,178 @@
 @extends('layouts.app')
+
 @section('content')
-<h4 class="title_page">Usuarios</h4>
-@include('config.menu')
-<br/>
-<a href="{{ route('create_user') }}" class="float-right font-weight-bold link-sys">[ <small class="  icon-plus"></small> Agregar usuario ]</a>
-@if(count($users) <= 0)
-@include('layouts.no_records')
-@else
-<br><br>
-<table class="table table-bordered" id="index_table">
-    <thead>
-        <tr>
-            <th width="20%">Gravatar</th>
-            <th width="20%">Estatus</th>
-            <th width="20%">Nombre</th>
-            <th width="20%">Teléfono</th>
-            <th width="20%">Email</th>
-            <th width="10%">Localidad</th>
-            <th width="20%"></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach($users as $user)
-        <tr>
-           <td>
-                <img src="{{ Avatar::create($user->email)->toGravatar(['d' => 'identicon', 'r' => 'pg', 's' => 100]) }}" width="50" height="50"/>
-            </td>
-            <td>{{ $user->status['name'] }}</td>
-            <td><a href="#">{{ $user->name }} {{ $user->middle_name }} {{ $user->last_name }}</a></td>
-            <td>{{ $user->phone }}</td>
-            <td>{{ $user->email }}</td>
-            <td>{{ $user->location['name'] }}</td>
-            <td>
-                <a href="{{ route('edit_user', $user->id) }}"><span class="icon-eye" title="Ver/Editar" style="cursor:pointer;color:#F39C12"> Ver/Editar</span></a>
-                <br>
-                <a href="#" onclick="deleteUser({{ $user->id }});"><span class="icon-bin" title="Eliminar" style="cursor:pointer;color:#C0392B"> Eliminar</span></a>
-                <br>
-            </td>
-        </tr>
-        @endforeach
-    </tbody>
-</table>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="text-primary">Solicitudes pendientes</h5>
+                    </div>
+                    <div class="card-body">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Empleado</th>
+                                    <th>Tipo</th>
+                                    <th>Fecha Inicio</th>
+                                    <th>Nro Dias</th>
+                                    <th>Motivo</th>
+                                    <th>Estatus</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($vacaciones as $vacation)
+                                    <tr>
+                                        <td>{{ $vacation->empleado->name }} {{ $vacation->empleado->middle_name }}
+                                            {{ $vacation->empleado->last_name }}
+                                        </td>
+                                        <td>{{ $vacation->tipo }}</td>
+                                        <td scope="row">{{ date('d/m/Y', strtotime($vacation->fecha_inicio)) }}</td>
+                                        <td>{{ $vacation->dias }}</td>
+                                        <td>{{ $vacation->motivo }}</td>
+                                        <td>
+                                            <select onchange="cambiarEstatusVacacion({{ $vacation->id }},this.value)"
+                                                class="custom-select">
+                                                @if ($vacation->estatus == 'pendiente')
+                                                    <option value="pendiente" selected>Pendiente</option>
+                                                    <option value="aprobado">Aprobado</option>
+                                                @else
+                                                    <option value="pendiente">Pendiente</option>
+                                                    <option value="aprobado" selected>Aprobado</option>
+                                                @endif
+                                            </select>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                                @if (count($vacaciones) <= 0)
+                                    <tr>
+                                        <td colspan="6" class="text-center">No hay solicitudes</td>
+                                    </tr>
+                                @endif
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5><a href="{{ route('index_user') }}">Empleados</a></h5>
+                    </div>
+                    <div class="card-body">
+                        {{ $users->links('pagination::bootstrap-4') }}
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th colspan="3">
+                                        <form action="{{ route('index_user') }}" id="form_buscar_empleado">
+                                            <table style="width: 100%">
+                                                <tr>
+                                                    <td width="90%"><input type="text" placeholder="Buscar..."
+                                                            class="form-control" id="txt_buscar_empleado"></td>
+                                                    <td width="10%"><button type="submit" class="form-control"><span
+                                                                class="icon icon-search"></span></button></td>
+                                                </tr>
+                                            </table>
 
-<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
-<script>
-    jQuery(document).ready(function(){
-        $("#index_table").dataTable({
-                deferRender: true,
-                bJQueryUI: true,
-                bScrollInfinite: true,
-                bScrollCollapse: true,
-                bPaginate: true,
-                bFilter: true,
-                bSort: true,
-                aaSorting: [[2, "asc"]],
-                pageLength: 10,
-                bDestroy: true,
-                aoColumnDefs: [
-                    {
-                        bSortable: false,
-                        aTargets: [0,5]
-                    },
-                ],
-                oLanguage: {
-                    sLengthMenu: "_MENU_ ",
-                    sInfo:
-                        "<b>Se muestran de _START_ a _END_ elementos de _TOTAL_ registros en total</b>",
-                    sInfoEmpty: "No hay registros para mostrar",
-                    sSearch: "",
-                    oPaginate: {
-                        sFirst: "Primer página",
-                        sLast: "Última página",
-                        sPrevious: "<b>Anterior</b>",
-                        sNext: "<b>Siguiente</b>"
-                    }
-                }
+                                        </form>
+                                    </th>
+                                    <th colspan="3" class="text-center bg-info">Dias vacaciones</th>
+                                    <th></th>
+                                </tr>
+                                <tr>
+                                    <th>Empleado</th>
+                                    <th class="text-center">Contacto</th>
+                                    <th>Fecha contrato</th>
+                                    <th class="text-center bg-info">Obtenidos</th>
+                                    <th class="text-center bg-info">Tomados</th>
+                                    <th class="text-center bg-info">Restantes</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($users as $key => $user)
+                                    <tr>
+                                        <td>{{ $user->name }} {{ $user->middle_name }} {{ $user->last_name }}</td>
+                                        <td class="text-center">
+                                            <small>{{ $user->email }}</small>
+                                            <br>
+                                            {{ $user->phone }}
+                                        </td>
+                                        <td>
+                                            {{ $user->anios }} Años
+                                            <br>
+                                            <small>{{ $user->fecha_contrato }}</small>
+                                        </td>
+                                        <td>{{ $user->dias_obtenidos }}</td>
+                                        <td>{{ $user->dias_tomados }}</td>
+                                        <td>{{ $user->dias_restantes }}</td>
+                                        <td>
+                                            <a href="{{ route('show_user', $user->id) }}">Ver</a>
+                                            <br>
+                                            <a href="{{ route('edit_user', $user->id) }}">Editar</a>
+                                            {{--  <div class="btn-group">
+                                                <button type="button" class="btn btn-success dropdown-toggle"
+                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <i class="fa fa-bars"></i>
+                                                </button>
+                                                <ul class="dropdown-menu dropdown-menu-right">
+                                                    <li><a href="{{ url('/worker/show/' . Crypt::encrypt(1)) }}">Informacion
+                                                            de x</a></li>
+                                                    <li><a
+                                                            href="{{ url('/vacation/create/' . Crypt::encrypt(1) . '/' . Crypt::encrypt(1)) }}">Asignar
+                                                            Vacaciones</a></li>
+                                                </ul>
+                                            </div>  --}}
+                                        </td>
+                                    </tr>
+                                @endforeach
+                                @if (count($users) <= 0)
+                                    <tr>
+                                        <td colspan="7" class="text-center">Sin resultados</td>
+                                    </tr>
+                                @endif
+                            </tbody>
+                        </table>
+                        {{ $users->links('pagination::bootstrap-4') }}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <script src="{{ asset('adminlte/plugins/jquery/jquery.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            $("#form_buscar_empleado").submit(function(e) {
+                e.preventDefault();
+                var value = $("#txt_buscar_empleado").val();
+                if (value.length > 0)
+                    window.location = $("#form_buscar_empleado").prop('action') +
+                    '/' + value;
             });
-            setTableStyle()
-    });
-    function setTableStyle() {
-        setTimeout(function() {
-            $("select[name='DataTables_Table_0_length']").prop(
-                "class",
-                "custom-select"
-            );
-            $(".dataTables_length").prepend("<b>Mostrar</b> ");
-            $("select[name='table_asistencias_length']").prop(
-                "class",
-                "custom-select"
-            );
-            $("select[name='DataTables_Table_0_length']").prop(
-                "class",
-                "form-control"
-            );
-            $(".dataTables_length").append(" <b>elementos por página</b>");
+        });
 
-            $("input[type='search']").prop("class", "form-control");
-            $("input[type='search']").prop("placeholder", "Ingrese un filtro...");
-        }, 300);
-    }
-</script>
+        function cambiarEstatusVacacion(vacacion_id, estatus) {
 
-@endif
-<input type="hidden" id="txt_delete_user_route" value="{{ route('delete_user') }}">
+            $.ajax({
+                type: 'GET',
+                url: "{{ route('cambiar_estatus_vacacion') }}",
+                data: {
+                    vacacion_id: vacacion_id,
+                    estatus: estatus
+                },
+            }).done(function(response) {
+                if (response.status == 1) {
+                    successNotification(response.message);
+                } else {
+                    errorNotification(response.message);
+                }
+
+            }).fail(function(jqXHR, textStatus,
+                errorThrown) {
+                console.log(jqXHR);
+            });
+        }
+    </script>
 @endsection

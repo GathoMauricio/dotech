@@ -190,11 +190,12 @@ Route::get('log_index', 'SysLogsController@index')->name('log_index')->middlewar
 Route::get('config_index', 'ConfigController@index')->name('config_index')->middleware('auth');
 
 #users
+Route::get('show_user/{user}', 'UserController@show')->name('show_user')->middleware('auth');;
 Route::put('update_user_password', 'UserController@updatePassword')->name('update_user_password')->middleware('auth');
 Route::get('show_user_ajax', 'UserController@showAjax')->name('show_user_ajax')->middleware('auth');
 Route::put('update_user_name', 'UserController@updateUserName')->name('update_user_name')->middleware('auth');
 Route::put('update_image_user', 'UserController@updateUserImage')->name('update_image_user')->middleware('auth');
-Route::get('index_user', 'UserController@index')->name('index_user')->middleware('auth');
+Route::get('index_user/{search?}', 'UserController@index')->name('index_user')->middleware('auth');
 Route::get('create_user', 'UserController@create')->name('create_user')->middleware('auth');
 Route::post('store_user', 'UserController@store')->name('store_user')->middleware('auth');
 Route::get('edit_user/{id}', 'UserController@edit')->name('edit_user')->middleware('auth');
@@ -203,6 +204,8 @@ Route::get('delete_user/{id?}', 'UserController@destroy')->name('delete_user')->
 Route::put('update_my_password', 'UserController@updateMyPassword')->name('update_my_password')->middleware('auth');
 Route::put('update_password_admin', 'UserController@updatePasswordAdmin')->name('update_password_admin')->middleware('auth');
 Route::get('update_evaluation_test', 'UserController@updateEvaluationTest')->name('update_evaluation_test')->middleware('auth');
+Route::get('cambiar_estatus_vacacion', 'VacacionController@cambiarEstatus')->name('cambiar_estatus_vacacion')->middleware('auth');;
+Route::post('solicitar_vacaciones', 'VacacionController@solicitarVacaciones')->name('solicitar_vacaciones')->middleware('auth');;
 
 #User Documents
 Route::post('store_user_document', 'UserDocumentController@store')->name('store_user_document')->middleware('auth');
