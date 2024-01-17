@@ -47,9 +47,13 @@
                 </div>
                 <div class="row">
                     <div class="col-md-6 p-2">
-                        <span class="font-weight-bold">Descripcion</span>
+                        <span class="font-weight-bold">Descripción</span>
                     </div>
-                    <div class="col-md-6 p-2">{{ $proyecto->description }}</div>
+                    <div class="col-md-6 p-2">
+                        <a href="javascript:void(0)" onclick="actualizarDescripcion('{{ $proyecto->description }}');"
+                            class="float-right"><span class="icon icon-pencil"></span></a>
+                        {{ $proyecto->description }}
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6 p-2">
@@ -218,46 +222,6 @@
                         </tr>
                     </tbody>
                 </table>
-                {{--  <table class="table">
-                    <thead>
-                        <tr>
-                            <td colspan="6">
-                                <a href="{{ route('quote_products', $proyecto->id) }}"
-                                    class="float-right btn btn-success"><span class="icon icon-pencil"></span> Editar</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>Cant</th>
-                            <th>U. Medida</th>
-                            <th>Producto</th>
-                            <th>P/U</th>
-                            <th>Descuento</th>
-                            <th>Venta</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($proyecto->productos as $key => $producto)
-                            <tr>
-                                <td>{{ $producto->quantity }}</td>
-                                <td>{{ $producto->measure }}</td>
-                                <td>{{ $producto->description }}</td>
-                                <td>${{ $producto->unity_price_sell }}</td>
-                                <td>{{ $producto->discount }}%</td>
-                                <td>${{ $producto->total_sell }}</td>
-                            </tr>
-                        @endforeach
-                        <tr>
-                            <td colspan="6" class="text-right">Subtotal: ${{ number_format($productos_subtotal, 2) }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="6" class="text-right">IVA: ${{ number_format($productos_iva, 2) }}</td>
-                        </tr>
-                        <tr>
-                            <td colspan="6" class="text-right">Total: ${{ number_format($productos_total, 2) }}</td>
-                        </tr>
-                    </tbody>
-                </table>  --}}
             </div>
         </div>
         <br>
@@ -545,6 +509,7 @@
     @include('proyectos.agregar_bitacora_modal')
     @include('proyectos.agregar_imagen_bitacora_modal')
     @include('proyectos.actualizar_estatus_modal')
+    @include('proyectos.actualizar_descripcion_modal')
     <script>
         google.charts.load('current', {
             'packages': ['corechart', 'bar']
@@ -587,6 +552,11 @@
 
         function actualizarEstatus() {
             $("#actualizar_estatus_modal").modal('show');
+        }
+
+        function actualizarDescripcion(descripcion) {
+            $("#txt_actualizar_descripcion").val(descripcion);
+            $("#actualizar_descripcion_modal").modal('show');
         }
 
         function eliminarRetiroNoAprobado(retiro_id) {

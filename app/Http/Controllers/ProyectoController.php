@@ -113,4 +113,15 @@ class ProyectoController extends Controller
             return redirect()->back()->with('message', 'Error al procesar la peticion');
         }
     }
+
+    public function actualizarDescripcion(Request $request)
+    {
+        $proyecto = Sale::findOrFail($request->sale_id);
+        $proyecto->description = $request->description;
+        if ($proyecto->save()) {
+            return redirect()->back()->with('message', 'El registro se actualizó con éxito');
+        } else {
+            return redirect()->back()->with('message', 'Error al procesar la peticion');
+        }
+    }
 }

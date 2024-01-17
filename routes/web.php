@@ -200,7 +200,7 @@ Route::get('create_user', 'UserController@create')->name('create_user')->middlew
 Route::post('store_user', 'UserController@store')->name('store_user')->middleware('auth');
 Route::get('edit_user/{id}', 'UserController@edit')->name('edit_user')->middleware('auth');
 Route::put('update_user/{id}', 'UserController@update')->name('update_user')->middleware('auth');
-Route::get('delete_user/{id?}', 'UserController@destroy')->name('delete_user')->middleware('auth');
+Route::delete('delete_user/{id?}', 'UserController@destroy')->name('delete_user')->middleware('auth');
 Route::put('update_my_password', 'UserController@updateMyPassword')->name('update_my_password')->middleware('auth');
 Route::put('update_password_admin', 'UserController@updatePasswordAdmin')->name('update_password_admin')->middleware('auth');
 Route::get('update_evaluation_test', 'UserController@updateEvaluationTest')->name('update_evaluation_test')->middleware('auth');
@@ -453,6 +453,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('solicitar_retiro', 'ProyectoController@solicitarRetiro')->name('solicitar_retiro');
     Route::post('subir_factura_retiro', 'ProyectoController@subirFacturaRetiro')->name('subir_factura_retiro');
     Route::put('actualizar_estatus_proyecto', 'ProyectoController@actualizarEstatus')->name('actualizar_estatus_proyecto');
+    Route::put('actualizar_descripcion_proyecto', 'ProyectoController@actualizarDescripcion')->name('actualizar_descripcion_proyecto');
 
     Route::get('ajax_imagenes_bitacora', 'BitacoraController@ajaxIndex')->name('ajax_imagenes_bitacora');
     Route::delete('eliminar_retiro/{retiro_id}', 'RetiroController@destroy')->name('eliminar_retiro');

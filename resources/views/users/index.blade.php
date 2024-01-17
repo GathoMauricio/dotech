@@ -111,19 +111,14 @@
                                             <a href="{{ route('show_user', $user->id) }}">Ver</a>
                                             <br>
                                             <a href="{{ route('edit_user', $user->id) }}">Editar</a>
-                                            {{--  <div class="btn-group">
-                                                <button type="button" class="btn btn-success dropdown-toggle"
-                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    <i class="fa fa-bars"></i>
-                                                </button>
-                                                <ul class="dropdown-menu dropdown-menu-right">
-                                                    <li><a href="{{ url('/worker/show/' . Crypt::encrypt(1)) }}">Informacion
-                                                            de x</a></li>
-                                                    <li><a
-                                                            href="{{ url('/vacation/create/' . Crypt::encrypt(1) . '/' . Crypt::encrypt(1)) }}">Asignar
-                                                            Vacaciones</a></li>
-                                                </ul>
-                                            </div>  --}}
+                                            <br>
+                                            <a href="javascript:void(0)" onclick="eliminarUsuario({{ $user->id }})"
+                                                class="text-danger">Eliminar</a>
+                                            <form id="form_eliminar_usuario_{{ $user->id }}" style="display:none;"
+                                                action="{{ route('delete_user', $user->id) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                            </form>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -173,6 +168,12 @@
                 errorThrown) {
                 console.log(jqXHR);
             });
+        }
+
+        function eliminarUsuario(id) {
+            if (confirm("¿Eliminar empleado de la lista?")) {
+                $("#form_eliminar_usuario_" + id).submit();
+            }
         }
     </script>
 @endsection
