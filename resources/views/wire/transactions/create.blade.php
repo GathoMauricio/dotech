@@ -94,10 +94,10 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="file">Asignar a un proyecto</label>
-                                <select  wire:model="project_id" class="form-control">
+                                <select wire:change ="cargarRetiros()" wire:model="project_id" class="form-control">
                                     <option value>--Seleccione una opcíón--</option>
-                                    @foreach($projects as $project)
-                                    <option value="{{ $project->id }}">{{ $project->description }}</option>
+                                    @foreach ($projects as $project)
+                                        <option value="{{ $project->id }}">{{ $project->description }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -107,10 +107,11 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="file">Asignar a un retiro {{ $whitdrawal_id }}</label>
-                                <select  wire:model="whitdrawal_id" class="form-control">
+                                <select wire:model="whitdrawal_id" class="form-control">
                                     <option value>--Seleccione una opcíón--</option>
-                                    @foreach($whitdrawals as $whitdrawal)
-                                    <option value="{{ $whitdrawal->id }}">{{ preg_replace( "/\r|\n/", "", trim($whitdrawal->description)) }}</option>
+                                    @foreach ($whitdrawals as $whitdrawal)
+                                        <option value="{{ $whitdrawal->id }}">
+                                            {{ preg_replace("/\r|\n/", '', trim($whitdrawal->description)) }}</option>
                                     @endforeach
                                 </select>
                             </div>

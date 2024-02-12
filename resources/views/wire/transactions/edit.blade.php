@@ -17,7 +17,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="file">Día</label>
-                                <input type="date" class="form-control" wire:model="date">
+                                <input type="date" class="form-control" wire:model="date" readonly>
                                 @error('date')
                                     <span class="error-message">{{ $message }}</span>
                                 @enderror
@@ -28,7 +28,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="file">Banco</label>
-                                <input type="text" class="form-control" wire:model="bank">
+                                <input type="text" class="form-control" wire:model="bank" readonly>
                                 @error('bank')
                                     <span class="error-message">{{ $message }}</span>
                                 @enderror
@@ -39,7 +39,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="file">Concepto | Referencia</label>
-                                <input type="text" class="form-control" wire:model="concept_ref">
+                                <input type="text" class="form-control" wire:model="concept_ref" readonly>
                                 @error('concept_ref')
                                     <span class="error-message">{{ $message }}</span>
                                 @enderror
@@ -50,7 +50,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="file">Cargo</label>
-                                <input type="text" class="form-control" wire:model="chargue">
+                                <input type="text" class="form-control" wire:model="chargue" readonly>
                                 @error('chargue')
                                     <span class="error-message">{{ $message }}</span>
                                 @enderror
@@ -61,7 +61,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="file">Abono</label>
-                                <input type="text" class="form-control" wire:model="payment">
+                                <input type="text" class="form-control" wire:model="payment" readonly>
                                 @error('payment')
                                     <span class="error-message">{{ $message }}</span>
                                 @enderror
@@ -72,7 +72,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="file">Saldo</label>
-                                <input type="text" class="form-control" wire:model="balance">
+                                <input type="text" class="form-control" wire:model="balance" readonly>
                                 @error('balance')
                                     <span class="error-message">{{ $message }}</span>
                                 @enderror
@@ -94,10 +94,12 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="file">Asignar a un proyecto</label>
-                                <select  wire:model="project_id" class="form-control">
+                                <select wire:change ="cargarRetiros()" wire:model="project_id" class="form-control">
                                     <option value>--Seleccione una opcíón--</option>
-                                    @foreach($projects as $project)
-                                    <option value="{{ $project->id }}">{{ $project->description }}</option>
+                                    @foreach ($projects as $project)
+                                        <option value="{{ $project->id }}">{{ $project->folio_proyecto }}
+                                            &nbsp;&nbsp;&nbsp;
+                                            {{ $project->description }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -107,10 +109,11 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="file">Asignar a un retiro {{ $whitdrawal_id }}</label>
-                                <select  wire:model="whitdrawal_id" class="form-control">
+                                <select wire:model="whitdrawal_id" class="form-control">
                                     <option value>--Seleccione una opcíón--</option>
-                                    @foreach($whitdrawals as $whitdrawal)
-                                    <option value="{{ $whitdrawal->id }}">{{ preg_replace( "/\r|\n/", "", trim($whitdrawal->description)) }}</option>
+                                    @foreach ($whitdrawals as $whitdrawal)
+                                        <option value="{{ $whitdrawal->id }}">
+                                            {{ preg_replace("/\r|\n/", '', trim($whitdrawal->description)) }}</option>
                                     @endforeach
                                 </select>
                             </div>

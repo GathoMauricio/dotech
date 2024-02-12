@@ -46,46 +46,46 @@ class Whitdrawal extends Model
     public function sale()
     {
         return $this->belongsTo(
-                'App\Sale',
-                'sale_id',
-                'id'
-            )
+            'App\Sale',
+            'sale_id',
+            'id'
+        )
             ->withDefault();
     }
     public function author()
     {
         return $this->belongsTo(
-                'App\User',
-                'author_id',
-                'id'
-            )
+            'App\User',
+            'author_id',
+            'id'
+        )
             ->withDefault();
     }
     public function provider()
     {
         return $this->belongsTo(
-                'App\WhitdrawalProvider',
-                'whitdrawal_provider_id',
-                'id'
-            )
+            'App\WhitdrawalProvider',
+            'whitdrawal_provider_id',
+            'id'
+        )
             ->withDefault();
     }
     public function account()
     {
         return $this->belongsTo(
-                'App\WhitdrawalAccount',
-                'whitdrawal_account_id',
-                'id'
-            )
+            'App\WhitdrawalAccount',
+            'whitdrawal_account_id',
+            'id'
+        )
             ->withDefault();
     }
     public function department()
     {
         return $this->belongsTo(
-                'App\WhitdrawalDepartment',
-                'whitdrawal_department_id',
-                'id'
-            )
+            'App\WhitdrawalDepartment',
+            'whitdrawal_department_id',
+            'id'
+        )
             ->withDefault();
     }
     public function transactions()

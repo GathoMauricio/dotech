@@ -4,7 +4,7 @@
     <div class="container">
         <h3 class="text-center">
             Folio:
-            @if ($proyecto->status == 'Proyecto')
+            @if ($proyecto->status == 'Proyecto' || $proyecto->status == 'Finalizado')
                 {{ $proyecto->folio_proyecto }}
             @else
                 {{ $proyecto->folio_cotizacion }}
@@ -162,6 +162,12 @@
                         <span class="font-weight-bold"><a href="#row_bitacoras">N° de Bitácoras</a></span>
                     </div>
                     <div class="col-md-6 p-2">{{ $proyecto->bitacoras->count() }}</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 p-2">
+                        <span class="font-weight-bold"><a href="#row_transacciones">N° de Transacciones</a></span>
+                    </div>
+                    <div class="col-md-6 p-2">{{ $proyecto->transacciones->count() }}</div>
                 </div>
             </div>
         </div>
@@ -322,6 +328,7 @@
                             <th>Estatus</th>
                             <th>Folio</th>
                             <th>Pagado</th>
+                            <th>Transacciones</th>
                             <th>Documento</th>
                         </tr>
                     </thead>
@@ -391,6 +398,16 @@
                                     <input type="hidden" id="txt_update_whidrawal_paid"
                                         value="{{ route('update_whitdrawal_paid') }}">
                                 </td>
+                                <td>
+                                    @foreach ($retiro->transactions as $item)
+                                        <a
+                                            href="#{{ 'TC-' . $item->transaction->id }}">{{ 'TC-' . $item->transaction->id }}</a>
+                                        <br>
+                                    @endforeach
+                                    @if (count($retiro->transactions) <= 0)
+                                        _
+                                    @endif
+                                </td>
                                 <td class="text-center">
                                     @if ($retiro->invoive == 'SI')
                                         @if (!empty($retiro->document))
@@ -404,6 +421,7 @@
                                     @else
                                         N/A
                                     @endif
+
                                 </td>
                             </tr>
                         @endforeach
@@ -491,6 +509,43 @@
                         @if (count($proyecto->bitacoras) <= 0)
                             <tr>
                                 <td colspan="6" class="text-center">Sin registros</td>
+                            </tr>
+                        @endif
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <br>
+        <div class="row" style="background-color: white;p-3" id="row_transacciones">
+            <div class="col-md-12 p-2">
+                <h5 class="text-success">Transacciones</h5>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Banco</th>
+                            <th>Fecha</th>
+                            <th>Concepto/Referencia</th>
+                            <th>Cargo</th>
+                            <th>Abono</th>
+                            <th>Observaciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($proyecto->transacciones as $item)
+                            <tr id="{{ 'TC-' . $item->transaction->id }}">
+                                <td>{{ 'TC-' . $item->transaction->id }}</td>
+                                <td>{{ $item->transaction->bank }}</td>
+                                <td>{{ formatDate($item->transaction->date) }}</td>
+                                <td>{{ $item->transaction->description }}</td>
+                                <td>{{ $item->transaction->chargue }}</td>
+                                <td>{{ $item->transaction->payment }}</td>
+                                <td>{{ $item->transaction->description }}</td>
+                            </tr>
+                        @endforeach
+                        @if (count($proyecto->transacciones) <= 0)
+                            <tr>
+                                <td colspan="7" class="text-center">Sin registros</td>
                             </tr>
                         @endif
                     </tbody>

@@ -28,12 +28,19 @@ class TransactionsComponent extends Component
 
     public $project_id, $whitdrawal_id;
 
+    public $whitdrawals;
+
+    public function mount()
+    {
+        //$this->whitdrawals = Whitdrawal::get();
+        $this->whitdrawals = collect();
+    }
+
     public function render()
     {
         $transactions = Transaction::orderBy('id', 'desc')->paginate(15);
-        $projects = Sale::where('status', 'Proyecto')->orderBy('id', 'DESC')->get();
-        $whitdrawals = Whitdrawal::orderBy('id', 'DESC')->get();
-        return view('livewire.transactions-component', compact('transactions', 'projects', 'whitdrawals'));
+        $projects = Sale::where('status', 'Proyecto')->orWhere('status', 'Finalizado')->orderBy('id', 'DESC')->get();
+        return view('livewire.transactions-component', compact('transactions', 'projects'));
     }
 
     public function store()
@@ -94,12 +101,18 @@ class TransactionsComponent extends Component
         $projectTransaction = ProjectTransaction::where('transaction_id', $transaction_id)->first();
         if ($projectTransaction) {
             $this->project_id = $projectTransaction->sale_id;
+            $this->cargarRetiros($this->project_id);
         }
         $whitdrawalTransaction = WithdrawalTransaction::where('transaction_id', $transaction_id)->first();
         if ($whitdrawalTransaction) {
             $this->whitdrawal_id = $whitdrawalTransaction->whitdrawal_id;
         }
         $this->emit('showEditTransactionModal');
+    }
+
+    public function cargarRetiros()
+    {
+        $this->whitdrawals = Whitdrawal::where('sale_id', $this->project_id)->get();
     }
 
     public function update()
@@ -123,6 +136,7 @@ class TransactionsComponent extends Component
         $this->transaction->description = $this->description;
         $this->transaction->bank = $this->bank;
         $this->transaction->save();
+
         ProjectTransaction::where('transaction_id', $this->transaction->id)->delete();
         if ($this->project_id) {
             ProjectTransaction::create([
@@ -130,6 +144,7 @@ class TransactionsComponent extends Component
                 'transaction_id' => $this->transaction->id
             ]);
         }
+
         WithdrawalTransaction::where('transaction_id', $this->transaction->id)->delete();
         if ($this->whitdrawal_id) {
             WithdrawalTransaction::create([
@@ -137,6 +152,7 @@ class TransactionsComponent extends Component
                 'transaction_id' => $this->transaction->id
             ]);
         }
+
         $this->emit('dissmissEditTransactionModal');
         $this->emit('successNotification', 'Registro actualizado...');
     }
