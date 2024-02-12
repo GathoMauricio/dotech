@@ -112,7 +112,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="file">Asignar a un retiro {{ $whitdrawal_id }}</label>
+                                <label for="file">Asignar a un retiro</label>
                                 <select wire:model="whitdrawal_id" class="form-control">
                                     <option value>--Seleccione una opcíón--</option>
                                     @foreach ($whitdrawals as $whitdrawal)
