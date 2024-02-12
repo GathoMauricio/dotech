@@ -28,19 +28,20 @@ class TransactionsComponent extends Component
 
     public $project_id, $whitdrawal_id;
 
-    public $whitdrawals;
+    public $projects, $whitdrawals;
+    public $mostrar_finalizados = 1;
 
     public function mount()
     {
-        //$this->whitdrawals = Whitdrawal::get();
+        //$this->projects = Sale::where('status', 'Proyecto')->orderBy('id', 'DESC')->get();
+        $this->mostrarFinalizados();
         $this->whitdrawals = collect();
     }
 
     public function render()
     {
         $transactions = Transaction::orderBy('id', 'desc')->paginate(15);
-        $projects = Sale::where('status', 'Proyecto')->orWhere('status', 'Finalizado')->orderBy('id', 'DESC')->get();
-        return view('livewire.transactions-component', compact('transactions', 'projects'));
+        return view('livewire.transactions-component', compact('transactions'));
     }
 
     public function store()
@@ -198,6 +199,15 @@ class TransactionsComponent extends Component
     public function downloadTemplate()
     {
         return \Storage::download('storage/app/template.xlsx');
+    }
+
+    public function mostrarFinalizados()
+    {
+        if ($this->mostrar_finalizados) {
+            $this->projects = Sale::where('status', 'Proyecto')->orWhere('status', 'Finalizado')->orderBy('id', 'DESC')->get();
+        } else {
+            $this->projects = Sale::where('status', 'Proyecto')->orderBy('id', 'DESC')->get();
+        }
     }
 
     public function clean()

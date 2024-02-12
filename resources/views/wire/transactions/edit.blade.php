@@ -93,6 +93,10 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
+                                <div class="float-right">
+                                    <input type="checkbox" wire:click="mostrarFinalizados()"
+                                        wire:model="mostrar_finalizados"> Mostrar Finalizados
+                                </div>
                                 <label for="file">Asignar a un proyecto</label>
                                 <select wire:change ="cargarRetiros()" wire:model="project_id" class="form-control">
                                     <option value>--Seleccione una opcíón--</option>
