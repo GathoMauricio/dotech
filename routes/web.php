@@ -1,20 +1,16 @@
 <?php
 
-use App\Http\Controllers\RolesPermisoController;
-use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 Auth::routes();
 
 Route::get('/', function () {
     if (Auth::check()) {
         if (Auth::user()->rol_user_id == 1 || Auth::user()->rol_user_id == 2) {
-            // $dashboard = new \App\Http\Controllers\DashboardController();
-            // return $dashboard->index();
             return redirect('/dashboard');
         }
         return 'Unauthorized';
-        // $whitdrawal = new \App\Http\Controllers\WhitdrawalController();
-        // return $whitdrawal->index();
     } else {
         return view('auth.login');
     }
