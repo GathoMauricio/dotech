@@ -64,7 +64,7 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th colspan="3">
+                                    <th colspan="4">
                                         <form action="{{ route('index_user') }}" id="form_buscar_empleado">
                                             <table style="width: 100%">
                                                 <tr>
@@ -81,6 +81,7 @@
                                     <th></th>
                                 </tr>
                                 <tr>
+                                    <th>Rol</th>
                                     <th>Empleado</th>
                                     <th class="text-center">Contacto</th>
                                     <th>Fecha contrato</th>
@@ -93,6 +94,7 @@
                             <tbody>
                                 @foreach ($users as $key => $user)
                                     <tr>
+                                        <td>{{ $user->getRoleNames()[0] }}</td>
                                         <td>{{ $user->name }} {{ $user->middle_name }} {{ $user->last_name }}</td>
                                         <td class="text-center">
                                             <small>{{ $user->email }}</small>

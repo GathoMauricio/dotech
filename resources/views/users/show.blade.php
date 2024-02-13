@@ -55,7 +55,7 @@
                                     <p><b>Rol:</b></p>
                                 </div>
                                 <div class="col-md-9">
-                                    <p>{{ $usuario->rol->name }}</p>
+                                    <p>{{ $usuario->getRoleNames()[0] }}</p>
                                 </div>
                             </div>
                         </div>

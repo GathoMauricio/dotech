@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\RolesPermisoController;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 Auth::routes();
@@ -146,7 +147,7 @@ Route::get('show_whitdrawal_by_project/{id}', 'WhitdrawalController@showByProjec
 Route::post('store_whitdrawal_provider', 'WhitdrawalProviderController@store')->name('store_whitdrawal_provider')->middleware('auth');
 
 #witdrawal department
-Route::get('index_department', 'WhitdrawalDepartmentController@index')->name('index_department')->middleware('auth');
+Route::get('index_department', 'WhitdrawalDepartmentController@index')->name('index_department')->middleware('permission:catalogo_departamentos_de_retiro');
 Route::get('create_department', 'WhitdrawalDepartmentController@create')->name('create_department')->middleware('auth');
 Route::post('store_department', 'WhitdrawalDepartmentController@store')->name('store_department')->middleware('auth');
 Route::get('edit_department/{id}', 'WhitdrawalDepartmentController@edit')->name('edit_department')->middleware('auth');
@@ -154,7 +155,7 @@ Route::put('update_department/{id}', 'WhitdrawalDepartmentController@update')->n
 Route::get('delete_department/{id?}', 'WhitdrawalDepartmentController@destroy')->name('delete_department')->middleware('auth');
 
 #witdrawal account
-Route::get('index_account', 'WhitdrawalAccountController@index')->name('index_account')->middleware('auth');
+Route::get('index_account', 'WhitdrawalAccountController@index')->name('index_account')->middleware('permission:catalogo_cuentas_de_retiro');
 Route::get('create_account', 'WhitdrawalAccountController@create')->name('create_account')->middleware('auth');
 Route::post('store_account', 'WhitdrawalAccountController@store')->name('store_account')->middleware('auth');
 Route::get('edit_account/{id}', 'WhitdrawalAccountController@edit')->name('edit_account')->middleware('auth');
@@ -184,7 +185,7 @@ Route::post('store_project_ajax', 'ProjectController@storeAjax')->name('store_pr
 Route::put('update_project_ajax', 'ProjectController@updateAjax')->name('update_project_ajax')->middleware('auth');
 
 #Logs
-Route::get('log_index', 'SysLogsController@index')->name('log_index')->middleware('auth');
+Route::get('log_index', 'SysLogsController@index')->name('log_index')->middleware('permission:modulo_de_log');
 
 #config
 Route::get('config_index', 'ConfigController@index')->name('config_index')->middleware('auth');
@@ -195,7 +196,7 @@ Route::put('update_user_password', 'UserController@updatePassword')->name('updat
 Route::get('show_user_ajax', 'UserController@showAjax')->name('show_user_ajax')->middleware('auth');
 Route::put('update_user_name', 'UserController@updateUserName')->name('update_user_name')->middleware('auth');
 Route::put('update_image_user', 'UserController@updateUserImage')->name('update_image_user')->middleware('auth');
-Route::get('index_user/{search?}', 'UserController@index')->name('index_user')->middleware('auth');
+Route::get('index_user/{search?}', 'UserController@index')->name('index_user')->middleware('permission:catalogo_de_usuarios');
 Route::get('create_user', 'UserController@create')->name('create_user')->middleware('auth');
 Route::post('store_user', 'UserController@store')->name('store_user')->middleware('auth');
 Route::get('edit_user/{id}', 'UserController@edit')->name('edit_user')->middleware('auth');
@@ -211,7 +212,7 @@ Route::post('solicitar_vacaciones', 'VacacionController@solicitarVacaciones')->n
 Route::post('store_user_document', 'UserDocumentController@store')->name('store_user_document')->middleware('auth');
 Route::get('delete_user_document/{id?}', 'UserDocumentController@destroy')->name('delete_user_document')->middleware('auth');
 #providers
-Route::get('provider_index', 'WhitdrawalProviderController@index')->name('provider_index')->middleware('auth');
+Route::get('provider_index', 'WhitdrawalProviderController@index')->name('provider_index')->middleware('permission:catalogo_proveedores_de_retiro');
 Route::get('edit_provider/{id}', 'WhitdrawalProviderController@edit')->name('edit_provider')->middleware('auth');
 Route::put('update_provider/{id}', 'WhitdrawalProviderController@update')->name('update_provider')->middleware('auth');
 Route::get('delete_provider/{id?}', 'WhitdrawalProviderController@destroy')->name('delete_provider')->middleware('auth');
@@ -351,51 +352,51 @@ Route::group(['middleware' => ['auth']], function () {
     #Retiros
     Route::get('wire_whitdrawals', function () {
         return view('wire.whitdrawals.index');
-    })->name('wire_whitdrawals');
+    })->name('wire_whitdrawals')->middleware('permission:modulo_retiros');
     #Transacciones
     Route::get('wire_transactions', function () {
         return view('wire.transactions.index');
-    })->name('wire_transactions');
+    })->name('wire_transactions')->middleware('permission:modulo_transacciones');
     #Tareas
     Route::get('wire_tasks', function () {
         return view('wire.tasks.index');
-    })->name('wire_tasks');
+    })->name('wire_tasks')->middleware('permission:modulo_tareas');
     #Cotizaciones
     Route::get('wire_quotes', function () {
         return view('wire.quotes.index');
-    })->name('wire_quotes');
+    })->name('wire_quotes')->middleware('permission:modulo_cotizaciones');
     #Proyectos
     Route::get('wire_projects', function () {
         return view('wire.projects.index');
-    })->name('wire_projects');
+    })->name('wire_projects')->middleware('permission:modulo_proyectos');
     #Bitácoras
     Route::get('wire_binnacles', function () {
         return view('wire.binnacles.index');
-    })->name('wire_binnacles');
+    })->name('wire_binnacles')->middleware('permission:modulo_bitacoras');
     #Compañias
     Route::get('wire_companies', function () {
         return view('wire.companies.index');
-    })->name('wire_companies');
+    })->name('wire_companies')->middleware('permission:modulo_retiros');
     #Vehiculos
     Route::get('wire_vehicles', function () {
         return view('wire.vehicles.index');
-    })->name('wire_vehicles');
+    })->name('wire_vehicles')->middleware('permission:modulo_vehiculos');
     #Almacen
     Route::get('wire_stocks', function () {
         return view('wire.stocks.index');
-    })->name('wire_stocks');
+    })->name('wire_stocks')->middleware('permission:modulo_almacen');
     #Aspirantes
     Route::get('wire_candidates', function () {
         return view('wire.candidates.index');
-    })->name('wire_candidates');
+    })->name('wire_candidates')->middleware('permission:modulo_aspirantes');
     #Documentos
     Route::get('wire_documents', function () {
         return view('wire.documents.index');
-    })->name('wire_documents');
+    })->name('wire_documents')->middleware('permission:modulo_documentos');
     #Machotes(Formularios)
     Route::get('wire_forms', function () {
         return view('wire.forms.index');
-    })->name('wire_forms');
+    })->name('wire_forms')->middleware('permission:modulo_machotes');
 });
 
 Route::get('clients_login', 'ClientController@showLoginForm')->name('clients_login');
@@ -431,7 +432,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('store_origen', 'CompanyController@storeOrigen')->name('store_origen');
     Route::get('preview_proyecto', 'SaleController@showPreview');
 
-    Route::get('prospecto_index', 'ProspectoController@index')->name('prospecto_index');
+    Route::get('prospecto_index', 'ProspectoController@index')->name('prospecto_index')->middleware('permission:modulo_prospectos');
     Route::post('store_prospecto', 'ProspectoController@store')->name('store_prospecto');
     Route::post('ajax_store_origen', 'ClienteOrigenController@ajaxStoreOrigen')->name('ajax_store_origen');
     Route::get('ajax_show_prospecto', 'ProspectoController@ajaxShowProspecto')->name('ajax_show_prospecto');
@@ -443,7 +444,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('last_dashboard', 'DashboardController@_index')->name('last_dashboard');
     Route::get('obtener_pendientes', 'DashboardController@obtenerPendientes')->name('obtener_pendientes');
 
-    Route::get('clientes', 'ClienteController@index')->name('clientes');
+    Route::get('clientes', 'ClienteController@index')->name('clientes')->middleware('permission:modulo_clientes');
     Route::get('clientes.show/{id}', 'ClienteController@show')->name('clientes.show');
     Route::put('clientes.update/{id}', 'ClienteController@update')->name('clientes.update');
 
@@ -458,8 +459,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('ajax_imagenes_bitacora', 'BitacoraController@ajaxIndex')->name('ajax_imagenes_bitacora');
     Route::delete('eliminar_retiro/{retiro_id}', 'RetiroController@destroy')->name('eliminar_retiro');
 
-    Route::get('roles', function () {
-
-        return view('roles');
-    })->name('roles')->middleware('permission:ver_retiros');
+    Route::get('roles_permisos', 'RolesPermisoController@index')->name('roles_permisos')->middleware('permission:modulo_roles_permisos');
+    Route::post('actualizar_roles_permisos', 'RolesPermisoController@updatePermisos')->name('actualizar_roles_permisos')->middleware('permission:modulo_roles_permisos');
 });
