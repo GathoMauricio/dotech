@@ -10,7 +10,7 @@
                 <div class="container">
                     <div class="row">
                         @foreach ($roles as $rol)
-                            <div class="card col-md-4">
+                            <div class="card col-md-12">
                                 <form id="form_asignar_permisos_{{ $rol->id }}" method="POST">
                                     @csrf
                                     <input type="hidden" name="rol" value="{{ $rol->id }}">
@@ -23,12 +23,18 @@
                                         {{ $rol->name }}
                                     </div>
                                     <div class="card-body">
-                                        @foreach ($permisos as $permiso)
-                                            <input name="permisos[]" value="{{ $permiso->name }}" type="checkbox"
-                                                @if ($rol->hasPermissionTo($permiso->name)) checked @endif>
-                                            {{ $permiso->name }}
-                                            <br>
-                                        @endforeach
+                                        <div class="container">
+                                            <div class="row">
+                                                @foreach ($permisos as $permiso)
+                                                    <div class="col-md-4">
+                                                        <input name="permisos[]" value="{{ $permiso->name }}"
+                                                            type="checkbox"
+                                                            @if ($rol->hasPermissionTo($permiso->name)) checked @endif>
+                                                        {{ $permiso->name }}
+                                                    </div>
+                                                @endforeach
+                                            </div>
+                                        </div>
                                     </div>
                                 </form>
                             </div>

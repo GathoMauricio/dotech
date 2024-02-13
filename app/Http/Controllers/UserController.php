@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Spatie\Permission\Models\Role;
 use Illuminate\Http\Request;
 use App\Http\Requests\ResetPasswordRequest;
 use App\Http\Requests\UserRequest;
@@ -52,7 +53,10 @@ class UserController extends Controller
     }
     public function store(UserRequest $request)
     {
+
         $user = User::create($request->all());
+        $rol = RolUser::find($request->rol_user_id);
+        $user->assignRole($rol->name);
         $user->password = bcrypt($request->email);
         $user->api_token = \Str::random(60);
         if (!empty($request->image)) {
@@ -113,6 +117,9 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $user = User::findOrFail($id);
+        $rol = RolUser::find($request->rol_user_id);
+        $user->syncRoles();
+        $user->assignRole($rol->name);
         $user->status_user_id = $request->status_user_id;
         $user->rol_user_id = $request->rol_user_id;
         $user->location_user_id = $request->location_user_id;

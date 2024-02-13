@@ -1,13 +1,17 @@
-<a href="javascript:void(0)" onclick="$('#upload_file_modal').modal();" class="float-right"> [<span class="icon-upload">
-        Cargar documento<span>]</a>
-<br><br>
+@if (@Auth::user()->hasPermissionTo('cargar_transacciones'))
+    <a href="javascript:void(0)" onclick="$('#upload_file_modal').modal();" class="float-right"> [<span class="icon-upload">
+            Cargar documento<span>]</a>
+    <br><br>
+@endif
 <a href="{{ asset('file/template_excel.xlsx') }}" target="_blank" class="float-right"> [<span class="icon-download">
         Descargar template<span>]</a>
 <br><br>
 {{ $transactions->links('pagination-links') }}
-<button onclick="$('#create_transaction_modal').modal()" class="btn btn-primary float-right"> <span
-        class="icon icon-plus"></span> Nuevo</button>
-<br><br>
+@if (@Auth::user()->hasPermissionTo('crear_transacciones'))
+    <button onclick="$('#create_transaction_modal').modal()" class="btn btn-primary float-right"> <span
+            class="icon icon-plus"></span> Nuevo</button>
+    <br><br>
+@endif
 <table class="table table-bordered">
     <thead>
         <tr>
@@ -58,13 +62,16 @@
                     @endif
                 </td>
                 <td>
-                    <button wire:click="edit({{ $transaction->id }});" class="btn btn-warning btn-block">
-                        <span class="icon-pencil"></span>Editar
-                    </button>
-
-                    <button onclick="deleteTransaction({{ $transaction->id }});" class="btn btn-danger btn-block">
-                        <span class="icon-bin"></span>Eliminar
-                    </button>
+                    @if (@Auth::user()->hasPermissionTo('editar_transacciones'))
+                        <button wire:click="edit({{ $transaction->id }});" class="btn btn-warning btn-block">
+                            <span class="icon-pencil"></span>Editar
+                        </button>
+                    @endif
+                    @if (@Auth::user()->hasPermissionTo('eliminar_transacciones'))
+                        <button onclick="deleteTransaction({{ $transaction->id }});" class="btn btn-danger btn-block">
+                            <span class="icon-bin"></span>Eliminar
+                        </button>
+                    @endif
                 </td>
             </tr>
         @endforeach

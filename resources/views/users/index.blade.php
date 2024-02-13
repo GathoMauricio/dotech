@@ -57,6 +57,13 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
+                        <div class="float-right">
+                            @if (@Auth::user()->hasPermissionTo('crear_usuarios'))
+                                <a href="{{ route('create_user') }}" title="Agregar usuario" class="btn btn-primary"
+                                    style="font-size:20px;"><span class="icon icon-user-plus"></span></a>
+                            @endif
+                        </div>
+
                         <h5><a href="{{ route('index_user') }}">Empleados</a></h5>
                     </div>
                     <div class="card-body">
@@ -112,15 +119,19 @@
                                         <td>
                                             <a href="{{ route('show_user', $user->id) }}">Ver</a>
                                             <br>
-                                            <a href="{{ route('edit_user', $user->id) }}">Editar</a>
-                                            <br>
-                                            <a href="javascript:void(0)" onclick="eliminarUsuario({{ $user->id }})"
-                                                class="text-danger">Eliminar</a>
-                                            <form id="form_eliminar_usuario_{{ $user->id }}" style="display:none;"
-                                                action="{{ route('delete_user', $user->id) }}" method="POST">
-                                                @csrf
-                                                @method('DELETE')
-                                            </form>
+                                            @if (@Auth::user()->hasPermissionTo('editar_usuarios'))
+                                                <a href="{{ route('edit_user', $user->id) }}">Editar</a>
+                                                <br>
+                                            @endif
+                                            @if (@Auth::user()->hasPermissionTo('eliminar_usuarios'))
+                                                <a href="javascript:void(0)" onclick="eliminarUsuario({{ $user->id }})"
+                                                    class="text-danger">Eliminar</a>
+                                                <form id="form_eliminar_usuario_{{ $user->id }}" style="display:none;"
+                                                    action="{{ route('delete_user', $user->id) }}" method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                </form>
+                                            @endif
                                         </td>
                                     </tr>
                                 @endforeach
