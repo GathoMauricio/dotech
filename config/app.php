@@ -179,6 +179,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         DaveJamesMiller\Breadcrumbs\BreadcrumbsServiceProvider::class,
         Laravolt\Avatar\ServiceProvider::class,
+        Spatie\Permission\PermissionServiceProvider::class,
 
     ],
 

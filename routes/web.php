@@ -457,4 +457,9 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('ajax_imagenes_bitacora', 'BitacoraController@ajaxIndex')->name('ajax_imagenes_bitacora');
     Route::delete('eliminar_retiro/{retiro_id}', 'RetiroController@destroy')->name('eliminar_retiro');
+
+    Route::get('roles', function () {
+
+        return view('roles');
+    })->name('roles')->middleware('permission:ver_retiros');
 });
