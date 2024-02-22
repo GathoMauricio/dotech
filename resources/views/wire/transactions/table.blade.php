@@ -15,7 +15,7 @@
 <table class="table table-bordered">
     <thead>
         <tr>
-            <th>ID</th>
+            {{--  <th>ID</th>  --}}
             <th scope="col">Banco</th>
             <th width="10%" scope="col">Día</th>
             <th scope="col">Concepto / Referencia</th>
@@ -29,7 +29,7 @@
     <tbody>
         @foreach ($transactions as $transaction)
             <tr>
-                <td>{{ $transaction->id }}</td>
+                {{--  <td>{{ $transaction->id }}</td>  --}}
                 <td>{{ $transaction->bank }}</td>
                 <td>{{ $transaction->date }}</td>
                 <td>{{ $transaction->concept_ref }}</td>

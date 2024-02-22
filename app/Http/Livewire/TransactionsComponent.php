@@ -40,7 +40,7 @@ class TransactionsComponent extends Component
 
     public function render()
     {
-        $transactions = Transaction::orderBy('id', 'desc')->paginate(15);
+        $transactions = Transaction::orderBy('date', 'desc')->orderBy('id', 'desc')->paginate(15);
         return view('livewire.transactions-component', compact('transactions'));
     }
 
