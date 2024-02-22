@@ -13,8 +13,9 @@ class ProspectoController extends Controller
     public function index()
     {
         $prospectos = Company::where('status', 'Prospecto')->orderBy('created_at', 'DESC')->paginate(15);
+        $prospectos_all = Company::where('status', 'Prospecto')->orderBy('name')->get();
         $origenes = ClienteOrigen::orderBy('origen')->get();
-        return view('prospectos.index', compact('prospectos', 'origenes'));
+        return view('prospectos.index', compact('prospectos', 'origenes', 'prospectos_all'));
     }
 
     public function store(Request $request)

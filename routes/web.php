@@ -441,7 +441,8 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('clientes', 'ClienteController@index')->name('clientes')->middleware('permission:modulo_clientes');
     Route::get('clientes.show/{id}', 'ClienteController@show')->name('clientes.show');
-    Route::put('clientes.update/{id}', 'ClienteController@update')->name('clientes.update');
+    Route::put('clientes.update/{id}', 'ClienteController@update')->name('clientes.update')->middleware('permission:editar_clientes');
+    Route::delete('eliminar_cliente/{cliente_id}', 'ClienteController@destroy')->name('eliminar_cliente')->middleware('permission:eliminar_clientes');
 
     Route::post('iniciar_cotizacion/{id?}', 'CotizacionController@store')->name('iniciar_cotizacion');
 

@@ -4,17 +4,21 @@
     <br><br>
     <a href="javascript:void(0)" onclick="$('#prospectos_create_modal').modal();" class="btn btn-primary float-right">Crear</a>
     <br><br>
-    {{--  <div style="width:200px;" class="float-right">
+    <div style="width:200px;" class="float-right">
         <form action="#" method="POST">
             @csrf
             <table>
                 <tr>
-                    <td><input type="text" class="form-control" placeholder="Buscar..."></td>
-                    <td><button type="submit" class="btn btn-primary"><span class="icon icon-search"></span></button></td>
+                    <select class="select2 form-control" onchange="verProspecto(this.value)">
+                        <option value>--Buscar prospecto--</option>
+                        @foreach ($prospectos_all as $key => $prospecto)
+                            <option value="{{ $prospecto->id }}">{{ $prospecto->name }}</option>
+                        @endforeach
+                    </select>
                 </tr>
             </table>
         </form>
-    </div>  --}}
+    </div>
     {{ $prospectos->links('pagination::bootstrap-4') }}
     <table class="table">
         <thead>
@@ -40,6 +44,7 @@
                     <td>{{ $prospecto->phone }}</td>
                     <td>{{ $prospecto->created_at }}</td>
                     <td>
+                        <a href="{{ route('clientes.show', $prospecto->id) }}">Abrir</a><br>
                         <a href="javascript:void(0)" onclick="iniciarCotizacion({{ $prospecto->id }});">Iniciar
                             cotizacion</a><br>
                         <a href="javascript:void(0)"
@@ -218,6 +223,11 @@
                     title: "Alerta",
                     message: "¿Eliminar registro?",
                 });
+        }
+
+        function verProspecto(prospecto_id) {
+            if (prospecto_id.length > 0)
+                window.location = "{{ url('clientes.show') }}/" + prospecto_id;
         }
     </script>
 @endsection

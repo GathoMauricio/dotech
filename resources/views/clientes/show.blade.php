@@ -5,7 +5,7 @@
         <h3 class="text-center">{{ $cliente->name }}</h3>
         <div class="row">
             <div class="col-md-8 p-3" style="background-color: white;border: solid 5px #f4f6f9;">
-                @if (Auth::user()->rol_user_id == 1)
+                @if (@Auth::user()->hasPermissionTo('editar_clientes'))
                     <a href="javascript:void(0);" onclick="editarCliente()"><span
                             class="icon icon-pencil float-right"></span></a>
                 @endif
@@ -84,6 +84,12 @@
                 <h5>Información</h5>
                 <div class="row">
                     <div class="col-md-6 p-2">
+                        <span class="font-weight-bold">Estatus</span>
+                    </div>
+                    <div class="col-md-6 p-2">{{ $cliente->status }}</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 p-2">
                         <span class="font-weight-bold">Departamentos</span>
                     </div>
                     <div class="col-md-6 p-2">{{ $cliente->departamentos->count() }}</div>
@@ -94,12 +100,14 @@
                     </div>
                     <div class="col-md-6 p-2">{{ $cliente->fecha_prospecto }}</div>
                 </div>
-                <div class="row">
-                    <div class="col-md-6 p-2">
-                        <span class="font-weight-bold">Fecha cliente</span>
+                @if ($cliente->status == 'Cliente')
+                    <div class="row">
+                        <div class="col-md-6 p-2">
+                            <span class="font-weight-bold">Fecha cliente</span>
+                        </div>
+                        <div class="col-md-6 p-2">{{ $cliente->fecha_cliente }}</div>
                     </div>
-                    <div class="col-md-6 p-2">{{ $cliente->fecha_cliente }}</div>
-                </div>
+                @endif
                 <div class="row">
                     <div class="col-md-6 p-2">
                         <span class="font-weight-bold">Cotizaciones</span>
@@ -127,6 +135,18 @@
                         <span class="font-weight-bold">Rechazados</span>
                     </div>
                     <div class="col-md-6 p-2">{{ $cliente->cotizaciones_proyectos->where('status', 'Rechazada')->count() }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 p-2">
+                        <span class="font-weight-bold">Últ. Seguimiento</span>
+                    </div>
+                    <div class="col-md-6 p-2">
+                        @if ($cliente->seguimientos->last())
+                            {{ $cliente->seguimientos->last()->created_at }}
+                        @else
+                            Sin seguimientos
+                        @endif
                     </div>
                 </div>
             </div>
@@ -194,8 +214,6 @@
                                 <td>{{ $historial->commision_percent }}%</td>
                                 <td>
                                     <a href="{{ route('proyecto.show', $historial->id) }}">Abrir</a>
-                                    {{--  <a href="{{ route('sho_sale', $historial->id) }}"><i
-                                            class="icon icon-clock"></i></a>  --}}
                                 </td>
                             </tr>
                         @endforeach
@@ -204,11 +222,18 @@
             </div>
         </div>
         <br>
-        @if (Auth::user()->rol_user_id == 1)
+        @if (@Auth::user()->hasPermissionTo('eliminar_clientes'))
             <div class="row" style="background-color: white;p-3">
                 <div class="col-md-12 p-2">
-                    <a href="#" class="text-danger float-right"><span class="icon icon-bin"></span>Eliminar
-                        cliente</a>
+                    <a href="javascript:void(0);" onclick="eliminarCliente({{ $cliente->id }})"
+                        class="text-danger float-right"><span class="icon icon-bin"></span>Eliminar
+                        {{ $cliente->status }}
+                    </a>
+                    <form action="{{ route('eliminar_cliente', $cliente->id) }}"
+                        id="form_eliminar_cliente_{{ $cliente->id }}" method="POST" style="display:none;">
+                        @csrf
+                        @method('DELETE')
+                    </form>
                 </div>
             </div>
             <br>
@@ -272,11 +297,34 @@
             });
 
         });
-
-        function editarCliente() {
-            $("#editar_cliente_modal").modal('show');
-        }
-
+        @if (@Auth::user()->hasPermissionTo('editar_clientes'))
+            function editarCliente() {
+                $("#editar_cliente_modal").modal('show');
+            }
+        @endif
+        @if (@Auth::user()->hasPermissionTo('eliminar_clientes'))
+            function eliminarCliente(cliente_id) {
+                alertify
+                    .confirm(
+                        "",
+                        function() {
+                            $("#form_eliminar_cliente_" + cliente_id).submit();
+                        },
+                        function() {
+                            //alertify.error('Cancel');
+                        }
+                    )
+                    .set("labels", {
+                        ok: "Si, eliminar!",
+                        cancel: "Cancelar"
+                    })
+                    .set({
+                        transition: "flipx",
+                        title: "Alerta",
+                        message: "¿Eliminar registro?",
+                    });
+            }
+        @endif
         function iniciarCotizacion() {
             $("#iniciar_cotizacion_modal").modal('show');
         }

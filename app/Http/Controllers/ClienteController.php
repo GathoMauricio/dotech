@@ -49,4 +49,16 @@ class ClienteController extends Controller
             return redirect()->back()->with('message', 'Error al procesar petición.');
         }
     }
+
+    public function destroy($id)
+    {
+        $cliente = Company::findOrFail($id);
+        $status = $cliente->status;
+        if ($cliente->delete()) {
+            if ($status == 'Prospecto')
+                return redirect('prospecto_index')->with('message', 'El ' . $status . ' ha sido eliminado');
+            else
+                return redirect('clientes')->with('message', 'El ' . $status . ' ha sido eliminado');
+        }
+    }
 }
