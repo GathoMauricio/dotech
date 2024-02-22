@@ -103,6 +103,7 @@
                         <div class="alert alert-secondary" role="alert">
                             <b>${item.author.name} ${item.author.middle_name} ${item.author.last_name}</b>
                             <p>${item.body}</p>
+                            <small class="float-right">${item.tipo_seguimiento}</small><br>
                             <small class="float-right">${item.created_at}</small><br>
                         </div>
                         `;
@@ -179,6 +180,7 @@
                     <div class="alert alert-secondary" role="alert">
                         <b>${item.author.name} ${item.author.middle_name} ${item.author.last_name}</b>
                         <p>${item.body}</p>
+                        <small class="float-right">${item.tipo_seguimiento}</small><br>
                         <small class="float-right">${item.created_at}</small><br>
                     </div>
                     `;

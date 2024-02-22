@@ -15,6 +15,16 @@
                 <form action="#" id="form_store_seguimiento_prospecto" method="POST" style="width: 100%;">
                     @csrf
                     <input type="hidden" name="prospecto_id" id="txt_seguimiento_prospecto_id">
+                    <div class="form-group">
+                        <label>Tipo de seguimiento</label>
+                        <select name="tipo_seguimiento" id="cbo_tipo_seguimiento" class="custom-select">
+                            <option value="Respondio">Respondio</option>
+                            <option value="No espondio">No espondio</option>
+                            <option value="No existe">No existe</option>
+                            <option value="Número equivocado">Número equivocado</option>
+                            <option value="Manda a buzón">Manda a buzón</option>
+                        </select>
+                    </div>
                     <table style="width: 100%;">
                         <tr>
                             <td width="90%">

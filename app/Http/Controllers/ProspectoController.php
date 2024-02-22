@@ -71,6 +71,7 @@ class ProspectoController extends Controller
             'author_id' => \Auth::user()->id,
             'company_id' => $request->prospecto_id,
             'body' => $request->body,
+            'tipo_seguimiento' => $request->tipo_seguimiento
         ]);
         if ($seguimiento) {
             return $this->ajaxOpenSeguimientos($request);
