@@ -81,11 +81,21 @@ class QuotesComponent extends Component
                         ->orWhere('sales.estimated', 'LIKE', '%' . $this->search . '%')
                         ->orWhere('sales.folio_cotizacion', 'LIKE', '%' . $this->search . '%')
                         ->orWhere('sales.created_at', 'LIKE', '%' . $this->search . '%');
-                })
-                ->orderBy('sales.id', 'DESC')
+                });
+            if (\Auth::user()->hasRole('Vendedor')) {
+                $quotes = $quotes->where('author_id', \Auth::user()->id);
+            }
+
+            $quotes = $quotes->orderBy('sales.id', 'DESC')
                 ->paginate(15);
         } else {
-            $quotes = Sale::where('status', 'Pendiente')->orderBy('id', 'desc')->paginate(15);
+            $quotes = Sale::where('status', 'Pendiente')->orderBy('id', 'desc');
+            if (\Auth::user()->hasRole('Vendedor')) {
+                $quotes = $quotes->where('author_id', \Auth::user()->id);
+            }
+
+            $quotes = $quotes->orderBy('sales.id', 'DESC')
+                ->paginate(15);
         }
         foreach ($quotes as $q) {
             $products = ProductSale::where('sale_id', $q->id)->get();

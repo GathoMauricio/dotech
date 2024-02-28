@@ -81,11 +81,24 @@ class ProjectsComponent extends Component
                         ->orWhere('sales.estimated', 'LIKE', '%' . $this->search . '%')
                         ->orWhere('sales.folio_proyecto', 'LIKE', '%' . $this->search . '%')
                         ->orWhere('sales.created_at', 'LIKE', '%' . $this->search . '%');
-                })
-                ->orderBy('sales.folio_proyecto', 'DESC')
+                });
+            // ->orderBy('sales.folio_proyecto', 'DESC')
+            // ->paginate(15);
+            if (\Auth::user()->hasRole('Vendedor')) {
+                $sales = $sales->where('author_id', \Auth::user()->id);
+            }
+
+            $sales = $sales->orderBy('sales.id', 'DESC')
                 ->paginate(15);
         } else {
-            $sales = Sale::where('status', 'Proyecto')->orderBy('folio_proyecto', 'desc')->paginate(15);
+            $sales = Sale::where('status', 'Proyecto')->orderBy('folio_proyecto', 'desc');
+
+            if (\Auth::user()->hasRole('Vendedor')) {
+                $sales = $sales->where('author_id', \Auth::user()->id);
+            }
+
+            $sales = $sales->orderBy('sales.id', 'DESC')
+                ->paginate(15);
         }
         return view('livewire.projects-component', ['sales' => $sales]);
     }

@@ -39,7 +39,11 @@ class SaleController extends Controller
     }
     public function indexProyectsFinished()
     {
-        $sales = Sale::where('status', 'Finalizado')->orderBy('id', 'desc')->paginate(15);
+        $sales = Sale::where('status', 'Finalizado')->orderBy('id', 'desc');
+        if (\Auth::user()->hasRole('Vendedor')) {
+            $sales = $sales->where('author_id', \Auth::user()->id);
+        }
+        $sales = $sales->paginate(15);
         return view('projects.finished', ['sales' => $sales]);
     }
     public function create()
@@ -131,7 +135,11 @@ class SaleController extends Controller
     }
     public function allRejects()
     {
-        $sales = Sale::orderBy('id', 'DESC')->where('status', 'Rechazada')->get();
+        $sales = Sale::orderBy('id', 'DESC')->where('status', 'Rechazada');
+        if (\Auth::user()->hasRole('Vendedor')) {
+            $sales = $sales->where('author_id', \Auth::user()->id);
+        }
+        $sales = $sales->get();
         return view('sale.rejects', ['company' => 'General', 'sales' => $sales]);
     }
     public function show($id)

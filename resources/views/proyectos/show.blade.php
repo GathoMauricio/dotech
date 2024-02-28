@@ -109,6 +109,14 @@
                     </div>
                     <div class="col-md-6 p-2">{{ $proyecto->project_at }}</div>
                 </div>
+                @if ($proyecto->status == 'Finalizado')
+                    <div class="row">
+                        <div class="col-md-6 p-2">
+                            <span class="font-weight-bold">Fecha finalizado</span>
+                        </div>
+                        <div class="col-md-6 p-2">{{ $proyecto->finished_at }}</div>
+                    </div>
+                @endif
                 <div class="row">
                     <div class="col-md-6 p-2">
                         <span class="font-weight-bold">Precio de venta</span>
