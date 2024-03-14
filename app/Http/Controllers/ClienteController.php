@@ -5,17 +5,18 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Company;
 use App\ClienteOrigen;
-use App\CompanyDepartment;
-use App\CompanyFollow;
+use App\User;
 
 class ClienteController extends Controller
 {
     public function index()
     {
         $data = Company::where('status', 'Cliente')->orderBy('created_at', 'DESC');
+        if (\Auth::user()->rol_user_id == 5) {
+            $data = Company::where('status', 'Cliente')->where('vendedor_id', \Auth::user()->id)->orderBy('created_at', 'DESC');
+        }
         $clientes_all = $data->get();
         $clientes = $data->paginate(15);
-
         $origenes = ClienteOrigen::orderBy('origen')->get();
         return view('clientes.index', compact('clientes', 'clientes_all', 'origenes'));
     }
@@ -24,7 +25,13 @@ class ClienteController extends Controller
     {
         $cliente = Company::findOrFail($id);
         $origenes = ClienteOrigen::orderBy('origen')->get();
-        return view('clientes.show', compact('cliente', 'origenes'));
+        $vendedores = [];
+        foreach (User::get() as $user) {
+            if ($user->hasRole('Administrador') || $user->hasRole('Gerente de venta') || $user->hasRole('Vendedor')) {
+                $vendedores[] = $user;
+            }
+        }
+        return view('clientes.show', compact('cliente', 'origenes', 'vendedores'));
     }
 
     public function update(Request $request, $id)

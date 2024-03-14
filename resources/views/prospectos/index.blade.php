@@ -37,7 +37,14 @@
             @foreach ($prospectos as $key => $prospecto)
                 <tr>
                     <td>{{ $prospecto->origin }}</td>
-                    <td>{{ $prospecto->porcentaje }}%</td>
+                    <td>
+                        {{ $prospecto->porcentaje }}%
+                        <br>
+                        Autor: <br>
+                        {{ $prospecto->author->name }}
+                        {{ $prospecto->author->middle_name }}
+                        {{ $prospecto->author->last_name }}
+                    </td>
                     <td>{{ $prospecto->name }}</td>
                     <td>{{ $prospecto->responsable }}</td>
                     <td>{{ $prospecto->email }}</td>
@@ -158,6 +165,8 @@
                 $("#txt_edit_phone").val(response.phone);
                 $("#txt_edit_email").val(response.email);
                 $("#cbo_edit_status").val(response.status);
+                $("#cbo_edit_author").val(response.author_id);
+                $("#hidden_vendedor_id").val(response.vendedor_id);
                 $("#prospectos_edit_modal").modal();
             }).fail(function(jqXHR, textStatus,
                 errorThrown) {

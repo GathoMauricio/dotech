@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
 use App\Company;
 use App\ClienteOrigen;
 use App\CompanyDepartment;
@@ -14,8 +15,19 @@ class ProspectoController extends Controller
     {
         $prospectos = Company::where('status', 'Prospecto')->orderBy('created_at', 'DESC')->paginate(15);
         $prospectos_all = Company::where('status', 'Prospecto')->orderBy('name')->get();
+        if (\Auth::user()->rol_user_id == 5) {
+            $prospectos = Company::where('status', 'Prospecto')->where('author_id', \Auth::user()->id)->orderBy('created_at', 'DESC')->paginate(15);
+            $prospectos_all = Company::where('status', 'Prospecto')->where('author_id', \Auth::user()->id)->orderBy('name')->get();
+        }
         $origenes = ClienteOrigen::orderBy('origen')->get();
-        return view('prospectos.index', compact('prospectos', 'origenes', 'prospectos_all'));
+        $users =  User::get();
+        $autores = [];
+        foreach (User::get() as $user) {
+            if ($user->hasRole('Administrador') || $user->hasRole('Gerente de venta') || $user->hasRole('Vendedor')) {
+                $autores[] = $user;
+            }
+        }
+        return view('prospectos.index', compact('prospectos', 'origenes', 'prospectos_all', 'autores'));
     }
 
     public function store(Request $request)
@@ -28,6 +40,8 @@ class ProspectoController extends Controller
             'email' => $request->email,
             'status' => 'Prospecto',
             'porcentaje' => $request->porcentaje,
+            'author_id' => \Auth::user()->id,
+            'vendedor_id' => \Auth::user()->id,
         ]);
         $departamento =  CompanyDepartment::create([
             'company_id' => $prospecto->id,

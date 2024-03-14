@@ -33,7 +33,14 @@
                             @foreach ($clientes as $key => $cliente)
                                 <tr>
                                     <td>{{ $cliente->origin }}</td>
-                                    <td>{{ $cliente->porcentaje }}%</td>
+                                    <td>
+                                        {{ $cliente->porcentaje }}%
+                                        <br>
+                                        Vendedor: <br>
+                                        {{ $cliente->vendedor->name }}
+                                        {{ $cliente->vendedor->middle_name }}
+                                        {{ $cliente->vendedor->last_name }}
+                                    </td>
                                     <td>{{ $cliente->name }}</td>
                                     <td>{{ $cliente->responsable }}</td>
                                     <td>{{ $cliente->email }}</td>

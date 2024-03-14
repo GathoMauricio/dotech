@@ -88,6 +88,30 @@
                     </div>
                     <div class="col-md-6 p-2">{{ $cliente->status }}</div>
                 </div>
+                @if ($cliente->status == 'Prospecto')
+                    <div class="row">
+                        <div class="col-md-6 p-2">
+                            <span class="font-weight-bold">Autor</span>
+                        </div>
+                        <div class="col-md-6 p-2">
+                            {{ $cliente->author->name }}
+                            {{ $cliente->author->middle_name }}
+                            {{ $cliente->author->last_name }}
+                        </div>
+                    </div>
+                @endif
+                @if ($cliente->status == 'Cliente')
+                    <div class="row">
+                        <div class="col-md-6 p-2">
+                            <span class="font-weight-bold">Vendedor</span>
+                        </div>
+                        <div class="col-md-6 p-2">
+                            {{ $cliente->vendedor->name }}
+                            {{ $cliente->vendedor->middle_name }}
+                            {{ $cliente->vendedor->last_name }}
+                        </div>
+                    </div>
+                @endif
                 <div class="row">
                     <div class="col-md-6 p-2">
                         <span class="font-weight-bold">Departamentos</span>

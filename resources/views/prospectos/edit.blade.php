@@ -80,6 +80,22 @@
                             </select>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="status">Autor</label>
+                            <select name="author_id" id="cbo_edit_author" class="form-control" required>
+                                <option value>--Seleccione una opción--</option>
+                                @foreach ($autores as $autor)
+                                    <option value="{{ $autor->id }}">
+                                        {{ $autor->name }}
+                                        {{ $autor->middle_name }}
+                                        {{ $autor->last_name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <input type="hidden" id="hidden_vendedor_id" name="vendedor_id">
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>

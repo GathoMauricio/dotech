@@ -15,6 +15,8 @@ class Company extends Authenticatable
 
     protected $fillable = [
         'id',
+        'author_id',
+        'vendedor_id',
         'origin',
         'status',
         'name',
@@ -61,5 +63,23 @@ class Company extends Authenticatable
     public function cotizaciones_proyectos()
     {
         return $this->hasMany(Sale::class);
+    }
+    public function author()
+    {
+        return $this->belongsTo(
+            'App\User',
+            'author_id',
+            'id'
+        )
+            ->withDefault();
+    }
+    public function vendedor()
+    {
+        return $this->belongsTo(
+            'App\User',
+            'vendedor_id',
+            'id'
+        )
+            ->withDefault();
     }
 }
