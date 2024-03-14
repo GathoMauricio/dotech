@@ -122,29 +122,56 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <label for="status">Vendedor asignado</label>
-                            <select name="vendedor_id" id="cbo_edit_vendedor" class="form-control" required>
-                                <option value>--Seleccione una opción--</option>
-                                @foreach ($vendedores as $vendedor)
-                                    @if ($cliente->vendedor_id == $vendedor->id)
-                                        <option value="{{ $vendedor->id }}" selected>
-                                            {{ $vendedor->name }}
-                                            {{ $vendedor->middle_name }}
-                                            {{ $vendedor->last_name }}
-                                        </option>
-                                    @else
-                                        <option value="{{ $vendedor->id }}">
-                                            {{ $vendedor->name }}
-                                            {{ $vendedor->middle_name }}
-                                            {{ $vendedor->last_name }}
-                                        </option>
-                                    @endif
-                                @endforeach
-                            </select>
+                    @if ($cliente->status == 'Cliente')
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label for="status">Vendedor asignado</label>
+                                <select name="vendedor_id" id="cbo_edit_vendedor" class="form-control" required>
+                                    <option value>--Seleccione una opción--</option>
+                                    @foreach ($vendedores as $vendedor)
+                                        @if ($cliente->vendedor_id == $vendedor->id)
+                                            <option value="{{ $vendedor->id }}" selected>
+                                                {{ $vendedor->name }}
+                                                {{ $vendedor->middle_name }}
+                                                {{ $vendedor->last_name }}
+                                            </option>
+                                        @else
+                                            <option value="{{ $vendedor->id }}">
+                                                {{ $vendedor->name }}
+                                                {{ $vendedor->middle_name }}
+                                                {{ $vendedor->last_name }}
+                                            </option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                            </div>
                         </div>
-                    </div>
+                    @else
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label for="status">Autor</label>
+                                <select name="author_id" id="cbo_edit_author" class="form-control" required>
+                                    <option value>--Seleccione una opción--</option>
+                                    @foreach ($vendedores as $vendedor)
+                                        @if ($cliente->vendedor_id == $vendedor->id)
+                                            <option value="{{ $vendedor->id }}" selected>
+                                                {{ $vendedor->name }}
+                                                {{ $vendedor->middle_name }}
+                                                {{ $vendedor->last_name }}
+                                            </option>
+                                        @else
+                                            <option value="{{ $vendedor->id }}">
+                                                {{ $vendedor->name }}
+                                                {{ $vendedor->middle_name }}
+                                                {{ $vendedor->last_name }}
+                                            </option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                            </div>
+                            <input type="hidden" id="hidden_vendedor_id" name="vendedor_id">
+                        </div>
+                    @endif
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
