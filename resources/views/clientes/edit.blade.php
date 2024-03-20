@@ -38,16 +38,22 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="porcentaje">Porcentaje</label>
-                                <select name="porcentaje" class="form-control" required>
-                                    <option value>--Seleccione una opción--</option>
-                                    @if (old('porcentaje', $cliente->porcentaje) == 8)
-                                        <option value="8" selected>8%</option>
-                                        <option value="13">13%</option>
-                                    @else
-                                        <option value="8">8%</option>
-                                        <option value="13" selected>13%</option>
-                                    @endif
-                                </select>
+                                @if (Auth::user()->hasRole('Administrador'))
+                                    <select name="porcentaje" class="form-control" required>
+                                        <option value>--Seleccione una opción--</option>
+                                        @if (old('porcentaje', $cliente->porcentaje) == 8)
+                                            <option value="8" selected>8%</option>
+                                            <option value="13">13%</option>
+                                        @else
+                                            <option value="8">8%</option>
+                                            <option value="13" selected>13%</option>
+                                        @endif
+                                    </select>
+                                @else
+                                    <center><strong>{{ $cliente->porcentaje }}%</strong></center>
+                                    <input type="hidden" name="porcentaje" value="{{ $cliente->porcentaje }}"
+                                        id="cbo_edit_porcentaje" readonly>
+                                @endif
                                 @error('porcentaje')
                                     <span style="color:red">{{ $message }}</span>
                                 @enderror

@@ -31,11 +31,16 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="porcentaje">Porcentaje</label>
-                                <select name="porcentaje" id="cbo_edit_porcentaje" class="form-control" required>
-                                    <option value>--Seleccione una opción--</option>
-                                    <option value="8">8%</option>
-                                    <option value="13">13%</option>
-                                </select>
+                                @if (Auth::user()->hasRole('Administrador'))
+                                    <select name="porcentaje" id="cbo_edit_porcentaje" class="form-control" required>
+                                        <option value>--Seleccione una opción--</option>
+                                        <option value="8">8%</option>
+                                        <option value="13">13%</option>
+                                    </select>
+                                @else
+                                    <center><strong id="txt_edit_porcentaje"></strong></center>
+                                    <input type="hidden" name="porcentaje" id="cbo_edit_porcentaje" readonly>
+                                @endif
                             </div>
                         </div>
                     </div>

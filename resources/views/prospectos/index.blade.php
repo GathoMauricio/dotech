@@ -160,6 +160,7 @@
                 console.log(response);
                 $("#cbo_edit_origin").val(response.origin);
                 $("#cbo_edit_porcentaje").val(response.porcentaje);
+                $("#txt_edit_porcentaje").text(response.porcentaje + '%');
                 $("#txt_edit_name").val(response.name);
                 $("#txt_edit_responsable").val(response.responsable);
                 $("#txt_edit_phone").val(response.phone);
