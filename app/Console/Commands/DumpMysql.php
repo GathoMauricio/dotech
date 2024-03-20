@@ -39,11 +39,11 @@ class DumpMysql extends Command
     public function handle()
     {
         \Spatie\DbDumper\Databases\MySql::create()
-        ->setDbName(env('DB_DATABASE'))->setUserName(env('DB_USERNAME'))
-        ->setPassword(env('DB_PASSWORD'))
-        ->dumpToFile(env('APP_ROUTE','').'storage/dump_db/dump_'.date('Y-m-d').'.sql');
+            ->setDbName(env('DB_DATABASE'))->setUserName(env('DB_USERNAME'))
+            ->setPassword(env('DB_PASSWORD'))
+            ->dumpToFile(env('APP_ROUTE', '') . 'storage/dump_db/dump_' . date('Y-m-d') . '.sql');
 
-        \Log::info("Base de datos creada...".date('Y-m-d'));
+        \Log::info("Base de datos creada..." . date('Y-m-d'));
 
         // $disk = \Storage::disk('gcs');
         // $disk->put("DB_dotech.sql",\File::get(storage_path('dump_db/dump_'.date('Y-m-d').'.sql')));
