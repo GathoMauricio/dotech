@@ -33,5 +33,7 @@ class CompanyFollows extends Command
             $mail->from('dotechapp@dotredes.com', env('APP_NAME'));
             $mail->to($emails);
         });
+
+        \Log::debug('CompanyFollows...');
     }
 }
