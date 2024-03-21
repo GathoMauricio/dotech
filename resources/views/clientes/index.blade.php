@@ -4,7 +4,7 @@
     <a href="{{ route('exportar_ultimos_seguimientos') }}" target="_BLANK" class="float-right">
         <i class="icon icon-download"></i>
         Exportar últimos
-        seguimientos
+        seguimientos (30+ días)
     </a>
     <div class="container">
         <div class="row justify-content-center">

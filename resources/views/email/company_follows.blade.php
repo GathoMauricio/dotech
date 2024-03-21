@@ -45,7 +45,7 @@
         <center><img src="{{ env('APP_URL') . '/img/dotech_fondo.png' }}" alt="dotech" style="width:240px;"></center>
         <h4>
             <center>
-                <strong style="color:white">Últimos seguimientos</strong>
+                <strong style="color:white">Últimos seguimientos (30+ días)</strong>
             </center>
         </h4>
         <table border="1" style="background-color: white;">
