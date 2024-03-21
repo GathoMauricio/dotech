@@ -1,5 +1,10 @@
 @extends('layouts.app')
 @section('content')
+    <a href="{{ route('exportar_ultimos_seguimientos') }}" target="_BLANK" class="float-right">
+        <i class="icon icon-download"></i>
+        Exportar últimos
+        seguimientos
+    </a>
     <h4 class="title_page">Prospectos de venta</h4>
     <br><br>
     <a href="javascript:void(0)" onclick="$('#prospectos_create_modal').modal();" class="btn btn-primary float-right">Crear</a>

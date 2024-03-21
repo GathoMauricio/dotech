@@ -457,4 +457,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('roles_permisos', 'RolesPermisoController@index')->name('roles_permisos')->middleware('permission:modulo_roles_permisos');
     Route::post('actualizar_roles_permisos', 'RolesPermisoController@updatePermisos')->name('actualizar_roles_permisos')->middleware('permission:modulo_roles_permisos');
+    Route::get('exportar_ultimos_seguimientos', function () {
+        return \Excel::download(new App\Exports\CompanyFollowsExport(), 'ultimos_seguimientos_' . date('Y-m-d_H-i') . '_.xlsx');
+    })->name('exportar_ultimos_seguimientos');
 });

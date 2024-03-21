@@ -1,6 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
+    <a href="{{ route('exportar_ultimos_seguimientos') }}" target="_BLANK" class="float-right">
+        <i class="icon icon-download"></i>
+        Exportar últimos
+        seguimientos
+    </a>
     <div class="container">
         <div class="row justify-content-center">
             <h3>Catálogo de clientes</h3>
