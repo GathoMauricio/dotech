@@ -75,7 +75,8 @@
                         @if ($dias >= 30)
                             <tr>
                                 <td>{{ $item->company->status }}</td>
-                                <td>{{ $item->company->name }}</td>
+                                <td><a href="{{ route('clientes.show', $item->company->id) }}"
+                                        target="_BLANK">{{ $item->company->name }}</a></td>
                                 <td>{{ $dias }}</td>
                                 <td>{{ explode(' ', $item->created_at)[0] }}</td>
                                 <td>
@@ -87,7 +88,8 @@
                     @else
                         <tr>
                             <td>{{ $cliente->status }}</td>
-                            <td>{{ $cliente->name }}</td>
+                            <td><a href="{{ route('clientes.show', $cliente->id) }}"
+                                    target="_BLANK">{{ $cliente->name }}</a></td>
                             <td>0</td>
                             <td>N/A</td>
                             <td>N/A</td>
