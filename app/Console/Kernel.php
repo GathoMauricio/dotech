@@ -17,6 +17,7 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         //Commands\DumpMysql::class,
         Commands\CompanyFollows::class,
+        Commands\CompanyNotification::class,
     ];
 
     /**
@@ -29,6 +30,7 @@ class Kernel extends ConsoleKernel
     {
         //$schedule->command('dump:mysql')->everyFiveMinutes();
         $schedule->command('company:follows')->dailyAt('13:30');
+        //$schedule->command('company:notification'); //->dailyAt('13:30');
     }
 
     /**
