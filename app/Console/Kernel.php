@@ -30,7 +30,7 @@ class Kernel extends ConsoleKernel
     {
         //$schedule->command('dump:mysql')->everyFiveMinutes();
         $schedule->command('company:follows')->dailyAt('13:30');
-        //$schedule->command('company:notification'); //->dailyAt('13:30');
+        $schedule->command('company:notification')->monthlyOn(1, '15:00');
     }
 
     /**

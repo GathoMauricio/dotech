@@ -12,7 +12,7 @@
     <center>
         <img src="https://dotech.tech/images/logo.png" alt="https://dotech.tech/images/logo.png" width="400">
     </center>
-    <h2>¡Hola! Nombre empresa</h2>
+    <h2>¡Hola! {{ $cliente->name }}</h2>
     <h3>
         Somos la empresa <strong><a href="https://dotredes.com/" target="_BLANK">DOT REDES...</a></strong>
         <br><br>
