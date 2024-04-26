@@ -446,7 +446,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::post('iniciar_cotizacion/{id?}', 'CotizacionController@store')->name('iniciar_cotizacion');
 
-    Route::get('proyecto.show/{id}', 'ProyectoController@show')->name('proyecto.show');
+    Route::get('proyecto.show/{id?}', 'ProyectoController@show')->name('proyecto.show');
     Route::post('solicitar_retiro', 'ProyectoController@solicitarRetiro')->name('solicitar_retiro');
     Route::post('subir_factura_retiro', 'ProyectoController@subirFacturaRetiro')->name('subir_factura_retiro');
     Route::put('actualizar_estatus_proyecto', 'ProyectoController@actualizarEstatus')->name('actualizar_estatus_proyecto');

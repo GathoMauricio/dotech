@@ -5,9 +5,9 @@
         data.addColumn('number', 'Proyectos');
         data.addRows([
             @foreach ($proyectos as $proyecto)
-                ['{{ preg_replace("[\n|\r|\n\r]", '', $proyecto->folio_proyecto . ', ' . substr($proyecto->description, 0, 40) . ' $' . $proyecto->estimated) }}'
+                ['{{ preg_replace("[\n|\r|\n\r]", '', $proyecto->folio_proyecto . ', ' . substr($proyecto->description, 0, 40) . ' $' . ($proyecto->estimated + $proyecto->iva)) }}'
                     .split("\n").join(""),
-                    {{ $proyecto->estimated }}
+                    {{ $proyecto->estimated + $proyecto->iva }}
                 ],
             @endforeach
         ]);
@@ -48,9 +48,10 @@
             $("#span_cliente").text(response.company.name);
             $("#span_departamento").text(response.department.name);
             $("#span_descripcion").text(response.description);
-            $("#span_estimado").text(response.estimated);
+            $("#span_estimado").text(parseFloat(parseFloat(response.estimated) + parseFloat(response.iva))
+                .toFixed(2));
             $("#span_observaciones").text(response.observation);
-            $("#link_abrir_proyecto").prop('href', '{{ url('show_sale') }}/' + response.id);
+            $("#link_abrir_proyecto").prop('href', '{{ url('proyecto.show') }}/' + response.id);
             $("#modal_preview_proyecto").modal();
         }).fail(function(jqXHR, textStatus, errorThrown) {});
     }
