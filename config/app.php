@@ -238,4 +238,9 @@ return [
         'Avatar'    => Laravolt\Avatar\Facade::class,
     ],
 
+    'bd_name' => env('DB_DATABASE'),
+    'bd_user' => env('DB_USERNAME'),
+    'bd_password' => env('DB_PASSWORD'),
+    'app_route' => env('APP_ROUTE'),
+
 ];

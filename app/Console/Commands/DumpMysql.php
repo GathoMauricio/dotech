@@ -2,7 +2,6 @@
 
 namespace App\Console\Commands;
 
-use App\BinnacleImage;
 use Illuminate\Console\Command;
 
 class DumpMysql extends Command
@@ -19,7 +18,7 @@ class DumpMysql extends Command
      *
      * @var string
      */
-    protected $description = 'Dump and upload database on google cloud storage';
+    protected $description = 'Dump full database';
 
     /**
      * Create a new command instance.
@@ -38,12 +37,11 @@ class DumpMysql extends Command
      */
     public function handle()
     {
-        // \Spatie\DbDumper\Databases\MySql::create()
-        //     ->setDbName(env('DB_DATABASE'))->setUserName(env('DB_USERNAME'))
-        //     ->setPassword(env('DB_PASSWORD'))
-        //     ->dumpToFile(env('APP_ROUTE', '') . 'storage/dump_db/dump_' . date('Y-m-d') . '.sql');
-
-        // \Log::info("Base de datos creada..." . date('Y-m-d'));
+        \Spatie\DbDumper\Databases\MySql::create()
+            ->setDbName(\Config::get('app.bd_name'))->setUserName(\Config::get('app.bd_user'))
+            ->setPassword(\Config::get('app.bd_password'))
+            ->dumpToFile(\Config::get('app.app_route') . 'storage/dump_db/dump_' . \Config::get('app.bd_name') . '.sql');
+        \Log::info("Base de datos creada..." . date('Y-m-d'));
 
         // $disk = \Storage::disk('gcs');
         // $disk->put("DB_dotech.sql",\File::get(storage_path('dump_db/dump_'.date('Y-m-d').'.sql')));
