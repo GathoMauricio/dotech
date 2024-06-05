@@ -38,6 +38,6 @@ class CompanyNotification extends Command
         }
 
 
-        \Log::debug("CompanyNotification success...");
+        //\Log::debug("CompanyNotification success...");
     }
 }

@@ -34,6 +34,6 @@ class CompanyFollows extends Command
             $mail->to($emails);
         });
 
-        \Log::debug('CompanyFollows success...');
+        //\Log::debug('CompanyFollows success...');
     }
 }
