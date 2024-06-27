@@ -647,6 +647,7 @@ class SaleController extends Controller
     {
         $sales = Sale::select(
             'sales.id AS ID',
+            'sales.folio_proyecto AS FOLIO_PROYECTO',
             'companies.name AS COMPANIA',
             'sales.description AS DESCRIPCION',
             'sales.estimated AS MONTO',
@@ -656,7 +657,7 @@ class SaleController extends Controller
             ->join('companies', 'sales.company_id', '=', 'companies.id')
             ->where('sales.status', 'Finalizado')
             ->where(function ($q) use ($request) {
-                $q->where('sales.id', 'LIKE', '%' . $request->q . '%')
+                $q->where('sales.folio_proyecto', 'LIKE', '%' . $request->q . '%')
                     ->orWhere('companies.name', 'LIKE', '%' . $request->q . '%')
                     ->orWhere('sales.description', 'LIKE', '%' . $request->q . '%')
                     ->orWhere('sales.estimated', 'LIKE', '%' . $request->q . '%')
@@ -689,6 +690,7 @@ class SaleController extends Controller
             }
             $json[] = [
                 'id' => $sale->ID,
+                'folio_proyecto' => $sale->FOLIO_PROYECTO,
                 'company' => $sale->COMPANIA,
                 'description' => $sale->DESCRIPCION,
                 'amount' => number_format($sale->MONTO + ($sale->MONTO * 0.16), 2),

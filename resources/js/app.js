@@ -199,20 +199,20 @@ window.searchProjects = (value) => {
 
 window.searchProjectsF = (value) => {
     const route = $("#txt_search_project_f_route_ajax").val();
-    console.log("Value: " + route);
+    //console.log("Value: " + route);
     $.ajax({
         type: "GET",
         url: route,
         data: { q: value },
         success: (data) => {
-            console.log(data);
+            //console.log(data);
             $("#tbl_projects_to_search").html("");
             let count = 0;
             $.each(data, (index, item) => {
                 count++;
                 $("#tbl_projects_to_search").append(`
                 <tr>
-                <td>${item.id}</td>
+                <td>${item.folio_proyecto}</td>
                 <td>${item.company}</td>
                 <td>${item.description}</td>
                 <td>$${item.amount}</td>
