@@ -669,9 +669,9 @@ class SaleController extends Controller
         $json = [];
         foreach ($sales as $sale) {
             $links = '
-            <a href="' . route('binnacles_by_project', $sale->ID) . '"><span class="icon-book" title="Proyecto" style="cursor:pointer;color:#8E44AD"> Bitácoras</span></a>
+            <a href="' . route('proyecto.show', $sale->ID) . '#row_bitacoras"><span class="icon-book" title="Proyecto" style="cursor:pointer;color:#8E44AD"> Bitácoras</span></a>
             <br>
-            <a href="' . route('show_sale', $sale->ID) . '"><span class="icon-eye" title="Proyecto" style="cursor:pointer;color:#3498DB"> Proyecto</span></a>
+            <a href="' . route('proyecto.show', $sale->ID) . '"><span class="icon-eye" title="Proyecto" style="cursor:pointer;color:#3498DB"> Proyecto</span></a>
             <br>
             <a href="#" onclick="editProject(' . $sale->ID . ');"><span class="icon-pencil" title="Editar" style="cursor:pointer;color:#F39C12"> Editar</span></a>
             <br>

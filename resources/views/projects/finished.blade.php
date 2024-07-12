@@ -11,10 +11,10 @@
                 <tr>
                     <td colspan="7" width="100%">
                         <!--
-                            <input id="txt_search_project" class="form-control" placeholder="Buscar..." />
-                            <input type="hidden" id="txt_search_project_route_ajax" value="{{ route('search_project_ajax') }}">
-                            <input type="hidden" id="txt_show_project_route_ajax" value="{{ route('show_project_ajax') }}">
-                            -->
+                                <input id="txt_search_project" class="form-control" placeholder="Buscar..." />
+                                <input type="hidden" id="txt_search_project_route_ajax" value="{{ route('search_project_ajax') }}">
+                                <input type="hidden" id="txt_show_project_route_ajax" value="{{ route('show_project_ajax') }}">
+                                -->
                         <input onkeyup="searchProjectsF(this.value);" id="txt_search_project_f" class="form-control"
                             placeholder="Buscar..." />
                         <input type="hidden" id="txt_search_project_f_route_ajax"
@@ -48,15 +48,15 @@
                         </td>
                         <td>
                             <!--
-                        <a href="{{ route('quote_products', $sale->id) }}"><span class="icon-eye" title="Productos" style="cursor:pointer;color:#3498DB"> Productos</span></a>
-                        <br>
-                        <a href="#" onclick="changeStatusModal({{ $sale->id }});"><span class="icon-checkmark" title="Cambiar estatus" style="cursor:pointer;color:#2ECC71"> Estatus</span></a>
-                        <br>
+                            <a href="{{ route('quote_products', $sale->id) }}"><span class="icon-eye" title="Productos" style="cursor:pointer;color:#3498DB"> Productos</span></a>
+                            <br>
+                            <a href="#" onclick="changeStatusModal({{ $sale->id }});"><span class="icon-checkmark" title="Cambiar estatus" style="cursor:pointer;color:#2ECC71"> Estatus</span></a>
+                            <br>
 
-                        <a href="#" onclick="editQuote({{ $sale->id }});"><span class="icon-pencil" title="Editar" style="cursor:pointer;color:#F39C12"> Editar</span></a>
-                        <br>
-                        -->
-                            <a href="{{ route('binnacles_by_project', $sale->id) }}"><span class="icon-book"
+                            <a href="#" onclick="editQuote({{ $sale->id }});"><span class="icon-pencil" title="Editar" style="cursor:pointer;color:#F39C12"> Editar</span></a>
+                            <br>
+                            -->
+                            <a href="{{ route('proyecto.show', $sale->id) }}#row_bitacoras"><span class="icon-book"
                                     title="Proyecto" style="cursor:pointer;color:#8E44AD"> Bitácoras</span></a>
                             <br>
                             <a href="{{ route('proyecto.show', $sale->id) }}"><span class="icon-eye" title="Proyecto"

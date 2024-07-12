@@ -15,10 +15,10 @@
                     <td colspan="6" width="100%">
 
                         <!--
-                        <input id="txt_search_project" class="form-control" placeholder="Buscar..." />
-                        <input type="hidden" id="txt_search_project_route_ajax" value="{{ route('search_project_ajax') }}">
-                        <input type="hidden" id="txt_show_project_route_ajax" value="{{ route('show_project_ajax') }}">
-                        -->
+                            <input id="txt_search_project" class="form-control" placeholder="Buscar..." />
+                            <input type="hidden" id="txt_search_project_route_ajax" value="{{ route('search_project_ajax') }}">
+                            <input type="hidden" id="txt_show_project_route_ajax" value="{{ route('show_project_ajax') }}">
+                            -->
                         <input onkeyup="searchProjects(this.value)" id="txt_search_project2" class="form-control"
                             placeholder="Buscar..." />
                         <input type="hidden" id="txt_search_project_route_ajax2"
@@ -47,7 +47,7 @@
                                     title="Proyecto" style="cursor:pointer;color:#8E44AD"> Bitácoras</span></a>
                             <br>
 
-                            <a href="{{ route('show_sale', $sale->id) }}"><span class="icon-eye" title="Proyecto"
+                            <a href="{{ route('proyecto.show', $sale->id) }}"><span class="icon-eye" title="Proyecto"
                                     style="cursor:pointer;color:#3498DB"> Proyecto</span></a>
                             <br>
 
