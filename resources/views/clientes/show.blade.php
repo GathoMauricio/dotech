@@ -176,6 +176,7 @@
             </div>
         </div>
         <br>
+
         <div class="row" style="background-color: white;p-3">
             <div class="col-md-12 p-2">
                 <h5>Departamentos</h5>
@@ -204,6 +205,7 @@
             </div>
         </div>
         <br>
+
         <div class="row" style="background-color: white;p-3">
             <div class="col-md-12 p-2">
                 <h5>Historial</h5>
@@ -220,7 +222,9 @@
                             <th>Precio de venta</th>
                             <th>Inversión</th>
                             <th>Comisión</th>
-                            <th>&nbsp</th>
+
+                            {{--  <th>&nbsp</th>  --}}
+
                         </tr>
                     </thead>
                     <tbody>
@@ -236,9 +240,11 @@
                                 <td>${{ number_format($historial->estimated, 2) }}</td>
                                 <td>${{ number_format($historial->investment, 2) }}</td>
                                 <td>{{ $historial->commision_percent }}%</td>
-                                <td>
-                                    <a href="{{ route('proyecto.show', $historial->id) }}">Abrir</a>
-                                </td>
+
+                                {{--  <td>
+                                        <a href="{{ route('proyecto.show', $historial->id) }}">Abrir</a>
+                                    </td>  --}}
+
                             </tr>
                         @endforeach
                     </tbody>
@@ -246,6 +252,7 @@
             </div>
         </div>
         <br>
+
         @if (@Auth::user()->hasPermissionTo('eliminar_clientes'))
             <div class="row" style="background-color: white;p-3">
                 <div class="col-md-12 p-2">

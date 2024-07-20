@@ -439,7 +439,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('last_dashboard', 'DashboardController@_index')->name('last_dashboard');
     Route::get('obtener_pendientes', 'DashboardController@obtenerPendientes')->name('obtener_pendientes');
 
-    Route::get('clientes', 'ClienteController@index')->name('clientes')->middleware('permission:modulo_clientes');
+    Route::get('clientes', 'ClienteController@index')->name('clientes'); //->middleware('permission:modulo_clientes');
     Route::get('clientes.show/{id}', 'ClienteController@show')->name('clientes.show');
     Route::put('clientes.update/{id}', 'ClienteController@update')->name('clientes.update')->middleware('permission:editar_clientes');
     Route::delete('eliminar_cliente/{cliente_id}', 'ClienteController@destroy')->name('eliminar_cliente')->middleware('permission:eliminar_clientes');

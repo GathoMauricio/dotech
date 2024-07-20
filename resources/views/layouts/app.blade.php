@@ -159,7 +159,10 @@
                                 </a>
                             </li>
                         @endif
-                        @if (@Auth::user()->hasPermissionTo('modulo_clientes'))
+                        @if (
+                            @Auth::user()->hasPermissionTo('modulo_clientes') ||
+                                @Auth::user()->email == 'soporte2@dotredes.com' ||
+                                @Auth::user()->email == 'soporte3@dotredes.com')
                             <li class="nav-item">
                                 <a href="{{ route('clientes') }}"
                                     class="nav-link @if (Route::currentRouteName() == 'clientes') active @endif">
