@@ -113,6 +113,7 @@ class ProyectoController extends Controller
                 break;
             case 'Finalizado':
                 $proyecto->finished_at = date('Y-m-d H:i:s');
+                $proyecto->closed_at = date('Y-m-d H:i:s');
                 break;
                 // case 'Pendiente':
                 //     $proyecto->project_at = null;
