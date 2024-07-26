@@ -107,6 +107,23 @@ class ProyectoController extends Controller
     {
         $proyecto = Sale::findOrFail($request->sale_id);
         $proyecto->status = $request->status;
+        switch ($request->status) {
+            case 'Proyecto':
+                $proyecto->project_at = date('Y-m-d H:i:s');
+                break;
+            case 'Finalizado':
+                $proyecto->finished_at = date('Y-m-d H:i:s');
+                break;
+                // case 'Pendiente':
+                //     $proyecto->project_at = null;
+                //     $proyecto->finished_at = null;
+                //     break;
+                // case 'Rechazada':
+                //     $proyecto->project_at = null;
+                //     $proyecto->finished_at = null;
+                //     break;
+        }
+
         if ($proyecto->save()) {
             return redirect()->back()->with('message', 'El registro se actualizó con éxito');
         } else {
