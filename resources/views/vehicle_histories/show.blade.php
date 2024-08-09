@@ -32,8 +32,8 @@
             <tr>
                 <th colspan="4" class="text-center" style="background-color:#d30035;color:white;">
                     <!--
-                        <a href="#" onclick="" title="Añadir" class="float-right" style="color:white;">[ <span class="icon-upload"></span> ]</a>
-                        -->
+                            <a href="#" onclick="" title="Añadir" class="float-right" style="color:white;">[ <span class="icon-upload"></span> ]</a>
+                            -->
                     Fotos
                 </th>
             </tr>
@@ -43,10 +43,10 @@
                 <th>Imagen</th>
                 <th>Descripción</th>
                 <!--
-                    @if (Auth::user()->rol_user_id == 1)
+                        @if (Auth::user()->rol_user_id == 1)
     <th></th>
     @endif
-                    -->
+                        -->
             </tr>
         </thead>
         <tbody>
@@ -59,7 +59,8 @@
                         @if ($image->source == 'API')
                             <a href="http://dotech.dyndns.biz:16666/dotech_api/public/storage/salidas_imagenes/{{ $image->image }}"
                                 target="_blank">
-                                <img src="{{ asset('storage') }}/{{ $image->image }}" width="120" />
+                                <img src="http://dotech.dyndns.biz:16666/dotech_api/public/storage/salidas_imagenes/{{ $image->image }}"
+                                    width="120" />
                             </a>
                         @else
                             <a href="{{ asset('storage') }}/{{ $image->image }}" target="_blank">
@@ -69,12 +70,12 @@
                     </td>
                     <td>{{ $image->description }}</td>
                     <!--
-                    @if (Auth::user()->rol_user_id == 1)
+                        @if (Auth::user()->rol_user_id == 1)
     <td>
-                        <a href="#" onclick="deleteMaintenanceImage({{ $image->id }})"><span class="icon-bin" title="Eliminar..." style="cursor:pointer;color:#E74C3C"> Eliminar</span></a>
-                    </td>
+                            <a href="#" onclick="deleteMaintenanceImage({{ $image->id }})"><span class="icon-bin" title="Eliminar..." style="cursor:pointer;color:#E74C3C"> Eliminar</span></a>
+                        </td>
     @endif
-                    -->
+                        -->
                 </tr>
             @endforeach
             @if (count($images) <= 0)
