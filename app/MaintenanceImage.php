@@ -7,25 +7,25 @@ use Illuminate\Database\Eloquent\Model;
 class MaintenanceImage extends Model
 {
     protected $table = 'maintenance_images';
-	protected $primaryKey = 'id';
-	public $timestamps = true;
+    protected $primaryKey = 'id';
+    public $timestamps = true;
 
     protected $fillable = [
         'id',
         'maintenance_id',
         'image',
         'description',
+        'source',
         'created_at',
         'updated_at'
     ];
     public function maintenance()
     {
-        return $this->belongsTo
-        (
-            'App\Maintenance',
-            'maintenance_id',
-            'id'
-        )
-        ->withDefault();
+        return $this->belongsTo(
+                'App\Maintenance',
+                'maintenance_id',
+                'id'
+            )
+            ->withDefault();
     }
 }

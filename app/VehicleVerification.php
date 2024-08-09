@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class VehicleVerification extends Model
 {
     protected $table = 'vehicle_verifications';
-	protected $primaryKey = 'id';
-	public $timestamps = true;
+    protected $primaryKey = 'id';
+    public $timestamps = true;
 
     protected $fillable = [
         'id',
@@ -18,35 +18,34 @@ class VehicleVerification extends Model
         'kilometers',
         'type',
         'image',
+        'source',
         'created_at',
         'updated_at'
     ];
     protected static function boot()
-	{
-		parent::boot();
+    {
+        parent::boot();
 
-		static::creating(function ($query) {
-			$query->author_id = \Auth::user()->id;
-		});
-	}   
+        static::creating(function ($query) {
+            $query->author_id = \Auth::user()->id;
+        });
+    }
     public function vehicle()
     {
-        return $this->belongsTo
-        (
-            'App\Vehicle',
-            'vehicle_id',
-            'id'
-        )
-        ->withDefault();
+        return $this->belongsTo(
+                'App\Vehicle',
+                'vehicle_id',
+                'id'
+            )
+            ->withDefault();
     }
     public function author()
     {
-        return $this->belongsTo
-        (
-            'App\User',
-            'author_id',
-            'id'
-        )
-        ->withDefault();
+        return $this->belongsTo(
+                'App\User',
+                'author_id',
+                'id'
+            )
+            ->withDefault();
     }
 }
