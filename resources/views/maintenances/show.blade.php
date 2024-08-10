@@ -48,9 +48,9 @@
                 <tr>
                     <td>
                         @if ($image->source == 'API')
-                            <a href="http://dotech.dyndns.biz:16666/dotech_api/public/storage/salidas_imagenes/{{ $image->image }}"
+                            <a href="http://dotech.dyndns.biz:16666/dotech_api/public/storage/mantenimientos_imagenes/{{ $image->image }}"
                                 target="_blank">
-                                <img src="http://dotech.dyndns.biz:16666/dotech_api/public/storage/salidas_imagenes/{{ $image->image }}"
+                                <img src="http://dotech.dyndns.biz:16666/dotech_api/public/storage/mantenimientos_imagenes/{{ $image->image }}"
                                     width="120" />
                             </a>
                         @else
