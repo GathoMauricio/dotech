@@ -9,7 +9,7 @@ class InventarioVehiculo extends Model
 {
     use HasFactory;
 
-    protected $table = 'documents';
+    protected $table = 'inventarios_vehiculos';
     protected $primaryKey = 'id';
     public $timestamps = true;
 
