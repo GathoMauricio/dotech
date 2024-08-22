@@ -114,3 +114,4 @@ Route::get('cambiar_mes_reportes/{anio}/{mes}', 'DashboardController@cambiarMesR
 Route::post('enviar_cotizacion', 'DotechAppController@enviarCotizacion')->middleware(App\Http\Middleware\Gathoken::class);
 Route::get('load_sale_pdf/{id?}', 'SaleController@loadPDF')->name('load_sale_pdf');
 Route::get('binnacle_pdf/{id}', 'BinnacleController@makePdf')->name('binnacle_pdf');
+Route::get('pdf_inventario/{id?}', 'VehicleController@pdfInventario')->name('pdf_inventario');

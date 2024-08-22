@@ -264,7 +264,7 @@ Route::get('vehicle_show/{id}', 'VehicleController@show')->name('vehicle_show')-
 Route::get('vehicle_edit/{id}', 'VehicleController@edit')->name('vehicle_edit')->middleware('auth');
 Route::put('vehicle_update/{id}', 'VehicleController@update')->name('vehicle_update')->middleware('auth');
 Route::get('vehicle_destroy/{id?}', 'VehicleController@destroy')->name('vehicle_destroy')->middleware('auth');
-Route::get('pdf_inventario/{id?}', 'VehicleController@pdfInventario')->name('pdf_inventario'); //->middleware('auth');
+Route::get('pdf_inventario/{id?}', 'VehicleController@pdfInventario')->name('pdf_inventario')->middleware('auth');
 
 #Vehicles Images
 Route::post('store_vehicle_image', 'VehicleImageController@store')->name('store_vehicle_image')->middleware('auth');
