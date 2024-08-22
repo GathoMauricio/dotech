@@ -37,8 +37,10 @@
 
 <body>
     <main>
+        {{ formatDate($inventario->created_at) }}
         <center>
             <img src="{{ $logo }}" width="80" height="60">
+
             <h1 style="color:#d30035;font-weight:bold;text-align:center;padding:10px;">
                 Inventario Vehículo
             </h1>
