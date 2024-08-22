@@ -38,6 +38,9 @@
 <body>
     <main>
         {{ formatDate($inventario->created_at) }}
+        <br>
+        {{ $inventario->autor->name }} {{ $inventario->autor->middle_name }}
+        {{ $inventario->autor->last_name }}
         <center>
             <img src="{{ $logo }}" width="80" height="60">
 
