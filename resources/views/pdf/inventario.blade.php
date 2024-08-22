@@ -625,13 +625,15 @@
                         <td>{{ $foto->descripcion }}</td>
                         <td>
                             <br><br>
-                            {{--  <a href="http://dotech.dyndns.biz:16666/dotech_api/public/storage/inventario_fotos/{{ $foto->foto }}" href="_BLANK">
-                                <img src="http://dotech.dyndns.biz:16666/dotech_api/public/storage/inventario_fotos/{{ $foto->foto }}" alt="{{ $foto->foto }}"  width="300">
-                            </a>  --}}
-                            <a href="http://localhost/dotech_api/public/storage/inventario_fotos/{{ $foto->foto }}"
+                            <a href="http://dotech.dyndns.biz:16666/dotech_api/public/storage/inventario_fotos/{{ $foto->foto }}"
+                                href="_BLANK">
+                                <img src="http://dotech.dyndns.biz:16666/dotech_api/public/storage/inventario_fotos/{{ $foto->foto }}"
+                                    alt="{{ $foto->foto }}" width="300">
+                            </a>
+                            {{--  <a href="http://localhost/dotech_api/public/storage/inventario_fotos/{{ $foto->foto }}"
                                 href="_BLANK">
                                 <img src="http://localhost/dotech_api/public/storage/inventario_fotos/{{ $foto->foto }}"
-                                    alt="{{ $foto->foto }}" width="300">
+                                    alt="{{ $foto->foto }}" width="300">  --}}
                             </a>
                         </td>
                     </tr>
