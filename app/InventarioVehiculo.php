@@ -217,4 +217,9 @@ class InventarioVehiculo extends Model
         )
             ->withDefault();
     }
+
+    public function fotos()
+    {
+        return $this->hasMany(FotoInventarioVehiculo::class, 'inventario_id', 'id');
+    }
 }

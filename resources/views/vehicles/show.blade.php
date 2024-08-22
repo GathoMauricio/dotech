@@ -61,6 +61,10 @@
                     Documentación
                 </td>
             @endif
+            <td onclick="showVehicleTab('inventarios');" class="text-center font-weight-bold"
+                style="background-color:#d30035;color:white;cursor:pointer;">
+                Inventarios
+            </td>
         </tr>
     </table>
     <br />
@@ -184,8 +188,8 @@
                 <tr>
                     <th colspan="6" class="text-center" style="background-color:#d30035;color:white;">
                         <!--
-                        <a href="#" onclick="addMaintenanceVehicle({{ $vehicle->id }})" title="Añadir" class="float-right" style="color:white;">[ <span class="icon-upload"></span> ]</a>
-                        -->
+                                                                <a href="#" onclick="addMaintenanceVehicle({{ $vehicle->id }})" title="Añadir" class="float-right" style="color:white;">[ <span class="icon-upload"></span> ]</a>
+                                                                -->
                         Salidas
                     </th>
                 </tr>
@@ -218,13 +222,13 @@
                                     title="Ver..." style="cursor:pointer;color:#2E86C1"> Ver</span></a>
                             <br />
                             <!--
-                            <a href="{{ route('maintenance_edit', $vehicleHistory->id) }}" ><span class="icon-pencil" title="Editar..." style="cursor:pointer;color:#EB984E"> Editar</span></a>
-                            <br/>
+                                                                    <a href="{{ route('maintenance_edit', $vehicleHistory->id) }}" ><span class="icon-pencil" title="Editar..." style="cursor:pointer;color:#EB984E"> Editar</span></a>
+                                                                    <br/>
 
-                            @if (Auth::user()->rol_user_id == 1)
+                                                                    @if (Auth::user()->rol_user_id == 1)
     <a href="#" onclick="deleteMaintenance({{ $vehicleHistory->id }})"><span class="icon-bin" title="Eliminar..." style="cursor:pointer;color:#E74C3C"> Eliminar</span></a>
     @endif
-                            -->
+                                                                    -->
                         </td>
                     </tr>
                 @endforeach
@@ -304,6 +308,42 @@
                 @if (count($documents) <= 0)
                     <tr>
                         <td colspan="3" class="text-center font-weight-bold">No hay registros para mostrar</td>
+                    </tr>
+                @endif
+            </tbody>
+        </table>
+        <br />
+    </div>
+    <div id="inventarios_vehicles_container_tab" style="display:none;">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th colspan="4" class="text-center" style="background-color:#d30035;color:white;">
+                        Inventarios
+                    </th>
+                </tr>
+                <tr>
+                    <th>Fecha</th>
+                    <th>Autor</th>
+                    <th>Fotos</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($inventarios as $inventario)
+                    <tr>
+                        <td>{{ formatDate($inventario->created_at) }}</td>
+                        <td>{{ $inventario->autor->name }}</td>
+                        <td>{{ $inventario->fotos->count() }}</td>
+                        <td>
+                            <a href="{{ route('pdf_inventario', $inventario->id) }}" target="_blank"
+                                class="btn btn-danger"><i class="icon icon-file-pdf"></i></a>
+                        </td>
+                    </tr>
+                @endforeach
+                @if (count($inventarios) <= 0)
+                    <tr>
+                        <td colspan="4" class="text-center font-weight-bold">No hay registros para mostrar</td>
                     </tr>
                 @endif
             </tbody>

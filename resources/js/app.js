@@ -1615,6 +1615,7 @@ window.showVehicleTab = (tab) => {
     $("#salidas_vehicles_container_tab").css("display", "none");
     $("#verificaciones_vehicles_container_tab").css("display", "none");
     $("#documentacion_vehicles_container_tab").css("display", "none");
+    $("#inventarios_vehicles_container_tab").css("display", "none");
     $("#" + tab + "_vehicles_container_tab").css("display", "block");
 };
 
