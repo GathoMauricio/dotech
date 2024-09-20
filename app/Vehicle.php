@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Vehicle extends Model
 {
     protected $table = 'vehicles';
-	protected $primaryKey = 'id';
-	public $timestamps = true;
+    protected $primaryKey = 'id';
+    public $timestamps = true;
 
     protected $fillable = [
         'id',
@@ -26,14 +26,19 @@ class Vehicle extends Model
         'created_at',
         'updated_at',
     ];
+
     public function type()
     {
-        return $this->belongsTo
-        (
+        return $this->belongsTo(
             'App\VehicleType',
             'vehicle_type_id',
             'id'
         )
-        ->withDefault();
+            ->withDefault();
+    }
+
+    public function mantenimientos()
+    {
+        return $this->hasMany('App\Maintenance', 'vehicle_id')->orderBy('id', 'DESC');
     }
 }

@@ -147,4 +147,19 @@ class VehicleController extends Controller
         );
         return $pdf->stream('inventario_' . $inventario->id . '.pdf');
     }
+
+    public function mantenimientosPdf($id)
+    {
+        $vehiculo = Vehicle::find($id);
+
+        $logo = parseBase64(public_path("img/dotech_fondo.png"));
+        $pdf = \PDF::loadView(
+            'pdf.mantenimientos',
+            [
+                'logo' => $logo,
+                'vehiculo' => $vehiculo,
+            ]
+        );
+        return $pdf->stream('Mantenimientos_' . $vehiculo->brand . '_' . $vehiculo->model . '_' . $vehiculo->enrollment . '.pdf');
+    }
 }

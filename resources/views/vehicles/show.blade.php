@@ -188,8 +188,8 @@
                 <tr>
                     <th colspan="6" class="text-center" style="background-color:#d30035;color:white;">
                         <!--
-                                                                        <a href="#" onclick="addMaintenanceVehicle({{ $vehicle->id }})" title="Añadir" class="float-right" style="color:white;">[ <span class="icon-upload"></span> ]</a>
-                                                                        -->
+                                                                            <a href="#" onclick="addMaintenanceVehicle({{ $vehicle->id }})" title="Añadir" class="float-right" style="color:white;">[ <span class="icon-upload"></span> ]</a>
+                                                                            -->
                         Salidas
                     </th>
                 </tr>
@@ -222,13 +222,13 @@
                                     title="Ver..." style="cursor:pointer;color:#2E86C1"> Ver</span></a>
                             <br />
                             <!--
-                                                                            <a href="{{ route('maintenance_edit', $vehicleHistory->id) }}" ><span class="icon-pencil" title="Editar..." style="cursor:pointer;color:#EB984E"> Editar</span></a>
-                                                                            <br/>
+                                                                                <a href="{{ route('maintenance_edit', $vehicleHistory->id) }}" ><span class="icon-pencil" title="Editar..." style="cursor:pointer;color:#EB984E"> Editar</span></a>
+                                                                                <br/>
 
-                                                                            @if (Auth::user()->rol_user_id == 1)
+                                                                                @if (Auth::user()->rol_user_id == 1)
     <a href="#" onclick="deleteMaintenance({{ $vehicleHistory->id }})"><span class="icon-bin" title="Eliminar..." style="cursor:pointer;color:#E74C3C"> Eliminar</span></a>
     @endif
-                                                                            -->
+                                                                                -->
                         </td>
                     </tr>
                 @endforeach
