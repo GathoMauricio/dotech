@@ -6,7 +6,9 @@
             <th>Descripción</th>
             <th>Divisa</th>
             <th>Precio</th>
-            <th>Inversión</th>
+            {{--  <th>Inversión</th>  --}}
+            <th>Retiros aprobados</th>
+            <th>Utilidad</th>
             <th>Fecha de cotización</th>
             <th>Fecha proyecto</th>
             <th>Cotización</th>
@@ -14,13 +16,23 @@
     </thead>
     <tbody>
         @foreach ($proyectos as $ticket)
+            @php
+                $total_retiros = 0;
+                foreach ($ticket->retiros as $retiro) {
+                    if ($retiro->status == 'Aprobado') {
+                        $total_retiros += $retiro->quantity;
+                    }
+                }
+            @endphp
             <tr>
                 <td>{{ $ticket->folio_proyecto }}</td>
                 <td>{{ $ticket->company->name }}</td>
                 <td>{{ $ticket->description }}</td>
                 <td>{{ $ticket->currency }}</td>
                 <td>${{ number_format($ticket->estimated, 2) }}</td>
-                <td>${{ number_format($ticket->investment, 2) }}</td>
+                {{--  <td>${{ number_format($ticket->investment, 2) }}</td>  --}}
+                <td>${{ number_format($total_retiros, 2) }}</td>
+                <td>${{ number_format($ticket->estimated - $total_retiros, 2) }}</td>
                 <td>{{ onlyDate($ticket->created_at) }}</td>
                 <td>{{ onlyDate($ticket->project_at) }}</td>
                 <td>{{ $ticket->folio_cotizacion }}</td>

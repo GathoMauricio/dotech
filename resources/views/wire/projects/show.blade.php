@@ -222,7 +222,7 @@
                                 <th>U. Medida</th>
                                 <th>Producto</th>
                                 <th>P/U</th>
-                                <th>Descuento</th>
+                                {{--  <th>Descuento</th>  --}}
                                 <th>Venta</th>
                                 <th></th>
                             </tr>
@@ -248,7 +248,7 @@
                                     </td>
                                     <td>{{ $product->description }}</td>
                                     <td>${{ number_format($product->unity_price_sell, 2) }}</td>
-                                    <td>{{ $product->discount }}%</td>
+                                    {{--  <td>{{ $product->discount }}%</td>  --}}
                                     <td>${{ number_format($product->unity_price_sell * $product->quantity, 2) }}</td>
                                     <td>
                                         <a href="{{ route('quote_products', $sale->id) }}"><span class="icon-pencil"

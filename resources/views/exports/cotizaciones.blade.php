@@ -6,7 +6,7 @@
             <th>Descripción</th>
             <th>Divisa</th>
             <th>Precio</th>
-            <th>Inversión</th>
+            {{--  <th>Inversión</th>  --}}
             <th>Fecha cotización</th>
             <th>Proyecto</th>
         </tr>
@@ -19,7 +19,7 @@
                 <td>{{ $ticket->description }}</td>
                 <td>{{ $ticket->currency }}</td>
                 <td>${{ number_format($ticket->estimated, 2) }}</td>
-                <td>${{ number_format($ticket->investment, 2) }}</td>
+                {{--  <td>${{ number_format($ticket->investment, 2) }}</td>  --}}
                 <td>{{ onlyDate($ticket->created_at) }}</td>
                 <td>
                     @if ($ticket->project_at)

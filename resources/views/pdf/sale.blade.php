@@ -129,13 +129,14 @@
                         <th width="10%" style="background-color:#D5D8DC;">U. Medida</th>
                         <th width="35%" style="background-color:#D5D8DC;">Descripción</th>
                         <th width="15%" style="background-color:#D5D8DC;">P. Unitario</th>
-                        <th width="15%" style="background-color:#D5D8DC;">Descuento</th>
+                        {{--  <th width="15%" style="background-color:#D5D8DC;">Descuento</th>  --}}
                         <th width="15%" style="background-color:#D5D8DC;">Importe</th>
                     </tr>
                     @foreach ($saleProducts as $saleProduct)
                         @php
                             $saleProduct->total_sell = $saleProduct->unity_price_sell * $saleProduct->quantity;
-                            $saleProduct->total_sell = $saleProduct->total_sell - ($saleProduct->total_sell / 100) * $saleProduct->discount;
+                            $saleProduct->total_sell =
+                                $saleProduct->total_sell - ($saleProduct->total_sell / 100) * $saleProduct->discount;
                         @endphp
 
                         <tr style="background-color:#D5D8DC;">
@@ -147,7 +148,7 @@
                             @endif
                             <td style="padding:3px;"><small>{{ $saleProduct->description }}</small></td>
                             <td style="text-align:center">${{ number_format($saleProduct->unity_price_sell, 2) }}</td>
-                            <td style="text-align:center">{{ $saleProduct->discount }}%</td>
+                            {{--  <td style="text-align:center">{{ $saleProduct->discount }}%</td>  --}}
                             <td style="text-align:center">
                                 ${{ number_format($saleProduct->unity_price_sell * $saleProduct->quantity - ($saleProduct->unity_price_sell * $saleProduct->quantity * $saleProduct->discount) / 100, 2) }}
                             </td>

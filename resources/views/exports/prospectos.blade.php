@@ -1,6 +1,8 @@
 <table>
     <thead>
         <tr>
+            <th>Folio</th>
+            <th>Name</th>
             <th>como se entero</th>
             <th>requerimiento</th>
             <th>cliente</th>
@@ -12,6 +14,7 @@
     <tbody>
         @foreach ($cotizaciones as $key => $cotizacion)
             <tr>
+                <td>{{ $cotizacion->folio_cotizacion }}</td>
                 <td>{{ $cotizacion->company->origin }}</td>
                 <td>{{ $cotizacion->description }}</td>
                 <td>{{ $cotizacion->company->name }}</td>

@@ -202,7 +202,7 @@
                             <th>U. Medida</th>
                             <th>Producto</th>
                             <th>P/U</th>
-                            <th>Descuento</th>
+                            {{--  <th>Descuento</th>  --}}
                             <th>Total + IVA</th>
                             <th></th>
                         </tr>
@@ -220,7 +220,7 @@
                                 </td>
                                 <td>{{ $product->description }}</td>
                                 <td>${{ number_format($product->unity_price_sell, 2) }}</td>
-                                <td>{{ $product->discount }}%</td>
+                                {{--  <td>{{ $product->discount }}%</td>  --}}
                                 <td>${{ number_format($product->total_sell, 2) }}</td>
                                 <td>
                                     {{--  <span onclick="editProductModal({{ $product->id }})" class="icon-pencil"

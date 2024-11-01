@@ -11,13 +11,13 @@
     </h4>
     <h5 class="text-center">{{ $sale->company['name'] }}</h5>
     <!--
-                                <span class="float-right title_page">
-                                    Autor:
-                                    {{ $sale->author['name'] }}
-                                    {{ $sale->author['middle_name'] }}
-                                    {{ $sale->author['last_name'] }}
-                                </span>
-                                -->
+                                    <span class="float-right title_page">
+                                        Autor:
+                                        {{ $sale->author['name'] }}
+                                        {{ $sale->author['middle_name'] }}
+                                        {{ $sale->author['last_name'] }}
+                                    </span>
+                                    -->
     <center>
         <table class="table" border="1">
             <tr>
@@ -196,12 +196,12 @@
                     <tr>
                         <td colspan="7" style="background-color:#d30035;color:white;font-weight:bold;">
                             <!--
-                                                    <label style="float:right;padding:5px;">
-                                                        <span class="icon-plus"
-                                                            style="cursor:pointer;color:white;" title="Agregar producto...">
-                                                        </span>
-                                                    </label>
-                                                -->
+                                                        <label style="float:right;padding:5px;">
+                                                            <span class="icon-plus"
+                                                                style="cursor:pointer;color:white;" title="Agregar producto...">
+                                                            </span>
+                                                        </label>
+                                                    -->
                             <center><label>Productos</label></center>
                         </td>
                     </tr>
@@ -210,7 +210,7 @@
                         <th>U. Medida</th>
                         <th>Producto</th>
                         <th>P/U</th>
-                        <th>Descuento</th>
+                        {{--  <th>Descuento</th>  --}}
                         <th>Venta</th>
                         <th></th>
                     </tr>
@@ -236,16 +236,16 @@
                             </td>
                             <td>{{ $product->description }}</td>
                             <td>${{ number_format($product->unity_price_sell, 2) }}</td>
-                            <td>{{ $product->discount }}%</td>
+                            {{--  <td>{{ $product->discount }}%</td>  --}}
                             <td>${{ number_format($product->unity_price_sell * $product->quantity, 2) }}</td>
                             <td>
                                 <a href="{{ route('quote_products', $sale->id) }}"><span class="icon-pencil"
                                         style="cursor:pointer;color:#F39C12;"></span> </a>
 
                                 <!--
-                                                    <br>
-                                                    <span onclick="deleteProductModal({{ $product->id }})" class="icon-bin" style="cursor:pointer;color:#E74C3C ;"></span>
-                                                    -->
+                                                        <br>
+                                                        <span onclick="deleteProductModal({{ $product->id }})" class="icon-bin" style="cursor:pointer;color:#E74C3C ;"></span>
+                                                        -->
                             </td>
                         </tr>
                     @endforeach
@@ -454,9 +454,9 @@
                                     class="icon-plus" style="cursor:pointer;color:white;"
                                     title="Agregar bitácora..."></span></label>
                             <!--
-                                                    <br/>
-                                                    <a href="#" onclick="sendBinnacleAll({{ $sale->id }})" style="color:white;"><span class="icon-envelop"></span> Enviar todas las bitácoras</a>
-                                                    -->
+                                                        <br/>
+                                                        <a href="#" onclick="sendBinnacleAll({{ $sale->id }})" style="color:white;"><span class="icon-envelop"></span> Enviar todas las bitácoras</a>
+                                                        -->
                         </center>
                     </td>
                 </tr>
