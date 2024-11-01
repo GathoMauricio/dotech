@@ -74,7 +74,9 @@
                                 <tr>
                                     <th>Fecha Inicio</th>
                                     <th>Nro Dias</th>
-                                    <th>Motivo</th>
+                                    <th>
+                                        Motivo
+                                    </th>
                                     <th>Estatus</th>
                                 </tr>
                             </thead>
@@ -84,7 +86,12 @@
                                         <tr>
                                             <th scope="row">{{ date('d/m/Y', strtotime($vacation->fecha_inicio)) }}</th>
                                             <td>{{ $vacation->dias }}</td>
-                                            <td>{{ $vacation->motivo }}</td>
+                                            <td width="35%">
+                                                {{ $vacation->motivo }}
+                                                <input type="text" id="txt_motivo_denegado_{{ $vacation->id }}"
+                                                    class="form-control"
+                                                    placeholder="En caso de ser denegado redacte el motivo">
+                                            </td>
                                             <td>
                                                 @if (Auth::user()->rol_user_id == 1)
                                                     <select
@@ -93,9 +100,15 @@
                                                         @if ($vacation->estatus == 'pendiente')
                                                             <option value="pendiente" selected>Pendiente</option>
                                                             <option value="aprobado">Aprobado</option>
-                                                        @else
+                                                            <option value="denegado">Denegado</option>
+                                                        @elseif($vacation->estatus == 'aprobado')
                                                             <option value="pendiente">Pendiente</option>
                                                             <option value="aprobado" selected>Aprobado</option>
+                                                            <option value="denegado">Denegado</option>
+                                                        @else
+                                                            <option value="pendiente">Pendiente</option>
+                                                            <option value="aprobado">Aprobado</option>
+                                                            <option value="denegado" selected>Denegado</option>
                                                         @endif
                                                     </select>
                                                 @else
@@ -131,7 +144,12 @@
                                         <tr>
                                             <th scope="row">{{ date('d/m/Y', strtotime($vacation->fecha_inicio)) }}</th>
                                             <td>{{ $vacation->dias }}</td>
-                                            <td>{{ $vacation->motivo }}</td>
+                                            <td width="35%">
+                                                {{ $vacation->motivo }}
+                                                <input type="text" id="txt_motivo_denegado_{{ $vacation->id }}"
+                                                    class="form-control"
+                                                    placeholder="En caso de ser denegado redacte el motivo">
+                                            </td>
                                             <td>
                                                 @if (Auth::user()->rol_user_id == 1)
                                                     <select
@@ -140,9 +158,15 @@
                                                         @if ($vacation->estatus == 'pendiente')
                                                             <option value="pendiente" selected>Pendiente</option>
                                                             <option value="aprobado">Aprobado</option>
-                                                        @else
+                                                            <option value="denegado">Denegado</option>
+                                                        @elseif($vacation->estatus == 'aprobado')
                                                             <option value="pendiente">Pendiente</option>
                                                             <option value="aprobado" selected>Aprobado</option>
+                                                            <option value="denegado">Denegado</option>
+                                                        @else
+                                                            <option value="pendiente">Pendiente</option>
+                                                            <option value="aprobado">Aprobado</option>
+                                                            <option value="denegado" selected>Denegado</option>
                                                         @endif
                                                     </select>
                                                 @else
@@ -177,7 +201,12 @@
                                         <tr>
                                             <th scope="row">{{ date('d/m/Y', strtotime($vacation->fecha_inicio)) }}</th>
                                             <td>{{ $vacation->dias }}</td>
-                                            <td>{{ $vacation->motivo }}</td>
+                                            <td width="35%">
+                                                {{ $vacation->motivo }}
+                                                <input type="text" id="txt_motivo_denegado_{{ $vacation->id }}"
+                                                    class="form-control"
+                                                    placeholder="En caso de ser denegado redacte el motivo">
+                                            </td>
                                             <td>
                                                 @if (Auth::user()->rol_user_id == 1)
                                                     <select
@@ -186,9 +215,15 @@
                                                         @if ($vacation->estatus == 'pendiente')
                                                             <option value="pendiente" selected>Pendiente</option>
                                                             <option value="aprobado">Aprobado</option>
-                                                        @else
+                                                            <option value="denegado">Denegado</option>
+                                                        @elseif($vacation->estatus == 'aprobado')
                                                             <option value="pendiente">Pendiente</option>
                                                             <option value="aprobado" selected>Aprobado</option>
+                                                            <option value="denegado">Denegado</option>
+                                                        @else
+                                                            <option value="pendiente">Pendiente</option>
+                                                            <option value="aprobado">Aprobado</option>
+                                                            <option value="denegado" selected>Denegado</option>
                                                         @endif
                                                     </select>
                                                 @else
@@ -207,13 +242,14 @@
     </div>
     <script>
         function cambiarEstatusVacacion(vacacion_id, estatus) {
-
+            var motivo_denegado = $("#txt_motivo_denegado_" + vacacion_id).val();
             $.ajax({
                 type: 'GET',
                 url: "{{ route('cambiar_estatus_vacacion') }}",
                 data: {
                     vacacion_id: vacacion_id,
-                    estatus: estatus
+                    estatus: estatus,
+                    otivo_denegado: motivo_denegado
                 },
             }).done(function(response) {
                 if (response.status == 1) {

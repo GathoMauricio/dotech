@@ -12,7 +12,13 @@ class VacacionController extends Controller
     {
         $vacacion = Vacacion::find($request->vacacion_id);
         $vacacion->estatus = $request->estatus;
+        $vacacion->motivo_denegado = $request->motivo_denegado;
         if ($vacacion->save()) {
+            \Mail::send('email.solicitud_vacaciones_respuesta', ['vacacion' => $vacacion], function ($mail) use ($vacacion) {
+                $mail->subject('Respuesta Solicitud ' . $vacacion->tipo);
+                $mail->from('dotechapp@dotredes.com', env('APP_NAME'));
+                $mail->to([$vacacion->empleado->email]);
+            });
             return response()->json([
                 'status' => 1,
                 'message' => 'Estatus actualizado'
@@ -34,6 +40,7 @@ class VacacionController extends Controller
             'dias' => $request->dias,
             'fecha_inicio' => $request->fecha_inicio,
             'motivo' => $request->motivo,
+            'motivo_denegado' => '',
         ]);
 
         $users = User::where('rol_user_id', 1)->whereNotNull('fcm_token')->get();

@@ -20,6 +20,7 @@ class Vacacion extends Model
         'dias',
         'fecha_inicio',
         'motivo',
+        'motivo_denegado'
     ];
 
     public function empleado()
