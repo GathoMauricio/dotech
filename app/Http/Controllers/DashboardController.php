@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Sale;
 use App\Company;
 use App\Task;
+use App\Vacacion;
+use App\Whitdrawal;
 //use Maatwebsite\Excel\Excel;
 use App\Exports\CotizacionesExport;
 use App\Exports\ProyectosExport;
@@ -178,6 +180,18 @@ class DashboardController extends Controller
 
         return response()->json([
             'tareas' => $tareas,
+        ]);
+    }
+
+    public function obtenerPendientesAdmin(Request $request)
+    {
+        $tareas = Task::where('archived', 'NO')->where('user_id', $request->user_id)->get();
+        $retiros = Whitdrawal::where('status', 'Pendiente')->get();
+        $vacaciones = Vacacion::where('estatus', 'pendiente')->with('empleado')->get();
+        return response()->json([
+            'tareas' => $tareas,
+            'retiros' => $retiros,
+            'vacaciones' => $vacaciones,
         ]);
     }
 }

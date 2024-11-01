@@ -439,6 +439,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('reporte_mensual_cotizaciones_proyectos/{anio}/{mes}', 'DashboardController@reporteMensualCotizacionesProyectos');
     Route::get('last_dashboard', 'DashboardController@_index')->name('last_dashboard');
     Route::get('obtener_pendientes', 'DashboardController@obtenerPendientes')->name('obtener_pendientes');
+    Route::get('obtener_pendientes_admin', 'DashboardController@obtenerPendientesAdmin')->name('obtener_pendientes_admin');
 
     Route::get('clientes', 'ClienteController@index')->name('clientes'); //->middleware('permission:modulo_clientes');
     Route::get('clientes.show/{id}', 'ClienteController@show')->name('clientes.show');

@@ -432,35 +432,82 @@
         }
     </style>
     @include('layouts.pendientes_modal')
+    @include('layouts.pendientes_modal_admin')
     @if (session()->has('recent_login'))
         <script>
             var user_id = {{ session('recent_login') }};
             cargarPendientesInicio(user_id);
 
             function cargarPendientesInicio(user_id) {
-                $.ajax({
-                    type: "GET",
-                    url: "{{ url('obtener_pendientes') }}",
-                    data: {
-                        user_id: user_id
-                    },
-                    success: function(response) {
-                        console.log(response);
-                        //Tareas
-                        var html_lista_tareas_pendientes = ``;
-                        $.each(response.tareas, function(index, item) {
-                            html_lista_tareas_pendientes += `<li>${item.title}</li>`;
-                        });
-                        if (response.tareas.length <= 0) {
-                            html_lista_tareas_pendientes = `<li>No tienes tareas pendientes</li>`;
-                        }
-                        $("#lista_tareas_pendientes").html(html_lista_tareas_pendientes);
-                        //Otros pendientes
-                        $("#pendientes_modal").modal();
-                    },
-                    error: err => console.log(err)
-                });
+                @if (Auth::user()->rol_user_id == 1)
+                    $.ajax({
+                        type: "GET",
+                        url: "{{ url('obtener_pendientes_admin') }}",
+                        data: {
+                            user_id: user_id
+                        },
+                        success: function(response) {
+                            console.log(response);
+                            //Tareas
+                            var html_lista_tareas_pendientes = ``;
+                            var html_lista_retiros_pendientes = ``;
+                            var html_lista_vacaciones_pendientes = ``;
 
+                            $.each(response.tareas, function(index, item) {
+                                html_lista_tareas_pendientes += `<li>${item.title}</li>`;
+                            });
+                            if (response.tareas.length <= 0) {
+                                html_lista_tareas_pendientes = `<li>No tienes tareas pendientes</li>`;
+                            }
+
+                            $.each(response.retiros, function(index, item) {
+                                html_lista_retiros_pendientes +=
+                                    `<li>${item.description} por \$${item.quantity}</li>`;
+                            });
+                            if (response.retiros.length <= 0) {
+                                html_lista_retiros_pendientes = `<li>No tienes retiros pendientes</li>`;
+                            }
+
+                            $.each(response.vacaciones, function(index, item) {
+                                html_lista_vacaciones_pendientes +=
+                                    `<li>${item.empleado.name} ${item.empleado.middle_name} ha solicitado ${item.tipo}</li>`;
+                            });
+                            if (response.vacaciones.length <= 0) {
+                                html_lista_vacaciones_pendientes = `<li>No hay vacaciones pendientes</li>`;
+                            }
+
+                            $("#lista_tareas_pendientes_admin").html(html_lista_tareas_pendientes);
+                            $("#lista_retiros_pendientes_admin").html(html_lista_retiros_pendientes);
+                            $("#lista_vacaciones_pendientes_admin").html(html_lista_vacaciones_pendientes);
+
+                            $("#pendientes_modal_admin").modal();
+                        },
+                        error: err => console.log(err)
+                    });
+                @else
+                    $.ajax({
+                        type: "GET",
+                        url: "{{ url('obtener_pendientes') }}",
+                        data: {
+                            user_id: user_id
+                        },
+                        success: function(response) {
+                            console.log(response);
+                            //Tareas
+                            var html_lista_tareas_pendientes = ``;
+                            $.each(response.tareas, function(index, item) {
+                                html_lista_tareas_pendientes += `<li>${item.title}</li>`;
+                            });
+                            if (response.tareas.length <= 0) {
+                                html_lista_tareas_pendientes = `<li>No tienes tareas pendientes</li>`;
+                            }
+                            $("#lista_tareas_pendientes").html(html_lista_tareas_pendientes);
+
+                            $("#pendientes_modal").modal();
+                        },
+                        error: err => console.log(err)
+                    });
+                @endif
             }
         </script>
         @php
