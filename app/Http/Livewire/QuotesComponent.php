@@ -199,19 +199,19 @@ class QuotesComponent extends Component
         $this->validate([
             'productDescription' => 'required',
             'productQuantity' => 'required|numeric',
-            'productDiscount' => 'required|numeric',
+            //'productDiscount' => 'required|numeric',
             'productUnityPriceSell' => 'required',
         ], [
             'productDescription.required' => 'Este campo es requerido.',
             'productQuantity.required' => 'Este campo es requerido.',
             'productQuantity.numeric' => 'Este campo debe ser un número valido.',
-            'productDiscount.required' => 'Este campo es requerido.',
-            'productDiscount.numeric' => 'Este campo debe ser un número valido.',
+            //'productDiscount.required' => 'Este campo es requerido.',
+            //'productDiscount.numeric' => 'Este campo debe ser un número valido.',
             'productUnityPriceSell.required' => 'Este campo es requerido.',
         ]);
         $total = ($this->productUnityPriceSell * $this->productQuantity);
         /*
-        
+
         if($this->productDiscount > 0)
         {
             if(strlen($this->productDiscount) <= 1)
@@ -269,14 +269,14 @@ class QuotesComponent extends Component
         $this->validate([
             'productDescription' => 'required',
             'productQuantity' => 'required|numeric',
-            'productDiscount' => 'required|numeric',
+            //'productDiscount' => 'required|numeric',
             'productUnityPriceSell' => 'required',
         ], [
             'productDescription.required' => 'Este campo es requerido.',
             'productQuantity.required' => 'Este campo es requerido.',
             'productQuantity.numeric' => 'Este campo debe ser un número valido.',
-            'productDiscount.required' => 'Este campo es requerido.',
-            'productDiscount.numeric' => 'Este campo debe ser un número valido.',
+            //'productDiscount.required' => 'Este campo es requerido.',
+            //'productDiscount.numeric' => 'Este campo debe ser un número valido.',
             'productUnityPriceSell.required' => 'Este campo es requerido.',
         ]);
         $product = ProductSale::find($this->id_product);
