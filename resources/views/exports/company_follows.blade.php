@@ -3,10 +3,11 @@
         <tr>
             <th>Estatus</th>
             <th>Nombre</th>
-            <th>Días</th>
+            <th>Vendedor asignado</th>
             <th>Fecha</th>
             <th>Autor</th>
-            <th>Seguimiento</th>
+            <th>Último seguimiento</th>
+            <th>Hace</th>
         </tr>
     </thead>
     <tbody>
@@ -22,16 +23,19 @@
                     $fromDate = Carbon\Carbon::parse(date('Y-m-d'));
                     $dias = $toDate->diffInDays($fromDate);
                 @endphp
-                @if ($dias >= 30)
+                {{--  @if ($dias >= 30)  --}}
+                @if (1)
                     <tr>
                         <td>{{ $item->company->status }}</td>
                         <td>{{ $item->company->name }}</td>
-                        <td>{{ $dias }}</td>
+                        <td>{{ $item->company->vendedor->name }} {{ $item->company->vendedor->middle_name }}
+                            {{ $item->company->vendedor->last_name }}</td>
                         <td>{{ explode(' ', $item->created_at)[0] }}</td>
                         <td>
                             {{ $item->author->name . ' ' . $item->author->middle_name . ' ' . $item->author->last_name }}
                         </td>
                         <td>{{ $item->body }}</td>
+                        <td>{{ $dias }} Días</td>
                     </tr>
                 @endif
             @else
@@ -42,6 +46,7 @@
                     <td>N/A</td>
                     <td>N/A</td>
                     <td>SIN SEGUIMIENTOS</td>
+                    <td>N/A</td>
                 </tr>
             @endif
         @endforeach
