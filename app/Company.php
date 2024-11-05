@@ -34,7 +34,8 @@ class Company extends Authenticatable
         'updated_at',
         'porcentaje',
         'fecha_prospecto',
-        'fecha_cliente'
+        'fecha_cliente',
+        'email_coreccto',
     ];
     protected static function boot()
     {

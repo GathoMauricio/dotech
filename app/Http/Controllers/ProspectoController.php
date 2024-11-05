@@ -27,7 +27,14 @@ class ProspectoController extends Controller
                 $autores[] = $user;
             }
         }
-        return view('prospectos.index', compact('prospectos', 'origenes', 'prospectos_all', 'autores'));
+
+        $vendedores = [];
+        foreach (User::get() as $user) {
+            if ($user->hasRole('Administrador') || $user->hasRole('Gerente de venta') || $user->hasRole('Vendedor')) {
+                $vendedores[] = $user;
+            }
+        }
+        return view('prospectos.index', compact('prospectos', 'origenes', 'prospectos_all', 'autores', 'vendedores'));
     }
 
     public function store(Request $request)

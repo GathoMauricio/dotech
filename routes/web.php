@@ -429,6 +429,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('preview_proyecto', 'SaleController@showPreview');
 
     Route::get('prospecto_index', 'ProspectoController@index')->name('prospecto_index')->middleware('permission:modulo_prospectos');
+    Route::get('editar_vendedor_cliente/{cliente_id?}/{vendedor_id?}', 'ClienteController@editarVendedorCliente')->name('editar_vendedor_cliente')->middleware('permission:editar_clientes');
     Route::post('store_prospecto', 'ProspectoController@store')->name('store_prospecto');
     Route::post('ajax_store_origen', 'ClienteOrigenController@ajaxStoreOrigen')->name('ajax_store_origen');
     Route::get('ajax_show_prospecto', 'ProspectoController@ajaxShowProspecto')->name('ajax_show_prospecto');

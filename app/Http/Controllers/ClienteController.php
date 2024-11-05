@@ -18,7 +18,13 @@ class ClienteController extends Controller
         $clientes_all = $data->get();
         $clientes = $data->paginate(15);
         $origenes = ClienteOrigen::orderBy('origen')->get();
-        return view('clientes.index', compact('clientes', 'clientes_all', 'origenes'));
+        $vendedores = [];
+        foreach (User::get() as $user) {
+            if ($user->hasRole('Administrador') || $user->hasRole('Gerente de venta') || $user->hasRole('Vendedor')) {
+                $vendedores[] = $user;
+            }
+        }
+        return view('clientes.index', compact('clientes', 'clientes_all', 'origenes', 'vendedores'));
     }
 
     public function show($id)
@@ -66,6 +72,18 @@ class ClienteController extends Controller
                 return redirect('prospecto_index')->with('message', 'El ' . $status . ' ha sido eliminado');
             else
                 return redirect('clientes')->with('message', 'El ' . $status . ' ha sido eliminado');
+        }
+    }
+
+    public function editarVendedorCliente($cliente_id, $vendedor_id)
+    {
+        $cliente = Company::findOrFail($cliente_id);
+        $cliente->vendedor_id = $vendedor_id;
+        if ($cliente->save()) {
+            return response()->json([
+                'error' => 0,
+                'msg' => 'Vendedor actualizado'
+            ]);
         }
     }
 }

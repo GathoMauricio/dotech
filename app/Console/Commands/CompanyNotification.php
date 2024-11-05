@@ -29,9 +29,13 @@ class CompanyNotification extends Command
                     $mail->to([$cliente->email]);
                     $mail->attach(public_path('catalogo/dotech_catalogo.pdf'));
                 });
+                $cliente->email_coreccto = 'SI';
+                $cliente->save();
                 \Log::debug("Enviado: " . $cliente->email);
             } catch (\Exception $e) {
-                \Log::debug($e->getMessage());
+                $cliente->email_coreccto = 'NO';
+                $cliente->save();
+                //\Log::debug($e->getMessage());
                 \Log::debug("Error al enviar email: " . $cliente->email);
             }
             sleep(10);
