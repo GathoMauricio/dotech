@@ -176,7 +176,7 @@ class SaleController extends Controller
         /*
         costoProyecto
         1044/1.16=900
-        900*.13=117 
+        900*.13=117
         */
 
         $sale->utility = $utilidad;

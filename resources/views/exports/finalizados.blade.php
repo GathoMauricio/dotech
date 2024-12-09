@@ -5,7 +5,7 @@
             <th>Compañía</th>
             <th>Descripción</th>
             <th>Divisa</th>
-            <th>Precio</th>
+            <th>Precio + IVA</th>
             {{--  <th>Inversión</th>  --}}
             <th>Retiros aprobados</th>
             <th>Utilidad</th>
@@ -28,7 +28,15 @@
                 <td>{{ $ticket->company->name }}</td>
                 <td>{{ $ticket->description }}</td>
                 <td>{{ $ticket->currency }}</td>
-                <td>${{ number_format($ticket->estimated, 2) }}</td>
+                @if ($ticket->status == 'Pendiente')
+                    <td>${{ number_format($ticket->estimated, 2) }}</td>
+                @else
+                    @php
+                        $iva = ($ticket->estimated * 16) / 100;
+                        $total = $ticket->estimated + $iva;
+                    @endphp
+                    <td>${{ number_format($total, 2) }}</td>
+                @endif
                 {{--  <td>${{ number_format($ticket->investment, 2) }}</td>  --}}
                 <td>${{ number_format($total_retiros, 2) }}</td>
                 <td>${{ number_format($ticket->estimated - $total_retiros, 2) }}</td>

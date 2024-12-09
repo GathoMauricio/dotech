@@ -23,7 +23,8 @@ class ProyectoController extends Controller
         $proyecto->save();
         $totalRetiros = 0;
         foreach ($proyecto->retiros as $retiro) {
-            $totalRetiros += floatval($retiro->quantity);
+            if ($retiro->status == 'Aprobado')
+                $totalRetiros += floatval($retiro->quantity);
         }
 
         $costoProyecto = number_format($proyecto->estimated + ($proyecto->estimated * 0.16), 2);

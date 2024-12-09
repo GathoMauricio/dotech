@@ -121,7 +121,7 @@
             </tr>
         </table>
         <br />
-        <div style="padding:10px;background-color:#d30035;">
+        <div style="padding:10px;">
             <table style="width:100%;">
                 <tbody>
                     <tr>
@@ -158,7 +158,6 @@
                         <td style="text-align:center"></td>
                         <td style="text-align:center"></td>
                         <td style="text-align:center"></td>
-                        <td style="text-align:center"></td>
                         <td style="text-align:center;background-color:#D5D8DC;">DIVISA</td>
                         <td style="text-align:center;background-color:#D5D8DC;">{{ $sale->currency }}</td>
                     </tr>
@@ -172,7 +171,7 @@
                         $total = $subtotal + $iva;
                     @endphp
                     <tr>
-                        <td style="text-align:center"></td>
+
                         <td style="text-align:center"></td>
                         <td style="text-align:center"></td>
                         <td style="text-align:center"></td>
@@ -180,7 +179,7 @@
                         <td style="text-align:center;background-color:#D5D8DC;">${{ number_format($subtotal, 2) }}</td>
                     </tr>
                     <tr>
-                        <td style="text-align:center"></td>
+
                         <td style="text-align:center"></td>
                         <td style="text-align:center"></td>
                         <td style="text-align:center"></td>
@@ -188,7 +187,7 @@
                         <td style="text-align:center;background-color:#D5D8DC;">${{ number_format($iva, 2) }}</td>
                     </tr>
                     <tr>
-                        <td style="text-align:center"></td>
+
                         <td style="text-align:center"></td>
                         <td style="text-align:center"></td>
                         <td style="text-align:center"></td>
