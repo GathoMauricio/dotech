@@ -13,7 +13,7 @@ class ConfigController extends Controller
         $user = User::find(\Auth::user()->id);
         $anios = Carbon::parse($user->fecha_contrato)->age;
         $user['anios'] = $anios;
-        $user['dias_obtenidos'] = $anios * 15;
+        $user['dias_obtenidos'] = $anios * 12;
         $user['dias_tomados'] = $user->vacaciones->where('estatus', 'aprobado')->pluck('dias')->sum();
         $user['dias_restantes'] = $user['dias_obtenidos'] - $user['dias_tomados'];
         return view('config.index', compact('user'));
