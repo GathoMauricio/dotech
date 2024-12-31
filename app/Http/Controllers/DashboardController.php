@@ -11,7 +11,9 @@ use App\Whitdrawal;
 //use Maatwebsite\Excel\Excel;
 use App\Exports\CotizacionesExport;
 use App\Exports\ProyectosExport;
+use App\Exports\ProyectosYearExport;
 use App\Exports\FinalizadosExport;
+use App\Exports\FinalizadosYearExport;
 use App\Exports\ProspectosExport;
 
 class DashboardController extends Controller
@@ -88,9 +90,17 @@ class DashboardController extends Controller
     {
         return \Excel::download(new ProyectosExport($anio, $mes), 'proyectos_' . $anio . '_' . $mes . '.xlsx');
     }
+    public function exportProyectosYear(Request $request)
+    {
+        return \Excel::download(new ProyectosYearExport($request->year), 'proyectos_' . $request->year . '.xlsx');
+    }
     public function exportFinalizados($anio, $mes)
     {
         return \Excel::download(new FinalizadosExport($anio, $mes), 'finalizados_' . $anio . '_' . $mes . '.xlsx');
+    }
+    public function exportFinalizadosYear(Request $request)
+    {
+        return \Excel::download(new FinalizadosYearExport($request->year), 'finalizados_' . $request->year . '.xlsx');
     }
     public function _index()
     {

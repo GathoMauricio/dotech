@@ -7,9 +7,35 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-lg-12 col-12 p-3 font-weight-bold">
+            <div class="col-lg-4 col-4 p-3 font-weight-bold">
                 Mes : <span id="txt_mes_actual">{{ $anioActual . '-' . $mesActual }}</span>
                 <input type="month" value="{{ $anioActual . '-' . $mesActual }}" id="mes_actual" style="display:none;">
+            </div>
+            <div class="col-lg-4 col-4 p-3 font-weight-bold">
+                <form action="{{ route('export_proyectos_year') }}">
+                    Año :
+                    <select name="year">
+                        <option value="2024">2024</option>
+                        <option value="2023">2023</option>
+                        <option value="2022">2022</option>
+                        <option value="2021">2021</option>
+                        <option value="2020">2020</option>
+                    </select>
+                    <button type="submit">Descargar</button>
+                </form>
+            </div>
+            <div class="col-lg-4 col-4 p-3 font-weight-bold">
+                <form action="{{ route('export_finalizados_year') }}">
+                    Año :
+                    <select name="year">
+                        <option value="2024">2024</option>
+                        <option value="2023">2023</option>
+                        <option value="2022">2022</option>
+                        <option value="2021">2021</option>
+                        <option value="2020">2020</option>
+                    </select>
+                    <button type="submit">Descargar</button>
+                </form>
             </div>
         </div>
         <div class="row">
