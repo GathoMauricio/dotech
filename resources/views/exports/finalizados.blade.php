@@ -39,7 +39,16 @@
                 @endif
                 {{--  <td>${{ number_format($ticket->investment, 2) }}</td>  --}}
                 <td>${{ number_format($total_retiros, 2) }}</td>
-                <td>${{ number_format($ticket->estimated - $total_retiros, 2) }}</td>
+                @if ($ticket->status == 'Pendiente')
+                    <td>${{ number_format($ticket->estimated - $total_retiros, 2) }}</td>
+                @else
+                    @php
+                        $iva = ($ticket->estimated * 16) / 100;
+                        $total = $ticket->estimated + $iva;
+                    @endphp
+                    <td>${{ number_format($total - $total_retiros, 2) }}</td>
+                @endif
+                {{--  <td>${{ number_format($ticket->estimated - $total_retiros, 2) }}</td>  --}}
                 <td>{{ onlyDate($ticket->finished_at) }}</td>
                 <td>{{ $ticket->folio_cotizacion }}</td>
             </tr>
