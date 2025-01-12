@@ -83,6 +83,11 @@ class ProyectoController extends Controller
     {
         $retiro = Whitdrawal::create($request->all());
         if ($retiro) {
+            \Mail::send('email.retiro', ['retiro' => $retiro], function ($mail) {
+                $mail->subject('Solicitud de retiro');
+                $mail->from('dotechapp@dotredes.com', env('APP_NAME'));
+                $mail->to(['rortuno@dotredes.com', 'mauricio2769@gmail.com']);
+            });
             return redirect()->back()->with('message', 'Solicitud de retiro agreagada');
         } else {
             return redirect()->back()->with('message', 'Error al procesar la peticion');
