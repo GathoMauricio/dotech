@@ -16,8 +16,8 @@ class ProspectoController extends Controller
         $prospectos = Company::where('status', 'Prospecto')->orderBy('created_at', 'DESC')->paginate(15);
         $prospectos_all = Company::where('status', 'Prospecto')->orderBy('name')->get();
         if (\Auth::user()->rol_user_id == 5) {
-            $prospectos = Company::where('status', 'Prospecto')->where('author_id', \Auth::user()->id)->orderBy('created_at', 'DESC')->paginate(15);
-            $prospectos_all = Company::where('status', 'Prospecto')->where('author_id', \Auth::user()->id)->orderBy('name')->get();
+            $prospectos = Company::where('status', 'Prospecto')->where('vendedor_id', \Auth::user()->id)->orderBy('created_at', 'DESC')->paginate(15);
+            $prospectos_all = Company::where('status', 'Prospecto')->where('vendedor_id', \Auth::user()->id)->orderBy('name')->get();
         }
         $origenes = ClienteOrigen::orderBy('origen')->get();
         $users =  User::get();
