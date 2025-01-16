@@ -100,18 +100,18 @@
                         </div>
                     </div>
                 @endif
-                @if ($cliente->status == 'Cliente')
-                    <div class="row">
-                        <div class="col-md-6 p-2">
-                            <span class="font-weight-bold">Vendedor</span>
-                        </div>
-                        <div class="col-md-6 p-2">
-                            {{ $cliente->vendedor->name }}
-                            {{ $cliente->vendedor->middle_name }}
-                            {{ $cliente->vendedor->last_name }}
-                        </div>
+
+                <div class="row">
+                    <div class="col-md-6 p-2">
+                        <span class="font-weight-bold">Vendedor</span>
                     </div>
-                @endif
+                    <div class="col-md-6 p-2">
+                        {{ $cliente->vendedor->name }}
+                        {{ $cliente->vendedor->middle_name }}
+                        {{ $cliente->vendedor->last_name }}
+                    </div>
+                </div>
+
                 <div class="row">
                     <div class="col-md-6 p-2">
                         <span class="font-weight-bold">Departamentos</span>
