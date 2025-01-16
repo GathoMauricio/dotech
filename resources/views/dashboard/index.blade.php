@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-    <a href="{{ url('last_dashboard') }}" class="float-right">Último dashboard <span class="icon icon-share"></span></a>
+    {{--  <a href="{{ url('last_dashboard') }}" class="float-right">Último dashboard <span class="icon icon-share"></span></a>  --}}
     <h4 class="title_page ">
         Reportes
     </h4>
@@ -15,6 +15,7 @@
                 <form action="{{ route('export_proyectos_year') }}">
                     Año :
                     <select name="year">
+                        <option value="2025">2025</option>
                         <option value="2024">2024</option>
                         <option value="2023">2023</option>
                         <option value="2022">2022</option>
@@ -28,6 +29,7 @@
                 <form action="{{ route('export_finalizados_year') }}">
                     Año :
                     <select name="year">
+                        <option value="2025">2025</option>
                         <option value="2024">2024</option>
                         <option value="2023">2023</option>
                         <option value="2022">2022</option>
