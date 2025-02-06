@@ -116,5 +116,5 @@ Route::get('load_sale_pdf/{id?}', 'SaleController@loadPDF')->name('load_sale_pdf
 Route::get('binnacle_pdf/{id}', 'BinnacleController@makePdf')->name('binnacle_pdf');
 Route::get('pdf_inventario/{id?}', 'VehicleController@pdfInventario')->name('pdf_inventario');
 
-Route::get('endpoint_gps', 'GpsController@update')->name('endpoint_gps');
-Route::get('download_data_gps', 'GpsController@download')->name('download_data_gps');
+Route::any('endpoint_gps', 'GpsController@update')->name('endpoint_gps');
+Route::any('download_data_gps', 'GpsController@download')->name('download_data_gps');
