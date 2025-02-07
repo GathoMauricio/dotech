@@ -1,108 +1,322 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="en">
+
 <head>
-	<title>{{ env('APP_NAME') }}</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        html {
+            background: url(https://img.cdndsgni.com/preview/10913902.jpg) no-repeat center center fixed;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+            overflow: hidden;
+        }
 
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-<!--===============================================================================================-->
-	<link rel="icon" type="image/png" href="{{ asset('login_template') }}/images/icons/favicon.ico"/>
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{{ asset('login_template') }}/vendor/bootstrap/css/bootstrap.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{{ asset('login_template') }}/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{{ asset('login_template') }}/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{{ asset('login_template') }}/vendor/animate/animate.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{{ asset('login_template') }}/vendor/css-hamburgers/hamburgers.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{{ asset('login_template') }}/vendor/select2/select2.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{{ asset('login_template') }}/css/util.css">
-	<link rel="stylesheet" type="text/css" href="{{ asset('login_template') }}/css/main.css">
-<!--===============================================================================================-->
+        img {
+            display: block;
+            margin: auto;
+            width: 100%;
+            height: auto;
+        }
+
+        #login-button {
+            cursor: pointer;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            padding: 30px;
+            margin: auto;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: rgba(36, 24, 202, 0.8);
+            overflow: hidden;
+            opacity: 0.9;
+            box-shadow: 10px 10px 30px #000;
+        }
+
+        /* Login container */
+        #container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+            width: 300px;
+            height: 310px;
+            border-radius: 5px;
+            background: rgba(36, 24, 202, 0.8);
+            box-shadow: 1px 1px 50px #000;
+            display: none;
+        }
+
+        .close-btn {
+            position: absolute;
+            cursor: pointer;
+            font-family: 'Open Sans Condensed', sans-serif;
+            line-height: 18px;
+            top: 3px;
+            right: 3px;
+            width: 20px;
+            height: 20px;
+            text-align: center;
+            border-radius: 10px;
+            opacity: .6;
+            -webkit-transition: all 2s ease-in-out;
+            -moz-transition: all 2s ease-in-out;
+            -o-transition: all 2s ease-in-out;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .close-btn:hover {
+            opacity: .5;
+        }
+
+        /* Heading */
+        h1 {
+            font-family: 'Open Sans Condensed', sans-serif;
+            position: relative;
+            margin-top: 0px;
+            text-align: center;
+            font-size: 40px;
+            color: #ddd;
+            text-shadow: 3px 3px 10px #000;
+        }
+
+        /* Inputs */
+        a,
+        input {
+            font-family: 'Open Sans Condensed', sans-serif;
+            text-decoration: none;
+            position: relative;
+            width: 80%;
+            display: block;
+            margin: 9px auto;
+            font-size: 17px;
+            color: #fff;
+            padding: 8px;
+            border-radius: 6px;
+            border: none;
+            background: rgba(3, 3, 3, .1);
+            -webkit-transition: all 2s ease-in-out;
+            -moz-transition: all 2s ease-in-out;
+            -o-transition: all 2s ease-in-out;
+            transition: all 0.2s ease-in-out;
+        }
+
+        input:focus {
+            outline: none;
+            box-shadow: 3px 3px 10px #333;
+            background: rgba(3, 3, 3, .18);
+        }
+
+        /* Placeholders */
+        ::-webkit-input-placeholder {
+            color: #ddd;
+        }
+
+        :-moz-placeholder {
+            /* Firefox 18- */
+            color: red;
+        }
+
+        ::-moz-placeholder {
+            /* Firefox 19+ */
+            color: red;
+        }
+
+        :-ms-input-placeholder {
+            color: #333;
+        }
+
+        /* Link */
+        a {
+            font-family: 'Open Sans Condensed', sans-serif;
+            text-align: center;
+            padding: 4px 8px;
+            background: rgba(6, 8, 10, 0.9);
+        }
+
+        a:hover {
+            opacity: 0.7;
+        }
+
+        #remember-container {
+            position: relative;
+            margin: -5px 20px;
+        }
+
+        .checkbox {
+            position: relative;
+            cursor: pointer;
+            -webkit-appearance: none;
+            padding: 5px;
+            border-radius: 4px;
+            background: rgba(3, 3, 3, .2);
+            display: inline-block;
+            width: 16px;
+            height: 15px;
+        }
+
+        .checkbox:checked:active {
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .checkbox:checked {
+            background: rgba(3, 3, 3, .4);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05), inset 15px 10px -12px rgba(255, 255, 255, 0.5);
+            color: #fff;
+        }
+
+        .checkbox:checked:after {
+            content: '\2714';
+            font-size: 10px;
+            position: absolute;
+            top: 0px;
+            left: 4px;
+            color: #fff;
+        }
+
+        #remember {
+            position: absolute;
+            font-size: 13px;
+            font-family: 'Hind', sans-serif;
+            color: rgba(255, 255, 255, .5);
+            top: 7px;
+            left: 20px;
+        }
+
+        #forgotten {
+            position: absolute;
+            font-size: 12px;
+            font-family: 'Hind', sans-serif;
+            color: rgba(255, 255, 255, .2);
+            right: 0px;
+            top: 8px;
+            cursor: pointer;
+            -webkit-transition: all 2s ease-in-out;
+            -moz-transition: all 2s ease-in-out;
+            -o-transition: all 2s ease-in-out;
+            transition: all 0.2s ease-in-out;
+        }
+
+        #forgotten:hover {
+            color: rgba(255, 255, 255, .6);
+        }
+
+        #forgotten-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+            width: 260px;
+            height: 180px;
+            border-radius: 10px;
+            background: rgba(3, 3, 3, 0.25);
+            box-shadow: 1px 1px 50px #000;
+            display: none;
+        }
+
+        .orange-btn {
+            background: rgba(87, 198, 255, .5);
+        }
+    </style>
 </head>
+
 <body>
+    <div id="login-button">
+        <img src="http://dotech.dyndns.biz:16666/dotech/public/img/brand.png" width="20">
 
-	<div class="limiter">
-		<div class="container-login100" style="background-image: url('{{ asset('login_template') }}/images/tecnology.png');">
-			<div class="wrap-login100 p-t-190 p-b-30">
-				<form method="POST" action="{{ route('login') }}">
-                @csrf
-					<div class="login100-form-avatar">
-						<img src="{{ asset('img/brand.png') }}" alt="AVATAR">
-					</div>
+    </div>
+    <div id="container">
+        <h1>Dotech</h1>
+        <span class="close-btn">
+            <img src="https://cdn4.iconfinder.com/data/icons/miu/22/circle_close_delete_-128.png">
+        </span>
 
-					<span class="login100-form-title p-t-20 p-b-45">
-						{{ env('APP_NAME') }}
-					</span>
+        <form method="POST" id="form_login" action="{{ route('login') }}">
+            @csrf
+            <input type="email" name="email" placeholder="E-mail" required>
+            @error('email')
+                <center><span style="color:red;font-weight:bold;">{{ $message }}</span></center>
+            @enderror
+            <input type="password" name="password" placeholder="Password" required>
+            @error('password')
+                <center><span style="color:red;font-weight:bold;">{{ $message }}</span></center>
+            @enderror
+            <a href="javascript:void(0);" onclick="$('#form_login').submit();">Acceder</a>
+            {{--  <div id="remember-container">
+                <input type="checkbox" id="checkbox-2-1" class="checkbox" checked="checked" />
+                <span id="remember">Remember me</span>
+                <span id="forgotten">Forgotten password</span>
+            </div>  --}}
+        </form>
+    </div>
 
-					<div class="wrap-input100 validate-input m-b-10" data-validate = "Username is required">
-						<input class="input100" type="email" name="email" placeholder="Email">
-						<span class="focus-input100"></span>
-						<span class="symbol-input100">
-							<i class="fa fa-user"></i>
-						</span>
-                        @error('email')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-					</div>
+    <!-- Forgotten Password Container -->
+    {{--  <div id="forgotten-container">
+        <h1>Forgotten</h1>
+        <span class="close-btn">
+            <img src="https://cdn4.iconfinder.com/data/icons/miu/22/circle_close_delete_-128.png"></img>
+        </span>
 
-					<div class="wrap-input100 validate-input m-b-10" data-validate = "Password is required">
-						<input class="input100" type="password" name="password" placeholder="Contraseña">
-						<span class="focus-input100"></span>
-						<span class="symbol-input100">
-							<i class="fa fa-lock"></i>
-						</span>
-                         @error('password')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-					</div>
+        <form>
+            <input type="email" name="email" placeholder="E-mail">
+            <a href="#" class="orange-btn">Get new password</a>
+        </form>
+    </div>  --}}
+    <script src="https://cdn-script.com/ajax/libs/jquery/3.7.1/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js"></script>
+    <script>
+        $('#login-button').click(function() {
+            $('#login-button').fadeOut("slow", function() {
+                $("#container").fadeIn();
+                TweenMax.from("#container", .4, {
+                    scale: 0,
+                    ease: Sine.easeInOut
+                });
+                TweenMax.to("#container", .4, {
+                    scale: 1,
+                    ease: Sine.easeInOut
+                });
+            });
+        });
 
-					<div class="container-login100-form-btn p-t-10">
-						<button class="login100-form-btn">
-							Acceder
-						</button>
-					</div>
-                    <!--
-					<div class="text-center w-full p-t-25 p-b-230">
-						<a href="#" class="txt1">
-							Forgot Username / Password?
-						</a>
-					</div>
+        $(".close-btn").click(function() {
+            TweenMax.from("#container", .4, {
+                scale: 1,
+                ease: Sine.easeInOut
+            });
+            TweenMax.to("#container", .4, {
+                left: "0px",
+                scale: 0,
+                ease: Sine.easeInOut
+            });
+            $("#container, #forgotten-container").fadeOut(800, function() {
+                $("#login-button").fadeIn(800);
+            });
+        });
 
-					<div class="text-center w-full">
-						<a class="txt1" href="#">
-							Create new account
-							<i class="fa fa-long-arrow-right"></i>
-						</a>
-					</div>
-                    -->
-				</form>
-			</div>
-		</div>
-	</div>
+        /* Forgotten Password */
+        $('#forgotten').click(function() {
+            $("#container").fadeOut(function() {
+                $("#forgotten-container").fadeIn();
+            });
+        });
 
-
-
-
-<!--===============================================================================================-->
-	<script src="{{ asset('login_template') }}/vendor/jquery/jquery-3.2.1.min.js"></script>
-<!--===============================================================================================-->
-	<script src="{{ asset('login_template') }}/vendor/bootstrap/js/popper.js"></script>
-	<script src="{{ asset('login_template') }}/vendor/bootstrap/js/bootstrap.min.js"></script>
-<!--===============================================================================================-->
-	<script src="{{ asset('login_template') }}/vendor/select2/select2.min.js"></script>
-<!--===============================================================================================-->
-	<script src="{{ asset('login_template') }}/js/main.js"></script>
-
+        setTimeout(function() {
+            $("#login-button").click();
+        }, 700);
+    </script>
 </body>
+
 </html>
