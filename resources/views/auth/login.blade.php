@@ -1,11 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="{{ asset('login_template') }}/images/icons/favicon.ico" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>{{ env('APP_NAME') }}</title>
     <style>
         html {
             background: url(https://img.cdndsgni.com/preview/10913902.jpg) no-repeat center center fixed;
