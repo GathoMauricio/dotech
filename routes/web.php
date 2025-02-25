@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Artisan;
 
 Auth::routes();
 
@@ -466,3 +467,8 @@ Route::group(['middleware' => ['auth']], function () {
         return \Excel::download(new App\Exports\CompanyFollowsExport(), 'ultimos_seguimientos_' . date('Y-m-d_H-i') . '_.xlsx');
     })->name('exportar_ultimos_seguimientos');
 });
+
+Route::get('/git-pull', function () {
+    Artisan::call('git:pull');
+    return 'Git pull ejecutado.';
+})->middleware('permission:modulo_roles_permisos');
