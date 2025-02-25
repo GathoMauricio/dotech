@@ -13,12 +13,22 @@ class ProspectoController extends Controller
 {
     public function index()
     {
-        $prospectos = Company::where('status', 'Prospecto')->orderBy('created_at', 'DESC')->paginate(15);
+        $prospectos = new Company();
+
+        $prospectos = $prospectos->where('status', 'Prospecto');
         $prospectos_all = Company::where('status', 'Prospecto')->orderBy('name')->get();
+
         if (\Auth::user()->rol_user_id == 5) {
-            $prospectos = Company::where('status', 'Prospecto')->where('vendedor_id', \Auth::user()->id)->orderBy('created_at', 'DESC')->paginate(15);
+            $prospectos = $prospectos->where('status', 'Prospecto')->where('vendedor_id', \Auth::user()->id);
             $prospectos_all = Company::where('status', 'Prospecto')->where('vendedor_id', \Auth::user()->id)->orderBy('name')->get();
         }
+
+        if (request()->mira) {
+            $prospectos = $prospectos->where('mira', request()->mira);
+        }
+
+        $prospectos = $prospectos->orderBy('created_at', 'DESC')->paginate(15);
+
         $origenes = ClienteOrigen::orderBy('origen')->get();
         $users =  User::get();
         $autores = [];
@@ -99,6 +109,14 @@ class ProspectoController extends Controller
         } else {
             return "Error";
         }
+    }
+
+    public function cambiarMira(Request $request, $id)
+    {
+        $prospecto = Company::find($id);
+        $prospecto->mira = $request->mira;
+        $prospecto->save();
+        return redirect()->back()->with('message', 'Registro actualizado.');
     }
 
     public function destroy(Request $request)

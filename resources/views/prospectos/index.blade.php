@@ -11,19 +11,38 @@
     <a href="javascript:void(0)" onclick="$('#prospectos_create_modal').modal();" class="btn btn-primary float-right">Crear</a>
     <br><br>
     <div style="width:200px;" class="float-right">
-        <form action="#" method="POST">
-            @csrf
-            <table>
-                <tr>
-                    <select class="select2 form-control" onchange="verProspecto(this.value)">
-                        <option value>--Buscar prospecto--</option>
-                        @foreach ($prospectos_all as $key => $prospecto)
-                            <option value="{{ $prospecto->id }}">{{ $prospecto->name }}</option>
-                        @endforeach
-                    </select>
-                </tr>
-            </table>
-        </form>
+        <table>
+            <tr>
+                <select class="select2 form-control" onchange="verProspecto(this.value)">
+                    <option value>--Buscar prospecto--</option>
+                    @foreach ($prospectos_all as $key => $prospecto)
+                        <option value="{{ $prospecto->id }}">{{ $prospecto->name }}</option>
+                    @endforeach
+                </select>
+            </tr>
+            <tr>
+                <form action="{{ route('prospecto_index') }}" id="form_mira">
+                    <div class="form-group">
+                        <label>En la mira</label>
+                        <select name="mira" onchange="$('#form_mira').submit();" class="form-control">
+                            @if (request()->mira and request()->mira == 'SI')
+                                <option value>--Seleccione una opción--</option>
+                                <option value="NO">NO</option>
+                                <option value="SI" selected>SI</option>
+                            @elseif(request()->mira and request()->mira == 'NO')
+                                <option value>--Seleccione una opción--</option>
+                                <option value="NO" selected>NO</option>
+                                <option value="SI">SI</option>
+                            @else
+                                <option value>--Seleccione una opción--</option>
+                                <option value="NO">NO</option>
+                                <option value="SI">SI</option>
+                            @endif
+                        </select>
+                    </div>
+                </form>
+            </tr>
+        </table>
     </div>
     {{ $prospectos->links('pagination::bootstrap-4') }}
     <table class="table">
@@ -37,6 +56,7 @@
                 <th>Teléfono</th>
                 <th>Fecha de creación</th>
                 <th>Vendedor asignado</th>
+                <th>En la mira</th>
                 <th>&nbsp;</th>
             </tr>
         </thead>
@@ -64,6 +84,22 @@
                             <a href="javascript:void(0);"
                                 onclick="editarVendedor({{ $prospecto->id }},{{ $prospecto->vendedor->id }})">Editar</a>
                         @endif
+                    </td>
+                    <td>
+                        <form action="{{ route('cambiar_mira', $prospecto->id) }}" method="POST"
+                            id="form_cambiar_mira_{{ $prospecto->id }}">
+                            @csrf
+                            @method('PUT')
+                            <select name="mira" onchange="$('#form_cambiar_mira_{{ $prospecto->id }}').submit();">
+                                @if ($prospecto->mira == 'NO')
+                                    <option value="NO" selected>NO</option>
+                                    <option value="SI">SI</option>
+                                @else
+                                    <option value="NO">NO</option>
+                                    <option value="SI" selected>SI</option>
+                                @endif
+                            </select>
+                        </form>
                     </td>
                     <td>
                         <a href="{{ route('clientes.show', $prospecto->id) }}">Abrir</a><br>

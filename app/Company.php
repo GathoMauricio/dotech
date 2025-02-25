@@ -36,6 +36,7 @@ class Company extends Authenticatable
         'fecha_prospecto',
         'fecha_cliente',
         'email_coreccto',
+        'mira',
     ];
     protected static function boot()
     {
