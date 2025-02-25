@@ -99,6 +99,27 @@
                             {{ $cliente->author->last_name }}
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-md-6 p-2">
+                            <span class="font-weight-bold">En la mira</span>
+                        </div>
+                        <div class="col-md-6 p-2">
+                            <form action="{{ route('cambiar_mira', $cliente->id) }}" method="POST"
+                                id="form_cambiar_mira_{{ $cliente->id }}">
+                                @csrf
+                                @method('PUT')
+                                <select name="mira" onchange="$('#form_cambiar_mira_{{ $cliente->id }}').submit();">
+                                    @if ($cliente->mira == 'NO')
+                                        <option value="NO" selected>NO</option>
+                                        <option value="SI">SI</option>
+                                    @else
+                                        <option value="NO">NO</option>
+                                        <option value="SI" selected>SI</option>
+                                    @endif
+                                </select>
+                            </form>
+                        </div>
+                    </div>
                 @endif
 
                 <div class="row">
@@ -158,7 +179,8 @@
                     <div class="col-md-6 p-2">
                         <span class="font-weight-bold">Rechazados</span>
                     </div>
-                    <div class="col-md-6 p-2">{{ $cliente->cotizaciones_proyectos->where('status', 'Rechazada')->count() }}
+                    <div class="col-md-6 p-2">
+                        {{ $cliente->cotizaciones_proyectos->where('status', 'Rechazada')->count() }}
                     </div>
                 </div>
                 <div class="row">
@@ -334,29 +356,31 @@
                 $("#editar_cliente_modal").modal('show');
             }
         @endif
-        @if (@Auth::user()->hasPermissionTo('eliminar_clientes'))
-            function eliminarCliente(cliente_id) {
-                alertify
-                    .confirm(
-                        "",
-                        function() {
-                            $("#form_eliminar_cliente_" + cliente_id).submit();
-                        },
-                        function() {
-                            //alertify.error('Cancel');
-                        }
-                    )
-                    .set("labels", {
-                        ok: "Si, eliminar!",
-                        cancel: "Cancelar"
-                    })
-                    .set({
-                        transition: "flipx",
-                        title: "Alerta",
-                        message: "¿Eliminar registro?",
-                    });
-            }
-        @endif
+        {{--  @if (@Auth::user()->hasPermissionTo('eliminar_clientes'))  --}}
+
+        function eliminarCliente(cliente_id) {
+            alertify
+                .confirm(
+                    "",
+                    function() {
+                        $("#form_eliminar_cliente_" + cliente_id).submit();
+                    },
+                    function() {
+                        //alertify.error('Cancel');
+                    }
+                )
+                .set("labels", {
+                    ok: "Si, eliminar!",
+                    cancel: "Cancelar"
+                })
+                .set({
+                    transition: "flipx",
+                    title: "Alerta",
+                    message: "¿Eliminar registro?",
+                });
+        }
+        {{--  @endif  --}}
+
         function iniciarCotizacion() {
             $("#iniciar_cotizacion_modal").modal('show');
         }
