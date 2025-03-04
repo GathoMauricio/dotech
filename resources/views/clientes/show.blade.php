@@ -276,20 +276,22 @@
         <br>
 
         {{--  @if (@Auth::user()->hasPermissionTo('eliminar_clientes'))  --}}
-        <div class="row" style="background-color: white;p-3">
-            <div class="col-md-12 p-2">
-                <a href="javascript:void(0);" onclick="eliminarCliente({{ $cliente->id }})"
-                    class="text-danger float-right"><span class="icon icon-bin"></span>Eliminar
-                    {{ $cliente->status }}
-                </a>
-                <form action="{{ route('eliminar_cliente', $cliente->id) }}"
-                    id="form_eliminar_cliente_{{ $cliente->id }}" method="POST" style="display:none;">
-                    @csrf
-                    @method('DELETE')
-                </form>
+        @if ($cliente->status == 'Prospecto')
+            <div class="row" style="background-color: white;p-3">
+                <div class="col-md-12 p-2">
+                    <a href="javascript:void(0);" onclick="eliminarCliente({{ $cliente->id }})"
+                        class="text-danger float-right"><span class="icon icon-bin"></span>Eliminar
+                        {{ $cliente->status }}
+                    </a>
+                    <form action="{{ route('eliminar_cliente', $cliente->id) }}"
+                        id="form_eliminar_cliente_{{ $cliente->id }}" method="POST" style="display:none;">
+                        @csrf
+                        @method('DELETE')
+                    </form>
+                </div>
             </div>
-        </div>
-        <br>
+            <br>
+        @endif
         {{--  @endif  --}}
     </div>
     @include('clientes.edit')
