@@ -27,7 +27,7 @@ class ProspectoController extends Controller
             $prospectos = $prospectos->where('mira', request()->mira);
         }
 
-        $prospectos = $prospectos->orderBy('created_at', 'DESC')->paginate(15);
+        $prospectos = $prospectos->orderBy('created_at', 'DESC')->get();
 
         $origenes = ClienteOrigen::orderBy('origen')->get();
         $users =  User::get();

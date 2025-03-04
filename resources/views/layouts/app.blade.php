@@ -342,6 +342,9 @@
     <!-- AdminLTE App -->
     <script src="{{ asset('adminlte/js/adminlte.min.js') }}"></script>
 
+    <link href="https://cdn.datatables.net/2.2.2/css/dataTables.dataTables.min.css" rel="stylesheet">
+    <script type="text/javascript" src="//cdn.datatables.net/2.2.2/js/dataTables.min.js"></script>
+
     <script src="{{ asset('js/alertify.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/app.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/jquery-ui.min.js') }}" defer></script>

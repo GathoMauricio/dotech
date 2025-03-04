@@ -44,8 +44,8 @@
             </tr>
         </table>
     </div>
-    {{ $prospectos->links('pagination::bootstrap-4') }}
-    <table class="table">
+    {{--  {{ $prospectos->links('pagination::bootstrap-4') }}  --}}
+    <table class="table" id="myTable">
         <thead>
             <tr>
                 <th>Origen</th>
@@ -54,7 +54,7 @@
                 <th>Responsable</th>
                 <th>Email</th>
                 <th>Teléfono</th>
-                <th>Fecha de creación</th>
+                <th>Último seguimiento</th>
                 <th>Vendedor asignado</th>
                 <th>En la mira</th>
                 <th>&nbsp;</th>
@@ -76,7 +76,16 @@
                     <td>{{ $prospecto->responsable }}</td>
                     <td>{{ $prospecto->email }}</td>
                     <td>{{ $prospecto->phone }}</td>
-                    <td>{{ $prospecto->created_at }}</td>
+                    <td>
+                        @if ($prospecto->seguimientos->last())
+                            {{ explode(' ', $prospecto->seguimientos->last()->created_at)[0] }}
+                            <br>
+                            <span
+                                title="{{ $prospecto->seguimientos->last()->body }}">{{ $prospecto->seguimientos->last()->tipo_seguimiento }}</span>
+                        @else
+                            Sin seguimientos
+                        @endif
+                    </td>
                     <td>
                         {{ $prospecto->vendedor->name }} {{ $prospecto->vendedor->middle_name }}
                         @if (@Auth::user()->hasPermissionTo('editar_clientes'))
@@ -114,7 +123,7 @@
             @endforeach
         </tbody>
     </table>
-    {{ $prospectos->links('pagination::bootstrap-4') }}
+    {{--  {{ $prospectos->links('pagination::bootstrap-4') }}  --}}
     @include('prospectos.create')
     @include('prospectos.edit')
     @include('prospectos.nuevo_origen')
@@ -124,6 +133,7 @@
     <script src="{{ asset('adminlte/plugins/jquery/jquery.min.js') }}"></script>
     <script>
         $(document).ready(function() {
+            let table = new DataTable('#myTable');
             $("#form_nuevo_origen").submit(function(e) {
                 e.preventDefault();
                 var nuevoOrigen = $("#txt_nuevo_origen").val();
