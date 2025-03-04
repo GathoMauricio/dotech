@@ -88,10 +88,10 @@ class ProjectsComponent extends Component
                 $sales = $sales->where('author_id', \Auth::user()->id);
             }
 
-            $sales = $sales->orderBy('sales.id', 'DESC')
+            $sales = $sales->orderByRaw("CAST(SUBSTRING_INDEX(sales.folio_proyecto, '-', -1) AS UNSIGNED) DESC")
                 ->paginate(15);
         } else {
-            $sales = Sale::where('status', 'Proyecto')->orderBy('folio_proyecto', 'desc');
+            $sales = Sale::where('status', 'Proyecto')->orderByRaw("CAST(SUBSTRING_INDEX(folio_proyecto, '-', -1) AS UNSIGNED) DESC");
 
             if (\Auth::user()->hasRole('Vendedor')) {
                 $sales = $sales->where('author_id', \Auth::user()->id);
