@@ -1,6 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
+    @php
+        $cliente = App\Company::findOrFail($proyecto->company_id);
+        foreach ($cliente->cotizaciones_proyectos as $key => $historial) {
+            $historial->commision_percent = $cliente->porcentaje;
+            //$historial->commision_pay = 0; //Calcular porcentaje ganado
+            $historial->save();
+        }
+    @endphp
     <div class="container">
         <h3 class="text-center">
             Folio:
