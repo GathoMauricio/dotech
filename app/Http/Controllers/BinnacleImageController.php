@@ -108,6 +108,17 @@ class BinnacleImageController extends Controller
         return redirect()->back()->with('message', 'La imagen se eliminó con éxito');
     }
 
+    public function destroy_ajax($id)
+    {
+        $image = BinnacleImage::findOrFail($id);
+        if ($image->delete()) {
+            return response()->json([
+                'estatus' => 1,
+                'mensaje' => "Foto eliminada"
+            ]);
+        }
+    }
+
     public function binnacleImages($id)
     {
         $images = BinnacleImage::where('binnacle_id', $id)->get();

@@ -72,8 +72,15 @@
                             </span>
                         </a>
                         <br>
-                        <a href="javascript:void(0);"
+                        {{--  <a href="javascript:void(0);"
                             onclick="viewBinnacleImages({{ $binnacle->id }},{{ count(App\BinnacleImage::where('binnacle_id', $binnacle->id)->get()) }})">
+                            <span class="icon-image" title="ver imágenes..." style="cursor:pointer;color:#2c49ec">
+                                {{ count(App\BinnacleImage::where('binnacle_id', $binnacle->id)->get()) }}
+                                Imágenes
+                            </span>
+                        </a>
+                        <br>  --}}
+                        <a href="javascript:void(0);" onclick="fotosBitacora({{ $binnacle->id }})">
                             <span class="icon-image" title="ver imágenes..." style="cursor:pointer;color:#2c49ec">
                                 {{ count(App\BinnacleImage::where('binnacle_id', $binnacle->id)->get()) }}
                                 Imágenes
@@ -114,4 +121,63 @@
     <input type="hidden" id="txt_delete_binnacle_route" value="{{ route('delete_binnacle') }}" />
     <input type="hidden" id = "txt_asignar_compania_bitacora" value ="{{ route('asignar_compania_bitacora') }}">
     <input type="hidden" id = "txt_asignar_alias_bitacora" value ="{{ route('asignar_alias_bitacora') }}">
+    <input type="hidden" id = "txt_delete_binnacle_image_ajax" value ="{{ route('delete_binnacle_image_ajax') }}">
 @endif
+@include('wire.binnacles.imagenes')
+@section('custom_scripts')
+    <script>
+        function fotosBitacora(bitacora_id) {
+            const binnacle_images_index = $("#route_imagenes_ajax").val();
+            $.ajax({
+                type: "GET",
+                url: binnacle_images_index + '/' + bitacora_id,
+                data: {},
+                success: (data) => {
+                    console.log(data);
+                    let html_data = ``;
+                    let contador = 0;
+                    $.each(data, function(index, item) {
+                        contador++;
+                        html_data += `
+                        <tr>
+                            <td><img src="${item.url}" width="80"></td>
+                            <td>${item.description}</td>
+                            <td><a href="javascript:void(0);" onclick="eliminarImagenBiacora(${item.id});" class="text-danger">Eliminar</a></td>
+                        </tr>
+                        `;
+                    });
+                    if (contador <= 0) {
+                        html_data = `
+                        <tr>
+                            <td class="text-center">Sin registros</td>
+                        </tr>
+                        `;
+                    }
+                    $("#tabla_bitacora").html(html_data);
+                    $("#modal_imagenes").modal('show');
+                },
+                error: (err) => console.log(err),
+            });
+
+        }
+
+        function eliminarImagenBiacora(imagen_id) {
+            alertify.confirm('Eliminar', '¿La imagen se removerá de la bitacora?', function() {
+                const ruta = $("#txt_delete_binnacle_image_ajax").val();
+                $.ajax({
+                    type: "GET",
+                    url: ruta + '/' + imagen_id,
+                    data: {},
+                    success: (data) => {
+                        console.log(data);
+                        alertify.success(data.mensaje);
+                        $("#modal_imagenes").modal('hide');
+                    },
+                    error: (err) => console.log(err),
+                });
+            }, function() {
+
+            });
+        }
+    </script>
+@endsection
