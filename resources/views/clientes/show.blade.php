@@ -54,6 +54,18 @@
                 </div>
                 <div class="row">
                     <div class="col-md-6 p-2">
+                        <span class="font-weight-bold">Web</span>
+                    </div>
+                    <div class="col-md-6 p-2">{{ $cliente->web }}</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 p-2">
+                        <span class="font-weight-bold">Giro</span>
+                    </div>
+                    <div class="col-md-6 p-2">{{ $cliente->giro }}</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 p-2">
                         <span class="font-weight-bold">Dirección</span>
                     </div>
                     <div class="col-md-6 p-2">{{ $cliente->address }}</div>
@@ -157,7 +169,8 @@
                     <div class="col-md-6 p-2">
                         <span class="font-weight-bold">Cotizaciones</span>
                     </div>
-                    <div class="col-md-6 p-2">{{ $cliente->cotizaciones_proyectos->where('status', 'Pendiente')->count() }}
+                    <div class="col-md-6 p-2">
+                        {{ $cliente->cotizaciones_proyectos->where('status', 'Pendiente')->count() }}
                     </div>
                 </div>
                 <div class="row">
@@ -256,8 +269,16 @@
                                 <td>{{ $historial->created_at }}</td>
                                 <td>{{ $historial->project_at }}</td>
                                 <td>{{ $historial->finished_at }}</td>
-                                <td>{{ $historial->folio_cotizacion }}</td>
-                                <td>{{ $historial->folio_proyecto }}</td>
+                                <td>
+                                    <a href="javascript:void(0)"
+                                        onclick="loadPdf({{ $historial->id }})">{{ $historial->folio_cotizacion }}</a>
+                                </td>
+                                <td>
+                                    @if ($historial->folio_proyecto)
+                                        <a
+                                            href="{{ route('proyecto.show', $historial->id) }}">{{ $historial->folio_proyecto }}</a>
+                                    @endif
+                                </td>
                                 <td>{{ $historial->description }}</td>
                                 <td>${{ number_format($historial->estimated, 2) }}</td>
                                 <td>${{ number_format($historial->investment, 2) }}</td>
@@ -298,7 +319,9 @@
     @include('clientes.nuevo_origen')
     @include('clientes.seguimientos')
     @include('clientes.iniciar_cotizacion_modal')
+    @include('wire.quotes.pdf')
     <script src="{{ asset('adminlte/plugins/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('js/pdf/pdfobject.js') }}"></script>
     <script>
         $(document).ready(function() {
             $("#form_nuevo_origen").submit(function(e) {
@@ -418,5 +441,15 @@
                 console.log(jqXHR);
             });
         }
+
+        function loadPdf(id) {
+            PDFObject.embed("{{ route('load_sale_pdf') }}/" + id, "#content_pdf");
+            $("#full_modal_pdf").css('display', 'block');
+        }
     </script>
+    <style>
+        .pdfobject-container {
+            height: 90vh;
+        }
+    </style>
 @endsection

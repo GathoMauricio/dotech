@@ -37,6 +37,8 @@ class Company extends Authenticatable
         'fecha_cliente',
         'email_coreccto',
         'mira',
+        'web',
+        'giro'
     ];
     protected static function boot()
     {

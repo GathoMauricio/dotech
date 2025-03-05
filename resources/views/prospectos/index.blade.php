@@ -63,7 +63,11 @@
         <tbody>
             @foreach ($prospectos as $key => $prospecto)
                 <tr>
-                    <td>{{ $prospecto->origin }}</td>
+                    <td>
+                        {{ $prospecto->origin }}
+                        <br>
+                        {{ $prospecto->giro }}
+                    </td>
                     <td>
                         {{ $prospecto->porcentaje }}%
                         <br>
@@ -74,7 +78,11 @@
                     </td>
                     <td>{{ $prospecto->name }}</td>
                     <td>{{ $prospecto->responsable }}</td>
-                    <td>{{ $prospecto->email }}</td>
+                    <td>
+                        {{ $prospecto->email }}
+                        <br>
+                        {{ $prospecto->web }}
+                    </td>
                     <td>{{ $prospecto->phone }}</td>
                     <td>
                         @if ($prospecto->seguimientos->last())

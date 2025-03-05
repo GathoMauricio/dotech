@@ -59,6 +59,8 @@ class ProspectoController extends Controller
             'porcentaje' => $request->porcentaje,
             'author_id' => \Auth::user()->id,
             'vendedor_id' => \Auth::user()->id,
+            'web' => $request->web,
+            'giro' => $request->giro,
         ]);
         $departamento =  CompanyDepartment::create([
             'company_id' => $prospecto->id,
