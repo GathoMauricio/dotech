@@ -62,6 +62,14 @@ class ProspectoController extends Controller
             'web' => $request->web,
             'giro' => $request->giro,
         ]);
+        CompanyFollow::create(
+            [
+                'company_id' => $prospecto->id,
+                'author_id' => \Auth::user()->id,
+                'body' => 'Nuevo propecto',
+                'tipo_seguimiento' => 'Alta de prospecto',
+            ]
+        );
         $departamento =  CompanyDepartment::create([
             'company_id' => $prospecto->id,
             'name' => $prospecto->name,
