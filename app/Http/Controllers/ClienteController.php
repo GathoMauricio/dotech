@@ -24,7 +24,13 @@ class ClienteController extends Controller
                 $vendedores[] = $user;
             }
         }
-        return view('clientes.index', compact('clientes', 'clientes_all', 'origenes', 'vendedores'));
+        $autores = [];
+        foreach (User::get() as $user) {
+            if ($user->hasRole('Administrador') || $user->hasRole('Gerente de venta') || $user->hasRole('Vendedor')) {
+                $autores[] = $user;
+            }
+        }
+        return view('clientes.index', compact('clientes', 'clientes_all', 'origenes', 'vendedores', 'autores'));
     }
 
     public function show($id)

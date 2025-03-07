@@ -4,18 +4,16 @@
             <th>Estatus</th>
             <th>Nombre</th>
             <th>Vendedor asignado</th>
+            <th>Hace</th>
+            <th>Último seguimiento</th>
             <th>Fecha</th>
             <th>Autor</th>
-            <th>Último seguimiento</th>
-            <th>Hace</th>
         </tr>
     </thead>
     <tbody>
         @foreach ($clientes as $cliente)
             @php
-                $item = App\CompanyFollow::where('company_id', $cliente->id)
-                    ->orderBy('created_at', 'DESC')
-                    ->first();
+                $item = App\CompanyFollow::where('company_id', $cliente->id)->orderBy('created_at', 'DESC')->first();
             @endphp
             @if ($item)
                 @php
@@ -28,14 +26,16 @@
                     <tr>
                         <td>{{ $item->company->status }}</td>
                         <td>{{ $item->company->name }}</td>
-                        <td>{{ $item->company->vendedor->name }} {{ $item->company->vendedor->middle_name }}
-                            {{ $item->company->vendedor->last_name }}</td>
+                        <td>{{ $item->id }} -
+                            {{ $item->company->vendedor->name }} {{ $item->company->vendedor->middle_name }}
+                            {{ $item->company->vendedor->last_name }}
+                        </td>
+                        <td>{{ $dias }} Días</td>
+                        <td>{{ $item->body }}</td>
                         <td>{{ explode(' ', $item->created_at)[0] }}</td>
                         <td>
                             {{ $item->author->name . ' ' . $item->author->middle_name . ' ' . $item->author->last_name }}
                         </td>
-                        <td>{{ $item->body }}</td>
-                        <td>{{ $dias }} Días</td>
                     </tr>
                 @endif
             @else
