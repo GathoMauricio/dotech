@@ -26,8 +26,7 @@
                     <tr>
                         <td>{{ $item->company->status }}</td>
                         <td>{{ $item->company->name }}</td>
-                        <td>{{ $item->id }} -
-                            {{ $item->company->vendedor->name }} {{ $item->company->vendedor->middle_name }}
+                        <td>{{ $item->company->vendedor->name }} {{ $item->company->vendedor->middle_name }}
                             {{ $item->company->vendedor->last_name }}
                         </td>
                         <td>{{ $dias }} Días</td>
@@ -42,11 +41,16 @@
                 <tr>
                     <td>{{ $cliente->status }}</td>
                     <td>{{ $cliente->name }}</td>
-                    <td>0</td>
+                    <td>
+                        {{ $cliente->vendedor->name }} {{ $cliente->vendedor->middle_name }}
+                        {{ $cliente->vendedor->last_name }}
+                    </td>
                     <td>N/A</td>
-                    <td>N/A</td>
-                    <td>SIN SEGUIMIENTOS</td>
-                    <td>N/A</td>
+                    <td>NO SE HAN AGREGADO SEGUIMIENTOS</td>
+                    <td>0000-00-00</td>
+                    <td>
+                        {{ $cliente->author->name . ' ' . $cliente->author->middle_name . ' ' . $cliente->author->last_name }}
+                    </td>
                 </tr>
             @endif
         @endforeach
