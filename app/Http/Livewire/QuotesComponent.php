@@ -82,17 +82,17 @@ class QuotesComponent extends Component
                         ->orWhere('sales.folio_cotizacion', 'LIKE', '%' . $this->search . '%')
                         ->orWhere('sales.created_at', 'LIKE', '%' . $this->search . '%');
                 });
-            if (\Auth::user()->hasRole('Vendedor')) {
-                $quotes = $quotes->where('author_id', \Auth::user()->id);
-            }
+            // if (\Auth::user()->hasRole('Vendedor')) {
+            //     $quotes = $quotes->where('author_id', \Auth::user()->id);
+            // }
 
             $quotes = $quotes->orderBy('sales.id', 'DESC')
                 ->paginate(15);
         } else {
             $quotes = Sale::where('status', 'Pendiente')->orderBy('id', 'desc');
-            if (\Auth::user()->hasRole('Vendedor')) {
-                $quotes = $quotes->where('author_id', \Auth::user()->id);
-            }
+            // if (\Auth::user()->hasRole('Vendedor')) {
+            //     $quotes = $quotes->where('author_id', \Auth::user()->id);
+            // }
 
             $quotes = $quotes->orderBy('sales.id', 'DESC')
                 ->paginate(15);

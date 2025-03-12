@@ -35,6 +35,7 @@
                                 <th>Teléfono</th>
                                 <th>Vendedor asignado</th>
                                 <th>En la mira</th>
+                                <th>Esporadico</th>
                                 <th>&nbsp;</th>
                             </tr>
                         </thead>
@@ -70,6 +71,23 @@
                                             <select name="mira"
                                                 onchange="$('#form_cambiar_mira_{{ $cliente->id }}').submit();">
                                                 @if ($cliente->mira == 'NO')
+                                                    <option value="NO" selected>NO</option>
+                                                    <option value="SI">SI</option>
+                                                @else
+                                                    <option value="NO">NO</option>
+                                                    <option value="SI" selected>SI</option>
+                                                @endif
+                                            </select>
+                                        </form>
+                                    </td>
+                                    <td>
+                                        <form action="{{ route('cambiar_esporadico', $cliente->id) }}" method="POST"
+                                            id="form_cambiar_esporadico_{{ $cliente->id }}">
+                                            @csrf
+                                            @method('PUT')
+                                            <select name="esporadico"
+                                                onchange="$('#form_cambiar_esporadico_{{ $cliente->id }}').submit();">
+                                                @if ($cliente->esporadico == 'NO')
                                                     <option value="NO" selected>NO</option>
                                                     <option value="SI">SI</option>
                                                 @else

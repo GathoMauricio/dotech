@@ -442,6 +442,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('ajax_store_seguimiento_prospecto', 'ProspectoController@ajaxStoreSeguimientoProspecto');
     Route::get('ajax_eliminar_prospecto', 'ProspectoController@destroy');
     Route::put('cambiar_mira/{id}', 'ProspectoController@cambiarMira')->name('cambiar_mira');
+    Route::put('cambiar_esporadico/{id}', 'ProspectoController@cambiarEsporadico')->name('cambiar_esporadico');
     Route::get('reporte_mensual_cotizaciones_proyectos/{anio}/{mes}', 'DashboardController@reporteMensualCotizacionesProyectos');
     Route::get('last_dashboard', 'DashboardController@_index')->name('last_dashboard');
     Route::get('obtener_pendientes', 'DashboardController@obtenerPendientes')->name('obtener_pendientes');

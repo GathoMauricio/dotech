@@ -38,7 +38,8 @@ class Company extends Authenticatable
         'email_coreccto',
         'mira',
         'web',
-        'giro'
+        'giro',
+        'esporadico',
     ];
     protected static function boot()
     {

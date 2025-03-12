@@ -13,12 +13,15 @@
     <div style="width:200px;" class="float-right">
         <table>
             <tr>
-                <select class="select2 form-control" onchange="verProspecto(this.value)">
-                    <option value>--Buscar prospecto--</option>
-                    @foreach ($prospectos_all as $key => $prospecto)
-                        <option value="{{ $prospecto->id }}">{{ $prospecto->name }}</option>
-                    @endforeach
-                </select>
+                <div class="form-group">
+                    <label>Cliente</label>
+                    <select class="select2 form-control" onchange="verProspecto(this.value)">
+                        <option value>--Buscar prospecto--</option>
+                        @foreach ($prospectos_all as $key => $prospecto)
+                            <option value="{{ $prospecto->id }}">{{ $prospecto->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
             </tr>
             <tr>
                 <form action="{{ route('prospecto_index') }}" id="form_mira">
@@ -30,6 +33,28 @@
                                 <option value="NO">NO</option>
                                 <option value="SI" selected>SI</option>
                             @elseif(request()->mira and request()->mira == 'NO')
+                                <option value>--Seleccione una opción--</option>
+                                <option value="NO" selected>NO</option>
+                                <option value="SI">SI</option>
+                            @else
+                                <option value>--Seleccione una opción--</option>
+                                <option value="NO">NO</option>
+                                <option value="SI">SI</option>
+                            @endif
+                        </select>
+                    </div>
+                </form>
+            </tr>
+            <tr>
+                <form action="{{ route('prospecto_index') }}" id="form_esporadico">
+                    <div class="form-group">
+                        <label>Esporadico</label>
+                        <select name="esporadico" onchange="$('#form_esporadico').submit();" class="form-control">
+                            @if (request()->esporadico and request()->esporadico == 'SI')
+                                <option value>--Seleccione una opción--</option>
+                                <option value="NO">NO</option>
+                                <option value="SI" selected>SI</option>
+                            @elseif(request()->esporadico and request()->esporadico == 'NO')
                                 <option value>--Seleccione una opción--</option>
                                 <option value="NO" selected>NO</option>
                                 <option value="SI">SI</option>
@@ -57,6 +82,7 @@
                 <th>Último seguimiento</th>
                 <th>Vendedor asignado</th>
                 <th>En la mira</th>
+                <th>Esporadico</th>
                 <th>&nbsp;</th>
             </tr>
         </thead>
@@ -109,6 +135,23 @@
                             @method('PUT')
                             <select name="mira" onchange="$('#form_cambiar_mira_{{ $prospecto->id }}').submit();">
                                 @if ($prospecto->mira == 'NO')
+                                    <option value="NO" selected>NO</option>
+                                    <option value="SI">SI</option>
+                                @else
+                                    <option value="NO">NO</option>
+                                    <option value="SI" selected>SI</option>
+                                @endif
+                            </select>
+                        </form>
+                    </td>
+                    <td>
+                        <form action="{{ route('cambiar_esporadico', $prospecto->id) }}" method="POST"
+                            id="form_cambiar_esporadico_{{ $prospecto->id }}">
+                            @csrf
+                            @method('PUT')
+                            <select name="esporadico"
+                                onchange="$('#form_cambiar_esporadico_{{ $prospecto->id }}').submit();">
+                                @if ($prospecto->esporadico == 'NO')
                                     <option value="NO" selected>NO</option>
                                     <option value="SI">SI</option>
                                 @else

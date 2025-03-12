@@ -27,6 +27,10 @@ class ProspectoController extends Controller
             $prospectos = $prospectos->where('mira', request()->mira);
         }
 
+        if (request()->esporadico) {
+            $prospectos = $prospectos->where('esporadico', request()->esporadico);
+        }
+
         $prospectos = $prospectos->orderBy('created_at', 'DESC')->get();
 
         $origenes = ClienteOrigen::orderBy('origen')->get();
@@ -125,6 +129,14 @@ class ProspectoController extends Controller
     {
         $prospecto = Company::find($id);
         $prospecto->mira = $request->mira;
+        $prospecto->save();
+        return redirect()->back()->with('message', 'Registro actualizado.');
+    }
+
+    public function cambiarEsporadico(Request $request, $id)
+    {
+        $prospecto = Company::find($id);
+        $prospecto->esporadico = $request->esporadico;
         $prospecto->save();
         return redirect()->back()->with('message', 'Registro actualizado.');
     }
