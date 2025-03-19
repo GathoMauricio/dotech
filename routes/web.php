@@ -468,9 +468,26 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('exportar_ultimos_seguimientos', function () {
         return \Excel::download(new App\Exports\CompanyFollowsExport(), 'ultimos_seguimientos_' . date('Y-m-d_H-i') . '_.xlsx');
     })->name('exportar_ultimos_seguimientos');
+
+    Route::get('mailing', 'MailingController@index')->name('mailing');
+    Route::get('create_mailing', 'MailingController@create')->name('create_mailing');
+    Route::post('store_mailing', 'MailingController@store')->name('store_mailing');
+    Route::get('show_mailing/{id}', 'MailingController@show')->name('show_mailing');
+    Route::get('edit_mailing/{id}', 'MailingController@edit')->name('edit_mailing');
+    Route::put('update_mailing/{id}', 'MailingController@update')->name('update_mailing');
 });
 
 Route::get('/git-pull', function () {
     Artisan::call('git:pull');
     return 'Git pull ejecutado.';
 })->middleware('permission:modulo_roles_permisos');
+
+Route::get('/mail', function () {
+    $cliente = App\Company::where('email', 'mauricio2769@gmail.com')->first();
+    \Mail::send('email.company_notification', ['cliente' => $cliente], function ($mail) {
+        $mail->subject('Catálogo DOTECH');
+        $mail->from('dotechapp@dotredes.com', env('APP_NAME'));
+        $mail->to(['mauricio2769@gmail.com']);
+        $mail->attach(public_path('catalogo/dotech_catalogo.pdf'));
+    });
+});
