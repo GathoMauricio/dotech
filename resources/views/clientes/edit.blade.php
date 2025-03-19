@@ -152,6 +152,23 @@
                             </select>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="web">URL</label>
+                                <input type="text" value="{{ $cliente->web }}" name="web" id="web"
+                                    class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="giro">Giro</label>
+                                <input type="text" value="{{ $cliente->giro }}" name="giro" id="giro"
+                                    class="form-control">
+                            </div>
+                        </div>
+                    </div>
+
                     {{--  @else
                         <div class="row">
                             <div class="col-md-12">

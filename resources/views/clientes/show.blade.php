@@ -111,29 +111,50 @@
                             {{ $cliente->author->last_name }}
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-6 p-2">
-                            <span class="font-weight-bold">En la mira</span>
-                        </div>
-                        <div class="col-md-6 p-2">
-                            <form action="{{ route('cambiar_mira', $cliente->id) }}" method="POST"
-                                id="form_cambiar_mira_{{ $cliente->id }}">
-                                @csrf
-                                @method('PUT')
-                                <select name="mira" onchange="$('#form_cambiar_mira_{{ $cliente->id }}').submit();">
-                                    @if ($cliente->mira == 'NO')
-                                        <option value="NO" selected>NO</option>
-                                        <option value="SI">SI</option>
-                                    @else
-                                        <option value="NO">NO</option>
-                                        <option value="SI" selected>SI</option>
-                                    @endif
-                                </select>
-                            </form>
-                        </div>
-                    </div>
                 @endif
-
+                <div class="row">
+                    <div class="col-md-6 p-2">
+                        <span class="font-weight-bold">En la mira</span>
+                    </div>
+                    <div class="col-md-6 p-2">
+                        <form action="{{ route('cambiar_mira', $cliente->id) }}" method="POST"
+                            id="form_cambiar_mira_{{ $cliente->id }}">
+                            @csrf
+                            @method('PUT')
+                            <select name="mira" onchange="$('#form_cambiar_mira_{{ $cliente->id }}').submit();">
+                                @if ($cliente->mira == 'NO')
+                                    <option value="NO" selected>NO</option>
+                                    <option value="SI">SI</option>
+                                @else
+                                    <option value="NO">NO</option>
+                                    <option value="SI" selected>SI</option>
+                                @endif
+                            </select>
+                        </form>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 p-2">
+                        <span class="font-weight-bold">Esporádico</span>
+                    </div>
+                    <div class="col-md-6 p-2">
+                        <form action="{{ route('cambiar_esporadico', $cliente->id) }}" method="POST"
+                            id="form_cambiar_esporadico_{{ $cliente->id }}">
+                            @csrf
+                            @method('PUT')
+                            <select name="esporadico"
+                                onchange="$('#form_cambiar_esporadico_{{ $cliente->id }}').submit();">
+                                @if ($cliente->esporadico == 'NO')
+                                    <option value="NO" selected>NO</option>
+                                    <option value="SI">SI</option>
+                                @else
+                                    <option value="NO">NO</option>
+                                    <option value="SI" selected>SI</option>
+                                @endif
+                            </select>
+                        </form>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-md-6 p-2">
                         <span class="font-weight-bold">Vendedor</span>
