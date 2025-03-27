@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Mailing;
+use App\MailingAdjunto;
+use App\MailingLista;
+use App\MailingListaPivot;
 
 class MailingController extends Controller
 {
@@ -20,10 +23,19 @@ class MailingController extends Controller
 
     public function store(Request $request)
     {
-        //si es por defecto SI setear todas las demas en no
         $mailing = Mailing::create($request->all());
-
         if ($mailing) {
+            if ($request->file('adjuntos')) {
+                for ($i = 0; $i < count($request->file('adjuntos')); $i++) {
+                    $archivo = $request->file('adjuntos')[$i];
+                    $ruta = $archivo->store('public/mailing/' . $mailing->id);
+                    $ruta = explode('/', $ruta)[3];
+                    MailingAdjunto::create([
+                        'mailing_id' => $mailing->id,
+                        'ruta' => $ruta,
+                    ]);
+                }
+            }
             return redirect()->route('mailing')->with('message', 'Registro insertado.');
         }
     }
@@ -31,7 +43,8 @@ class MailingController extends Controller
     public function show($id)
     {
         $mailing = Mailing::find($id);
-        return view('mailing.show', compact('mailing'));
+        $listas = MailingLista::get();
+        return view('mailing.show', compact('mailing', 'listas'));
     }
 
     public function edit($id)
@@ -46,6 +59,40 @@ class MailingController extends Controller
 
         if ($mailing->update($request->all())) {
             return redirect()->back()->with('message', 'Registro actualizado.');
+        }
+    }
+
+    public function updateListas(Request $request, $id)
+    {
+        MailingListaPivot::where('mailing_id', $id)->delete();
+        if ($request->listas) {
+            for ($i = 0; $i < count($request->listas); $i++) {
+                MailingListaPivot::create([
+                    'mailing_id' => $id,
+                    'lista_id' => $request->listas[$i],
+                ]);
+            }
+        }
+        return redirect()->back()->with('message', 'Registro actualizado.');
+    }
+
+    public function adjuntar(Request $request)
+    {
+        $archivo = $request->file('adjunto');
+        $ruta = $archivo->store('public/mailing/' . $request->mailing_id);
+        $ruta = explode('/', $ruta)[3];
+        MailingAdjunto::create([
+            'mailing_id' => $request->mailing_id,
+            'ruta' => $ruta,
+        ]);
+        return redirect()->back()->with('message', 'Adrchivo adjuntado.');
+    }
+
+    public function eliminarAdjunto($id)
+    {
+        $adjunto = MailingAdjunto::find($id);
+        if ($adjunto->delete()) {
+            return redirect()->back()->with('message', 'Adrchivo eliminado.');
         }
     }
 }

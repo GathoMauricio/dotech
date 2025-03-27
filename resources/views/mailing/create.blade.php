@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
     <h4 class="title_page">Crear template</h4>
-    <form action="{{ route('store_mailing') }}" method="post" enctype="multipart/form">
+    <form action="{{ route('store_mailing') }}" method="post" enctype='multipart/form-data'>
         @csrf
         <div class="container">
             <div class="row">
@@ -41,6 +41,18 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
+                    <a href="javascript:void(0)" onclick="agregarAdjunto();" class="float-right p-2">Agregar adjunto</a>
+                </div>
+                <div class="col-md-12 p-3" id="box_contenedor_adjuntos"
+                    style="-webkit-box-shadow: 4px 3px 17px 0px rgba(0,0,0,0.75);
+-moz-box-shadow: 4px 3px 17px 0px rgba(0,0,0,0.75);
+box-shadow: 4px 3px 17px 0px rgba(0,0,0,0.75);">
+                    <center><button type="button" class="btn btn-primary" onclick="agregarAdjunto();">Agregar
+                            adjunto</button></center>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 p-3">
                     <input type="submit" class="btn btn-primary float-right" value="Guardar">
                 </div>
             </div>
@@ -54,6 +66,30 @@
         referrerpolicy="origin"></script>
 
     <script>
+        let contador_adjuntos = 0;
+
+        function agregarAdjunto() {
+            if (contador_adjuntos == 0) {
+                $("#box_contenedor_adjuntos").html('');
+            }
+            contador_adjuntos++;
+            $("#box_contenedor_adjuntos").append(`
+                <div id="input_adjunto_${contador_adjuntos}" style="border:solid 1px #2980b9" class="p-2">
+                        <span onclick="quitarAdjunto(${contador_adjuntos});" class="icon-cross float-right p-2" style="cursor:pointer;"></span>
+                        <input type="file" name="adjuntos[]" class="form-control"  accept=".pdf, .jpg, .jpeg, .png" required>
+                </div>
+            `);
+
+        }
+
+        function quitarAdjunto(adjunto_id) {
+            contador_adjuntos--;
+            $("#input_adjunto_" + adjunto_id).remove();
+            if (contador_adjuntos == 0) {
+                $("#box_contenedor_adjuntos").html(`<center><button type="button" class="btn btn-primary" onclick="agregarAdjunto();">Agregar
+                            adjunto</button></center>`);
+            }
+        }
         tinymce.init({
             selector: 'textarea',
             plugins: [
@@ -83,4 +119,9 @@
                 'See docs to implement AI Assistant')),
         });
     </script>
+    <style>
+        .select2-selection__choice__display {
+            color: black;
+        }
+    </style>
 @endsection

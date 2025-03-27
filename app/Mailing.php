@@ -19,4 +19,14 @@ class Mailing extends Model
         'body',
         'selected',
     ];
+
+    public function adjuntos()
+    {
+        return $this->hasMany('App\MailingAdjunto', 'mailing_id');
+    }
+
+    public function listas_pivot()
+    {
+        return $this->hasMany('App\MailingListaPivot', 'mailing_id');
+    }
 }

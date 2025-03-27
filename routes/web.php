@@ -475,6 +475,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('show_mailing/{id}', 'MailingController@show')->name('show_mailing');
     Route::get('edit_mailing/{id}', 'MailingController@edit')->name('edit_mailing');
     Route::put('update_mailing/{id}', 'MailingController@update')->name('update_mailing');
+    Route::put('update_listas_mailing/{id}', 'MailingController@updateListas')->name('update_listas_mailing');
+    Route::post('adjunto_mailing', 'MailingController@adjuntar')->name('adjunto_mailing');
+    Route::delete('eliminar_adjunto/{id}', 'MailingController@eliminarAdjunto')->name('eliminar_adjunto');
 });
 
 Route::get('/git-pull', function () {

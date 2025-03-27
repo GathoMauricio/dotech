@@ -2,13 +2,17 @@
 @section('content')
     <a href="{{ route('create_mailing') }}" class="float-right font-weight-bold link-sys">[ <small class="  icon-plus"></small>
         Agregar template ]</a>
+    <br>
+    <a href="#" class="float-right font-weight-bold link-sys">[Listas de envio]</a>
     <h4 class="title_page">Templates</h4>
     <table class="table table-striped">
         <thead>
             <tr>
                 <th>Remitente</th>
                 <th>Asunto</th>
-                <th>Por defecto</th>
+                <th>Adjuntos</th>
+                <th>Lstas</th>
+                {{--  <th>Por defecto</th>  --}}
                 <th></th>
             </tr>
         </thead>
@@ -17,7 +21,19 @@
                 <tr>
                     <td>{{ $mailing->from }}</td>
                     <td>{{ $mailing->subject }}</td>
-                    <td>{{ $mailing->selected }}</td>
+                    <td>{{ $mailing->adjuntos->count() }}</td>
+                    <td>
+                        @if ($mailing->listas_pivot->count() > 0)
+                            <ul>
+                                @foreach ($mailing->listas_pivot as $piv)
+                                    <li>{{ $piv->lista->nombre }}</li>
+                                @endforeach
+                            </ul>
+                        @else
+                            Sin listas
+                        @endif
+                    </td>
+                    {{--  <td>{{ $mailing->selected }}</td>  --}}
                     <td>
                         <a href="{{ route('show_mailing', $mailing->id) }}">Ver</a>
                         <br>
