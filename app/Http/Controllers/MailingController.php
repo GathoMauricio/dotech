@@ -7,6 +7,7 @@ use App\Mailing;
 use App\MailingAdjunto;
 use App\MailingLista;
 use App\MailingListaPivot;
+use App\Jobs\MailingJob;
 
 class MailingController extends Controller
 {
@@ -108,5 +109,11 @@ class MailingController extends Controller
         if ($lista) {
             return redirect()->back()->with('message', 'Lista creada.');
         }
+    }
+
+    public function enviarMailing($id)
+    {
+        //Iniciando proceso en segundo plano
+        MailingJob::dispatchAfterResponse($id);
     }
 }

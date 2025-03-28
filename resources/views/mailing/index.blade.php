@@ -38,9 +38,32 @@
                         <a href="{{ route('show_mailing', $mailing->id) }}">Ver</a>
                         <br>
                         <a href="{{ route('edit_mailing', $mailing->id) }}">Editar</a>
+                        @if ($mailing->listas_pivot->count() > 0)
+                            <br>
+                            <a href="javascript:void(0);" onclick="enviarMailing({{ $mailing->id }})">Enviar</a>
+                        @endif
                     </td>
                 </tr>
             @endforeach
         </tbody>
     </table>
+@endsection
+@section('custom_scripts')
+    <script>
+        function enviarMailing(mailing_id) {
+            if (confirm("¿Iniciar proceso en segundo plano?")) {
+                alert(
+                    "El proceso ha comenzado a ejecutarse en segundo plano, esto puede tardar conderablemente pero puede seguir usando el sistema con normalidad..."
+                    );
+                $.ajax({
+                    type: "GET",
+                    url: "{{ route('enviar_mailing') }}/" + mailing_id,
+                    success: (data) => {
+
+                    },
+                    error: (err) => console.log(err),
+                });
+            }
+        }
+    </script>
 @endsection

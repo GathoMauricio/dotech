@@ -472,6 +472,7 @@ Route::group(['middleware' => ['auth']], function () {
     })->name('exportar_ultimos_seguimientos');
 
     Route::get('mailing', 'MailingController@index')->name('mailing');
+    Route::get('enviar_mailing/{id?}', 'MailingController@enviarMailing')->name('enviar_mailing');
     Route::get('create_mailing', 'MailingController@create')->name('create_mailing');
     Route::post('store_mailing', 'MailingController@store')->name('store_mailing');
     Route::get('show_mailing/{id}', 'MailingController@show')->name('show_mailing');

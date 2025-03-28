@@ -12,7 +12,7 @@
                     <div class="small-box bg-info">
                         <div class="inner">
                             <h3 id="numero_cotizaciones">
-                                {{ $lista->clientes_pivot->count() }}
+                                {{ $lista->clientes_pivot->count() }} Miembros
                             </h3>
                             <p style="color:white;">{{ $lista->nombre }}</p>
                         </div>
@@ -20,9 +20,9 @@
                             <i class="fas fa-list"></i>
                         </div>
                         <a href="#" target="_BLANK" class="small-box-footer">
-                            <span style="color:white;">
+                            {{--  <span style="color:white;">
                                 Ver <i class="fas fa-eye"></i>
-                            </span>
+                            </span>  --}}
                         </a>
                     </div>
                 </div>
