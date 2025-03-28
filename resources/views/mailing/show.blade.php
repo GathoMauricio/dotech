@@ -100,6 +100,10 @@
 @endsection
 @section('custom_scripts')
     <script>
+        $(document).ready(function() {
+            $('.select2').select2();
+        });
+
         function adjuntar() {
             $("#modal_adjuntar").modal('show');
         }
