@@ -87,4 +87,9 @@ class Company extends Authenticatable
         )
             ->withDefault();
     }
+
+    public function listas()
+    {
+        return $this->hasMany(ClienteListaPivot::class, 'cliente_id', 'id');
+    }
 }

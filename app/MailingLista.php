@@ -17,4 +17,9 @@ class MailingLista extends Model
         'nombre',
         'descripcion',
     ];
+
+    public function clientes_pivot()
+    {
+        return $this->hasMany(ClienteListaPivot::class, 'lista_id', 'id');
+    }
 }

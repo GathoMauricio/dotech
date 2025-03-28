@@ -3,7 +3,7 @@
     <a href="{{ route('create_mailing') }}" class="float-right font-weight-bold link-sys">[ <small class="  icon-plus"></small>
         Agregar template ]</a>
     <br>
-    <a href="#" class="float-right font-weight-bold link-sys">[Listas de envio]</a>
+    <a href="{{ route('listas_envios') }}" class="float-right font-weight-bold link-sys">[Listas de envio]</a>
     <h4 class="title_page">Templates</h4>
     <table class="table table-striped">
         <thead>

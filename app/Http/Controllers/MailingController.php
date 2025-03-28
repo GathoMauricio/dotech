@@ -95,4 +95,18 @@ class MailingController extends Controller
             return redirect()->back()->with('message', 'Adrchivo eliminado.');
         }
     }
+
+    public function listas()
+    {
+        $listas = MailingLista::orderBy('nombre')->get();
+        return view('mailing.listas', compact('listas'));
+    }
+
+    public function storeLista(Request $request)
+    {
+        $lista = MailingLista::create($request->all());
+        if ($lista) {
+            return redirect()->back()->with('message', 'Lista creada.');
+        }
+    }
 }

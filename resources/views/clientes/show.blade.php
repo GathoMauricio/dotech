@@ -316,6 +316,41 @@
             </div>
         </div>
         <br>
+        <div class="row" style="background-color: white;p-3">
+            <div class="col-md-12 p-2">
+                <a href="javascript:void(0)" onclick="anadirLista();" class="float-right">Añadir a lista</a>
+                <h5>Listas de envio</h5>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Descripción</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse($cliente->listas as $item)
+                            <tr>
+                                <td>{{ $item->lista->nombre }}</td>
+                                <td>{{ $item->lista->descripcion }}</td>
+                                <td>
+                                    <a href="javascript:void(0)"
+                                        onclick="quitarLista({{ $cliente->id }},{{ $item->lista->id }})"
+                                        class="text-warning">Remover</a>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="3" class="text-center">
+                                    Sin listas
+                                </td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <br>
 
         {{--  @if (@Auth::user()->hasPermissionTo('eliminar_clientes'))  --}}
         @if ($cliente->status == 'Prospecto')
@@ -341,6 +376,7 @@
     @include('clientes.seguimientos')
     @include('clientes.iniciar_cotizacion_modal')
     @include('wire.quotes.pdf')
+    @include('clientes.anadir_lista', ['cliente_id' => $cliente->id]);
     <script src="{{ asset('adminlte/plugins/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('js/pdf/pdfobject.js') }}"></script>
     <script>
@@ -466,6 +502,16 @@
         function loadPdf(id) {
             PDFObject.embed("{{ route('load_sale_pdf') }}/" + id, "#content_pdf");
             $("#full_modal_pdf").css('display', 'block');
+        }
+
+        function anadirLista() {
+            $("#anadir_lista_modal").modal('show');
+        }
+
+        function quitarLista(cliente_id, lista_id) {
+            if (confirm("¿Remover de la lista?")) {
+                window.location = "{{ route('remover_lista') }}/" + cliente_id + "/" + lista_id;
+            }
         }
     </script>
     <style>

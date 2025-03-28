@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Company;
 use App\ClienteOrigen;
 use App\User;
+use App\MailingLista;
+use App\ClienteListaPivot;
 
 class ClienteController extends Controller
 {
@@ -38,12 +40,13 @@ class ClienteController extends Controller
         $cliente = Company::findOrFail($id);
         $origenes = ClienteOrigen::orderBy('origen')->get();
         $vendedores = [];
+        $listas = MailingLista::orderBy('nombre')->get();
         foreach (User::get() as $user) {
             if ($user->hasRole('Administrador') || $user->hasRole('Gerente de venta') || $user->hasRole('Vendedor')) {
                 $vendedores[] = $user;
             }
         }
-        return view('clientes.show', compact('cliente', 'origenes', 'vendedores'));
+        return view('clientes.show', compact('cliente', 'origenes', 'vendedores', 'listas'));
     }
 
     public function update(Request $request, $id)
@@ -90,6 +93,28 @@ class ClienteController extends Controller
                 'error' => 0,
                 'msg' => 'Vendedor actualizado'
             ]);
+        }
+    }
+
+    public function anadirLista(Request $request)
+    {
+        $cliente = Company::findOrFail($request->cliente_id);
+        if (!in_array($request->lista_id, $cliente->listas->pluck('lista_id')->toArray())) {
+            $pivot = ClienteListaPivot::create([
+                'lista_id' => $request->lista_id,
+                'cliente_id' => $request->cliente_id,
+            ]);
+            return redirect()->back()->with('message', 'Se agregó a la lista correctamente.');
+        } else {
+            return redirect()->back()->with('message', 'Ya se encuentra registrado en esta lista.');
+        }
+    }
+
+    public function removerLista($cliente_id, $lista_id)
+    {
+        $pivot = ClienteListaPivot::where('cliente_id', $cliente_id)->where('lista_id', $lista_id);
+        if ($pivot->delete()) {
+            return redirect()->back()->with('message', 'Se removió de la lista correctamente.');
         }
     }
 }

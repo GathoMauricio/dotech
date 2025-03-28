@@ -451,6 +451,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('clientes.show/{id}', 'ClienteController@show')->name('clientes.show');
     Route::put('clientes.update/{id}', 'ClienteController@update')->name('clientes.update')->middleware('permission:editar_clientes');
     Route::delete('eliminar_cliente/{cliente_id}', 'ClienteController@destroy')->name('eliminar_cliente'); //->middleware('permission:eliminar_clientes');
+    Route::post('anadir_lista', 'ClienteController@anadirLista')->name('anadir_lista');
+    Route::get('remover_lista/{cliente_id?}/{lista_id?}', 'ClienteController@removerLista')->name('remover_lista');
 
     Route::post('iniciar_cotizacion/{id?}', 'CotizacionController@store')->name('iniciar_cotizacion');
 
@@ -478,6 +480,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::put('update_listas_mailing/{id}', 'MailingController@updateListas')->name('update_listas_mailing');
     Route::post('adjunto_mailing', 'MailingController@adjuntar')->name('adjunto_mailing');
     Route::delete('eliminar_adjunto/{id}', 'MailingController@eliminarAdjunto')->name('eliminar_adjunto');
+
+    Route::get('listas_envios', 'MailingController@listas')->name('listas_envios');
+    Route::post('store_lista', 'MailingController@storeLista')->name('store_lista');
 });
 
 Route::get('/git-pull', function () {
