@@ -17,6 +17,13 @@ class ClienteController extends Controller
         if (\Auth::user()->rol_user_id == 5) {
             $data = Company::where('status', 'Cliente')->where('vendedor_id', \Auth::user()->id)->orderBy('created_at', 'DESC');
         }
+        if (request()->mira) {
+            $data = $data->where('mira', request()->mira);
+        }
+
+        if (request()->esporadico) {
+            $data = $data->where('esporadico', request()->esporadico);
+        }
         $clientes_all = $data->get();
         $clientes = $data->paginate(15);
         $origenes = ClienteOrigen::orderBy('origen')->get();

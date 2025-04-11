@@ -11,11 +11,73 @@
                     seguimientos (30+ días)
                 </a>
             </div>
-            <h3>Catálogo de clientes</h3>
             <div class="col-md-12">
+                <h3>Catálogo de clientes</h3>
+                <div style="width:200px;" class="float-right">
+                    <table>
+                        {{--  <tr>
+                            <div class="form-group">
+                                <label>Cliente</label>
+                                <select class="select2 form-control" onchange="verProspecto(this.value)">
+                                    <option value>--Buscar prospecto--</option>
+                                    @foreach ($clientes_all as $key => $cliente)
+                                        <option value="{{ $cliente->id }}">{{ $cliente->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </tr>  --}}
+                        <tr>
+                            <form action="{{ route('clientes') }}" id="form_mira">
+                                <div class="form-group">
+                                    <label>En la mira</label>
+                                    <select name="mira" onchange="$('#form_mira').submit();" class="form-control">
+                                        @if (request()->mira and request()->mira == 'SI')
+                                            <option value>--Seleccione una opción--</option>
+                                            <option value="NO">NO</option>
+                                            <option value="SI" selected>SI</option>
+                                        @elseif(request()->mira and request()->mira == 'NO')
+                                            <option value>--Seleccione una opción--</option>
+                                            <option value="NO" selected>NO</option>
+                                            <option value="SI">SI</option>
+                                        @else
+                                            <option value>--Seleccione una opción--</option>
+                                            <option value="NO">NO</option>
+                                            <option value="SI">SI</option>
+                                        @endif
+                                    </select>
+                                </div>
+                            </form>
+                        </tr>
+                        <tr>
+                            <form action="{{ route('clientes') }}" id="form_esporadico">
+                                <div class="form-group">
+                                    <label>Esporadico</label>
+                                    <select name="esporadico" onchange="$('#form_esporadico').submit();"
+                                        class="form-control">
+                                        @if (request()->esporadico and request()->esporadico == 'SI')
+                                            <option value>--Seleccione una opción--</option>
+                                            <option value="NO">NO</option>
+                                            <option value="SI" selected>SI</option>
+                                        @elseif(request()->esporadico and request()->esporadico == 'NO')
+                                            <option value>--Seleccione una opción--</option>
+                                            <option value="NO" selected>NO</option>
+                                            <option value="SI">SI</option>
+                                        @else
+                                            <option value>--Seleccione una opción--</option>
+                                            <option value="NO">NO</option>
+                                            <option value="SI">SI</option>
+                                        @endif
+                                    </select>
+                                </div>
+                            </form>
+                        </tr>
+                    </table>
+                </div>
+
                 {{--  <a href="{{ url('create_cliente') }}" class="btn btn-primary float-right">Nuevo</a>  --}}
-                {{ $clientes->links('pagination::bootstrap-4') }}
+
                 <div class="table-responsive">
+                    {{ $clientes->links('pagination::bootstrap-4') }}
                     <br>
                     <select class="select2 form-control" onchange="verCliente(this.value)">
                         <option value>--Buscar cliente--</option>
