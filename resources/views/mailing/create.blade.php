@@ -62,7 +62,7 @@ box-shadow: 4px 3px 17px 0px rgba(0,0,0,0.75);">
 @section('custom_scripts')
     {{--  <script src="https://cdn.tiny.cloud/1/NO-API-KEY/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
       --}}
-    <script src="https://cdn.tiny.cloud/1/uwwf2d9qhj8l74unr7fla0afnnm0ms1ln4l0q24p06o7h44z/tinymce/7/tinymce.min.js"
+    <script src="https://cdn.tiny.cloud/1/2mxfpm0vse8m4hoxzni9m5d38iogmphk1vu65lk79et0x74m/tinymce/7/tinymce.min.js"
         referrerpolicy="origin"></script>
 
     <script>
