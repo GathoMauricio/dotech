@@ -8,6 +8,8 @@ use App\MailingAdjunto;
 use App\MailingLista;
 use App\MailingListaPivot;
 use App\Jobs\MailingJob;
+use App\ClienteListaPivot;
+use App\Company;
 
 class MailingController extends Controller
 {
@@ -115,5 +117,24 @@ class MailingController extends Controller
     {
         //Iniciando proceso en segundo plano
         MailingJob::dispatchAfterResponse($id);
+    }
+
+    public function miembrosListas($id)
+    {
+        $lista = MailingLista::find($id);
+        $clientes = Company::all();
+        return view('listas.miembros_listas', compact('lista', 'clientes'));
+    }
+
+    public function storeListaMailing(Request $request)
+    {
+        //ClienteListaPivot
+        foreach ($request->clientes as $cliente) {
+            ClienteListaPivot::create([
+                'lista_id' => $request->lista_id,
+                'cliente_id' => $cliente,
+            ]);
+        }
+        return redirect()->back()->with('message', 'Lista creada.');
     }
 }

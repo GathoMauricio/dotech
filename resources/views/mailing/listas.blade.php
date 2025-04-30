@@ -14,16 +14,20 @@
                             <h3 id="numero_cotizaciones">
                                 {{ $lista->clientes_pivot->count() }} Miembros
                             </h3>
+
                             <p style="color:white;">{{ $lista->nombre }}</p>
+
                         </div>
                         <div class="icon">
                             <i class="fas fa-list"></i>
                         </div>
-                        <a href="#" target="_BLANK" class="small-box-footer">
-                            {{--  <span style="color:white;">
+                        <a href="{{ route('miembros_listas', $lista->id) }}" class="small-box-footer">
+
+                            <span style="color:white;">
                                 Ver <i class="fas fa-eye"></i>
-                            </span>  --}}
+                            </span>
                         </a>
+
                     </div>
                 </div>
             @endforeach

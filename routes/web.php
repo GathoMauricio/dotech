@@ -484,6 +484,8 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('listas_envios', 'MailingController@listas')->name('listas_envios');
     Route::post('store_lista', 'MailingController@storeLista')->name('store_lista');
+    Route::get('miembros_listas/{id}', 'MailingController@miembrosListas')->name('miembros_listas');
+    Route::post('store_lista_mailing', 'MailingController@storeListaMailing')->name('store_lista_mailing');
 });
 
 Route::get('/git-pull', function () {
