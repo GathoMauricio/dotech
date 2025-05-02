@@ -11,10 +11,15 @@
                 <form action="{{ route('store_lista_mailing') }}" method="POST">
                     @csrf
                     <input type="hidden" name="lista_id" value="{{ $lista->id }}">
+                    {{--  {{ $lista->clientes_pivot->pluck('cliente_id')->toArray() }}  --}}
                     <select name=" clientes[]" class="select2 form-control" multiple>
                         <option>--Seleccione alguna opción--</option>
                         @foreach ($clientes as $cliente)
-                            <option value="{{ $cliente->id }}">{{ $cliente->name }}</option>
+                            @if (in_array($cliente->id, $lista->clientes_pivot->pluck('cliente_id')->toArray()))
+                                <option value="{{ $cliente->id }}" selected>{{ $cliente->name }}</option>
+                            @else
+                                <option value="{{ $cliente->id }}">{{ $cliente->name }}</option>
+                            @endif
                         @endforeach
                     </select>
                     <div style="float:right">
@@ -35,4 +40,9 @@
             $('.select2').select2();
         });
     </script>
+    <style>
+        .select2-selection__choice__display {
+            color: black;
+        }
+    </style>
 @endsection
