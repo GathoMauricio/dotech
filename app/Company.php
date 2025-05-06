@@ -40,6 +40,7 @@ class Company extends Authenticatable
         'web',
         'giro',
         'esporadico',
+        'suscribed',
     ];
     protected static function boot()
     {

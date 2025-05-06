@@ -122,13 +122,13 @@ class MailingController extends Controller
     public function miembrosListas($id)
     {
         $lista = MailingLista::find($id);
-        $clientes = Company::all();
+        $clientes = Company::where('suscribed', 'SI')->get();
         return view('listas.miembros_listas', compact('lista', 'clientes'));
     }
 
     public function storeListaMailing(Request $request)
     {
-        //ClienteListaPivot
+        ClienteListaPivot::where('lista_id', $request->lista_id)->delete();
         foreach ($request->clientes as $cliente) {
             ClienteListaPivot::create([
                 'lista_id' => $request->lista_id,
@@ -136,5 +136,17 @@ class MailingController extends Controller
             ]);
         }
         return redirect()->back()->with('message', 'Lista creada.');
+    }
+
+    public function unsuscribe($to)
+    {
+        $email = $to;
+        $cliente = Company::where('email', $to)->first();
+        if ($cliente) {
+            $cliente->suscribed = 'NO';
+            $cliente->save();
+            ClienteListaPivot::where('cliente_id', $cliente->id)->delete();
+        }
+        return view('mailing.unsuscribe', compact('email'));
     }
 }

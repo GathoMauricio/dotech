@@ -100,6 +100,12 @@
                     </div>
                     <div class="col-md-6 p-2">{{ $cliente->status }}</div>
                 </div>
+                <div class="row">
+                    <div class="col-md-6 p-2">
+                        <span class="font-weight-bold">Suscrito</span>
+                    </div>
+                    <div class="col-md-6 p-2">{{ $cliente->suscribed }}</div>
+                </div>
                 @if ($cliente->status == 'Prospecto')
                     <div class="row">
                         <div class="col-md-6 p-2">

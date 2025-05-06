@@ -49,7 +49,7 @@ class MailingJob implements ShouldQueue
                 //Se le envia a cada cliente uno por uno
                 $to = $emails[$i];
                 try {
-                    \Mail::send('email.mailing', ['mailing' => $mailing], function ($mail) use ($mailing, $to) {
+                    \Mail::send('email.mailing', ['to' => $to, 'mailing' => $mailing], function ($mail) use ($mailing, $to) {
                         $mail->subject($mailing->subject);
                         $mail->from($mailing->from, env('APP_NAME'));
                         $mail->to([$to]);

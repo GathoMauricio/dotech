@@ -6,4 +6,6 @@
     Tel: 5614545274
     <br>
     <a href="mailto:http://www.dotredes.com">http://www.dotredes.com</a>
+    <br><br>
+    <a href="{{ route('unsuscribe', $to) }}">Dejar de recibír estos correos</a>
 </footer>
