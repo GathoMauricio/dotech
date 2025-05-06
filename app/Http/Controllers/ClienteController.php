@@ -24,6 +24,11 @@ class ClienteController extends Controller
         if (request()->esporadico) {
             $data = $data->where('esporadico', request()->esporadico);
         }
+
+        if (request()->author_id) {
+            $data = $data->where('author_id', request()->author_id);
+        }
+
         $clientes_all = $data->get();
         $clientes = $data->paginate(15);
         $origenes = ClienteOrigen::orderBy('origen')->get();

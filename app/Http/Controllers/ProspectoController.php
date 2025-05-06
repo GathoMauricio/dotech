@@ -31,6 +31,10 @@ class ProspectoController extends Controller
             $prospectos = $prospectos->where('esporadico', request()->esporadico);
         }
 
+        if (request()->author_id) {
+            $prospectos = $prospectos->where('author_id', request()->author_id);
+        }
+
         $prospectos = $prospectos->orderBy('created_at', 'DESC')->get();
 
         $origenes = ClienteOrigen::orderBy('origen')->get();

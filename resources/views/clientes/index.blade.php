@@ -27,6 +27,23 @@
                             </div>
                         </tr>  --}}
                         <tr>
+                            <td>
+                                <div class="form-group">
+                                    <label>Autor</label>
+                                    <form action="{{ route('clientes') }}" id="form_buscar_autor">
+                                        <select class="select2 form-control" onchange="buscarAutor(this.value);">
+                                            <option value>--Buscar autor--</option>
+                                            @foreach ($autores as $key => $autor)
+                                                <option value="{{ $autor->id }}">{{ $autor->name }}
+                                                    {{ $autor->middle_name }}
+                                                    {{ $autor->last_name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
                             <form action="{{ route('clientes') }}" id="form_mira">
                                 <div class="form-group">
                                     <label>En la mira</label>
@@ -104,7 +121,14 @@
                         <tbody>
                             @foreach ($clientes as $key => $cliente)
                                 <tr>
-                                    <td>{{ $cliente->origin }}</td>
+                                    <td>
+                                        {{ $cliente->origin }}
+                                        <br>
+                                        Autor: <br>
+                                        {{ $cliente->author->name }}
+                                        {{ $cliente->author->middle_name }}
+                                        {{ $cliente->author->last_name }}
+                                    </td>
                                     <td>
                                         {{ $cliente->porcentaje }}%
                                         <br>
@@ -349,6 +373,14 @@
                     console.log(error)
                 }
             });
+        }
+
+        function buscarAutor(value) {
+            if (value.length > 0) {
+                window.location = "{{ route('clientes') }}?author_id=" + value;
+            } else {
+                window.location = "{{ route('clientes') }}";
+            }
         }
     </script>
 @endsection

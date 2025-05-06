@@ -10,62 +10,80 @@
     <br><br>
     <a href="javascript:void(0)" onclick="$('#prospectos_create_modal').modal();" class="btn btn-primary float-right">Crear</a>
     <br><br>
-    <div style="width:200px;" class="float-right">
+    <div style="width:600px;" class="float-right">
         <table>
             <tr>
-                <div class="form-group">
-                    <label>Cliente</label>
-                    <select class="select2 form-control" onchange="verProspecto(this.value)">
-                        <option value>--Buscar prospecto--</option>
-                        @foreach ($prospectos_all as $key => $prospecto)
-                            <option value="{{ $prospecto->id }}">{{ $prospecto->name }}</option>
-                        @endforeach
-                    </select>
-                </div>
-            </tr>
-            <tr>
-                <form action="{{ route('prospecto_index') }}" id="form_mira">
+                <td>
                     <div class="form-group">
-                        <label>En la mira</label>
-                        <select name="mira" onchange="$('#form_mira').submit();" class="form-control">
-                            @if (request()->mira and request()->mira == 'SI')
-                                <option value>--Seleccione una opción--</option>
-                                <option value="NO">NO</option>
-                                <option value="SI" selected>SI</option>
-                            @elseif(request()->mira and request()->mira == 'NO')
-                                <option value>--Seleccione una opción--</option>
-                                <option value="NO" selected>NO</option>
-                                <option value="SI">SI</option>
-                            @else
-                                <option value>--Seleccione una opción--</option>
-                                <option value="NO">NO</option>
-                                <option value="SI">SI</option>
-                            @endif
+                        <label>Autor</label>
+                        <form action="{{ route('prospecto_index') }}" id="form_buscar_autor">
+                            <select class="select2 form-control" onchange="buscarAutor(this.value);">
+                                <option value>--Buscar autor--</option>
+                                @foreach ($autores as $key => $autor)
+                                    <option value="{{ $autor->id }}">{{ $autor->name }} {{ $autor->middle_name }}
+                                        {{ $autor->last_name }}</option>
+                                @endforeach
+                            </select>
+                        </form>
+                    </div>
+                </td>
+                <td>
+                    <div class="form-group">
+                        <label>Cliente</label>
+                        <select class="select2 form-control" onchange="verProspecto(this.value)">
+                            <option value>--Buscar prospecto--</option>
+                            @foreach ($prospectos_all as $key => $prospecto)
+                                <option value="{{ $prospecto->id }}">{{ $prospecto->name }}</option>
+                            @endforeach
                         </select>
                     </div>
-                </form>
+                </td>
             </tr>
             <tr>
-                <form action="{{ route('prospecto_index') }}" id="form_esporadico">
-                    <div class="form-group">
-                        <label>Esporadico</label>
-                        <select name="esporadico" onchange="$('#form_esporadico').submit();" class="form-control">
-                            @if (request()->esporadico and request()->esporadico == 'SI')
-                                <option value>--Seleccione una opción--</option>
-                                <option value="NO">NO</option>
-                                <option value="SI" selected>SI</option>
-                            @elseif(request()->esporadico and request()->esporadico == 'NO')
-                                <option value>--Seleccione una opción--</option>
-                                <option value="NO" selected>NO</option>
-                                <option value="SI">SI</option>
-                            @else
-                                <option value>--Seleccione una opción--</option>
-                                <option value="NO">NO</option>
-                                <option value="SI">SI</option>
-                            @endif
-                        </select>
-                    </div>
-                </form>
+                <td>
+                    <form action="{{ route('prospecto_index') }}" id="form_mira">
+                        <div class="form-group">
+                            <label>En la mira</label>
+                            <select name="mira" onchange="$('#form_mira').submit();" class="form-control">
+                                @if (request()->mira and request()->mira == 'SI')
+                                    <option value>--Seleccione una opción--</option>
+                                    <option value="NO">NO</option>
+                                    <option value="SI" selected>SI</option>
+                                @elseif(request()->mira and request()->mira == 'NO')
+                                    <option value>--Seleccione una opción--</option>
+                                    <option value="NO" selected>NO</option>
+                                    <option value="SI">SI</option>
+                                @else
+                                    <option value>--Seleccione una opción--</option>
+                                    <option value="NO">NO</option>
+                                    <option value="SI">SI</option>
+                                @endif
+                            </select>
+                        </div>
+                    </form>
+                </td>
+                <td>
+                    <form action="{{ route('prospecto_index') }}" id="form_esporadico">
+                        <div class="form-group">
+                            <label>Esporadico</label>
+                            <select name="esporadico" onchange="$('#form_esporadico').submit();" class="form-control">
+                                @if (request()->esporadico and request()->esporadico == 'SI')
+                                    <option value>--Seleccione una opción--</option>
+                                    <option value="NO">NO</option>
+                                    <option value="SI" selected>SI</option>
+                                @elseif(request()->esporadico and request()->esporadico == 'NO')
+                                    <option value>--Seleccione una opción--</option>
+                                    <option value="NO" selected>NO</option>
+                                    <option value="SI">SI</option>
+                                @else
+                                    <option value>--Seleccione una opción--</option>
+                                    <option value="NO">NO</option>
+                                    <option value="SI">SI</option>
+                                @endif
+                            </select>
+                        </div>
+                    </form>
+                </td>
             </tr>
         </table>
     </div>
@@ -377,6 +395,14 @@
                     console.log(error)
                 }
             });
+        }
+
+        function buscarAutor(value) {
+            if (value.length > 0) {
+                window.location = "{{ route('prospecto_index') }}?author_id=" + value;
+            } else {
+                window.location = "{{ route('prospecto_index') }}";
+            }
         }
     </script>
 @endsection
